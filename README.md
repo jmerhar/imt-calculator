@@ -5,7 +5,7 @@ Municipal sobre as Transmissões Onerosas de Imóveis) and the associated **stam
 do Selo), for purchases under the 2026 rules — including the non-resident regime introduced by
 **Decreto-Lei n.º 97/2026**.
 
-**Live:** https://jmerhar.github.io/imt-calculator/
+**Live:** https://calc-imt.online/
 
 No backend, no tracking: it runs entirely in the browser and is deployed to GitHub Pages.
 
@@ -82,8 +82,9 @@ reference/      primary-source documents
 
 ## Deployment
 
-Pushing to `main` triggers `.github/workflows/deploy.yml`, which builds with the
-`/imt-calculator/` base path and deploys to GitHub Pages (Pages source must be **GitHub Actions**).
+Pushing to `main` triggers `.github/workflows/deploy.yml`, which builds and deploys to GitHub
+Pages (Pages source must be **GitHub Actions**). The site is served at the custom domain
+`calc-imt.online` (a `public/CNAME` keeps the domain across deploys), so the Vite `base` is `/`.
 Coverage publishing needs a `COVERAGE_PAGES_TOKEN` repo secret (a PAT with write access to
 `jmerhar/coverage`); it is skipped gracefully if absent.
 
