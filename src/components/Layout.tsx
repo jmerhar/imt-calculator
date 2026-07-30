@@ -14,6 +14,9 @@ export function Layout({ children }: { children: ReactNode }) {
 
   return (
     <div className="app">
+      <a className="skiplink" href="#main">
+        {t.controls.skipToContent}
+      </a>
       {/* Decorative azulejo tile rail — the page signature. Hidden from assistive tech. */}
       <div className="app__rail" aria-hidden="true" />
 
@@ -63,7 +66,9 @@ export function Layout({ children }: { children: ReactNode }) {
         </div>
       </header>
 
-      <main className="main">{children}</main>
+      <main className="main" id="main" tabIndex={-1}>
+        {children}
+      </main>
 
       <footer className="footer">
         <p className="footer__disclaimer">{t.footer.disclaimer}</p>

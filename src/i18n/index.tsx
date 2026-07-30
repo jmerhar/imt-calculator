@@ -2,7 +2,7 @@
 // is the conventional shape for a React context module; fast-refresh's component-only rule does
 // not apply usefully here.
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useContext, useState, useCallback, useMemo } from "react";
+import { createContext, useContext, useState, useCallback, useMemo, useEffect } from "react";
 import type { ReactNode } from "react";
 import { en } from "@/i18n/en";
 import { pt } from "@/i18n/pt";
@@ -45,10 +45,14 @@ const I18nContext = createContext<I18nValue | null>(null);
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>(initialLang);
 
+  // Keep <html lang> in sync (including the initial render) for assistive tech and hyphenation.
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
+
   const setLang = useCallback((l: Lang) => {
     setLangState(l);
     if (typeof localStorage !== "undefined") localStorage.setItem(STORAGE_KEY, l);
-    if (typeof document !== "undefined") document.documentElement.lang = l;
   }, []);
 
   const value = useMemo<I18nValue>(() => ({ lang, t: dictionaries[lang], setLang }), [lang, setLang]);

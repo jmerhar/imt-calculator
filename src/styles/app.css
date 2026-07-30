@@ -628,6 +628,73 @@ a {
   box-shadow: var(--focus);
   border-radius: var(--radius-sm);
 }
+#main:focus {
+  outline: none;
+}
+.skiplink {
+  position: absolute;
+  left: var(--s3);
+  top: -64px;
+  z-index: 100;
+  background: var(--azul-600);
+  color: #fff;
+  padding: var(--s2) var(--s4);
+  border-radius: var(--radius-sm);
+  transition: top 0.15s ease;
+}
+.skiplink:focus {
+  top: var(--s3);
+}
+
+/* ---- Print: a tidy record of inputs + result, without the app chrome --------------------- */
+@media print {
+  .app {
+    display: block;
+  }
+  .app__rail,
+  .nav,
+  .header__tools,
+  .skiplink,
+  .actions,
+  .btn--ghost,
+  .buyer__remove,
+  .flash {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+    color: #000;
+  }
+  .header,
+  .main,
+  .footer {
+    padding-inline: 0;
+  }
+  .header {
+    border-bottom: 1px solid #ccc;
+  }
+  .calculator {
+    grid-template-columns: 1fr;
+    gap: var(--s4);
+  }
+  .panel {
+    box-shadow: none;
+    border: 1px solid #ccc;
+    break-inside: avoid;
+  }
+  .panel--results {
+    position: static;
+  }
+  .tile {
+    box-shadow: none;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  a {
+    text-decoration: none;
+    color: #000;
+  }
+}
 
 /* ---- Responsive --------------------------------------------------------------------------- */
 @media (max-width: 900px) {
