@@ -201,6 +201,18 @@ a {
 }
 .num__input {
   font-family: var(--font-mono);
+  /* Room for the unit suffix at the right edge. */
+  padding-right: var(--s6);
+}
+/* Hide the native number spinners so they don't collide with the unit suffix. */
+.num__input::-webkit-outer-spin-button,
+.num__input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.num__input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
 }
 .num__suffix {
   position: absolute;
