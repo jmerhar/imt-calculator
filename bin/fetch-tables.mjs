@@ -28,10 +28,15 @@ const DEFAULT_URL =
 // Full expected mainland tables for the baseline year — thresholds, rates AND derived deductions —
 // as a scrape/derivation tripwire. Comparing deductions too catches a bad flat-band detection or a
 // continuity error, not just a mis-scraped threshold. Values are [lower, rate, deduction].
+// Includes the derived autonomous-region tables (IV–VI) so a regression in the ×1.25 scaling or
+// its deduction recompute is caught too, not only a mainland scrape drift.
 const EXPECTED_2026 = {
   I: [[0, 0, 0], [106346, 0.02, 2126.92], [145470, 0.05, 6491.02], [198347, 0.07, 10457.96], [330539, 0.08, 13763.35], [660982, 0.06, 0], [1150853, 0.075, 0]],
   II: [[0, 0, 0], [330539, 0.08, 26443.12], [660982, 0.06, 0], [1150853, 0.075, 0]],
   III: [[0, 0.01, 0], [106346, 0.02, 1063.46], [145470, 0.05, 5427.56], [198347, 0.07, 9394.5], [330539, 0.08, 12699.89], [633931, 0.06, 0], [1150853, 0.075, 0]],
+  IV: [[0, 0, 0], [132933, 0.02, 2658.66], [181838, 0.05, 8113.8], [247934, 0.07, 13072.48], [413174, 0.08, 17204.22], [826228, 0.06, 0], [1438566, 0.075, 0]],
+  V: [[0, 0, 0], [413174, 0.08, 33053.92], [826228, 0.06, 0], [1438566, 0.075, 0]],
+  VI: [[0, 0.01, 0], [132933, 0.02, 1329.33], [181838, 0.05, 6784.47], [247934, 0.07, 11743.15], [413174, 0.08, 15874.89], [792414, 0.06, 0], [1438566, 0.075, 0]],
 };
 
 // Year-level constants (CIMT art. 17.º n.º 4/n.º 10 + TGIS verbas 1.1 & 17.1). Stable across the
@@ -160,11 +165,11 @@ function deriveRegion(mainland) {
   return { IV: scale(mainland.I), V: scale(mainland.II), VI: scale(mainland.III) };
 }
 
-// Compare the built mainland tables (thresholds, rates AND deductions) against the committed
-// baseline, failing loudly on any drift in scraping or deduction derivation.
-function verifyFingerprint(mainland) {
+// Compare the built tables (thresholds, rates AND deductions) — mainland scrape and the derived
+// regional tables — against the committed baseline, failing loudly on any drift.
+function verifyFingerprint(tables) {
   for (const [id, expected] of Object.entries(EXPECTED_2026)) {
-    const got = mainland[id].map((b) => [b.lower, b.rate, b.deduction]);
+    const got = tables[id].map((b) => [b.lower, b.rate, b.deduction]);
     if (JSON.stringify(got) !== JSON.stringify(expected)) {
       fail(`baseline mismatch in table ${id}\n  expected ${JSON.stringify(expected)}\n  got      ${JSON.stringify(got)}`);
     }
@@ -209,10 +214,10 @@ async function main() {
     II: withDeductions(mainlandRaw.II),
     III: withDeductions(mainlandRaw.III),
   };
-  if (args.year === 2026) verifyFingerprint(mainland);
-
   const region = deriveRegion(mainlandRaw);
   const tables = { ...mainland, ...region };
+  if (args.year === 2026) verifyFingerprint(tables);
+
   const ts = renderTs(args.year, tables);
 
   const target = resolve(ROOT, args.out ?? `src/engine/tables/${args.year}.ts`);

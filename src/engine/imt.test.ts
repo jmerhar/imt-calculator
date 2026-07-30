@@ -196,6 +196,40 @@ describe("calculate — additional rule coverage", () => {
     expect(r.totalImt).toBeCloseTo(90000, 2);
   });
 
+  it("applies each buyer's own table under the totality rate (mixed Jovem + non-Jovem)", () => {
+    // One deed, own permanent home, €400k, 50/50: buyer A is IMT-Jovem (Table II), buyer B is not
+    // (Table I). Each pays their table's whole-property rate on their share (n.º 6 a), so the two
+    // shares are taxed at different effective rates within the same acquisition.
+    const r = calculate(
+      input({
+        intendedUse: "own_permanent",
+        buyers: [buyer({ share: 0.5, jovem: true }), buyer({ share: 0.5, jovem: false })],
+      }),
+    );
+    expect(r.buyers[0].table).toBe("II");
+    expect(r.buyers[1].table).toBe("I");
+    // A: 200k·(ordinaryImt(400k,II)/400k) = 200k·(5556.88/400k) = 2778.44.
+    expect(r.buyers[0].imt).toBeCloseTo(2778.44, 2);
+    // B: 200k·(ordinaryImt(400k,I)/400k) = 200k·(18236.65/400k) = 9118.33.
+    expect(r.buyers[1].imt).toBeCloseTo(9118.33, 2);
+    expect(r.totalImt).toBeCloseTo(11896.77, 2);
+  });
+
+  it("ignores the tax-haven flag for an individual (n.º 7 excludes pessoas singulares)", () => {
+    const r = calculate(input({ buyers: [buyer({ type: "individual", taxHaven: true })] }));
+    expect(r.buyers[0].rule).toBe("ordinary");
+    expect(r.buyers[0].table).toBe("III");
+    expect(r.totalImt).toBeCloseTo(19300.11, 2);
+  });
+
+  it("treats a non-finite price as zero rather than propagating NaN", () => {
+    const r = calculate(input({ price: Number.NaN }));
+    expect(r.taxBase).toBe(0);
+    expect(r.totalImt).toBe(0);
+    expect(r.grandTotal).toBe(0);
+    expect(r.effectiveRate).toBe(0);
+  });
+
   it("throws for a year with no bundled tables", () => {
     expect(() => calculate(input({ year: 1999 }))).toThrow(/No IMT data/);
   });

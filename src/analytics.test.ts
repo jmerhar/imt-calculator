@@ -25,6 +25,13 @@ describe("rateBand", () => {
     expect(rateBand(0.06)).toBe("5-7%");
     expect(rateBand(0.075)).toBe(">=7%");
   });
+
+  it("puts each exact boundary in the upper band", () => {
+    expect(rateBand(0.01)).toBe("1-3%");
+    expect(rateBand(0.03)).toBe("3-5%");
+    expect(rateBand(0.05)).toBe("5-7%");
+    expect(rateBand(0.07)).toBe(">=7%");
+  });
 });
 
 describe("track", () => {

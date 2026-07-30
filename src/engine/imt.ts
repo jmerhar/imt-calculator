@@ -120,9 +120,12 @@ export function calculate(input: CalcInput): CalcResult {
   if (!year) throw new Error(`No IMT data bundled for year ${input.year}`);
 
   const warnings: string[] = [];
+  // Guard against a non-finite price leaking in (e.g. a direct call): treat it as 0 so totals
+  // stay real numbers rather than propagating NaN through every field.
+  const price = Number.isFinite(input.price) ? input.price : 0;
   const vpt = input.vpt ?? 0;
-  const taxBase = Math.max(input.price, vpt);
-  const baseSource: "price" | "vpt" = vpt > input.price ? "vpt" : "price";
+  const taxBase = Math.max(price, vpt);
+  const baseSource: "price" | "vpt" = vpt > price ? "vpt" : "price";
 
   if (input.buyers.length === 0) warnings.push("no_buyers");
   const shareSum = input.buyers.reduce((s, b) => s + b.share, 0);
@@ -147,8 +150,8 @@ export function calculate(input: CalcInput): CalcResult {
     mortgageStampDuty: mortgageSd,
     totalStampDuty,
     grandTotal,
-    effectiveRate: input.price > 0 ? grandTotal / input.price : 0,
-    totalOutlay: round2(input.price + grandTotal),
+    effectiveRate: price > 0 ? grandTotal / price : 0,
+    totalOutlay: round2(price + grandTotal),
     reclaimableTotal,
     warnings,
   };

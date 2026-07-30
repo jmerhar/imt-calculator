@@ -36,6 +36,7 @@ function encodeBuyer(b: Buyer): string {
   return [b.share, TYPE[b.type], b.taxHaven ? 1 : 0, RES[b.residency], EXC[b.exception], b.jovem ? 1 : 0].join(",");
 }
 
+/** Legacy readable query-string encoding (kept so older shared links keep decoding). */
 export function encodeState(input: CalcInput): string {
   const p = new URLSearchParams();
   p.set("y", String(input.year));
@@ -75,6 +76,7 @@ function decodeBuyer(s: string): Buyer | null {
   };
 }
 
+/** Parse the legacy readable query string; returns null on anything malformed or out of range. */
 export function decodeState(qs: string): CalcInput | null {
   const p = new URLSearchParams(qs);
   const year = num(p.get("y"));
@@ -116,8 +118,8 @@ export function decodeState(qs: string): CalcInput | null {
 }
 
 // A single opaque, URL-safe token carrying the whole state, so shared links are one short code
-// (`?c=…`) rather than a string of readable parameters. (The displayed Calculation ID is a
-// one-way hash and cannot itself reconstruct the inputs, so the link carries this token instead.)
+// (`?c=…`) rather than a string of readable parameters. It is fully reversible: decoding it
+// reconstructs the exact inputs it was built from.
 const toBase64Url = (s: string) =>
   btoa(s).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 const fromBase64Url = (t: string) => atob(t.replace(/-/g, "+").replace(/_/g, "/"));
@@ -153,7 +155,9 @@ function encodeBuyerCompact(b: Buyer): string {
 function parseBuyerCompact(tok: string): Buyer | null {
   const m = tok.match(/^(\d*\.?\d+)(.*)$/);
   if (!m) return null;
-  const share = Number(m[1]) / 100;
+  // Shares are stored to 4 decimals (e.g. 0.3334); round back to that precision so a decoded
+  // share equals the one that was encoded rather than a float-error neighbour of it.
+  const share = Number((Number(m[1]) / 100).toFixed(4));
   if (!Number.isFinite(share) || share < 0 || share > 1) return null;
   const f = m[2];
   const nonResident = f.includes("n");
@@ -176,6 +180,7 @@ function parseBuyerCompact(tok: string): Buyer | null {
   };
 }
 
+/** Encode inputs to the compact payload (keyed fields, defaults omitted); pairs with decodeCompact. */
 export function encodeCompact(input: CalcInput): string {
   const parts: string[] = [`p${input.price}`];
   if (input.year !== LATEST_YEAR) parts.push(`y${input.year}`);
@@ -193,6 +198,7 @@ export function encodeCompact(input: CalcInput): string {
   return parts.join(";");
 }
 
+/** Parse the compact payload back to inputs; returns null on malformed data or an unknown year. */
 export function decodeCompact(payload: string): CalcInput | null {
   const input: CalcInput = {
     year: LATEST_YEAR,
@@ -212,9 +218,12 @@ export function decodeCompact(payload: string): CalcInput | null {
       case "y":
         input.year = Number(val);
         break;
-      case "l":
-        input.location = (LOC_R[val] as Location) ?? "mainland";
+      case "l": {
+        const loc = LOC_R[val] as Location | undefined;
+        if (!loc) return null; // reject a corrupted location rather than silently defaulting it
+        input.location = loc;
         break;
+      }
       case "u":
         input.intendedUse = val === "s" ? "secondary" : "own_permanent";
         break;
@@ -252,10 +261,12 @@ export function decodeCompact(payload: string): CalcInput | null {
   return input;
 }
 
+/** The shareable token: the compact payload, base64url-encoded. */
 export function encodeToken(input: CalcInput): string {
   return toBase64Url(encodeCompact(input));
 }
 
+/** Decode a shareable token back to inputs; returns null if it is malformed. */
 export function decodeToken(token: string): CalcInput | null {
   let payload: string;
   try {

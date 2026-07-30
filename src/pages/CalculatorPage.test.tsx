@@ -126,4 +126,27 @@ describe("CalculatorPage", () => {
     await user.click(screen.getByRole("button", { name: en.actions.reset }));
     expect(gtag).toHaveBeenCalledWith("event", "reset", undefined);
   });
+
+  it("clamps out-of-range field input to [min, max]", () => {
+    renderPage();
+    // Negative price clamps to the min (0) so the share link never breaks.
+    const price = screen.getByLabelText(en.form.price) as HTMLInputElement;
+    fireEvent.change(price, { target: { value: "-5" } });
+    expect(price.value).toBe("0");
+    // A share above 100% clamps to the max.
+    const share = screen.getByLabelText(en.form.share) as HTMLInputElement;
+    fireEvent.change(share, { target: { value: "150" } });
+    expect(share.value).toBe("100");
+  });
+
+  it("clears the non-resident exception when a buyer switches back to resident", async () => {
+    const user = userEvent.setup();
+    renderPage();
+    await user.click(screen.getByRole("button", { name: en.form.residencyNonResident }));
+    await user.selectOptions(screen.getByLabelText(en.form.exception), "becomes_resident");
+    await user.click(screen.getByRole("button", { name: en.form.residencyResident }));
+    // Returning to non-resident must show the default exception, not the stale earlier choice.
+    await user.click(screen.getByRole("button", { name: en.form.residencyNonResident }));
+    expect((screen.getByLabelText(en.form.exception) as HTMLSelectElement).value).toBe("none");
+  });
 });

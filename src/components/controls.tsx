@@ -4,6 +4,7 @@ import { useId } from "react";
 // Small accessible form primitives shared across the calculator. Styling is provided by the
 // design-system CSS; these only supply structure, labels, and ARIA wiring.
 
+/** Label + optional hint wrapper that wires a control to its `<label>` for accessibility. */
 export function Field({
   label,
   hint,
@@ -29,6 +30,11 @@ export function Field({
   );
 }
 
+/**
+ * A labelled numeric input. Empty maps to `undefined`; any entered number is clamped to
+ * `[min, max]` and non-numeric input is treated as empty, so out-of-range or junk values can
+ * never reach the caller's state (and therefore never a shared link).
+ */
 export function NumberField({
   label,
   hint,
@@ -60,7 +66,14 @@ export function NumberField({
           min={min}
           max={max}
           value={value ?? ""}
-          onChange={(e) => onChange(e.target.value === "" ? undefined : Number(e.target.value))}
+          onChange={(e) => {
+            if (e.target.value === "") return onChange(undefined);
+            let n = Number(e.target.value);
+            if (!Number.isFinite(n)) return onChange(undefined);
+            if (min != null) n = Math.max(min, n);
+            if (max != null) n = Math.min(max, n);
+            onChange(n);
+          }}
         />
         {suffix && <span className="num__suffix">{suffix}</span>}
       </div>
@@ -68,11 +81,13 @@ export function NumberField({
   );
 }
 
+/** A choosable value with its human-readable label, shared by SelectField and Segmented. */
 export interface Option<T extends string> {
   value: T;
   label: string;
 }
 
+/** A labelled dropdown for choosing one of `options`. Use for longer or less-common option sets. */
 export function SelectField<T extends string>({
   label,
   hint,
@@ -100,6 +115,7 @@ export function SelectField<T extends string>({
   );
 }
 
+/** A labelled segmented button group for choosing one of a small set of options. */
 export function Segmented<T extends string>({
   label,
   value,
@@ -131,6 +147,7 @@ export function Segmented<T extends string>({
   );
 }
 
+/** A labelled checkbox for an on/off option. */
 export function Toggle({
   label,
   checked,

@@ -2,6 +2,7 @@ import { useI18n } from "@/i18n";
 import type { Buyer, IntendedUse, BuyerType, Residency, NonResidentException } from "@/engine/types";
 import { NumberField, Segmented, SelectField, Toggle } from "@/components/controls";
 
+/** One acquirer's inputs: share, type, residency (+ exception), tax-haven and IMT Jovem toggles. */
 export function BuyerCard({
   buyer,
   index,
@@ -68,7 +69,11 @@ export function BuyerCard({
         <Segmented<Residency>
           label={t.form.residency}
           value={buyer.residency}
-          onChange={(residency) => onChange({ residency })}
+          // The non-resident exception is meaningful only while non-resident; clear it on the way
+          // back to resident so no stale value survives in state or a shared link.
+          onChange={(residency) =>
+            onChange({ residency, ...(residency === "resident" ? { exception: "none" } : {}) })
+          }
           options={[
             { value: "resident", label: t.form.residencyResident },
             { value: "non_resident", label: t.form.residencyNonResident },

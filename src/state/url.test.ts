@@ -102,6 +102,37 @@ describe("url state", () => {
   it("returns null for a malformed token", () => {
     expect(decodeToken("!!!not-base64!!!")).toBeNull();
   });
+
+  it("round-trips every non-resident exception through the token", () => {
+    for (const exception of ["former_resident", "becomes_resident", "accessible_rent"] as const) {
+      const input: CalcInput = {
+        ...defaultInput(),
+        buyers: [{ share: 1, type: "individual", taxHaven: false, residency: "non_resident", exception, jovem: false }],
+      };
+      expect(decodeToken(encodeToken(input))).toEqual(input);
+    }
+  });
+
+  it("round-trips fractional equal shares exactly (no float drift)", () => {
+    // Three-way split: 0.3333 / 0.3333 / 0.3334. Decoding must return those exact values.
+    const input: CalcInput = {
+      ...defaultInput(),
+      buyers: [0.3333, 0.3333, 0.3334].map((share) => ({
+        share,
+        type: "individual" as const,
+        taxHaven: false,
+        residency: "resident" as const,
+        exception: "none" as const,
+        jovem: false,
+      })),
+    };
+    expect(decodeToken(encodeToken(input))).toEqual(input);
+  });
+
+  it("rejects a token with a corrupted location rather than defaulting it", () => {
+    const b64url = (s: string) => btoa(s).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+    expect(decodeToken(b64url("p100000;lZZ"))).toBeNull();
+  });
 });
 
 describe("url read/write (hash)", () => {

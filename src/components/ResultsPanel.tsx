@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useI18n, fmt } from "@/i18n";
 import type { ImtRule, CalcInput, CalcResult } from "@/engine/types";
 import { formatEuro, formatPercent } from "@/format";
@@ -11,6 +11,7 @@ function ruleLabel(rule: ImtRule, t: ReturnType<typeof useI18n>["t"]): string {
   return t.results.ruleOrdinary;
 }
 
+/** The live results: headline tiles, the summary, the per-buyer breakdown, and the share/actions. */
 export function ResultsPanel({
   input,
   result,
@@ -22,14 +23,19 @@ export function ResultsPanel({
 }) {
   const { t, lang } = useI18n();
   const [flash, setFlash] = useState<string | null>(null);
+  const flashTimer = useRef<ReturnType<typeof setTimeout>>();
+
+  // Clear a pending flash timer if the panel unmounts, so it never fires setState afterwards.
+  useEffect(() => () => clearTimeout(flashTimer.current), []);
 
   // The single reversible code that carries the whole calculation; kept current every render and
   // shown in the field below so it can be copied without opening anything.
   const link = `${window.location.origin}${window.location.pathname}#/?c=${encodeToken(input)}`;
 
   const notify = (msg: string) => {
+    clearTimeout(flashTimer.current); // supersede any in-flight message so timers don't overlap
     setFlash(msg);
-    window.setTimeout(() => setFlash(null), 2000);
+    flashTimer.current = setTimeout(() => setFlash(null), 2000);
   };
 
   const copy = async (text: string, msg: string) => {

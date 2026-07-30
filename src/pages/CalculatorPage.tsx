@@ -33,10 +33,12 @@ function equalShares(buyers: Buyer[]): Buyer[] {
   }));
 }
 
+/** The calculator: the input form and the live results panel, with state mirrored to the URL. */
 export function CalculatorPage() {
   const { t } = useI18n();
   const [input, setInput] = useState<CalcInput>(() => readStateFromUrl() ?? defaultInput());
-  const arrival = useRef(arrivalKind());
+  // Captured once, from the URL as it was at first render (before the effect below rewrites it).
+  const [arrival] = useState(arrivalKind);
   const interacted = useRef(false);
 
   useEffect(() => {
@@ -45,9 +47,9 @@ export function CalculatorPage() {
 
   // Report whether this visit opened a shared link (and whether that link was valid).
   useEffect(() => {
-    if (arrival.current === "ok") track("arrived_via_share");
-    else if (arrival.current === "bad") track("bad_share_link");
-  }, []);
+    if (arrival === "ok") track("arrived_via_share");
+    else if (arrival === "bad") track("bad_share_link");
+  }, [arrival]);
 
   const result = useMemo(() => calculate(input), [input]);
 
@@ -182,7 +184,17 @@ export function CalculatorPage() {
               <SelectField<MortgageTerm>
                 label={t.form.mortgageTerm}
                 value={input.mortgage.term}
-                onChange={(term) => update({ mortgage: { ...input.mortgage!, term } })}
+                onChange={(term) =>
+                  update({
+                    // `months` is only meaningful for the sub-1-year band; drop it otherwise so it
+                    // does not linger in state or the shared link.
+                    mortgage: {
+                      amount: input.mortgage!.amount,
+                      term,
+                      ...(term === "lt1" ? { months: input.mortgage!.months ?? 1 } : {}),
+                    },
+                  })
+                }
                 options={[
                   { value: "ge5", label: t.form.termGe5 },
                   { value: "y1to5", label: t.form.termY1to5 },
