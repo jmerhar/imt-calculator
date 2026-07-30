@@ -25,6 +25,8 @@ export default defineConfig(({ mode }) => ({
         "src/**/__tests__/**",
         "src/test-setup.ts",
         "src/vite-env.d.ts",
+        // Type-only module: compiles to nothing, so coverage of it is meaningless.
+        "src/engine/types.ts",
         // Application entrypoint: mounts <App/> onto the DOM root. Pure bootstrap glue
         // with no logic to unit-test.
         "src/main.tsx",

@@ -46,4 +46,13 @@ describe("App", () => {
     await user.click(screen.getByRole("link", { name: en.nav.glossary }));
     expect(screen.getByText(glossary[0].en.term)).toBeInTheDocument();
   });
+
+  it("renders the how-it-works page in both languages", async () => {
+    const user = userEvent.setup();
+    renderApp("/how-it-works");
+    expect(screen.getByText(en.pages.howtoIntro)).toBeInTheDocument();
+    // Switch to Portuguese and confirm the localized intro renders.
+    await user.click(screen.getByRole("button", { name: "PT" }));
+    expect(screen.getByText(/O que esta ferramenta calcula/)).toBeInTheDocument();
+  });
 });

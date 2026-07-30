@@ -29,4 +29,27 @@ describe("CalculatorPage", () => {
     // Two buyer cards now, each with its own Share field.
     expect(screen.getAllByLabelText(en.form.share)).toHaveLength(2);
   });
+
+  it("exercises non-resident, entity, mortgage and reset controls", async () => {
+    const user = userEvent.setup();
+    renderPage();
+
+    // Non-resident reveals the exception select.
+    await user.click(screen.getByRole("button", { name: en.form.residencyNonResident }));
+    await user.selectOptions(screen.getByLabelText(en.form.exception), "becomes_resident");
+    expect(screen.getByText(en.results.reclaimableNote)).toBeInTheDocument();
+
+    // Entity reveals the tax-haven toggle → flat 10%.
+    await user.click(screen.getByRole("button", { name: en.form.typeEntity }));
+    await user.click(screen.getByLabelText(en.form.taxHaven));
+
+    // Mortgage on, short-term reveals the months field.
+    await user.click(screen.getByLabelText(en.form.mortgageToggle));
+    await user.selectOptions(screen.getByLabelText(en.form.mortgageTerm), "lt1");
+    expect(screen.getByLabelText(en.form.mortgageMonths)).toBeInTheDocument();
+
+    // Reset returns to the default single-buyer state.
+    await user.click(screen.getByRole("button", { name: en.actions.reset }));
+    expect(screen.getAllByLabelText(en.form.share)).toHaveLength(1);
+  });
 });
