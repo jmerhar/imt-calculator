@@ -12,7 +12,6 @@ import type {
   YearData,
 } from "@/engine/types";
 import { getYearData } from "@/engine/tables";
-import { calcId } from "@/engine/hash";
 
 /** Round to cents (half up). Keeps displayed parts summing to the displayed totals. */
 export function round2(x: number): number {
@@ -151,7 +150,6 @@ export function calculate(input: CalcInput): CalcResult {
     effectiveRate: input.price > 0 ? grandTotal / input.price : 0,
     totalOutlay: round2(input.price + grandTotal),
     reclaimableTotal,
-    calcId: calcId(input),
     warnings,
   };
 }

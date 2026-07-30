@@ -1,7 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { calculate, ordinaryImt, pickTable } from "@/engine/imt";
 import { data2026 } from "@/engine/tables/2026";
-import { calcId } from "@/engine/hash";
 import type { Buyer, CalcInput } from "@/engine/types";
 
 const buyer = (o: Partial<Buyer> = {}): Buyer => ({
@@ -202,13 +201,5 @@ describe("calculate — additional rule coverage", () => {
     const zero = calculate(input({ price: 0 }));
     expect(zero.totalImt).toBe(0);
     expect(zero.effectiveRate).toBe(0);
-  });
-});
-
-describe("calcId", () => {
-  it("is deterministic and input-sensitive", () => {
-    expect(calcId(input())).toBe(calcId(input()));
-    expect(calcId(input())).not.toBe(calcId(input({ price: 400001 })));
-    expect(calcId(input())).toMatch(/^IMT-[0-9A-Z]{10}$/);
   });
 });

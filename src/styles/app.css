@@ -350,6 +350,16 @@ a {
   color: var(--azul-600);
   border-color: var(--azul-600);
 }
+.btn--soft {
+  background: color-mix(in srgb, var(--azul-400) 12%, transparent);
+  color: var(--azul-600);
+  border-color: transparent;
+}
+.btn--soft:hover {
+  background: color-mix(in srgb, var(--azul-400) 22%, transparent);
+  border-color: transparent;
+  color: var(--azul-900);
+}
 
 /* ---- Results ------------------------------------------------------------------------------ */
 .results__head {
@@ -387,42 +397,36 @@ a {
   gap: var(--s3);
   margin: var(--s4) 0;
 }
-/* Glazed azulejo tile: cobalt hairline, ceramic highlight, label as an eyebrow above the figure. */
+/* Glazed azulejo tile: cobalt hairline + a ceramic highlight painted into the background (no
+   clipping overlay), label as an eyebrow above the figure. Equal heights via the grid. */
 .tile {
-  position: relative;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: var(--s3);
-  min-height: 96px;
-  background: var(--tile);
+  gap: var(--s2);
+  min-width: 0;
+  min-height: 92px;
+  background: radial-gradient(135% 90% at 15% 0%, rgba(255, 255, 255, 0.4), transparent 58%),
+    var(--tile);
   border: 1px solid var(--azul-400);
   border-radius: var(--radius);
   padding: var(--s4);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), var(--shadow-card);
 }
-.tile::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(130% 90% at 15% 0%, rgba(255, 255, 255, 0.38), transparent 58%);
-  pointer-events: none;
-}
 .tile__label {
-  font-size: 0.66rem;
+  font-size: 0.64rem;
   font-weight: 600;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--ink-soft);
 }
 .tile__value {
   font-family: var(--font-mono);
   font-weight: 600;
-  font-size: 1.25rem;
-  line-height: 1.05;
-  letter-spacing: -0.01em;
-  white-space: nowrap;
+  font-size: 1.05rem;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
   color: var(--azul-900);
 }
 .tile--total {
@@ -431,7 +435,7 @@ a {
 }
 .tile--total .tile__value {
   color: var(--ink);
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 [data-theme="dark"] .tile__value {
   color: var(--ink);
@@ -510,20 +514,41 @@ a {
   font-size: 0.85rem;
   margin: var(--s3) 0 0;
 }
-.results__foot {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: var(--s2);
+/* Shareable link: shown inline with its own copy button (no need to click a share button first). */
+.sharebox {
   margin-top: var(--s4);
-  padding-top: var(--s3);
+  padding-top: var(--s4);
   border-top: 1px solid var(--line);
+}
+.sharebox__label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  margin-bottom: var(--s2);
+}
+.sharebox__row {
+  display: flex;
+  gap: var(--s2);
+}
+.sharebox__input {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--ink);
+  background: var(--field-bg);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  padding: var(--s2) var(--s3);
+  text-overflow: ellipsis;
+}
+.results__year {
+  margin: var(--s3) 0 0;
   font-size: 0.72rem;
   color: var(--ink-soft);
-}
-.calcid code {
-  font-family: var(--font-mono);
-  color: var(--ink);
 }
 .actions {
   display: flex;
@@ -669,7 +694,8 @@ a {
   .buyer__remove,
   .flash,
   .field__hint,
-  .footer__link {
+  .footer__link,
+  .sharebox {
     display: none !important;
   }
   body {

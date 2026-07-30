@@ -20,6 +20,12 @@ describe("CalculatorPage", () => {
     expect(container.textContent).toContain("9,042.04");
   });
 
+  it("shows a copyable share link carrying the state token", () => {
+    renderPage();
+    const link = screen.getByRole("textbox") as HTMLInputElement;
+    expect(link.value).toContain("#/?c=");
+  });
+
   it("adds a second buyer and reveals the per-buyer breakdown", async () => {
     const user = userEvent.setup();
     renderPage();

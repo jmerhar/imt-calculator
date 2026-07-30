@@ -22,6 +22,10 @@ export function ResultsPanel({
   const { t, lang } = useI18n();
   const [flash, setFlash] = useState<string | null>(null);
 
+  // The single reversible code that carries the whole calculation; kept current every render and
+  // shown in the field below so it can be copied without opening anything.
+  const link = `${window.location.origin}${window.location.pathname}#/?c=${encodeToken(input)}`;
+
   const notify = (msg: string) => {
     setFlash(msg);
     window.setTimeout(() => setFlash(null), 2000);
@@ -36,25 +40,15 @@ export function ResultsPanel({
     }
   };
 
-  const shareLink = () => {
-    const url = `${window.location.origin}${window.location.pathname}#/?c=${encodeToken(input)}`;
-    void copy(url, t.actions.linkCopied);
-  };
-
   const copyResult = () => {
     const lines = [
       `${t.results.taxBase}: ${formatEuro(result.taxBase, lang)}`,
       `${t.results.imt}: ${formatEuro(result.totalImt, lang)}`,
-      `${t.results.stampDutyTransfer}: ${formatEuro(result.totalStampDutyTransfer, lang)}`,
-    ];
-    if (result.mortgageStampDuty > 0) {
-      lines.push(`${t.results.stampDutyMortgage}: ${formatEuro(result.mortgageStampDuty, lang)}`);
-    }
-    lines.push(
+      `${t.results.stampDuty}: ${formatEuro(result.totalStampDuty, lang)}`,
       `${t.results.totalDue}: ${formatEuro(result.grandTotal, lang)}`,
       `${t.results.effectiveRate}: ${formatPercent(result.effectiveRate, lang)}`,
-      `${t.results.calcId}: ${result.calcId}`,
-    );
+      link,
+    ];
     void copy(lines.join("\n"), t.actions.copied);
   };
 
@@ -121,24 +115,35 @@ export function ResultsPanel({
 
       {result.reclaimableTotal > 0 && <p className="note">{t.results.reclaimableNote}</p>}
 
-      <div className="results__foot">
-        <span className="calcid">
-          {t.results.calcId}: <code>{result.calcId}</code>
-        </span>
-        <span className="results__year">{fmt(t.footer.dataYear, { year: result.year })}</span>
+      <div className="sharebox">
+        <label className="sharebox__label" htmlFor="share-link">
+          {t.results.shareLink}
+        </label>
+        <div className="sharebox__row">
+          <input
+            id="share-link"
+            className="sharebox__input"
+            type="text"
+            readOnly
+            value={link}
+            onFocus={(e) => e.currentTarget.select()}
+          />
+          <button type="button" className="btn" onClick={() => void copy(link, t.actions.linkCopied)}>
+            {t.actions.copyLink}
+          </button>
+        </div>
       </div>
 
+      <p className="results__year">{fmt(t.footer.dataYear, { year: result.year })}</p>
+
       <div className="actions">
-        <button type="button" className="btn" onClick={shareLink}>
-          {t.actions.share}
-        </button>
-        <button type="button" className="btn" onClick={copyResult}>
+        <button type="button" className="btn btn--soft" onClick={copyResult}>
           {t.actions.copy}
         </button>
-        <button type="button" className="btn" onClick={onReset}>
+        <button type="button" className="btn btn--soft" onClick={onReset}>
           {t.actions.reset}
         </button>
-        <button type="button" className="btn" onClick={() => window.print()}>
+        <button type="button" className="btn btn--soft" onClick={() => window.print()}>
           {t.actions.print}
         </button>
       </div>

@@ -101,7 +101,6 @@ export interface CalcResult {
   /** price + grandTotal — the total cash the buyers put up. */
   totalOutlay: number;
   reclaimableTotal: number;
-  calcId: string;
   warnings: string[];
 }
 
