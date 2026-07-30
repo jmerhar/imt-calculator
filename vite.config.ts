@@ -2,10 +2,11 @@ import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
 import path from "node:path";
 
-// Served at the root of the custom domain (calc-imt.online); the github.io project URL
-// redirects there, so assets are referenced from "/".
+// Relative asset paths so the build works both at the custom-domain root (calc-imt.online)
+// and at a GitHub Pages project sub-path (jmerhar.github.io/imt-calculator/) — no rebuild needed
+// if the custom domain is removed. HashRouter keeps client routing path-independent too.
 export default defineConfig({
-  base: "/",
+  base: "./",
   plugins: [react()],
   resolve: {
     alias: { "@": path.resolve(__dirname, "./src") },
