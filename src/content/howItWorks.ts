@@ -89,7 +89,7 @@ export const howItWorks: HowToSection[] = [
           ],
         },
         { p: "No segundo e terceiro casos, os 7,5% são pagos antecipadamente e a diferença até às taxas normais pode ser reembolsada quando a condição se verificar (n.º 11–12)." },
-        { p: "Nota sobre datas: esta regra está em vigor desde a entrada em vigor do decreto-lei (o 5.º dia após a publicação de 20 de maio de 2026). Não está associada a 1 de setembro de 2026 — essa data apenas inicia os regimes de arrendamento CIA e RSAA, que não afetam a compra de habitação comum." },
+        { p: "Nota sobre datas: esta regra vigora desde a entrada em vigor do decreto-lei (o 5.º dia após a publicação de 20 de maio de 2026). Não está associada a 1 de setembro de 2026 — essa data apenas inicia os regimes de arrendamento CIA e RSAA, que não afetam a compra normal de uma habitação." },
       ],
     },
   },
@@ -104,7 +104,7 @@ export const howItWorks: HowToSection[] = [
     pt: {
       heading: "Empresas e paraísos fiscais",
       blocks: [
-        { p: "Uma entidade domiciliada (ou controlada a partir) de uma jurisdição da lista negra paga uma taxa fixa de IMT de 10% (art. 17.º n.º 4 do CIMT). Não se aplica a particulares (n.º 7), pelo que aqui só é apresentada quando o comprador é uma empresa ou entidade." },
+        { p: "Uma entidade domiciliada numa jurisdição da lista negra (ou controlada a partir dela) paga uma taxa fixa de IMT de 10% (art. 17.º n.º 4 do CIMT). Não se aplica a particulares (n.º 7), pelo que aqui só é apresentada quando o comprador é uma empresa ou entidade." },
       ],
     },
   },
@@ -119,7 +119,7 @@ export const howItWorks: HowToSection[] = [
     pt: {
       heading: "Imposto do selo",
       blocks: [
-        { p: "O imposto do selo sobre a transmissão é 0,8% da base tributável (verba 1.1 da TGIS). Se a compra for financiada, acresce o selo sobre o crédito, ao abrigo da verba 17.1: 0,6% para prazo igual ou superior a 5 anos, 0,5% de 1 a 5 anos e 0,04% por mês para menos de um ano. O crédito habitação não é crédito ao consumo, pelo que não se aplicam as taxas mais elevadas da verba 17.2." },
+        { p: "O imposto do selo sobre a transmissão é 0,8% da base tributável (verba 1.1 da TGIS). Se a compra for financiada, acresce o selo sobre o crédito, ao abrigo da verba 17.1: 0,6% para prazo igual ou superior a 5 anos, 0,5% de 1 a 5 anos e 0,04% por mês para menos de um ano. O crédito à habitação não é crédito ao consumo, pelo que não se aplicam as taxas mais elevadas da verba 17.2." },
       ],
     },
   },

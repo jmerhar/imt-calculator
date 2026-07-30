@@ -27,7 +27,7 @@ export const glossary: GlossaryEntry[] = [
     },
     pt: {
       term: "Imposto do Selo",
-      def: "Imposto sobre atos e documentos. Na compra é 0,8% sobre o valor tributável (verba 1.1 da TGIS), acrescido do imposto sobre o crédito (verba 17).",
+      def: "Imposto sobre atos e documentos. Na compra é 0,8% sobre a base tributável (verba 1.1 da TGIS), acrescido do imposto sobre o crédito (verba 17).",
     },
   },
   {
@@ -60,7 +60,7 @@ export const glossary: GlossaryEntry[] = [
     },
     pt: {
       term: "IMT Jovem",
-      def: "Benefício para a primeira habitação própria e permanente de pessoas até 35 anos: o IMT é isento até um limite e reduzido acima dele.",
+      def: "Benefício para a primeira habitação própria e permanente de pessoas até 35 anos: o IMT está isento até um limite e é reduzido acima dele.",
     },
   },
   {
