@@ -1,5 +1,8 @@
 # IMT Calculator · Portugal 2026
 
+[![CI](https://github.com/jmerhar/imt-calculator/actions/workflows/ci.yml/badge.svg)](https://github.com/jmerhar/imt-calculator/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/jmerhar/imt-calculator/branch/main/graph/badge.svg)](https://app.codecov.io/gh/jmerhar/imt-calculator)
+
 A fully client-side calculator for the Portuguese property-transfer tax (**IMT** — Imposto
 Municipal sobre as Transmissões Onerosas de Imóveis) and the associated **stamp duty** (Imposto
 do Selo), for purchases under the 2026 rules — including the non-resident regime introduced by
@@ -95,4 +98,4 @@ Vite · React · TypeScript · Vitest. No UI framework — the design system is 
 
 ## License
 
-MIT.
+GPL-3.0-or-later — see [LICENSE](LICENSE).

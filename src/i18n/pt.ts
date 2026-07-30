@@ -99,6 +99,7 @@ export const pt: Dict = {
   footer: {
     disclaimer: "Esta é uma estimativa e não constitui aconselhamento fiscal. Confirme junto da Autoridade Tributária ou de um notário.",
     sources: "Fontes e método",
+    github: "Código no GitHub",
     dataYear: "Taxas e tabelas de {year}.",
   },
   pages: {

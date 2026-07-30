@@ -75,6 +75,15 @@ export function Layout({ children }: { children: ReactNode }) {
             {t.footer.sources}
           </NavLink>
           <span aria-hidden="true"> · </span>
+          <a
+            className="footer__link"
+            href="https://github.com/jmerhar/imt-calculator"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t.footer.github}
+          </a>
+          <span aria-hidden="true"> · </span>
           <span>{fmt(t.footer.dataYear, { year: LATEST_YEAR })}</span>
         </p>
       </footer>

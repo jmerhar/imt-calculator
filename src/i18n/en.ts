@@ -100,6 +100,7 @@ export const en = {
   footer: {
     disclaimer: "This is an estimate, not tax advice. Confirm with the Autoridade Tributária or a notary.",
     sources: "Sources & method",
+    github: "Source on GitHub",
     dataYear: "Rates and tables for {year}.",
   },
   pages: {
