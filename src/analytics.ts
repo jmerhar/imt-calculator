@@ -8,6 +8,7 @@ declare global {
   }
 }
 
+/** Send a GA event. No-op when gtag is absent (tests, ad blockers, or dev off the live domain). */
 export function track(name: string, params?: Record<string, unknown>): void {
   window.gtag?.("event", name, params);
 }

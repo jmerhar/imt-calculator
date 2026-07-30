@@ -1,6 +1,7 @@
 import { useI18n } from "@/i18n";
 import { howItWorks } from "@/content/howItWorks";
 
+/** How-it-works page: methodology, the rules with citations, and the data-provenance disclosure. */
 export function HowItWorksPage() {
   const { t, lang } = useI18n();
   return (

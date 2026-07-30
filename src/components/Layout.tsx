@@ -6,6 +6,7 @@ import { useTheme } from "@/theme/theme";
 import { LATEST_YEAR } from "@/engine/tables";
 import { track } from "@/analytics";
 
+/** App shell: header (brand, nav, language + theme controls), the page body, and the footer. */
 export function Layout({ children }: { children: ReactNode }) {
   const { t, lang, setLang } = useI18n();
   const { theme, toggle } = useTheme();

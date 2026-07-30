@@ -1,6 +1,7 @@
 import { useI18n } from "@/i18n";
 import { glossary } from "@/content/glossary";
 
+/** Glossary page: key IMT/stamp-duty terms; the English view shows each term in both languages. */
 export function GlossaryPage() {
   const { t, lang } = useI18n();
   return (

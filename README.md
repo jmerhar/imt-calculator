@@ -66,7 +66,7 @@ selector then picks it up automatically.
 ## Project layout
 
 ```
-src/engine/     pure tax logic (imt.ts), bracket tables, deterministic calc IDs — heavily unit-tested
+src/engine/     pure tax logic (imt.ts), bracket tables — heavily unit-tested
 src/state/      URL state serialisation + input defaults
 src/i18n/       EN/PT dictionaries (parity-checked) + provider
 src/theme/      light/dark theme provider
@@ -81,14 +81,15 @@ reference/      primary-source documents
 ## Testing & coverage
 
 `make check` runs ESLint, `tsc`, the Vitest suite and a coverage gate
-(`scripts/coverage-report.py --gate`, 95% line floor). CI additionally uploads to Codecov
+(`scripts/coverage-report.py --gate`, 98% line floor). CI additionally uploads to Codecov
 (informational) and publishes the HTML report to the shared `jmerhar/coverage` site.
 
 ## Deployment
 
 Pushing to `main` triggers `.github/workflows/deploy.yml`, which builds and deploys to GitHub
 Pages (Pages source must be **GitHub Actions**). The site is served at the custom domain
-`calc-imt.online` (a `public/CNAME` keeps the domain across deploys), so the Vite `base` is `/`.
+`calc-imt.online` (a `public/CNAME` keeps the domain across deploys). The Vite `base` is `"./"`
+(relative), so the build works both at the domain root and under a project sub-path.
 Coverage publishing needs a `COVERAGE_PAGES_TOKEN` repo secret (a PAT with write access to
 `jmerhar/coverage`); it is skipped gracefully if absent. The Codecov upload uses a `CODECOV_TOKEN`
 repo secret.

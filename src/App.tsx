@@ -5,6 +5,7 @@ import { CalculatorPage } from "@/pages/CalculatorPage";
 import { GlossaryPage } from "@/pages/GlossaryPage";
 import { HowItWorksPage } from "@/pages/HowItWorksPage";
 
+/** Root component: the shared layout, analytics, and the hash-routed pages. */
 export function App() {
   return (
     <Layout>
