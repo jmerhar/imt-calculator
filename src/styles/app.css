@@ -468,6 +468,9 @@ a {
   border-bottom: 1px dotted var(--line);
   padding-bottom: var(--s2);
 }
+.summary__row:last-child {
+  border-bottom: 0;
+}
 .summary dt {
   color: var(--ink-soft);
   font-size: 0.85rem;
@@ -486,24 +489,55 @@ a {
   font-size: 0.95rem;
   margin: 0 0 var(--s2);
 }
-.breakdown__row {
+.bd-buyer {
+  padding: var(--s3) 0;
+}
+.bd-buyer + .bd-buyer {
+  border-top: 1px solid var(--line);
+}
+.bd-buyer__head {
   display: flex;
   align-items: center;
-  gap: var(--s3);
-  padding: var(--s2) 0;
-  border-bottom: 1px solid var(--line);
-  flex-wrap: wrap;
+  gap: var(--s2);
+  margin-bottom: var(--s2);
 }
-.breakdown__who {
+.bd-buyer__name {
+  font-weight: 600;
   font-size: 0.9rem;
 }
-.breakdown__val {
-  margin-inline-start: auto;
+.bd-lines {
+  margin: 0;
+  display: grid;
+  gap: 3px;
+}
+.bd-line {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s3);
+  font-size: 0.85rem;
+}
+.bd-line dt {
+  color: var(--ink-soft);
+}
+.bd-line dd {
+  margin: 0;
   font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+.bd-line--total {
+  margin-top: 2px;
+  padding-top: 3px;
+  border-top: 1px dotted var(--line);
+}
+.bd-line--total dt {
+  color: var(--ink);
   font-weight: 600;
 }
-.breakdown__reclaim {
-  flex-basis: 100%;
+.bd-line--total dd {
+  font-weight: 600;
+}
+.bd-reclaim {
+  margin: var(--s2) 0 0;
   font-size: 0.76rem;
   color: var(--manganese);
 }

@@ -97,16 +97,31 @@ export function ResultsPanel({
         <div className="breakdown">
           <h3 className="breakdown__title">{t.results.perBuyer}</h3>
           {result.buyers.map((b, i) => (
-            <div className="breakdown__row" key={i}>
-              <span className="breakdown__who">
-                {t.form.buyer} {i + 1}
-                <span className="tag">{ruleLabel(b.rule, t)}</span>
-              </span>
-              <span className="breakdown__val">{formatEuro(b.subtotal, lang)}</span>
-              {b.reclaimDelta != null && b.reclaimDelta > 0 && (
-                <span className="breakdown__reclaim">
-                  {t.results.reclaimable}: {formatEuro(b.reclaimDelta, lang)}
+            <div className="bd-buyer" key={i}>
+              <div className="bd-buyer__head">
+                <span className="bd-buyer__name">
+                  {t.form.buyer} {i + 1}
                 </span>
+                <span className="tag">{ruleLabel(b.rule, t)}</span>
+              </div>
+              <dl className="bd-lines">
+                <div className="bd-line">
+                  <dt>{t.results.imt}</dt>
+                  <dd>{formatEuro(b.imt, lang)}</dd>
+                </div>
+                <div className="bd-line">
+                  <dt>{t.results.stampDutyTransfer}</dt>
+                  <dd>{formatEuro(b.stampDutyTransfer, lang)}</dd>
+                </div>
+                <div className="bd-line bd-line--total">
+                  <dt>{t.results.subtotal}</dt>
+                  <dd>{formatEuro(b.subtotal, lang)}</dd>
+                </div>
+              </dl>
+              {b.reclaimDelta != null && b.reclaimDelta > 0 && (
+                <p className="bd-reclaim">
+                  {t.results.reclaimable}: {formatEuro(b.reclaimDelta, lang)}
+                </p>
               )}
             </div>
           ))}

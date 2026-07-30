@@ -76,6 +76,7 @@ export const en = {
     effectiveRate: "Effective rate",
     totalOutlay: "Total with taxes",
     perBuyer: "Per buyer",
+    subtotal: "Subtotal",
     reclaimable: "Reclaimable later",
     reclaimableNote: "Paid at 7.5% now; the difference down to ordinary rates can be reclaimed once the condition is met.",
     ruleOrdinary: "Ordinary rates",

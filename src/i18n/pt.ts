@@ -75,6 +75,7 @@ export const pt: Dict = {
     effectiveRate: "Taxa efetiva",
     totalOutlay: "Total com impostos",
     perBuyer: "Por comprador",
+    subtotal: "Subtotal",
     reclaimable: "Reembolsável mais tarde",
     reclaimableNote: "Pago a 7,5% agora; a diferença até às taxas normais pode ser reembolsada quando a condição se verificar.",
     ruleOrdinary: "Taxas normais",
