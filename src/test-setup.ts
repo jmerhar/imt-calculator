@@ -6,7 +6,8 @@ import { cleanup } from "@testing-library/react";
 
 afterEach(() => {
   cleanup();
-  // The calculator persists inputs to the URL hash; jsdom keeps window.location across tests,
-  // so clear it to keep each test's initial state isolated.
+  // The calculator persists inputs to the URL hash, and language/theme choices to localStorage;
+  // jsdom keeps both across tests in a worker, so reset them to isolate each test's initial state.
   window.location.hash = "";
+  if (typeof localStorage !== "undefined") localStorage.clear();
 });
