@@ -55,16 +55,19 @@ export function CalculatorPage() {
         <h2 className="panel__title">{t.form.heading}</h2>
 
         <div className="form__cols">
-          <div className="form__col">
           {AVAILABLE_YEARS.length > 1 && (
-            <SelectField
-              label={t.form.year}
-              value={String(input.year)}
-              onChange={(v) => update({ year: Number(v) })}
-              options={AVAILABLE_YEARS.map((y) => ({ value: String(y), label: String(y) }))}
-            />
+            <div className="form__span">
+              <SelectField
+                label={t.form.year}
+                value={String(input.year)}
+                onChange={(v) => update({ year: Number(v) })}
+                options={AVAILABLE_YEARS.map((y) => ({ value: String(y), label: String(y) }))}
+              />
+            </div>
           )}
 
+          {/* Row order is column-major: location + intended use fill the left column,
+              price + VPT the right, and the grid keeps the two rows aligned. */}
           <SelectField<Location>
             label={t.form.location}
             value={input.location}
@@ -76,6 +79,14 @@ export function CalculatorPage() {
             ]}
           />
 
+          <NumberField
+            label={t.form.price}
+            hint={t.form.priceHint}
+            value={input.price}
+            suffix="€"
+            onChange={(n) => update({ price: n ?? 0 })}
+          />
+
           <Segmented<IntendedUse>
             label={t.form.intendedUse}
             value={input.intendedUse}
@@ -84,16 +95,6 @@ export function CalculatorPage() {
               { value: "own_permanent", label: t.form.useOwnPermanent },
               { value: "secondary", label: t.form.useSecondary },
             ]}
-          />
-          </div>
-
-          <div className="form__col">
-          <NumberField
-            label={t.form.price}
-            hint={t.form.priceHint}
-            value={input.price}
-            suffix="€"
-            onChange={(n) => update({ price: n ?? 0 })}
           />
 
           <NumberField
@@ -104,7 +105,6 @@ export function CalculatorPage() {
             suffix="€"
             onChange={(n) => update({ vpt: n })}
           />
-          </div>
         </div>
 
         <div className="mortgage">
