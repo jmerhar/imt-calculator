@@ -54,7 +54,8 @@ export function CalculatorPage() {
       <form className="panel form" onSubmit={(e) => e.preventDefault()}>
         <h2 className="panel__title">{t.form.heading}</h2>
 
-        <div className="form__grid">
+        <div className="form__cols">
+          <div className="form__col">
           {AVAILABLE_YEARS.length > 1 && (
             <SelectField
               label={t.form.year}
@@ -84,7 +85,9 @@ export function CalculatorPage() {
               { value: "secondary", label: t.form.useSecondary },
             ]}
           />
+          </div>
 
+          <div className="form__col">
           <NumberField
             label={t.form.price}
             hint={t.form.priceHint}
@@ -101,6 +104,7 @@ export function CalculatorPage() {
             suffix="€"
             onChange={(n) => update({ vpt: n })}
           />
+          </div>
         </div>
 
         <div className="mortgage">

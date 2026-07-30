@@ -151,10 +151,19 @@ a {
 }
 
 /* ---- Fields & controls -------------------------------------------------------------------- */
-.form__grid {
+/* Two independent columns: location + intended use on the (wider) left, price + VPT on the
+   right. Grouping by column means a tall wrapping toggle never has to match a dropdown beside it. */
+.form__cols {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1.12fr 0.88fr;
+  gap: var(--s5);
+  align-items: start;
+}
+.form__col {
+  display: flex;
+  flex-direction: column;
   gap: var(--s4);
+  min-width: 0;
 }
 .field {
   display: flex;
@@ -900,7 +909,7 @@ a {
   }
 }
 @media (max-width: 560px) {
-  .form__grid,
+  .form__cols,
   .mortgage__grid,
   .buyer__grid {
     grid-template-columns: 1fr;
