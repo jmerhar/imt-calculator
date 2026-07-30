@@ -186,6 +186,7 @@ a {
 .select,
 .num__input {
   width: 100%;
+  min-height: 48px;
   font: inherit;
   color: var(--ink);
   background: var(--field-bg);
@@ -204,6 +205,8 @@ a {
 .num__suffix {
   position: absolute;
   right: var(--s3);
+  top: 50%;
+  transform: translateY(-50%);
   color: var(--ink-soft);
   font-family: var(--font-mono);
   pointer-events: none;
@@ -225,13 +228,19 @@ a {
 }
 .segmented__option {
   flex: 1;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 1.15;
   border: 0;
   border-inline-start: 1px solid var(--line-strong);
   background: var(--field-bg);
   color: var(--ink-soft);
   font: inherit;
   font-size: 0.85rem;
-  padding: var(--s3) var(--s2);
+  padding: var(--s2);
   cursor: pointer;
 }
 .segmented__option:first-child {
@@ -378,11 +387,18 @@ a {
   border-radius: 999px;
   padding: 1px var(--s2);
 }
+/* IMT + Stamp duty share a row; the Total spans full width below, giving big figures room. */
 .tiles {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr 1fr;
   gap: var(--s3);
   margin: var(--s4) 0;
+}
+.tile--total {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
 }
 /* Glazed azulejo tile: cobalt hairline + a ceramic highlight painted into the background (no
    clipping overlay), label as an eyebrow above the figure. Equal heights via the grid. */
@@ -410,10 +426,10 @@ a {
 .tile__value {
   font-family: var(--font-mono);
   font-weight: 600;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   line-height: 1.1;
   font-variant-numeric: tabular-nums;
-  overflow-wrap: anywhere;
+  white-space: nowrap;
   color: var(--azul-900);
 }
 .tile--total {
@@ -422,7 +438,7 @@ a {
 }
 .tile--total .tile__value {
   color: var(--ink);
-  font-size: 1.2rem;
+  font-size: 1.5rem;
 }
 [data-theme="dark"] .tile__value {
   color: var(--ink);

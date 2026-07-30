@@ -20,7 +20,7 @@ export function Layout({ children }: { children: ReactNode }) {
 
       <header className="header">
         <div className="header__brand">
-          <SealMark />
+          <HouseMark />
           <div>
             <div className="header__title">{t.app.title}</div>
             <div className="header__subtitle">{t.app.subtitle}</div>
@@ -82,14 +82,13 @@ export function Layout({ children }: { children: ReactNode }) {
   );
 }
 
-// The brand mark: a small "selo" (seal), echoing the deed stamp / Imposto do Selo.
-function SealMark() {
+// The brand mark: a house with a door — the calculator is about buying property.
+function HouseMark() {
   return (
     <svg className="header__mark" width="34" height="34" viewBox="0 0 32 32" aria-hidden="true">
-      <circle cx="16" cy="16" r="15" fill="#14345e" />
-      <circle cx="16" cy="16" r="10.5" fill="none" stroke="#f7f4ed" strokeWidth="1.6" />
-      <circle cx="16" cy="16" r="7" fill="none" stroke="#8fb3de" strokeWidth="1" />
-      <circle cx="16" cy="16" r="2.4" fill="#d99a2b" />
+      <rect width="32" height="32" rx="7" fill="#14345e" />
+      <path d="M4.5 15.8 L16 5.5 L27.5 15.8 L23.5 15.8 L23.5 26.5 L8.5 26.5 L8.5 15.8 Z" fill="#f7f4ed" />
+      <rect x="13.3" y="18.5" width="5.4" height="8" rx="1.1" fill="#d99a2b" />
     </svg>
   );
 }
