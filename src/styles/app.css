@@ -228,7 +228,8 @@ a {
 }
 .segmented__option {
   flex: 1;
-  min-height: 48px;
+  /* 46 + the container's 1px top/bottom border = 48, matching selects and number inputs. */
+  min-height: 46px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -240,7 +241,7 @@ a {
   color: var(--ink-soft);
   font: inherit;
   font-size: 0.85rem;
-  padding: var(--s2);
+  padding: var(--s1) var(--s2);
   cursor: pointer;
 }
 .segmented__option:first-child {
