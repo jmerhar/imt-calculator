@@ -55,4 +55,11 @@ describe("App", () => {
     await user.click(screen.getByRole("button", { name: "PT" }));
     expect(screen.getByText(/O que esta ferramenta calcula/)).toBeInTheDocument();
   });
+
+  it("renders the glossary in Portuguese", async () => {
+    const user = userEvent.setup();
+    renderApp("/glossary");
+    await user.click(screen.getByRole("button", { name: "PT" }));
+    expect(screen.getByText(glossary[0].pt.term)).toBeInTheDocument();
+  });
 });

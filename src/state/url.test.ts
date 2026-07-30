@@ -1,5 +1,13 @@
 import { describe, it, expect } from "vitest";
-import { encodeState, decodeState, encodeToken, decodeToken, encodeCompact } from "@/state/url";
+import {
+  encodeState,
+  decodeState,
+  encodeToken,
+  decodeToken,
+  encodeCompact,
+  readStateFromUrl,
+  writeStateToUrl,
+} from "@/state/url";
 import { defaultInput } from "@/state/defaults";
 import type { CalcInput } from "@/engine/types";
 
@@ -93,5 +101,24 @@ describe("url state", () => {
 
   it("returns null for a malformed token", () => {
     expect(decodeToken("!!!not-base64!!!")).toBeNull();
+  });
+});
+
+describe("url read/write (hash)", () => {
+  it("writes state to the hash and reads it back", () => {
+    const input = { ...defaultInput(), price: 500000 };
+    writeStateToUrl(input);
+    expect(window.location.hash).toContain("?c=");
+    expect(readStateFromUrl()).toEqual(input);
+  });
+
+  it("still reads a legacy readable-query hash", () => {
+    window.location.hash = "#/?" + encodeState(defaultInput());
+    expect(readStateFromUrl()).toEqual(defaultInput());
+  });
+
+  it("returns null when the URL carries no state", () => {
+    window.location.hash = "#/";
+    expect(readStateFromUrl()).toBeNull();
   });
 });

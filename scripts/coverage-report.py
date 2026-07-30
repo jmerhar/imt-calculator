@@ -18,7 +18,7 @@ import json
 # Single-suite line-coverage gate (percent). Set just under the actual figure so a real
 # regression fails CI while the odd defensive line is tolerated. Raise as coverage climbs; never
 # lower to make a red build pass. ``None`` makes it informational.
-GATES: dict[str, float | None] = {"app": 95.0}
+GATES: dict[str, float | None] = {"app": 98.0}
 
 # key → (display label, summary file, parser). The key doubles as the HTML subdirectory name in
 # the published report (see collect-coverage.sh), so it is the ``path`` in the reports manifest.

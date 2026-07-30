@@ -36,6 +36,15 @@ describe("CalculatorPage", () => {
     expect(screen.getAllByLabelText(en.form.share)).toHaveLength(2);
   });
 
+  it("removes an added buyer", async () => {
+    const user = userEvent.setup();
+    renderPage();
+    await user.click(screen.getByRole("button", { name: new RegExp(en.form.addBuyer) }));
+    expect(screen.getAllByLabelText(en.form.share)).toHaveLength(2);
+    await user.click(screen.getAllByRole("button", { name: new RegExp(en.form.removeBuyer) })[0]);
+    expect(screen.getAllByLabelText(en.form.share)).toHaveLength(1);
+  });
+
   it("exercises non-resident, entity, mortgage and reset controls", async () => {
     const user = userEvent.setup();
     renderPage();

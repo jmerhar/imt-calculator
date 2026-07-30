@@ -196,6 +196,10 @@ describe("calculate — additional rule coverage", () => {
     expect(r.totalImt).toBeCloseTo(90000, 2);
   });
 
+  it("throws for a year with no bundled tables", () => {
+    expect(() => calculate(input({ year: 1999 }))).toThrow(/No IMT data/);
+  });
+
   it("handles no buyers and a zero price without dividing by zero", () => {
     expect(calculate(input({ buyers: [] })).warnings).toContain("no_buyers");
     const zero = calculate(input({ price: 0 }));
