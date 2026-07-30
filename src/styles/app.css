@@ -551,6 +551,77 @@ a {
   color: var(--azul-600);
 }
 
+/* ---- Doc pages (glossary, how-it-works) --------------------------------------------------- */
+.doc {
+  max-width: 760px;
+  margin-inline: auto;
+}
+.doc__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2rem;
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--s2);
+}
+.doc__intro {
+  color: var(--ink-soft);
+  font-size: 1.02rem;
+  margin: 0 0 var(--s6);
+}
+.doc__section {
+  margin-bottom: var(--s6);
+}
+.doc__h2 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  margin: 0 0 var(--s3);
+  padding-bottom: var(--s2);
+  border-bottom: 2px solid var(--azul-400);
+}
+.doc__body p {
+  margin: 0 0 var(--s3);
+}
+.doc__body code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: color-mix(in srgb, var(--azul-400) 14%, transparent);
+  padding: 1px 5px;
+  border-radius: 5px;
+}
+.doc__body ul {
+  margin: 0 0 var(--s3);
+  padding-inline-start: var(--s5);
+}
+.doc__body li {
+  margin-bottom: var(--s2);
+}
+.glossary {
+  margin: 0;
+}
+.glossary__item {
+  padding: var(--s4) 0;
+  border-bottom: 1px solid var(--line);
+}
+.glossary__term {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.02rem;
+  color: var(--azul-900);
+}
+[data-theme="dark"] .glossary__term {
+  color: var(--azul-600);
+}
+.glossary__alt {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+.glossary__def {
+  margin: var(--s2) 0 0;
+  color: var(--ink);
+}
+
 /* ---- Focus & motion ----------------------------------------------------------------------- */
 :where(a, button, input, select, [tabindex]):focus-visible {
   outline: none;

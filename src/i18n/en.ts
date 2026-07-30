@@ -99,4 +99,8 @@ export const en = {
     sources: "Sources & method",
     dataYear: "Rates and tables for {year}.",
   },
+  pages: {
+    glossaryIntro: "Key IMT and stamp-duty terms, shown in both English and Portuguese.",
+    howtoIntro: "What this tool computes, the rules it applies, and where the numbers come from.",
+  },
 } satisfies Record<string, Record<string, string>>;

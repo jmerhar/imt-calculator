@@ -98,4 +98,8 @@ export const pt: Dict = {
     sources: "Fontes e método",
     dataYear: "Taxas e tabelas de {year}.",
   },
+  pages: {
+    glossaryIntro: "Termos essenciais do IMT e do imposto do selo, apresentados em inglês e português.",
+    howtoIntro: "O que esta ferramenta calcula, as regras que aplica e a origem dos valores.",
+  },
 };
