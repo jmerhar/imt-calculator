@@ -86,7 +86,7 @@ export function Layout({ children }: { children: ReactNode }) {
 function HouseMark() {
   return (
     <svg className="header__mark" width="34" height="34" viewBox="0 0 32 32" aria-hidden="true">
-      <rect width="32" height="32" rx="7" fill="#1c6fb0" />
+      <rect width="32" height="32" rx="7" fill="#2b5fa0" />
       <path d="M4.5 15.8 L16 5.5 L27.5 15.8 L23.5 15.8 L23.5 26.5 L8.5 26.5 L8.5 15.8 Z" fill="#ffffff" />
       <text
         x="16"
@@ -94,7 +94,7 @@ function HouseMark() {
         fontFamily="Georgia, 'Times New Roman', serif"
         fontSize="10"
         fontWeight="700"
-        fill="#ff6f59"
+        fill="#2b5fa0"
         textAnchor="middle"
       >
         €
