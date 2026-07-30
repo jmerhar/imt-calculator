@@ -102,6 +102,8 @@ export const en = {
     sources: "Sources & method",
     github: "Source on GitHub",
     dataYear: "Rates and tables for {year}.",
+    privacy:
+      "This site uses cookies only for anonymous, aggregate usage statistics (Google Analytics). No amounts you enter are stored or sent anywhere; all calculations run in your browser.",
   },
   pages: {
     glossaryIntro: "Key IMT and stamp-duty terms, shown in both English and Portuguese.",

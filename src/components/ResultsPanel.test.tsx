@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { I18nProvider } from "@/i18n";
 import { en } from "@/i18n/en";
@@ -20,6 +20,10 @@ describe("ResultsPanel", () => {
   beforeEach(() => {
     writeText = vi.fn().mockResolvedValue(undefined);
     Object.defineProperty(navigator, "clipboard", { value: { writeText }, configurable: true });
+  });
+
+  afterEach(() => {
+    delete window.gtag;
   });
 
   it("shows a per-buyer breakdown with rule tags and a reclaimable amount", () => {
@@ -57,5 +61,22 @@ describe("ResultsPanel", () => {
     fireEvent.click(screen.getByRole("button", { name: en.actions.copyLink }));
     expect(writeText).toHaveBeenCalled();
     expect(screen.queryByText(en.actions.linkCopied)).not.toBeInTheDocument();
+  });
+
+  it("tracks share, copy and print actions", () => {
+    const gtag = vi.fn();
+    window.gtag = gtag;
+    const print = vi.spyOn(window, "print").mockImplementation(() => {});
+    setup(defaultInput());
+
+    fireEvent.click(screen.getByRole("button", { name: en.actions.copyLink }));
+    fireEvent.click(screen.getByRole("button", { name: en.actions.copy }));
+    fireEvent.click(screen.getByRole("button", { name: en.actions.print }));
+
+    expect(gtag).toHaveBeenCalledWith("event", "share_link", undefined);
+    expect(gtag).toHaveBeenCalledWith("event", "copy_result", undefined);
+    expect(gtag).toHaveBeenCalledWith("event", "print", undefined);
+    expect(print).toHaveBeenCalled();
+    print.mockRestore();
   });
 });

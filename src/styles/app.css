@@ -644,6 +644,12 @@ a {
 .footer__link {
   color: var(--azul-600);
 }
+.footer__privacy {
+  margin: var(--s3) 0 0;
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  opacity: 0.85;
+}
 
 /* ---- Doc pages (glossary, how-it-works) --------------------------------------------------- */
 .doc {

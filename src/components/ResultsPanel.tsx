@@ -3,6 +3,7 @@ import { useI18n, fmt } from "@/i18n";
 import type { ImtRule, CalcInput, CalcResult } from "@/engine/types";
 import { formatEuro, formatPercent } from "@/format";
 import { encodeToken } from "@/state/url";
+import { track } from "@/analytics";
 
 function ruleLabel(rule: ImtRule, t: ReturnType<typeof useI18n>["t"]): string {
   if (rule === "non_resident_7_5") return t.results.ruleNonResident;
@@ -41,6 +42,7 @@ export function ResultsPanel({
   };
 
   const copyResult = () => {
+    track("copy_result");
     const lines = [
       `${t.results.taxBase}: ${formatEuro(result.taxBase, lang)}`,
       `${t.results.imt}: ${formatEuro(result.totalImt, lang)}`,
@@ -143,7 +145,14 @@ export function ResultsPanel({
             value={link}
             onFocus={(e) => e.currentTarget.select()}
           />
-          <button type="button" className="btn" onClick={() => void copy(link, t.actions.linkCopied)}>
+          <button
+            type="button"
+            className="btn"
+            onClick={() => {
+              track("share_link");
+              void copy(link, t.actions.linkCopied);
+            }}
+          >
             {t.actions.copyLink}
           </button>
         </div>
@@ -158,7 +167,14 @@ export function ResultsPanel({
         <button type="button" className="btn btn--soft" onClick={onReset}>
           {t.actions.reset}
         </button>
-        <button type="button" className="btn btn--soft" onClick={() => window.print()}>
+        <button
+          type="button"
+          className="btn btn--soft"
+          onClick={() => {
+            track("print");
+            window.print();
+          }}
+        >
           {t.actions.print}
         </button>
       </div>

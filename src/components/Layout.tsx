@@ -4,6 +4,7 @@ import { useI18n, fmt } from "@/i18n";
 import type { Lang } from "@/i18n";
 import { useTheme } from "@/theme/theme";
 import { LATEST_YEAR } from "@/engine/tables";
+import { track } from "@/analytics";
 
 export function Layout({ children }: { children: ReactNode }) {
   const { t, lang, setLang } = useI18n();
@@ -47,7 +48,10 @@ export function Layout({ children }: { children: ReactNode }) {
                 type="button"
                 className="langswitch__btn"
                 aria-pressed={lang === l}
-                onClick={() => setLang(l)}
+                onClick={() => {
+                  if (l !== lang) track("language_switch", { language: l });
+                  setLang(l);
+                }}
               >
                 {l.toUpperCase()}
               </button>
@@ -56,7 +60,10 @@ export function Layout({ children }: { children: ReactNode }) {
           <button
             type="button"
             className="iconbtn"
-            onClick={toggle}
+            onClick={() => {
+              track("theme_toggle", { theme: theme === "dark" ? "light" : "dark" });
+              toggle();
+            }}
             aria-label={theme === "dark" ? t.controls.toLight : t.controls.toDark}
           >
             {theme === "dark" ? <SunIcon /> : <MoonIcon />}
@@ -80,12 +87,14 @@ export function Layout({ children }: { children: ReactNode }) {
             href="https://github.com/jmerhar/imt-calculator"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => track("outbound", { target: "github" })}
           >
             {t.footer.github}
           </a>
           <span aria-hidden="true"> · </span>
           <span>{fmt(t.footer.dataYear, { year: LATEST_YEAR })}</span>
         </p>
+        <p className="footer__privacy">{t.footer.privacy}</p>
       </footer>
     </div>
   );

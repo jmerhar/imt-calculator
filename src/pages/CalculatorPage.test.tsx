@@ -1,9 +1,19 @@
-import { describe, it, expect } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { render, screen, fireEvent, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { I18nProvider } from "@/i18n";
 import { en } from "@/i18n/en";
 import { CalculatorPage } from "@/pages/CalculatorPage";
+import { encodeToken } from "@/state/url";
+import { defaultInput } from "@/state/defaults";
+
+beforeEach(() => {
+  window.history.replaceState(null, "", "#/");
+});
+
+afterEach(() => {
+  delete window.gtag;
+});
 
 function renderPage() {
   return render(
@@ -66,5 +76,54 @@ describe("CalculatorPage", () => {
     // Reset returns to the default single-buyer state.
     await user.click(screen.getByRole("button", { name: en.actions.reset }));
     expect(screen.getAllByLabelText(en.form.share)).toHaveLength(1);
+  });
+
+  it("emits one debounced calculate event after an edit, not before", () => {
+    vi.useFakeTimers();
+    try {
+      const gtag = vi.fn();
+      window.gtag = gtag;
+      renderPage();
+
+      // Nothing until the user actually changes something.
+      const price = screen.getByLabelText(en.form.price) as HTMLInputElement;
+      fireEvent.change(price, { target: { value: "300000" } });
+      expect(gtag).not.toHaveBeenCalledWith("event", "calculate", expect.anything());
+
+      // A single event fires once edits settle, carrying coarse (non-identifying) parameters.
+      act(() => vi.advanceTimersByTime(1600));
+      expect(gtag).toHaveBeenCalledWith(
+        "event",
+        "calculate",
+        expect.objectContaining({ price_band: "250-500k", buyer_count: 1, shares_valid: true }),
+      );
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it("reports arriving via a valid shared link", () => {
+    const gtag = vi.fn();
+    window.gtag = gtag;
+    window.history.replaceState(null, "", `#/?c=${encodeToken(defaultInput())}`);
+    renderPage();
+    expect(gtag).toHaveBeenCalledWith("event", "arrived_via_share", undefined);
+  });
+
+  it("reports arriving via a broken shared link", () => {
+    const gtag = vi.fn();
+    window.gtag = gtag;
+    window.history.replaceState(null, "", "#/?c=!!!!");
+    renderPage();
+    expect(gtag).toHaveBeenCalledWith("event", "bad_share_link", undefined);
+  });
+
+  it("tracks a reset", async () => {
+    const gtag = vi.fn();
+    window.gtag = gtag;
+    const user = userEvent.setup();
+    renderPage();
+    await user.click(screen.getByRole("button", { name: en.actions.reset }));
+    expect(gtag).toHaveBeenCalledWith("event", "reset", undefined);
   });
 });

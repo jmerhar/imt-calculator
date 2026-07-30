@@ -1,11 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-
-declare global {
-  interface Window {
-    gtag?: (command: string, ...args: unknown[]) => void;
-  }
-}
+import { track } from "@/analytics";
 
 // Sends a Google Analytics page_view on each route change (the initial one included). GA's own
 // automatic page_view is disabled in index.html so this is the single source of page views.
@@ -14,7 +9,7 @@ declare global {
 export function Analytics() {
   const { pathname } = useLocation();
   useEffect(() => {
-    window.gtag?.("event", "page_view", {
+    track("page_view", {
       page_path: pathname,
       page_location: window.location.href,
       page_title: document.title,

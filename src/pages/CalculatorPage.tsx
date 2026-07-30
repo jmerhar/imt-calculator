@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useI18n } from "@/i18n";
 import type {
   Buyer,
@@ -11,9 +11,16 @@ import { calculate } from "@/engine/imt";
 import { AVAILABLE_YEARS } from "@/engine/tables";
 import { defaultBuyer, defaultInput } from "@/state/defaults";
 import { readStateFromUrl, writeStateToUrl } from "@/state/url";
+import { track, priceBand, rateBand } from "@/analytics";
 import { NumberField, Segmented, SelectField, Toggle } from "@/components/controls";
 import { BuyerCard } from "@/components/BuyerCard";
 import { ResultsPanel } from "@/components/ResultsPanel";
+
+/** True if the current URL arrived with a share token. */
+function arrivalKind(): "none" | "ok" | "bad" {
+  if (typeof window === "undefined" || !/[?&]c=/.test(window.location.hash)) return "none";
+  return readStateFromUrl() ? "ok" : "bad";
+}
 
 /** Distribute shares equally, giving the last buyer the rounding remainder so they sum to 1. */
 function equalShares(buyers: Buyer[]): Buyer[] {
@@ -29,23 +36,72 @@ function equalShares(buyers: Buyer[]): Buyer[] {
 export function CalculatorPage() {
   const { t } = useI18n();
   const [input, setInput] = useState<CalcInput>(() => readStateFromUrl() ?? defaultInput());
+  const arrival = useRef(arrivalKind());
+  const interacted = useRef(false);
 
   useEffect(() => {
     writeStateToUrl(input);
   }, [input]);
 
+  // Report whether this visit opened a shared link (and whether that link was valid).
+  useEffect(() => {
+    if (arrival.current === "ok") track("arrived_via_share");
+    else if (arrival.current === "bad") track("bad_share_link");
+  }, []);
+
   const result = useMemo(() => calculate(input), [input]);
 
-  const update = (patch: Partial<CalcInput>) => setInput((prev) => ({ ...prev, ...patch }));
-  const updateBuyer = (i: number, patch: Partial<Buyer>) =>
+  // A single, debounced "calculate" event once the user pauses — one event per scenario, not per
+  // keystroke — with coarse, non-identifying parameters describing what was computed.
+  useEffect(() => {
+    if (!interacted.current || input.price <= 0) return;
+    const id = setTimeout(() => {
+      track("calculate", {
+        intended_use: input.intendedUse,
+        location: input.location,
+        year: input.year,
+        buyer_count: input.buyers.length,
+        has_non_resident: input.buyers.some((b) => b.residency === "non_resident"),
+        has_entity: input.buyers.some((b) => b.type === "entity"),
+        has_tax_haven: input.buyers.some((b) => b.taxHaven),
+        has_jovem: input.buyers.some((b) => b.jovem),
+        has_mortgage: input.mortgage != null,
+        has_vpt: input.vpt != null && input.vpt > 0,
+        price_band: priceBand(result.taxBase),
+        rate_band: rateBand(result.effectiveRate),
+        shares_valid: !result.warnings.includes("shares_not_100"),
+        value: result.grandTotal,
+      });
+    }, 1500);
+    return () => clearTimeout(id);
+  }, [input, result]);
+
+  const touch = () => {
+    interacted.current = true;
+  };
+  const update = (patch: Partial<CalcInput>) => {
+    touch();
+    setInput((prev) => ({ ...prev, ...patch }));
+  };
+  const updateBuyer = (i: number, patch: Partial<Buyer>) => {
+    touch();
     setInput((prev) => ({
       ...prev,
       buyers: prev.buyers.map((b, j) => (j === i ? { ...b, ...patch } : b)),
     }));
-  const addBuyer = () =>
+  };
+  const addBuyer = () => {
+    touch();
     setInput((prev) => ({ ...prev, buyers: equalShares([...prev.buyers, defaultBuyer()]) }));
-  const removeBuyer = (i: number) =>
+  };
+  const removeBuyer = (i: number) => {
+    touch();
     setInput((prev) => ({ ...prev, buyers: equalShares(prev.buyers.filter((_, j) => j !== i)) }));
+  };
+  const reset = () => {
+    track("reset");
+    setInput(defaultInput());
+  };
 
   const mortgageOn = input.mortgage != null;
 
@@ -165,7 +221,7 @@ export function CalculatorPage() {
       </form>
 
       <div className="panel panel--results">
-        <ResultsPanel input={input} result={result} onReset={() => setInput(defaultInput())} />
+        <ResultsPanel input={input} result={result} onReset={reset} />
       </div>
     </div>
   );

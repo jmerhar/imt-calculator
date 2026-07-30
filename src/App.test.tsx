@@ -72,6 +72,38 @@ describe("App", () => {
     await user.click(screen.getByRole("link", { name: en.nav.glossary }));
     expect(gtag).toHaveBeenCalledWith("event", "page_view", expect.objectContaining({ page_path: "/glossary" }));
   });
+
+  it("tracks the language switch", async () => {
+    const gtag = vi.fn();
+    window.gtag = gtag;
+    const user = userEvent.setup();
+    renderApp();
+    await user.click(screen.getByRole("button", { name: "PT" }));
+    expect(gtag).toHaveBeenCalledWith("event", "language_switch", { language: "pt" });
+  });
+
+  it("tracks the theme toggle", async () => {
+    const gtag = vi.fn();
+    window.gtag = gtag;
+    const user = userEvent.setup();
+    renderApp();
+    await user.click(screen.getByRole("button", { name: en.controls.toDark }));
+    expect(gtag).toHaveBeenCalledWith("event", "theme_toggle", { theme: "dark" });
+  });
+
+  it("tracks the outbound GitHub link", async () => {
+    const gtag = vi.fn();
+    window.gtag = gtag;
+    const user = userEvent.setup();
+    renderApp();
+    await user.click(screen.getByRole("link", { name: en.footer.github }));
+    expect(gtag).toHaveBeenCalledWith("event", "outbound", { target: "github" });
+  });
+
+  it("shows the privacy note in the footer", () => {
+    renderApp();
+    expect(screen.getByText(en.footer.privacy)).toBeInTheDocument();
+  });
 });
 
 afterEach(() => {
