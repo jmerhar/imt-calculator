@@ -8,7 +8,8 @@ import type {
   NonResidentException,
   Residency,
 } from "@/engine/types";
-import { getYearData } from "@/engine/tables";
+import { getYearData, LATEST_YEAR } from "@/engine/tables";
+import { defaultBuyer } from "@/state/defaults";
 
 // Compact, reversible encoding of the calculator inputs into the URL query, so a calculation can
 // be bookmarked or shared. Kept short with single-letter codes; decoding is defensive and returns
@@ -121,16 +122,150 @@ const toBase64Url = (s: string) =>
   btoa(s).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 const fromBase64Url = (t: string) => atob(t.replace(/-/g, "+").replace(/_/g, "/"));
 
+// --- Compact codec -------------------------------------------------------------------------
+// A short, keyed-but-terse payload (raw delimiters, defaults omitted) that is then base64url'd.
+// Keyed so it stays extensible: new fields get a new letter, unknown keys are ignored, and an
+// absent field falls back to its default — so links keep working as fields are added.
+
+function isDefaultBuyer(b: Buyer): boolean {
+  return (
+    b.share === 1 &&
+    b.type === "individual" &&
+    !b.taxHaven &&
+    b.residency === "resident" &&
+    b.exception === "none" &&
+    !b.jovem
+  );
+}
+
+function encodeBuyerCompact(b: Buyer): string {
+  let s = String(Number((b.share * 100).toFixed(2))); // share as a percent
+  if (b.type === "entity") s += "e";
+  if (b.taxHaven) s += "h";
+  if (b.residency === "non_resident") {
+    s += "n";
+    if (b.exception !== "none") s += EXC[b.exception];
+  }
+  if (b.jovem) s += "j";
+  return s;
+}
+
+function parseBuyerCompact(tok: string): Buyer | null {
+  const m = tok.match(/^(\d*\.?\d+)(.*)$/);
+  if (!m) return null;
+  const share = Number(m[1]) / 100;
+  if (!Number.isFinite(share) || share < 0 || share > 1) return null;
+  const f = m[2];
+  const nonResident = f.includes("n");
+  const exception: NonResidentException = !nonResident
+    ? "none"
+    : f.includes("f")
+      ? "former_resident"
+      : f.includes("b")
+        ? "becomes_resident"
+        : f.includes("a")
+          ? "accessible_rent"
+          : "none";
+  return {
+    share,
+    type: f.includes("e") ? "entity" : "individual",
+    taxHaven: f.includes("h"),
+    residency: nonResident ? "non_resident" : "resident",
+    exception,
+    jovem: f.includes("j"),
+  };
+}
+
+export function encodeCompact(input: CalcInput): string {
+  const parts: string[] = [`p${input.price}`];
+  if (input.year !== LATEST_YEAR) parts.push(`y${input.year}`);
+  if (input.location !== "mainland") parts.push(`l${LOC[input.location]}`);
+  if (input.intendedUse !== "own_permanent") parts.push("us");
+  if (input.vpt != null) parts.push(`v${input.vpt}`);
+  if (input.mortgage) {
+    const m = input.mortgage;
+    parts.push(`m${m.amount},${TERM[m.term]}${m.months != null ? "," + m.months : ""}`);
+  }
+  // Omit the buyer list entirely for the common case: one default resident individual.
+  if (!(input.buyers.length === 1 && isDefaultBuyer(input.buyers[0]))) {
+    parts.push(`b${input.buyers.map(encodeBuyerCompact).join("|")}`);
+  }
+  return parts.join(";");
+}
+
+export function decodeCompact(payload: string): CalcInput | null {
+  const input: CalcInput = {
+    year: LATEST_YEAR,
+    location: "mainland",
+    intendedUse: "own_permanent",
+    price: NaN,
+    buyers: [defaultBuyer()],
+  };
+  for (const field of payload.split(";")) {
+    if (!field) continue;
+    const key = field[0];
+    const val = field.slice(1);
+    switch (key) {
+      case "p":
+        input.price = Number(val);
+        break;
+      case "y":
+        input.year = Number(val);
+        break;
+      case "l":
+        input.location = (LOC_R[val] as Location) ?? "mainland";
+        break;
+      case "u":
+        input.intendedUse = val === "s" ? "secondary" : "own_permanent";
+        break;
+      case "v": {
+        const n = Number(val);
+        if (Number.isFinite(n) && n >= 0) input.vpt = n;
+        break;
+      }
+      case "m": {
+        const [a, term, months] = val.split(",");
+        const amount = Number(a);
+        const t = TERM_R[term] as MortgageTerm | undefined;
+        if (Number.isFinite(amount) && amount >= 0 && t) {
+          input.mortgage = { amount, term: t };
+          const mo = Number(months);
+          if (months && Number.isFinite(mo)) input.mortgage.months = mo;
+        }
+        break;
+      }
+      case "b": {
+        const buyers: Buyer[] = [];
+        for (const tok of val.split("|")) {
+          const b = parseBuyerCompact(tok);
+          if (!b) return null;
+          buyers.push(b);
+        }
+        if (buyers.length === 0) return null;
+        input.buyers = buyers;
+        break;
+      }
+    }
+  }
+  if (!Number.isFinite(input.price) || input.price < 0) return null;
+  if (!getYearData(input.year)) return null;
+  return input;
+}
+
 export function encodeToken(input: CalcInput): string {
-  return toBase64Url(encodeState(input));
+  return toBase64Url(encodeCompact(input));
 }
 
 export function decodeToken(token: string): CalcInput | null {
+  let payload: string;
   try {
-    return decodeState(fromBase64Url(token));
+    payload = fromBase64Url(token);
   } catch {
     return null;
   }
+  // Older tokens wrapped the readable query string (which contains "&"); decode those too.
+  if (payload.includes("&")) return decodeState(payload);
+  return decodeCompact(payload);
 }
 
 /** The query part of the current hash route (`#/path?query`), or "". */
