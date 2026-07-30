@@ -114,6 +114,25 @@ export function decodeState(qs: string): CalcInput | null {
   return input;
 }
 
+// A single opaque, URL-safe token carrying the whole state, so shared links are one short code
+// (`?c=…`) rather than a string of readable parameters. (The displayed Calculation ID is a
+// one-way hash and cannot itself reconstruct the inputs, so the link carries this token instead.)
+const toBase64Url = (s: string) =>
+  btoa(s).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+const fromBase64Url = (t: string) => atob(t.replace(/-/g, "+").replace(/_/g, "/"));
+
+export function encodeToken(input: CalcInput): string {
+  return toBase64Url(encodeState(input));
+}
+
+export function decodeToken(token: string): CalcInput | null {
+  try {
+    return decodeState(fromBase64Url(token));
+  } catch {
+    return null;
+  }
+}
+
 /** The query part of the current hash route (`#/path?query`), or "". */
 function currentHashQuery(): string {
   const hash = window.location.hash.replace(/^#/, "");
@@ -125,7 +144,10 @@ function currentHashQuery(): string {
 export function readStateFromUrl(): CalcInput | null {
   if (typeof window === "undefined") return null;
   const qs = currentHashQuery();
-  return qs ? decodeState(qs) : null;
+  if (!qs) return null;
+  const token = new URLSearchParams(qs).get("c");
+  if (token) return decodeToken(token);
+  return decodeState(qs); // tolerate a readable query too
 }
 
 /**
@@ -136,6 +158,6 @@ export function writeStateToUrl(input: CalcInput): void {
   if (typeof window === "undefined") return;
   const hash = window.location.hash.replace(/^#/, "") || "/";
   const path = hash.split("?")[0] || "/";
-  const newHash = `#${path}?${encodeState(input)}`;
+  const newHash = `#${path}?c=${encodeToken(input)}`;
   window.history.replaceState(null, "", newHash);
 }

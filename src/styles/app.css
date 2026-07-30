@@ -387,32 +387,42 @@ a {
   gap: var(--s3);
   margin: var(--s4) 0;
 }
-/* Glazed azulejo tile: cobalt hairline, ceramic highlight, faint bevel. */
+/* Glazed azulejo tile: cobalt hairline, ceramic highlight, label as an eyebrow above the figure. */
 .tile {
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--s3);
+  min-height: 96px;
   background: var(--tile);
   border: 1px solid var(--azul-400);
   border-radius: var(--radius);
   padding: var(--s4);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), var(--shadow-card);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), var(--shadow-card);
 }
 .tile::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(120% 80% at 12% 0%, rgba(255, 255, 255, 0.5), transparent 62%);
+  background: radial-gradient(130% 90% at 15% 0%, rgba(255, 255, 255, 0.38), transparent 58%);
   pointer-events: none;
 }
 .tile__label {
-  font-size: 0.76rem;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
   color: var(--ink-soft);
-  margin-bottom: var(--s2);
 }
 .tile__value {
   font-family: var(--font-mono);
   font-weight: 600;
-  font-size: 1.15rem;
+  font-size: 1.25rem;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
   color: var(--azul-900);
 }
 .tile--total {
@@ -421,7 +431,7 @@ a {
 }
 .tile--total .tile__value {
   color: var(--ink);
-  font-size: 1.35rem;
+  font-size: 1.5rem;
 }
 [data-theme="dark"] .tile__value {
   color: var(--ink);
@@ -646,11 +656,10 @@ a {
   top: var(--s3);
 }
 
-/* ---- Print: a tidy record of inputs + result, without the app chrome --------------------- */
+/* ---- Print: render as a plain document, not a screen of cards -------------------------------
+   Drop all app chrome, boxes, borders, fills and shadows; turn form controls into read-only text
+   (only the chosen segmented option prints) so the sheet reads like a printed statement. */
 @media print {
-  .app {
-    display: block;
-  }
   .app__rail,
   .nav,
   .header__tools,
@@ -658,41 +667,151 @@ a {
   .actions,
   .btn--ghost,
   .buyer__remove,
-  .flash {
+  .flash,
+  .field__hint,
+  .footer__link {
     display: none !important;
   }
   body {
     background: #fff;
     color: #000;
+    font-size: 11pt;
+  }
+  .app {
+    display: block;
   }
   .header,
   .main,
   .footer {
-    padding-inline: 0;
+    padding: 0;
+    max-width: none;
   }
   .header {
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1.5pt solid #000;
+    margin-bottom: 14pt;
+    padding-bottom: 6pt;
+  }
+  .header__mark {
+    display: none;
+  }
+
+  /* Flatten every card/tile: no borders, fills, shadows or radii. */
+  .panel,
+  .buyer,
+  .tile {
+    border: 0 !important;
+    background: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+  }
+  .panel::before,
+  .tile::before {
+    display: none !important;
   }
   .calculator {
-    grid-template-columns: 1fr;
-    gap: var(--s4);
+    display: block;
   }
   .panel {
-    box-shadow: none;
-    border: 1px solid #ccc;
-    break-inside: avoid;
+    margin-bottom: 16pt;
   }
   .panel--results {
     position: static;
+    border-top: 1pt solid #000 !important;
+    padding-top: 10pt !important;
+  }
+  .panel__title,
+  .breakdown__title {
+    font-family: var(--font-sans);
+    font-size: 12pt;
+    border: 0;
+  }
+
+  /* Form controls → plain text values. */
+  .field {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 8pt;
+    margin-bottom: 3pt;
+  }
+  .field__label {
+    min-width: 150pt;
+    color: #000;
+  }
+  .select,
+  .num__input {
+    border: 0 !important;
+    background: none !important;
+    padding: 0 !important;
+    appearance: none;
+    -webkit-appearance: none;
+    font-family: inherit;
+    color: #000;
+  }
+  .num__suffix {
+    position: static;
+    margin-left: 2pt;
+  }
+  /* Segmented control → just the selected value, as text. */
+  .segmented {
+    border: 0 !important;
+    display: inline;
+  }
+  .segmented__option {
+    display: none !important;
+  }
+  .segmented__option[aria-pressed="true"] {
+    display: inline !important;
+    background: none !important;
+    color: #000 !important;
+    font-weight: 700;
+    padding: 0 !important;
+    border: 0 !important;
+  }
+  .form__grid,
+  .buyer__grid,
+  .mortgage__grid {
+    display: block;
+  }
+
+  /* Results as labelled lines with a ruled total. */
+  .tiles {
+    display: block;
+    margin: 6pt 0;
   }
   .tile {
-    box-shadow: none;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
+    display: flex;
+    justify-content: space-between;
+    min-height: 0;
+    padding: 3pt 0 !important;
+    border-bottom: 0.5pt solid #999 !important;
+  }
+  .tile__label {
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 11pt;
+    font-weight: 400;
+  }
+  .tile__value {
+    font-size: 11pt;
+    white-space: nowrap;
+    color: #000 !important;
+  }
+  .tile--total .tile__label,
+  .tile--total .tile__value {
+    font-weight: 700;
+    font-size: 12pt;
+  }
+  .badge,
+  .tag {
+    border: 0;
+    background: none;
+    color: #000;
+    padding: 0;
   }
   a {
-    text-decoration: none;
     color: #000;
+    text-decoration: none;
   }
 }
 

@@ -22,7 +22,7 @@ export const glossary: GlossaryEntry[] = [
   {
     id: "selo",
     en: {
-      term: "Stamp duty (Imposto do Selo)",
+      term: "Stamp duty",
       def: "A tax on legal acts and documents. On a purchase it is 0.8% of the taxable value (TGIS verba 1.1), plus a charge on any mortgage (verba 17).",
     },
     pt: {
@@ -33,7 +33,7 @@ export const glossary: GlossaryEntry[] = [
   {
     id: "vpt",
     en: {
-      term: "Taxable value (VPT — Valor Patrimonial Tributário)",
+      term: "Taxable value (VPT)",
       def: "The tax authority's rateable value of a property. IMT and stamp duty are charged on whichever is higher, the price or the VPT.",
     },
     pt: {
@@ -44,7 +44,7 @@ export const glossary: GlossaryEntry[] = [
   {
     id: "hpp",
     en: {
-      term: "Own permanent home (HPP — habitação própria e permanente)",
+      term: "Own permanent home (HPP)",
       def: "A dwelling that is the buyer's main and permanent residence. It uses a lower IMT table with an exempt first band.",
     },
     pt: {
@@ -66,7 +66,7 @@ export const glossary: GlossaryEntry[] = [
   {
     id: "nonresident",
     en: {
-      term: "Non-resident (não residente)",
+      term: "Non-resident",
       def: "For IMT, a buyer who is not tax-resident in Portugal. Since 2026 they pay a flat 7.5% on housing (CIMT art. 17.º n.º 10), unless an exception applies.",
     },
     pt: {
@@ -77,7 +77,7 @@ export const glossary: GlossaryEntry[] = [
   {
     id: "taxhaven",
     en: {
-      term: "Tax haven (paraíso fiscal)",
+      term: "Tax haven",
       def: "A jurisdiction on Portugal's blacklist. An entity domiciled there pays a flat 10% IMT (art. 17.º n.º 4); this does not apply to individuals.",
     },
     pt: {
@@ -88,7 +88,7 @@ export const glossary: GlossaryEntry[] = [
   {
     id: "rate-deduction",
     en: {
-      term: "Rate and deduction (taxa e parcela a abater)",
+      term: "Rate and deduction",
       def: "IMT is progressive: tax = value × the band's marginal rate − a fixed deduction that keeps the bands continuous.",
     },
     pt: {
@@ -99,7 +99,7 @@ export const glossary: GlossaryEntry[] = [
   {
     id: "taxa-unica",
     en: {
-      term: "Flat rate (taxa única)",
+      term: "Flat rate",
       def: "For high-value property the progressive bands give way to a single flat rate applied to the whole value.",
     },
     pt: {
@@ -121,7 +121,7 @@ export const glossary: GlossaryEntry[] = [
   {
     id: "escritura",
     en: {
-      term: "Deed (escritura)",
+      term: "Deed",
       def: "The notarial contract that transfers the property. IMT and stamp duty must be paid before it is signed.",
     },
     pt: {
@@ -132,7 +132,7 @@ export const glossary: GlossaryEntry[] = [
   {
     id: "moderate-rent",
     en: {
-      term: "Moderate rent (renda moderada)",
+      term: "Moderate rent",
       def: "A rent within the limits of Decreto-Lei n.º 97/2026. A non-resident who lets the home at moderate rent can reclaim the 7.5% surcharge down to ordinary rates.",
     },
     pt: {
@@ -143,7 +143,7 @@ export const glossary: GlossaryEntry[] = [
   {
     id: "at",
     en: {
-      term: "Tax Authority (AT — Autoridade Tributária e Aduaneira)",
+      term: "Tax Authority (AT)",
       def: "Portugal's tax and customs authority, which assesses and collects IMT and stamp duty.",
     },
     pt: {

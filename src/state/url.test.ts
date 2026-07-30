@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { encodeState, decodeState } from "@/state/url";
+import { encodeState, decodeState, encodeToken, decodeToken } from "@/state/url";
 import { defaultInput } from "@/state/defaults";
 import type { CalcInput } from "@/engine/types";
 
@@ -47,5 +47,22 @@ describe("url state", () => {
     const qs = encodeState(defaultInput());
     expect(qs).toContain("y=2026");
     expect(qs).toContain("loc=m");
+  });
+
+  it("round-trips through the compact share token", () => {
+    const input: CalcInput = {
+      ...defaultInput(),
+      buyers: [
+        { share: 0.5, type: "individual", taxHaven: false, residency: "non_resident", exception: "former_resident", jovem: false },
+        { share: 0.5, type: "entity", taxHaven: true, residency: "resident", exception: "none", jovem: false },
+      ],
+    };
+    const token = encodeToken(input);
+    expect(token).not.toContain("="); // opaque, single code — no readable params
+    expect(decodeToken(token)).toEqual(input);
+  });
+
+  it("returns null for a malformed token", () => {
+    expect(decodeToken("!!!not-base64!!!")).toBeNull();
   });
 });

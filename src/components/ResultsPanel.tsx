@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useI18n, fmt } from "@/i18n";
 import type { ImtRule, CalcInput, CalcResult } from "@/engine/types";
 import { formatEuro, formatPercent } from "@/format";
-import { encodeState } from "@/state/url";
+import { encodeToken } from "@/state/url";
 
 function ruleLabel(rule: ImtRule, t: ReturnType<typeof useI18n>["t"]): string {
   if (rule === "non_resident_7_5") return t.results.ruleNonResident;
@@ -37,7 +37,7 @@ export function ResultsPanel({
   };
 
   const shareLink = () => {
-    const url = `${window.location.origin}${window.location.pathname}#/?${encodeState(input)}`;
+    const url = `${window.location.origin}${window.location.pathname}#/?c=${encodeToken(input)}`;
     void copy(url, t.actions.linkCopied);
   };
 
