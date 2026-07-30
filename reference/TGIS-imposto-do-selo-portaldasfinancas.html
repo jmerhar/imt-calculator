@@ -1,0 +1,1284 @@
+
+
+<!DOCTYPE html>
+<html dir="ltr" lang="pt-PT">
+    <head><meta charset="UTF-8" /><meta http-equiv="Content-type" content="text/html; charset=utf-8" /><meta http-equiv="X-UA-Compatible" content="IE=Edge" /><meta http-equiv="Expires" content="0" /><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /><meta name="msapplication-TileImage" content="/_layouts/15/images/SharePointMetroAppTile.png" /><meta name="msapplication-TileColor" content="#0072C6" /><title>
+	
+	
+
+</title><link rel="shortcut icon" href="/_layouts/15/images/favicon.ico?rev=23" type="image/vnd.microsoft.icon" id="favicon" /><link rel="stylesheet" type="text/css" href="/Style%20Library/en-US/Themable/Core%20Styles/pagelayouts15.css"/>
+<link rel="stylesheet" type="text/css" href="/_layouts/15/1033/styles/Themable/corev15.css?rev=VY%2BwyEmZ4VeBNMq6%2BgwRaA%3D%3DTAG0"/>
+<link rel="stylesheet" type="text/css" href="/Style%20Library/en-US/Themable/Core%20Styles/controls15.css"/>
+<script type="text/javascript" src="/_layouts/15/1033/initstrings.js?rev=2WxjgxyM2qXGgY9r2nHW8A%3D%3DTAG0"></script>
+<script type="text/javascript" src="/_layouts/15/init.js?rev=cac0ognmFHLijbiML%2BJs2g%3D%3DTAG0"></script>
+<script type="text/javascript" src="/ScriptResource.axd?d=hH91i4g65KFqPCzvYPcCknvt957Kf8voxXxSP5qNtNTHlJ6siPv7j5oBpM1Nla7qasLZnYxBD1sGmJsWHbelRsq8q4GWr9Gd3QAEnVmzsV_rDNj2YjhnS_tP2VhBVviieJlurrQHYcT3bqe1-hPKAFL2zB1VctiAdDWbMmD8he5fF-IWPCqR_B6WO9BbTfNU0&amp;t=32e5dfca"></script>
+<script type="text/javascript" src="/_layouts/15/blank.js?rev=MuqekVyzuIH7v8BYKkjfpA%3D%3DTAG0"></script>
+<script type="text/javascript" src="/ScriptResource.axd?d=CCplkbZfMQG-wk9roOk4s-jYTo1JBsWLZXFPsZ9wz6bARgDB4KPsvcfxg0C-9lwSYzicBuUyc4Z-_1-WVCuQzFxkKusHJjV02821esjGRfEtrmONeC4kEEogykO-IRaTh5FbiVyURlHXls_xH-Ujc529rwubRL8mbo0pQTDB4yPkFFbrRy4WV0ywJCFUBauI0&amp;t=32e5dfca"></script>
+<script type="text/javascript">RegisterSod("require.js", "\u002f_layouts\u002f15\u002frequire.js?rev=4UhLIF\u00252FezOvmGnh\u00252Fs0LLpA\u00253D\u00253DTAG0");</script>
+<script type="text/javascript">RegisterSod("strings.js", "\u002f_layouts\u002f15\u002f1033\u002fstrings.js?rev=k\u00252FSaOdWtcHDDvsb\u00252FUFykOA\u00253D\u00253DTAG0");</script>
+<script type="text/javascript">RegisterSod("sp.res.resx", "\u002f_layouts\u002f15\u002f1033\u002fsp.res.js?rev=wAoMiKx7gNtLcYzRgm0ujg\u00253D\u00253DTAG0");</script>
+<script type="text/javascript">RegisterSod("sp.runtime.js", "\u002f_layouts\u002f15\u002fsp.runtime.js?rev=iKsvehEPmAAeq\u00252Fnk1SNrKg\u00253D\u00253DTAG0");RegisterSodDep("sp.runtime.js", "sp.res.resx");</script>
+<script type="text/javascript">RegisterSod("sp.js", "\u002f_layouts\u002f15\u002fsp.js?rev=XguCzicA9gLWg3miNWnLcQ\u00253D\u00253DTAG0");RegisterSodDep("sp.js", "sp.runtime.js");RegisterSodDep("sp.js", "sp.ui.dialog.js");RegisterSodDep("sp.js", "sp.res.resx");</script>
+<script type="text/javascript">RegisterSod("sp.init.js", "\u002f_layouts\u002f15\u002fsp.init.js?rev=\u00252FM\u00252FJVIptR6Y3BisjUWtq6A\u00253D\u00253DTAG0");</script>
+<script type="text/javascript">RegisterSod("sp.ui.dialog.js", "\u002f_layouts\u002f15\u002fsp.ui.dialog.js?rev=pgAiqmmISFyF1HJ3S8b12g\u00253D\u00253DTAG0");RegisterSodDep("sp.ui.dialog.js", "sp.init.js");RegisterSodDep("sp.ui.dialog.js", "sp.res.resx");</script>
+<script type="text/javascript">RegisterSod("core.js", "\u002f_layouts\u002f15\u002fcore.js?rev=8Ki9BWWbMM\u00252F9Rm5\u00252BYyJ1\u00252FA\u00253D\u00253DTAG0");RegisterSodDep("core.js", "strings.js");</script>
+<script type="text/javascript">RegisterSod("menu.js", "\u002f_layouts\u002f15\u002fmenu.js?rev=nJ2V\u00252FaxwsPN5y33An62wEQ\u00253D\u00253DTAG0");</script>
+<script type="text/javascript">RegisterSod("mQuery.js", "\u002f_layouts\u002f15\u002fmquery.js?rev=X3C8JFO24Pluk\u00252BNcofaYZQ\u00253D\u00253DTAG0");</script>
+<script type="text/javascript">RegisterSod("callout.js", "\u002f_layouts\u002f15\u002fcallout.js?rev=fLM6ugNu\u00252BWim9twKqtQFpw\u00253D\u00253DTAG0");RegisterSodDep("callout.js", "strings.js");RegisterSodDep("callout.js", "mQuery.js");RegisterSodDep("callout.js", "core.js");</script>
+<script type="text/javascript">RegisterSod("sp.core.js", "\u002f_layouts\u002f15\u002fsp.core.js?rev=PLeoLQtiXTjdFiEdZzVdNQ\u00253D\u00253DTAG0");RegisterSodDep("sp.core.js", "strings.js");RegisterSodDep("sp.core.js", "sp.init.js");RegisterSodDep("sp.core.js", "core.js");</script>
+<script type="text/javascript">RegisterSod("clienttemplates.js", "\u002f_layouts\u002f15\u002fclienttemplates.js?rev=Octvh1Hhk3TB91B9dojKxg\u00253D\u00253DTAG0");</script>
+<script type="text/javascript">RegisterSod("sharing.js", "\u002f_layouts\u002f15\u002fsharing.js?rev=yepn\u00252BWDbDmkR3lW\u00252FtokfdA\u00253D\u00253DTAG0");RegisterSodDep("sharing.js", "strings.js");RegisterSodDep("sharing.js", "mQuery.js");RegisterSodDep("sharing.js", "clienttemplates.js");RegisterSodDep("sharing.js", "core.js");</script>
+<script type="text/javascript">RegisterSod("suitelinks.js", "\u002f_layouts\u002f15\u002fsuitelinks.js?rev=Rh\u00252FqR2\u00252Bvxj\u00252BcLb8\u00252BLp85sQ\u00253D\u00253DTAG0");RegisterSodDep("suitelinks.js", "strings.js");RegisterSodDep("suitelinks.js", "core.js");</script>
+<script type="text/javascript">RegisterSod("userprofile", "\u002f_layouts\u002f15\u002fsp.userprofiles.js?rev=cx6U8sP\u00252ByP0OFLjk6ekyIg\u00253D\u00253DTAG0");RegisterSodDep("userprofile", "sp.runtime.js");</script>
+<script type="text/javascript">RegisterSod("followingcommon.js", "\u002f_layouts\u002f15\u002ffollowingcommon.js?rev=bNbF37TnrLon\u00252FyA3PyNmGQ\u00253D\u00253DTAG0");RegisterSodDep("followingcommon.js", "strings.js");RegisterSodDep("followingcommon.js", "sp.js");RegisterSodDep("followingcommon.js", "userprofile");RegisterSodDep("followingcommon.js", "core.js");RegisterSodDep("followingcommon.js", "mQuery.js");</script>
+<script type="text/javascript">RegisterSod("profilebrowserscriptres.resx", "\u002f_layouts\u002f15\u002f1033\u002fprofilebrowserscriptres.js?rev=qwf69WaVc1mYlJLXqmZmVA\u00253D\u00253DTAG0");</script>
+<script type="text/javascript">RegisterSod("sp.ui.mysitecommon.js", "\u002f_layouts\u002f15\u002fsp.ui.mysitecommon.js?rev=\u00252FgfBAZxXQklF5e2VmeyLaQ\u00253D\u00253DTAG0");RegisterSodDep("sp.ui.mysitecommon.js", "sp.init.js");RegisterSodDep("sp.ui.mysitecommon.js", "sp.runtime.js");RegisterSodDep("sp.ui.mysitecommon.js", "userprofile");RegisterSodDep("sp.ui.mysitecommon.js", "profilebrowserscriptres.resx");</script>
+<script type="text/javascript">RegisterSod("browserScript", "\u002f_layouts\u002f15\u002fie55up.js?rev=L6m75Ej71CHovN9xHITo8w\u00253D\u00253DTAG0");RegisterSodDep("browserScript", "strings.js");</script>
+<script type="text/javascript">RegisterSod("inplview", "\u002f_layouts\u002f15\u002finplview.js?rev=OQBUunWhuC8KeWHzYVDdmw\u00253D\u00253DTAG0");RegisterSodDep("inplview", "strings.js");RegisterSodDep("inplview", "core.js");RegisterSodDep("inplview", "clienttemplates.js");RegisterSodDep("inplview", "sp.js");</script>
+<script type="text/javascript">RegisterSod("cui.js", "\u002f_layouts\u002f15\u002fcui.js?rev=H4ipwcVUEOW5xYClmoP9Lg\u00253D\u00253DTAG0");</script>
+<script type="text/javascript">RegisterSod("ribbon", "\u002f_layouts\u002f15\u002fsp.ribbon.js?rev=vgoHcs5h4WhfWfucJO6jVw\u00253D\u00253DTAG0");RegisterSodDep("ribbon", "strings.js");RegisterSodDep("ribbon", "core.js");RegisterSodDep("ribbon", "sp.core.js");RegisterSodDep("ribbon", "sp.js");RegisterSodDep("ribbon", "cui.js");RegisterSodDep("ribbon", "sp.res.resx");RegisterSodDep("ribbon", "sp.runtime.js");RegisterSodDep("ribbon", "inplview");</script>
+<script type="text/javascript">RegisterSod("offline.js", "\u002f_layouts\u002f15\u002foffline.js?rev=cfmmKT45N1X\u00252B7CI\u00252FK4mMqA\u00253D\u00253DTAG0");</script>
+<script type="text/javascript">RegisterSod("WPAdderClass", "\u002f_layouts\u002f15\u002fwpadder.js?rev=fOmeTphPMSuXs2s0tCabUw\u00253D\u00253DTAG0");</script>
+<script type="text/javascript">RegisterSod("datepicker.js", "\u002f_layouts\u002f15\u002fdatepicker.js?rev=FhMEY0E1XJPfrFQpGg\u00252B6Bw\u00253D\u00253DTAG0");RegisterSodDep("datepicker.js", "strings.js");</script>
+<link type="text/xml" rel="alternate" href="/pt/informacao_fiscal/codigos_tributarios/selo/_vti_bin/spsdisco.aspx" />
+            
+
+<link href="/_layouts/15/portalat/css/fontawesome.min.css?v1.0.0" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="/_layouts/15/portalat/js/jquery-3.7.1.min.js"></script>
+<script type="text/javascript" src="/_layouts/15/portalat/js/jquery.json-2.3.js"></script>
+
+
+<link href="/_layouts/15/portalat/js/bootstrap/bootstrap.min.css" rel="stylesheet" />
+<link href="/_layouts/15/portalat/css/style.css?v1.0.0" rel="stylesheet" />
+
+<!-- build:css css/pf-bundle.css -->
+
+
+<link rel="stylesheet" type="text/css" href="/_layouts/15/portalat/css/pf-main.css?v1.0.0" media="all" />
+<link rel="stylesheet" type="text/css" href="/_layouts/15/portalat/css/main.css?v1.0.0" />
+<!-- endbuild -->
+
+<link href="/_layouts/15/portalat/css/sharepoint.fix.css?v1.0.0" rel="stylesheet" />
+
+<!-- build:js js/pf-bundle.js -->
+<script type="text/javascript" src="/_layouts/15/portalat/js/modernizr.min.js?v1.0.0"></script>
+<script type="text/javascript" src="/_layouts/15/portalat/js/bootstrap/bootstrap.min.js"></script>
+
+
+<script type="text/javascript" src="/_layouts/15/portalat/js/opensoft.util.js?v1.0.0"></script>
+<script type="text/javascript" src="/_layouts/15/portalat/js/opensoft.messages.js?v1.0.0"></script>
+<script type="text/javascript" src="/_layouts/15/portalat/js/numericField.js?v1.0.0"></script>
+<!-- endbuild -->
+
+<style id="ctl00_ctl22__styles" type="text/css">
+	#suiteBar, #s4-ribbonrow { display: none; }
+</style>
+<link rel="canonical" href="http://info.portaldasfinancas.gov.pt:80/pt/informacao_fiscal/codigos_tributarios/selo/Pages/ccod-selo-tabgiselo.aspx" />
+            
+	<style type="text/css">
+		.v4master #s4-leftpanel { display: none; }
+		.v4master .s4-ca { margin-left: 0px; }
+	</style>
+	
+	
+
+            
+        
+
+        <script language="javascript" type="text/javascript">
+            if (typeof browseris !== 'undefined') {
+                browseris.ie = false;
+            }
+             document.addEventListener("DOMContentLoaded", function () {
+            const menu = document.getElementById("menu-links");
+            const isMobile = window.innerWidth < 576;
+
+            if (isMobile && menu.classList.contains("show")) {
+              // remove 'show' se estiver em mobile — começa colapsado
+              menu.classList.remove("show");
+            }
+          });
+        </script>
+
+    <style type="text/css">
+	.s4-skipribbonshortcut { display:none; }
+
+</style></head>
+    <body>
+        <div id="imgPrefetch" style="display:none">
+<img src="/_layouts/15/images/favicon.ico?rev=23" />
+<img src="/_layouts/15/images/spcommon.png?rev=40" />
+</div>
+
+        <noscript><div class='noindex'>You may be trying to access this site from a secured browser on the server. Please enable scripts and reload this page.</div></noscript>
+        
+        <form method="post" action="./ccod-selo-tabgiselo.aspx" onsubmit="javascript:return WebForm_OnSubmit();" id="aspnetForm">
+<div class="aspNetHidden">
+<input type="hidden" name="_wpcmWpid" id="_wpcmWpid" value="" />
+<input type="hidden" name="wpcmVal" id="wpcmVal" value="" />
+<input type="hidden" name="MSOWebPartPage_PostbackSource" id="MSOWebPartPage_PostbackSource" value="" />
+<input type="hidden" name="MSOTlPn_SelectedWpId" id="MSOTlPn_SelectedWpId" value="" />
+<input type="hidden" name="MSOTlPn_View" id="MSOTlPn_View" value="0" />
+<input type="hidden" name="MSOTlPn_ShowSettings" id="MSOTlPn_ShowSettings" value="False" />
+<input type="hidden" name="MSOGallery_SelectedLibrary" id="MSOGallery_SelectedLibrary" value="" />
+<input type="hidden" name="MSOGallery_FilterString" id="MSOGallery_FilterString" value="" />
+<input type="hidden" name="MSOTlPn_Button" id="MSOTlPn_Button" value="none" />
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__REQUESTDIGEST" id="__REQUESTDIGEST" value="noDigest" />
+<input type="hidden" name="MSOSPWebPartManager_DisplayModeName" id="MSOSPWebPartManager_DisplayModeName" value="Browse" />
+<input type="hidden" name="MSOSPWebPartManager_ExitingDesignMode" id="MSOSPWebPartManager_ExitingDesignMode" value="false" />
+<input type="hidden" name="MSOWebPartPage_Shared" id="MSOWebPartPage_Shared" value="" />
+<input type="hidden" name="MSOLayout_LayoutChanges" id="MSOLayout_LayoutChanges" value="" />
+<input type="hidden" name="MSOLayout_InDesignMode" id="MSOLayout_InDesignMode" value="" />
+<input type="hidden" name="_wpSelected" id="_wpSelected" value="" />
+<input type="hidden" name="_wzSelected" id="_wzSelected" value="" />
+<input type="hidden" name="MSOSPWebPartManager_OldDisplayModeName" id="MSOSPWebPartManager_OldDisplayModeName" value="Browse" />
+<input type="hidden" name="MSOSPWebPartManager_StartWebPartEditingName" id="MSOSPWebPartManager_StartWebPartEditingName" value="false" />
+<input type="hidden" name="MSOSPWebPartManager_EndWebPartEditing" id="MSOSPWebPartManager_EndWebPartEditing" value="false" />
+<input type="hidden" name="_maintainWorkspaceScrollPosition" id="_maintainWorkspaceScrollPosition" value="0" />
+<input type="hidden" name="__LASTFOCUS" id="__LASTFOCUS" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTMwNTk1OTE5Mg9kFgJmD2QWAgIBD2QWBAIBD2QWBAIHD2QWAmYPZBYCAgEPFgIeE1ByZXZpb3VzQ29udHJvbE1vZGULKYgBTWljcm9zb2Z0LlNoYXJlUG9pbnQuV2ViQ29udHJvbHMuU1BDb250cm9sTW9kZSwgTWljcm9zb2Z0LlNoYXJlUG9pbnQsIFZlcnNpb249MTYuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49NzFlOWJjZTExMWU5NDI5YwFkAhMPZBYCAgEPZBYEAgEPZBYCZg8WAh4HVmlzaWJsZWdkAgIPZBYCZg88KwAGAGQCCQ9kFg4CFQ9kFgICAQ9kFgJmDw8WAh8BaGRkAhcPZBYCAgMPFgIfAWgWAmYPZBYEAgIPZBYGAgEPFgIfAWhkAgMPFgIfAWhkAgUPFgIfAWhkAgMPDxYCHglBY2Nlc3NLZXkFAS9kZAIZD2QWAgIDD2QWAgIBD2QWBAIDD2QWAmYPDxYEHgRfIVNCAgIeCENzc0NsYXNzBRdtcy1wcm9tb3RlZEFjdGlvbkJ1dHRvbmRkAgUPDxYGHwQFF21zLXByb21vdGVkQWN0aW9uQnV0dG9uHwMCAh8BaGRkAiUPZBYCAgEPZBYCAgEPFgIfAAsrBAFkAicPZBYCAgEPFgIeC18hSXRlbUNvdW50AgoWFGYPZBYCZg8VBAAGL3B0L2F0QEluZm9ybWHDp8OjbyBpbnN0aXR1Y2lvbmFsIGRhIEF1dG9yaWRhZGUgVHJpYnV0w6FyaWEgZSBBZHVhbmVpcmEEQSBBVGQCAQ9kFgJmDxUEAD4vcHQvYXBvaW9fY29udHJpYnVpbnRlL2NhbGVuZGFyaW9fZmlzY2FsL1BhZ2VzL29icmlnYWNvZXMuYXNweDdDYWxlbmTDoXJpbyBkZSBvYnJpZ2HDp8O1ZXMgZGVjbGFyYXRpdmFzIGUgZGUgcGFnYW1lbnRvDUFnZW5kYSBGaXNjYWxkAgIPZBYCZg8VBAA4aHR0cHM6Ly9zaXRmaXNjYWwucG9ydGFsZGFzZmluYW5jYXMuZ292LnB0L2dlcmFsL3NpdGVNYXA2TWFwYSBkZSBzZXJ2acOnb3MgZWxldHLDs25pY29zIG5vIFBvcnRhbCBkYXMgRmluYW7Dp2FzCVNlcnZpw6dvc2QCAw9kFgJmDxUEAAgvcHQvaG9tZTpJbmZvcm1hw6fDo28gcmVsZXZhbnRlIGVtIG1hdMOpcmlhIHRyaWJ1dMOhcmlhIGUgYWR1YW5laXJhH0luZm9ybWHDp8OjbyBGaXNjYWwgZSBBZHVhbmVpcmFkAgQPZBYCZg8VBABRaHR0cHM6Ly9pbmZvLnBvcnRhbGRhc2ZpbmFuY2FzLmdvdi5wdC9wdC9hcG9pb19hb19jb250cmlidWludGUvUGFnZXMvZGVmYXVsdC5hc3B4MENvbnRlw7pkb3MgaW5mb3JtYXRpdm9zIGRlIGFwb2lvIGFvIGNvbnRyaWJ1aW50ZRVBcG9pbyBhbyBDb250cmlidWludGVkAgUPZBYCZg8VBAAZL3B0L0dyYW5kZXNfQ29udHJpYnVpbnRlcz9JbmZvcm1hw6fDo28gZGUgc3Vwb3J0ZSBhb3MgY29udHJpYnVpbnRlcyBhY29tcGFuaGFkb3MgcGVsYSBVR0MVR3JhbmRlcyBDb250cmlidWludGVzZAIGD2QWAmYPFQQACS9wdC9VLVRheAVVLVRBWAVVLVRBWGQCBw9kFgJmDxUEACAvcHQvZGdjaS9kaXZ1bGdhY2FvL2VzdGF0aXN0aWNhc19Fc3RhdMOtc3RpY2FzIGRlY2xhcmF0aXZhcyBlIHJlbGF0aXZhcyBhIEltcG9zdG9zIHNvYnJlIG8gUmVuZGltZW50bywgYSBEZXNwZXNhIGUgbyBQYXRyaW3Ds25pbw1Fc3RhdMOtc3RpY2FzZAIID2QWAmYPFQQAJi9lbi90YXgtaW5mb3JtYXRpb24vUGFnZXMvZGVmYXVsdC5hc3B4G1RheCBJbmZvcm1hdGlvbiBpbiBQb3J0dWdhbA9UYXggSW5mb3JtYXRpb25kAgkPZBYCZg8VBAANL3B0L0NpZGFkYW5pYTBJbmZvcm1hw6fDo28gZSBjb250ZcO6ZG9zIHNvYnJlIENpZGFkYW5pYSBGaXNjYWwQQ2lkYWRhbmlhIEZpc2NhbGQCLw9kFgICAg9kFgoCAQ9kFgJmDxYCHwALKwQBZAIDDxYCHwALKwQBZAIFDxYCHwALKwQBZAIHDxYCHwALKwQBZAINDxYCHwALKwQBFgJmDw9kZGQCZw9kFgJmD2QWCAIBDxYCHgVzdHlsZQUKd2lkdGg6MzglO2QCAw8WAh8GBQp3aWR0aDozNyU7ZAIFDxYCHwYFDWRpc3BsYXk6bm9uZTtkAgcPFgIfBgUNZGlzcGxheTpub25lO2RkWIdO8wpXtV3PamcxyXpaLc629+wCcHXxwmwLL7YiXx8=" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="/WebResource.axd?d=n93m3a602kqcvy1ClW_BGYEmEsbhnD52rKCcPKZYSPXFZNMEuBAjTcqt4CGXEI0enoI2WOpn2fKae8lTCQ4X-0949USZLqdarqthCdyPSqc1&amp;t=638942246805310136" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+//<![CDATA[
+var MSOWebPartPageFormName = 'aspnetForm';
+var g_presenceEnabled = true;
+var g_wsaEnabled = false;
+
+var g_correlationId = '8e472ca2-84c8-5011-5399-f13f8fd006af';
+var g_wsaQoSEnabled = false;
+var g_wsaQoSDataPoints = [];
+var g_wsaRUMEnabled = false;
+var g_wsaLCID = 1033;
+var g_wsaListTemplateId = 850;
+var g_wsaSiteTemplateId = 'CMSPUBLISHING#0';
+var _fV4UI=true;var _spPageContextInfo = {webServerRelativeUrl: "\u002fpt\u002finformacao_fiscal\u002fcodigos_tributarios\u002fselo", webAbsoluteUrl: "http:\u002f\u002finfo.portaldasfinancas.gov.pt\u002fpt\u002finformacao_fiscal\u002fcodigos_tributarios\u002fselo", siteAbsoluteUrl: "http:\u002f\u002finfo.portaldasfinancas.gov.pt", serverRequestPath: "\u002fpt\u002finformacao_fiscal\u002fcodigos_tributarios\u002fselo\u002fPages\u002fccod-selo-tabgiselo.aspx", layoutsUrl: "_layouts\u002f15", webTitle: "C\u00F3digo do Imposto do Selo", webTemplate: "39", tenantAppVersion: "0", isAppWeb: false, Has2019Era: true, webLogoUrl: "_layouts\u002f15\u002fimages\u002fsiteicon.png", webLanguage: 1033, currentLanguage: 1033, currentUICultureName: "en-US", currentCultureName: "pt-PT", clientServerTimeDelta: new Date("2026-07-30T09:12:38.3273699Z") - new Date(), updateFormDigestPageLoaded: new Date("2026-07-30T09:12:38.3273699Z"), siteClientTag: "546$$16.0.5561.1001", crossDomainPhotosEnabled:false, webUIVersion:15, webPermMasks:{High:16,Low:196705},pageListId:"{cedee3f7-5dd4-43fd-b993-d08694b521ba}",pageItemId:45, pagePersonalizationScope:1, alertsEnabled:true, customMarkupInCalculatedFieldDisabled: true, siteServerRelativeUrl: "\u002f", allowSilverlightPrompt:'True', isSiteAdmin: false};var L_Menu_BaseUrl="/pt/informacao_fiscal/codigos_tributarios/selo";
+var L_Menu_LCID="1033";
+var L_Menu_SiteTheme="null";
+document.onreadystatechange=fnRemoveAllStatus; function fnRemoveAllStatus(){removeAllStatus(true)};
+                            function DoCallBack(filterText)
+                            {WebForm_DoCallback('ctl00$PlaceHolderMain$ctl03$ctl00',filterText,UpdateFilterCallback,0,CallBackError,true)
+                            }
+                            function CallBackError(result, clientsideString)
+                            {                
+                            }
+                        Flighting.ExpFeatures = [480215056,1880287568,1561350208,302071836,3212816,69472768,4194310,-2113396707,268502022,-872284160,1049232,-2147421952,65536,65536,2097472,917504,-2147474174,1372324107,67108882,0,0,-2147483648,2097152,0,0,32768,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32768]; (function()
+{
+    if(typeof(window.SP) == "undefined") window.SP = {};
+    if(typeof(window.SP.YammerSwitch) == "undefined") window.SP.YammerSwitch = {};
+
+    var ysObj = window.SP.YammerSwitch;
+    ysObj.IsEnabled = false;
+    ysObj.TargetYammerHostName = "www.yammer.com";
+} )(); 
+                var g_syncButtonUsePopup = true;
+                //]]>
+</script>
+
+<script src="/_layouts/15/blank.js?rev=MuqekVyzuIH7v8BYKkjfpA%3D%3DTAG0" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+(function(){
+
+        if (typeof(_spBodyOnLoadFunctions) === 'undefined' || _spBodyOnLoadFunctions === null) {
+            return;
+        }
+        _spBodyOnLoadFunctions.push(function() {
+            SP.SOD.executeFunc('core.js', 'FollowingDocument', function() { FollowingDocument(); });
+        });
+    })();(function(){
+
+        if (typeof(_spBodyOnLoadFunctions) === 'undefined' || _spBodyOnLoadFunctions === null) {
+            return;
+        }
+        _spBodyOnLoadFunctions.push(function() {
+            SP.SOD.executeFunc('core.js', 'FollowingCallout', function() { FollowingCallout(); });
+        });
+    })();if (typeof(DeferWebFormInitCallback) == 'function') DeferWebFormInitCallback();function WebForm_OnSubmit() {
+UpdateFormDigest('\u002fpt\u002finformacao_fiscal\u002fcodigos_tributarios\u002fselo', 1440000);
+                    var workspaceElem = GetCachedElement("s4-workspace");
+                    if (workspaceElem != null)
+                    {
+                        var scrollElem = GetCachedElement("_maintainWorkspaceScrollPosition");
+                        if (scrollElem != null)
+                        {
+                            scrollElem.value = workspaceElem.scrollTop;
+                        }
+                    };
+                if (typeof(_spFormOnSubmitWrapper) != 'undefined') {return _spFormOnSubmitWrapper();} else {return true;};
+return true;
+}
+//]]>
+</script>
+
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="2F216C9B" />
+	<input type="hidden" name="__SCROLLPOSITIONX" id="__SCROLLPOSITIONX" value="0" />
+	<input type="hidden" name="__SCROLLPOSITIONY" id="__SCROLLPOSITIONY" value="0" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAAIF2H9Iq3/1b0BrtSvwT2uDMTZk9qLGncDjImqxppn1M6DOnf5pJwzYwVJoBu/O81J88xHhn8dIQf+69fy4P9ns" />
+</div>
+            <script type="text/javascript"> var submitHook = function () { return false; }; theForm._spOldSubmit = theForm.submit; theForm.submit = function () { if (!submitHook()) { this._spOldSubmit(); } }; </script>
+            <span id="DeltaSPWebPartManager">
+                
+            </span>
+            <script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('ctl00$ScriptManager', 'aspnetForm', ['fctl00$WebPartAdderUpdatePanel',''], [], ['ctl00$WebPartAdder',''], 90, 'ctl00');
+//]]>
+</script>
+
+            <span id="DeltaDelegateControls">
+                
+                
+            </span>
+            <div id="TurnOnAccessibility" style="display: none" class="s4-notdlg noindex">
+                <a id="linkTurnOnAcc" href="#" class="ms-accessible ms-acc-button" onclick="SetIsAccessibilityFeatureEnabled(true);UpdateAccessibilityUI();document.getElementById('linkTurnOffAcc').focus();return false;">
+                    Turn on more accessible mode</a>
+            </div>
+            <div id="TurnOffAccessibility" style="display: none" class="s4-notdlg noindex">
+                <a id="linkTurnOffAcc" href="#" class="ms-accessible ms-acc-button" onclick="SetIsAccessibilityFeatureEnabled(false);UpdateAccessibilityUI();document.getElementById('linkTurnOnAcc').focus();return false;">
+                    Turn off more accessible mode</a>
+            </div>
+            <div class="s4-notdlg s4-skipribbonshortcut noindex">
+                <a href="javascript:;" onclick="document.getElementById(&#39;startNavigation&#39;).focus();" class="ms-accessible ms-acc-button" accesskey="Y">
+                    Skip Ribbon Commands</a>
+            </div>
+            <div class="s4-notdlg noindex">
+                <a href="javascript:;" onclick="document.getElementById(&#39;mainContent&#39;).focus();" class="ms-accessible ms-acc-button">
+                    Skip to main content</a>
+            </div>
+            <div id="TurnOffAnimation" style="display: none;" class="s4-notdlg noindex">
+                <a id="linkTurnOffAnimation" href="#" class="ms-accessible ms-acc-button" onclick="ToggleAnimationStatus();return false;">
+                    Turn off Animations</a>
+            </div>
+            <div id="TurnOnAnimation" style="display: none;" class="s4-notdlg noindex">
+                <a id="linkTurnOnAnimation" href="#" class="ms-accessible ms-acc-button" onclick="ToggleAnimationStatus();return false;">
+                    Turn on Animations</a>
+            </div>
+            <a id="HiddenAnchor" href="javascript:;" style="display: none;"></a>
+            <div id="suiteBar" class="ms-dialogHidden noindex">
+                <div id="suiteBarLeft">
+                    <div class="ms-table ms-fullWidth">
+                        <div class="ms-tableRow">
+                            <div class="ms-tableCell ms-verticalAlignMiddle">
+                                <div class="ms-core-brandingText">SharePoint</div>
+
+                            </div>
+                            <div id="DeltaSuiteLinks" class="ms-core-deltaSuiteLinks">
+	
+                                <div id="suiteLinksBox">
+                                    
+                                </div>
+                            
+</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="suiteBarRight">
+                    <div id="DeltaSuiteBarRight" class="ms-core-deltaSuiteBarRight">
+	
+                        <div id="welcomeMenuBox">
+                            
+<a id="ctl00_IdWelcome_ExplicitLogin" class="ms-signInLink" href="http://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/selo/_layouts/15/Authenticate.aspx?Source=%2Fpt%2Finformacao%5Ffiscal%2Fcodigos%5Ftributarios%2Fselo%2FPages%2Fccod%2Dselo%2Dtabgiselo%2Easpx" style="display:inline-block;">Sign In</a>
+
+                        </div>
+                        <div id="suiteBarButtons">
+                            <span class="ms-siteactions-root" id="siteactiontd">
+                                
+                            </span>
+
+                            <span id="ms-help">
+                                <a onmouseover="this.firstChild.firstChild.firstChild.style.left=&#39;-1px&#39;; this.firstChild.firstChild.firstChild.style.top=&#39;-1px&#39;;" onmouseout="this.firstChild.firstChild.firstChild.style.left=&#39;-19px&#39;; this.firstChild.firstChild.firstChild.style.top=&#39;-1px&#39;;" id="ctl00_TopHelpLink" accesskey="6" title="Help" onclick="TopHelpButtonClick(&#39;HelpHome&#39;,event);return false" href="../../../../../_catalogs/masterpage/#" style="display:inline-block;height:30px;width:30px;"><span style="display:inline-block;overflow:hidden;height:16px;width:16px;padding-left:7px;padding-top:7px;padding-right:7px;padding-bottom:7px;"><span style="height:16px;width:16px;position:relative;display:inline-block;overflow:hidden;" class="s4-clust"><img src="/_layouts/15/1033/images/spintl.png?rev=40" alt="Help" style="border:0;position:absolute;left:-19px;top:-1px;" /></span></span></a>
+                            </span>
+                        </div>
+                    
+</div>
+                </div>
+            </div>
+            <div id="ms-hcTest"></div>
+            <div id="s4-ribbonrow">
+                <div id="globalNavBox" class="noindex">
+                    <div id="ribbonBox">
+                        <div id="s4-ribboncont">
+                            <div id="DeltaSPRibbon">
+	
+                                
+
+                                <div class='ms-cui-ribbonTopBars'><div class='ms-cui-topBar1'></div><div class='ms-cui-topBar2'><div id='RibbonContainer-TabRowLeft' class='ms-cui-TabRowLeft ms-core-defaultFont ms-dialogHidden'>
+                                    </div><div id='RibbonContainer-TabRowRight' class='ms-cui-TabRowRight s4-trc-container s4-notdlg ms-core-defaultFont'>
+                                        
+                                        <a onmouseover="this.firstChild.firstChild.style.left=&#39;-217px&#39;; this.firstChild.firstChild.style.top=&#39;-192px&#39;;" onmouseout="this.firstChild.firstChild.style.left=&#39;-218px&#39;; this.firstChild.firstChild.style.top=&#39;-48px&#39;;" onclick="SP.SOD.executeFunc(&#39;followingcommon.js&#39;, &#39;FollowSite&#39;, function() { FollowSite(); }); return false;" id="site_follow_button" title="Follow this site and get back to it easily from your sites page." class="ms-promotedActionButton" href="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$site_follow_button&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, true))" style="display:inline-block;"><span style="height:16px;width:16px;position:relative;display:inline-block;overflow:hidden;" class="s4-clust ms-promotedActionButton-icon"><img src="/_layouts/15/images/spcommon.png?rev=40" alt="Follow" style="position:absolute;left:-218px;top:-48px;" /></span><span class="ms-promotedActionButton-text">Follow</span></a>
+                                        
+                                        
+                                        <span id="fullscreenmodebox" class="ms-qatbutton">
+                                            <span id="fullscreenmode">
+                                                <a onmouseover="this.firstChild.firstChild.firstChild.style.left=&#39;-125px&#39;; this.firstChild.firstChild.firstChild.style.top=&#39;-178px&#39;;" onmouseout="this.firstChild.firstChild.firstChild.style.left=&#39;-143px&#39;; this.firstChild.firstChild.firstChild.style.top=&#39;-178px&#39;;" id="ctl00_fullscreenmodeBtn" title="Focus on Content" onclick="SetFullScreenMode(true);PreventDefaultNavigation();return false;" href="../../../../../_catalogs/masterpage/#" style="display:inline-block;height:30px;width:30px;"><span style="display:inline-block;overflow:hidden;height:16px;width:16px;padding-left:7px;padding-top:7px;padding-right:7px;padding-bottom:7px;"><span style="height:16px;width:16px;position:relative;display:inline-block;overflow:hidden;" class="s4-clust"><img src="/_layouts/15/images/spcommon.png?rev=23" alt="Focus on Content" style="border:0;position:absolute;left:-143px;top:-178px;" /></span></span></a>
+                                            </span>
+                                            <span id="exitfullscreenmode" style="display: none;">
+                                                <a onmouseover="this.firstChild.firstChild.firstChild.style.left=&#39;-179px&#39;; this.firstChild.firstChild.firstChild.style.top=&#39;-96px&#39;;" onmouseout="this.firstChild.firstChild.firstChild.style.left=&#39;-107px&#39;; this.firstChild.firstChild.firstChild.style.top=&#39;-178px&#39;;" id="ctl00_exitfullscreenmodeBtn" title="Focus on Content" onclick="SetFullScreenMode(false);PreventDefaultNavigation();return false;" href="../../../../../_catalogs/masterpage/#" style="display:inline-block;height:30px;width:30px;"><span style="display:inline-block;overflow:hidden;height:16px;width:16px;padding-left:7px;padding-top:7px;padding-right:7px;padding-bottom:7px;"><span style="height:16px;width:16px;position:relative;display:inline-block;overflow:hidden;" class="s4-clust"><img src="/_layouts/15/images/spcommon.png?rev=23" alt="Focus on Content" style="border:0;position:absolute;left:-107px;top:-178px;" /></span></span></a>
+                                            </span>
+                                        </span>
+                                        
+                                        
+                                    </div></div></div>
+                            
+</div>
+                        </div>
+                        <span id="DeltaSPNavigation">
+                            
+                                <span id="ctl00_SPNavigation_ctl00_publishingRibbon"></span>
+
+                            
+                        </span>
+                    </div>
+                    <div id="DeltaWebPartAdderUpdatePanelContainer" class="ms-core-webpartadder">
+	
+                        <div id="WebPartAdderUpdatePanelContainer">
+                            <div id="ctl00_WebPartAdderUpdatePanel">
+		
+                                    <span id="ctl00_WebPartAdder"></span>
+                                
+	</div>
+                        </div>
+                    
+</div>
+                </div>
+            </div>
+            <div id="s4-workspace" class="ms-core-overlay">
+                <div id="s4-bodyContainer">
+                    <div id="s4-titlerow" class="ms-dialogHidden s4-titlerowhidetitle">
+                        <header role="banner" class="main-header">
+                            
+
+                            <!-- MAIN HEADER HEAD -->
+                            <!-- User related links -->
+                            <div class="main-header-head">
+                                <div class="container-wrapper">
+                                    <div class="container-fluid">
+                                        
+
+
+<div class="row user-bar">
+    <div class="d-none d-sm-block col-sm-5">
+        <div class="date user-welcome">
+            quinta-feira, 30 julho 2026 
+        </div>
+    </div>
+    <div class="col-sm-7 text-right">
+        
+    </div>
+</div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- MAIN HEADER BODY -->
+                            <div class="main-header-body">
+                                <div class="container-wrapper">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-12 col-sm-3">
+                                                <a title="Link para homepage" href="http://www.portaldasfinancas.gov.pt"><img class="logo" src="/_layouts/15/images/portalat/logo-at.svg" alt="Autoridade Tributária e Aduaneira" /></a>
+                                            </div>
+                                            <div class="col-12 col-md-8">
+                                                <div class="col-12">
+                                                    
+
+
+<div class="main-search">
+    <input id="queryBox" name="query" type="text" class="main-search-input search-query" placeholder="Indique o que pretende (Ex: Entregar IRS)" title="Pesquisa">
+    <input type="hidden" name="e" value="˜">
+    <input type="button" id="searchImage" class="main-search-submit" aria-label="Pesquisar" value="Pesquisar">
+</div>
+
+<script>
+
+
+     function getVisibleQueryBox() {
+        return $(".search-query:visible").first(); // pega qualquer input com classe .search-query que esteja visível
+    }
+
+    $(".main-search-submit").on("click", function () {
+        const input = getVisibleQueryBox();
+
+        if (!input.length) {
+            console.log("❌ Nenhum input visível com classe .search-query!");
+            return;
+        }
+
+        const text2Search = input.val().trim();
+
+        if (text2Search.length > 0) {
+            console.log("🔍 pesquisando:", text2Search);
+            input.val("");
+            window.location.replace("https://sitfiscal.portaldasfinancas.gov.pt/geral/search?appName=info&query=" + encodeURIComponent(text2Search));
+        } else {
+            console.log("⚠️ Input visível mas sem valor");
+        }
+    });
+    $(document).on("keydown", ".search-query:visible", function (e) {
+    if (e.key === "Enter" || e.keyCode === 13) {
+        e.preventDefault();
+        $(".main-search-submit").click();
+    }
+});
+
+
+    
+</script>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/.row-->
+                                    </div>
+                                    <!--container-fluid-->
+                                </div>
+                                <!--container-wrapper-->
+                            </div>
+                            <!--main-header-body-->
+
+                        </header>
+
+                        <div id="titleAreaBox" class="ms-noList ms-table ms-core-tableNoSpace">
+                            <div id="titleAreaRow" class="ms-tableRow" style="display: none;">
+                                <!-- without this the addanapp.aspx page will not work property -->
+                                <!-- http://blog.drisgill.com/2012/12/design-manager-bug-sharepoint-2013-rtm.html -->
+                                <span id="DeltaPlaceHolderPageTitleInTitleArea">
+                                    
+	
+
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="contentRow">
+                        <main role="main">
+                            <div class="container-fluid">
+                                <div class="row secondary-nav">
+                                    <div class="container-wrapper">
+                                        <aside class="col-12 col-sm-3 main-menu">
+                                            
+
+
+
+<nav role="navigation">
+
+    <a class="btn-menu" data-bs-toggle="collapse" data-bs-target="#menu-links" title="menu lateral">
+        <i class="fa fa-navicon margin-right-sm"></i>Menu
+    </a>
+    <div id="accordion" role="tablist" aria-multiselectable="true" style="border-top: 1px solid #ddd;border-bottom: 1px solid #ddd; margin-top: -11px!important;">
+        <!-- Menu links com 'collapse' para esconder inicialmente em dispositivos móveis -->
+        <ul id="menu-links" class="accordion-collapse collapse show d-sm-block side-menu">
+            
+                    <li class="">
+                        <a href="/pt/at"
+                           title="Informação institucional da Autoridade Tributária e Aduaneira">
+                            A AT
+                        </a>
+                    </li>
+                
+                    <li class="">
+                        <a href="/pt/apoio_contribuinte/calendario_fiscal/Pages/obrigacoes.aspx"
+                           title="Calendário de obrigações declarativas e de pagamento">
+                            Agenda Fiscal
+                        </a>
+                    </li>
+                
+                    <li class="">
+                        <a href="https://sitfiscal.portaldasfinancas.gov.pt/geral/siteMap"
+                           title="Mapa de serviços eletrónicos no Portal das Finanças">
+                            Serviços
+                        </a>
+                    </li>
+                
+                    <li class="">
+                        <a href="/pt/home"
+                           title="Informação relevante em matéria tributária e aduaneira">
+                            Informação Fiscal e Aduaneira
+                        </a>
+                    </li>
+                
+                    <li class="">
+                        <a href="https://info.portaldasfinancas.gov.pt/pt/apoio_ao_contribuinte/Pages/default.aspx"
+                           title="Conteúdos informativos de apoio ao contribuinte">
+                            Apoio ao Contribuinte
+                        </a>
+                    </li>
+                
+                    <li class="">
+                        <a href="/pt/Grandes_Contribuintes"
+                           title="Informação de suporte aos contribuintes acompanhados pela UGC">
+                            Grandes Contribuintes
+                        </a>
+                    </li>
+                
+                    <li class="">
+                        <a href="/pt/U-Tax"
+                           title="U-TAX">
+                            U-TAX
+                        </a>
+                    </li>
+                
+                    <li class="">
+                        <a href="/pt/dgci/divulgacao/estatisticas"
+                           title="Estatísticas declarativas e relativas a Impostos sobre o Rendimento, a Despesa e o Património">
+                            Estatísticas
+                        </a>
+                    </li>
+                
+                    <li class="">
+                        <a href="/en/tax-information/Pages/default.aspx"
+                           title="Tax Information in Portugal">
+                            Tax Information
+                        </a>
+                    </li>
+                
+                    <li class="">
+                        <a href="/pt/Cidadania"
+                           title="Informação e conteúdos sobre Cidadania Fiscal">
+                            Cidadania Fiscal
+                        </a>
+                    </li>
+                
+        </ul>
+    </div>
+</nav>
+
+
+
+                                            
+
+
+                                        </aside>
+                                        <div class="col-12 col-sm-9 offset-sm-3">
+                                            <span id="ctl00_ctl70__map" class="at-breadcrumbtrail"><span>
+        <span class="at-breadcrumbtrail-separator"></span>
+    </span><span>
+        <span class="at-breadcrumbtrail-separator"></span>
+    </span><span><a class="ms-sitemapdirectional" href="/pt/informacao_fiscal/Pages/default.aspx">Informa&#231;&#227;o Fiscal</a></span><span>
+        <span class="at-breadcrumbtrail-separator"></span>
+    </span><span><a class="ms-sitemapdirectional" href="/pt/informacao_fiscal/codigos_tributarios/Pages/default-com-pdf.aspx">C&#243;digos Tribut&#225;rios</a></span><span>
+        <span class="at-breadcrumbtrail-separator"></span>
+    </span><span><a class="ms-sitemapdirectional" href="/pt/informacao_fiscal/codigos_tributarios/selo/Pages/codigo-do-imposto-do-selo-indice.aspx">C&#243;digo do Imposto do Selo</a></span><span>
+        <span class="at-breadcrumbtrail-separator"></span>
+    </span><span><a class="at-breadcrumbtrail-current" href="/pt/informacao_fiscal/codigos_tributarios/selo/Pages/ccod-selo-tabgiselo.aspx">ccod-selo-tabgiselo</a></span></span>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                
+                                <div class="row">
+                                    <div id="main-wrapper" class="container-wrapper">
+                                        <section id="main-content" class="col-12 col-md-9 col-md-offset-3 col-sm-9 col-sm-offset-3 col-offset-0 main-content">
+                                            <div id="contentBox" aria-live="polite" aria-relevant="all">
+                                                <div id="notificationArea" class="ms-notif-box"></div>
+                                                <div id="DeltaPageStatusBar">
+	
+                                                    <div id="pageStatusBar"></div>
+                                                
+</div>
+                                                <div id="DeltaPlaceHolderMain">
+	
+                                                    <a id="mainContent" name="mainContent" tabindex="-1"></a>
+                                                    
+	<div class="welcome welcome-article">
+        
+<h1 class="tittle-tab-page" style="display: none;">
+	
+</h1>
+
+		<div class="welcome-lead">
+			
+		</div>
+
+		<div class="welcome-image">
+			<div id="ctl00_PlaceHolderMain_ctl01_label" style='display:none'>Page Image</div><div id="ctl00_PlaceHolderMain_ctl01__ControlWrapper_RichImageField" class="ms-rtestate-field" style="display:inline" aria-labelledby="ctl00_PlaceHolderMain_ctl01_label"><div class="ms-rtestate-field"></div></div>
+		</div>
+
+		<div class="welcome-content" id="welcome-content-div">
+			<div id="ctl00_PlaceHolderMain_ctl02_label" style='display:none'>Page Content</div><div id="ctl00_PlaceHolderMain_ctl02__ControlWrapper_RichHtmlField" class="ms-rtestate-field" style="display:inline" aria-labelledby="ctl00_PlaceHolderMain_ctl02_label"><div id="BODYCONTENT"><div align="justify"><table bordercolor="#cccccc" border="0" cellspacing="0" cellpadding="6"><tbody><tr><td align="left" valign="top">​<br></td><td align="left" valign="top"><div align="right">&#160;</div></td><td align="left" valign="top"></td><td align="left" valign="top"><div align="center"><p class="Iniciotopo_table"> 
+                        <font><strong>TABELA GERAL DO IMPOSTO DO SELO</strong></font></p></div></td><td align="left" valign="middle"></td><td align="left" valign="top"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>1</font></b></div></td><td align="right" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>Aquisição de bens&#58; </font></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font><br>1.1</font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Aquisição onerosa ou por doação do direito de propriedade ou de figuras parcelares desse direito sobre imóveis, bem como a resolução, invalidade ou extinção, por mútuo consenso, dos respectivos contratos - sobre o valor </font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>0,8% </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>1.2</font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Aquisiçã​o gratuita de bens, incluindo por usucapião, a acrescer, sendo caso disso, à da verba 1.1 sobre o valor</font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>10% </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>2</font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Arrendamento e subarrendamento, incluindo as alterações que envolvam aumento de renda operado pela revisão de cláusulas contratuais e a promessa quando seguida da disponibilização do bem locado ao locatário - sobre a renda ou seu aumento convencional, correspondentes a um mês ou, tratando-se de arrendamentos por períodos inferiores a um mês, sem possibilidade de renovação ou prorrogação, sobre o valor da renda ou do aumento estipulado para o período da sua duração</font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>10%</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>3</font></b></div></td><td align="left" valign="top" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Autos e termos efectuados perante tribunais e serviços, estabelecimentos ou organismos do Estado, Regiões Autónomas e autarquias locais, ainda que personalizados, incluindo os institutos públicos, que compreenderem arrendamento ou licitação de bens imóveis, cessão, conferência de interessados em que se concorde na adjudicação de bens comuns, confissão de dívida, fiança, hipoteca, penhor, responsabilidade por perdas e danos e transacções - por cada um 
+                        <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                           <em>(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span></font></p></td><td align="left" valign="middle" bgcolor="#ffffff"> 
+                  <font>&#160; &#160;€ 10</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>4 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"> 
+                  <font>Cheques de qualquer natureza, passados no território nacional - por cada um </font></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>€&#160;0,05</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>5</font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"> 
+                  <font>Comodato - sobre o seu valor, quando exceda 600€. 
+                     <span class="style1 ms-rteFontSize-1">
+                        <font color="#808080">(Revogada pela</font></span><font class="ms-rteFontSize-1" color="#808080"><span class="style3 ms-rteFontSize-1"> </span>
+                        <span class="style1 ms-rteFontSize-1">Lei n.º 64-A/2008, de 31 de Dezembro)</span></font></font></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>0,8% </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>6</font></b></div></td><td align="left" valign="top" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Depósito civil, qualquer que seja a sua forma - sobre o respectivo valor<span class="style1">&#160; 
+                           <font color="#808080" size="1">(Revogada pela</font></span></font><font color="#808080"><font size="1"><span class="style3"> </span>
+                           <span class="style1">Lei n.º 64-A/2008, de 31 de Dezembro)</span></font></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>0,5%</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>7</font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Depósito, em quaisquer serviços públicos, dos estatutos de associações e outras instituições cuja constituição deles dependa - por cada um&#160;<span style="color&#58;#999999;font-size&#58;8.5pt;"><em>(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>€ 50 </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>8</font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Escritos de quaisquer contratos não especialmente previstos nesta Tabela, incluindo os efectuados perante entidades públicas - por cada um 
+                        <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                           <em>(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>€ 5</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>9</font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Exploração, pesquisa e prospecção de recursos geológicos integrados no domínio público do Estado - por cada contrato administrativo 
+                        <span class="style1 ms-rteFontSize-1">
+                           <font color="#808080">(Revogada</font></span><font class="ms-rteFontSize-1" color="#808080"><span class="style3 ms-rteFontSize-1"> pela </span>
+                           <span class="style1 ms-rteFontSize-1">Lei n.º 64-A/2008, de 31 de Dezembro)</span></font></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>€ 25</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>10 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Garantias das obrigações, qualquer que seja a sua natureza ou forma, designadamente o aval, a caução, a garantia bancária autónoma, a fiança, a hipoteca, o penhor e o seguro-caução, salvo quando materialmente acessórias de contratos especialmente tributados na presente Tabela e sejam constituídas simultaneamente com a obrigação garantida, ainda que em instrumento ou título diferente - sobre o respectivo valor, em função do prazo, considerando-se sempre como nova operação a prorrogação do prazo do contrato&#58; 
+                        <br></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>10.1</font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Garantias de prazo inferior a um ano - por cada mês ou fracção </font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>0,04%</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>10.2</font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>Garantias de prazo igual ou superior a um ano </font></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>0,5%</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>10.3</font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>Garantias sem prazo ou de prazo igual ou superior a cinco anos </font></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>0,6%</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>11</font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>Jogo&#58; </font></td><td align="center" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>11.1</font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Apostas de jogos não sujeitos ao regime dos impostos especiais sobre o jogo, designadamente, as representadas por bilhetes, boletins, cartões, matrizes, rifas ou tômbolas - sobre o respetivo valor&#58; 
+                        <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                           <em>(Redação do Decreto-Lei n.º 66/2015, de 29 de abril)</em></span></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top"></td></tr><tr><td valign="top"></td><td valign="top"><div align="right"> 
+                     <b><font>11.1.1</font></b></div></td><td align="left" valign="middle"></td><td align="left" valign="top"> 
+                  <font>Apostas mútuas </font></td><td align="center" valign="middle"> 
+                  <font>25%</font></td><td align="left" valign="top"></td></tr><tr><td valign="top"></td><td valign="top"><div align="right"> 
+                     <b><font>11.1.2</font></b></div></td><td align="left" valign="middle"></td><td align="left" valign="top"> 
+                  <font>Outras apostas&#160; </font></td><td align="center" valign="middle"> 
+                  <font>25%</font></td><td align="left" valign="top"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>11.2</font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Os prémios do bingo, com exceção dos prémios do bingo online, de rifas e do jogo do loto, bem como de quaisquer sorteios ou concursos, com exceção dos prémios dos jogos sociais previstos na verba n.º 11.3 da presente Tabela - sobre o valor ilíquido, acrescendo 10 % quando atribuídos em espécie&#58;<span style="font-size&#58;8.5pt;"><em><font color="#808080">(<font color="#ff0000">*</font>)(Redação da Lei n.º 119/2019, de 18 de setembro)</font></em></span></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>11.2.1</font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>Do bingo&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; </font></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>&#160;25%</font></td><td align="left" valign="top"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>11.2.2 </font></b></div></td><td valign="middle" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"> 
+                  <font>Dos restantes<br></font></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>&#160;35%</font></td><td align="left" valign="top"></td></tr><tr><td valign="top"></td><td valign="top"><p align="right"> 
+                     <strong><font>11.3</font></strong></p></td><td align="left" valign="middle"></td><td align="left" valign="top"><p class="ATJustifiedText"> 
+                     <font>Jogos sociais do Estado&#58; incluídos no preço de venda da aposta&#160;</font><em><font color="#808080" size="1">(Redação dada pela Lei n.º 42/2016, de 28 de dezembro)</font></em></p></td><td align="center" valign="middle"> 
+                  <font>4,5%.</font></td><td align="left" valign="top"></td></tr><tr><td valign="top"></td><td valign="top"> 
+                  <strong>
+                     <p align="right"> 
+                        <strong><font>11.4</font></strong></p></strong></td><td align="left" valign="middle"></td><td align="left" valign="top"><p class="ATJustifiedText"> 
+                     <font>Jogos sociais do Estado&#58; sobre a parcela do prémio que exceder € 5.000</font><em><font color="#808080" size="1"> (Redação dada pela Lei n.º 42/2016, de 28 de dezembro)</font></em></p></td><td align="center" valign="middle"><p align="left"> 
+                     <font>&#160;&#160;&#160;&#160;&#160; 20%</font></p></td><td align="left" valign="top"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>12</font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>Licenças&#58; 
+                     <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                        <em>(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span></font></td><td align="center" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>12.1</font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Para instalação ou exploração de máquinas electrónicas de diversão - por cada máquina e sobre o valor da taxa devida pela emissão da licença, no mínimo de €15 
+                        <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                           <em>(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span><br></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>20%</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>12.2</font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Para quaisquer outros jogos legais - por cada máquina e sobre o valor da taxa devida pela emissão da licença, no mínimo de €15 
+                        <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                           <em>(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>20%</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>12.3</font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>Para funcionamento de estabelecimentos de restauração e bebidas&#58; 
+                     <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                        <em>(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span></font></td><td align="center" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>12.3.1</font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Clubes nocturnos e outros estabelecimentos com espaço reservado para dança, designadamente bares e discotecas 
+                        <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                           <em>(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>€ 250</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>12.3.2</font></b></div></td><td align="center" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>Outros estabelecimentos 
+                     <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                        <em>(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span></font></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>€ 50</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>12.4</font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Para instalação de máquinas automáticas de venda de bens ou serviços em locais de acesso público - por cada máquina 
+                        <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                           <em>(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>€ 50</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>12.5 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Outras licenças não designadas especialmente nesta Tabela, concedidas pelo Estado, Regiões Autónomas e autarquias locais ou qualquer dos seus serviços, estabelecimentos e organismos, ainda que personalizados, compreendidos os institutos públicos - por cada uma&#58; 
+                        <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                           <em>(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>12.5.1</font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Quando seja devido qualquer taxa ou emolumento pela sua emissão - sobre o respectivo valor, no máximo de €3 
+                        <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                           <em>(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>20%</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>12.5.2</font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Quanto não seja devido qualquer taxa ou emolumento 
+                        <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                           <em>(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>€ 3</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>13 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Livros dos comerciantes, obrigatórios nos termos da lei comercial - por cada folha&#160;<span style="color&#58;#999999;font-size&#58;8.5pt;"><em>( Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>&#160;0,50</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>14 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Marcas e patentes - sobre o valor resultante das taxas devidas por todos os registos e diplomas 
+                        <font class="ms-rteFontSize-1" color="#808080">
+                           <span class="style1 ms-rteFontSize-1">(Revogada</span><span class="style3 ms-rteFontSize-1"> pela </span>
+                           <span class="style1 ms-rteFontSize-1">Lei n.º 64-A/2008, de 31 de Dezembro)</span></font></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>24%</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>15 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Notariado, actos notariais, e actos praticados por conservadores, secretários judiciais, secretários técnicos de justiça e entidades e profissionais com competência para autenticar documentos particulares, independentemente da entidade com competência para a sua prática&#58;&#160;</font><span class="style1"><font></font><span style="color&#58;#999999;font-size&#58;8.5pt;">(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</span></span></p></td><td align="center" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>15.1 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Escrituras, excluindo as que tenham por objecto os actos referidos no n.º 26, testamentos e demais instrumentos exarados nos livros de notas dos notários, incluindo os privativos - por cada instrumento 
+                        <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                           <em>(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>€ 25</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>15.2 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Habilitação de herdeiros e de legatários - por cada herança aberta 
+                        <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                           <em>(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>€ 10</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>15.3 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Instrumentos de abertura e aprovação de testamentos cerrados e internacionais - por cada um 
+                        <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                           <em>(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>€ 25</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>15.4 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Procurações e outros instrumentos relativos à atribuição de poderes de representação voluntária, incluindo os mandatos e substabelecimentos, inclusive, quando conferidos também no interesse do procurador ou de terceiro&#58; 
+                        <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                           <em>(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span><span class="style1"><br></span></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>15.4.1</font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Procurações e outros instrumentos que atribuam poderes de representação voluntária, inclusive, quando conferidos também no interesse do procurador ou de terceiro - por cada um&#58;&#160; 
+                        <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                           <em>(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span><br></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>15.4.1.1 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>Com poderes para gerência comercial 
+                     <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                        <em>(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span></font></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>€ 30 </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>15.4.1.2 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff" style="text-align&#58;justify;"> 
+                  <font>Com quaisquer outros poderes 
+                     <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                        <em>(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span></font></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>€ 5 </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>15.4.2 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>Substabelecimentos - por cada um 
+                     <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                        <em>(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span></font></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>€ 2 </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>15.5 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Registo de documentos apresentados aos notários para ficarem arquivados - por cada registo 
+                        <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                           <em>(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>€0,80 </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>15.6 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Testamentos, incluindo as doações por morte, quando tenham de produzir efeitos jurídicos - por cada um 
+                        <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                           <em>(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>€ 25 </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>15.7 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Outros instrumentos notariais avulsos, não especialmente previstos nesta Tabela - por cada um 
+                        <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                           <em>(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>€ 8</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>15.8</font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Documento particular autenticado, ou qualquer outro título ou procedimento, quando essa forma seja admitida em alternativa à escritura pública - por cada um - (euro) 25.</font><font><font color="#808080"><span class="style1"><span style="color&#58;#999999;font-size&#58;8.5pt;"><em>(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span></span></font></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>16 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Operações aduaneiras&#58; 
+                        <font class="ms-rteFontSize-1 ms-rteThemeForeColor-1-4">
+                           <span class="style1 ms-rteFontSize-1 ms-rteThemeForeColor-1-4">
+                              <em>(Revogada</em></span><span class="style3 ms-rteFontSize-1 ms-rteThemeForeColor-1-4"><em> pela </em></span>
+                           <span class="style1 ms-rteFontSize-1 ms-rteThemeForeColor-1-4">
+                              <em>Lei n.º 64-A/2008, de 31 de Dezembro)</em></span></font></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>16.1 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Declarações de sujeição de mercadorias não comunitárias a um regime aduaneiro, com excepção do regime de trânsito, feitas por escrito, por processo informático ou, oficiosamente, com base em declaração verbal do interessado - por cada uma</font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>&#160;€1,50 </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>16.2 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>Venda administrativa de mercadorias - por cada guia</font></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>€ 1</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>16.3 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>Guia de emolumentos - por cada uma</font></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>€ 1</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>16.4 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>Guia de depósito - por cada uma </font></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>&#160;€1,50</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>16.5 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Licenças para movimento de embarcações fora do respectivo ancoradouro - por cada uma&#58; </font></p></td><td align="center" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>16.5.1 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>De cabotagem e de longo curso</font></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>€ 8</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>16.5.2 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>De navegação costeira </font></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>€ 1</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>16.6 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Alvará de saída de embarcações para viagem - por cada um&#58; </font></p></td><td align="center" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>16.6.1 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>De navegação costeira</font></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>€ 1</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>16.6.2 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>De cabotagem e de longo curso </font></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>€ 8</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>16.7 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>Formulários de tráfego aéreo de saída nos voos comerciais internacionais - por cada um </font></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>€ 8</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>16.8 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>Formulários de tráfego aéreo de saída nos voos comerciais domésticos - por cada um </font></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>€ 3 </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>16.9 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>Outras guias, licenças e formulários não especificados em qualquer verba deste número - por cada um .</font></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>&#160;€1,50</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>17 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>Operações financeiras&#58; </font></td><td align="center" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>17.1 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Pela utilização de crédito, sob a forma de fundos, mercadorias e outros valores, em virtude da concessão de crédito a qualquer título excepto nos casos referidos na verba 17.2, incluindo a cessão de créditos, o factoring e as operações de tesouraria quando envolvam qualquer tipo de financiamento ao cessionário, aderente ou devedor, considerando-se, sempre, como nova concessão de crédito a prorrogação do prazo do contrato - sobre o respectivo valor, em função do prazo&#58; (<span class="style1 ms-rteFontSize-1"><font color="#808080">Redação dada pela&#160;Lei nº 12-A/2010, de 30/06)&#160;</font></span></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>17.1.1 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Crédito de prazo inferior a um ano - por cada mês ou fracção</font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>0,04% </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>17.1.2 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>Crédito de prazo igual ou superior a um ano </font></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>0,50% </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>17.1.3 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>Crédito de prazo igual ou superior a cinco anos</font></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>0,60% </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>17.1.4 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Crédito utilizado sob a forma de conta corrente, descoberto bancário ou qualquer outra forma em que o prazo de utilização não seja determinado ou determinável, sobre a média mensal obtida através da soma dos saldos em dívida apurados diariamente, durante o mês, divididos por 30</font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>0,04% </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>17.2 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Pela utilização de crédito em virtude da concessão de crédito no âmbito de contratos de crédito a consumidores abrangidos pelo Decreto-Lei n.º 133/2009, de 2 de Junho, considerando-se, sempre, como nova concessão de crédito a prorrogação do prazo do contrato - sobre o respectivo valor, em função do prazo&#58; 
+                        <span class="style1">
+                           <font color="#808080">Red.Lei nº 12-A/2010, de 30/06)&#160;</font></span></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>17.2.1 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Crédito de prazo inferior a um ano - por cada mês ou fracção 
+                        <span class="ms-rteFontSize-1 ms-rteThemeForeColor-1-4">(Redação da Lei n.º 2/2020, de 31 de março)</span></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>0,141 % </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top"></td><td valign="top"></td><td align="left" valign="middle"></td><td align="left" valign="top"> 
+                  <span class="style1"><font color="#808080"></font></span></td><td align="center" valign="middle"></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>17.2.2 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Crédito de prazo igual ou superior a um ano 
+                        <span class="style1">
+                           <font color="#808080">
+                              <span class="ms-rteFontSize-1 ms-rteThemeForeColor-1-4">
+                                 <span aria-hidden="true"></span>(Redação da Lei n.º 2/2020, de 31 de março)<span aria-hidden="true"></span></span></font></span></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>1,76% </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top"></td><td valign="top"></td><td align="left" valign="middle"></td><td align="left" valign="top"> 
+                  <span class="style1"><font color="#808080"></font></span></td><td align="center" valign="middle"></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>17.2.3 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>Crédito de prazo igual ou superior a cinco anos 
+                     <span class="ms-rteFontSize-1 ms-rteThemeForeColor-1-4">(Redação da Lei n.º 2/2020, de 31 de março)<span aria-hidden="true"></span></span></font></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>1,76% </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top"></td><td valign="top"></td><td align="left" valign="middle"></td><td align="left" valign="top"> 
+                  <span class="style1"><font color="#808080"></font></span></td><td align="center" valign="middle"></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>17.2.4 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Crédito utilizado sob a forma de conta-corrente, descoberto bancário ou qualquer outra forma em que o prazo de utilização não seja determinado ou determinável, sobre a média mensal obtida através da soma dos saldos em dívida apurados diariamente, durante o mês, divididos por 30 
+                        <span class="ms-rteFontSize-1 ms-rteThemeForeColor-1-4">
+                           <span aria-hidden="true"></span>(Redação da Lei n.º 2/2020, de 31 de março)<span aria-hidden="true"></span></span></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>0.141%&#160;&#160;&#160;&#160;&#160;</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top"></td><td valign="top"><div align="right"> 
+                     <b><font>17.3 </font></b></div></td><td align="left" valign="middle"></td><td align="left" valign="top"><p class="ATJustifiedText"> 
+                     <font>Operações realizadas por ou com intermediação de instituições de crédito, sociedades financeiras ou outras entidades a elas legalmente equiparadas e quaisquer outras instituições financeiras - sobre o valor cobrado&#58; 
+                        <span class="style1 ms-rteThemeForeColor-1-4 ms-rteFontSize-1">
+                           <em>Red.Lei nº 12-A/2010, de 30/06 - anterior verba 17.2&#160; </em></span></font></p></td><td align="center" valign="middle"></td><td align="center" valign="middle"></td></tr><tr><td valign="top"></td><td valign="top"> 
+                  <strong>
+                     <div align="right"> 
+                        <b><font>17.3.1</font></b></div></strong></td><td align="left" valign="middle"></td><td align="left" valign="top"><p class="ATJustifiedText"> 
+                     <font>Juros por, designadamente, desconto de letras e bilhetes do Tesouro, por empréstimos, por contas de crédito e por crédito sem liquidação </font></p></td><td align="center" valign="middle"> 
+                  <font>4%</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top"></td><td valign="top"><div align="right"> 
+                     <b><font>17.3.2 </font></b></div></td><td align="left" valign="middle"></td><td align="left" valign="top"><p class="ATJustifiedText"> 
+                     <font>Prémios e juros por letras tomadas, de letras a receber por conta alheia, de saques emitidos sobre praças nacionais ou de quaisquer transferências</font></p></td><td align="center" valign="middle"> 
+                  <font>4%</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top"></td><td valign="top"><div align="right"> 
+                     <b><font>17.3.3 </font></b></div></td><td align="left" valign="middle"></td><td align="left" valign="top"> 
+                  <font>Comissões por garantias prestadas</font></td><td align="center" valign="middle"> 
+                  <font>3%</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top"></td><td valign="top"><div align="right"> 
+                     <b><font>17.3.4&#160;</font></b></div></td><td align="left" valign="middle"></td><td align="left" valign="top"><p class="ATJustifiedText"> 
+                     <font>Outras comissões e contraprestações por serviços financeiros, incluindo as taxas relativas a operações de pagamento baseadas em </font>
+                     <font>cartões 
+                        <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                           <em>(Redação da Lei n.º 7-A/2016, de 30 de março)</em></span></font></p></td><td align="center" valign="middle"> 
+                  <font>4%</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>18 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Precatórios ou mandados para levantamento e entrega de dinheiro ou valores existente - sobre a importância a levantar ou a entregar </font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>0,5% </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>19 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>Publicidade&#58;&#160; 
+                     <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                        <em>(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span></font></td><td align="center" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>19.1 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Cartazes ou anúncios afixados ou expostos em suportes fixos ou móveis na via pública ou destinados a serem vistos da via pública que façam propaganda de produtos, serviços ou de quaisquer indústrias, comércios ou divertimentos, com exclusão dos identificativos do próprio estabelecimento comercial onde se encontrem afixados - por cada metro quadrado ou fracção e em cada ano civil 
+                        <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                           <em>(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>€ 1</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>19.2 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Publicidade feita em catálogos, programas, reclamos, etiquetas e outros impressos que se destinem a distribuição pública - por cada edição de 1000 exemplares ou fracção 
+                        <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                           <em>(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>€ 1 </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>20 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Registos e averbamentos em conservatórias de bens móveis - por cada um&#160;<span style="color&#58;#999999;font-size&#58;8.5pt;"><em>(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>€ 3</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>21 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>Reporte - sobre o valor do contrato </font></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>0,5% </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>22 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>Seguros&#58; </font></td><td align="center" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>22.1 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Apólices de seguros - sobre a soma do prémio do seguro, do custo da apólice e de quaisquer outras importâncias que constituam receita das empresas seguradoras, cobradas juntamente com esse prémio ou em documento separado&#58; </font></p></td><td align="center" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>22.1.1 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>Seguros do ramo «Caução» </font></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>3% </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>22.1.2 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>Seguros dos ramos «Acidentes», «Doenças» e «Crédito» e das modalidades de seguro «Agrícola e pecuário»</font></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>5% </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>22.1.3 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>Seguros do ramo «Mercadorias transportadas»</font></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>5% </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>22.1.4 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>Seguros de «Embarcações» e de «Aeronaves»</font></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>5% </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>22.1.5 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>Seguros de quaisquer outros ramos </font></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>9% </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>22.2 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>Comissões cobradas pela actividade de mediação - sobre o respectivo valor líquido de imposto do selo</font></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>2% </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>23 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>Títulos de crédito&#58; </font></td><td align="center" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>23.1 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>Letras - sobre o respectivo valor, com o mínimo de (euro) 1</font></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>0,5% </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>23.2 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Livranças - sobre o respectivo valor, com o mínimo de (euro) 1</font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>0,5% </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>23.3 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Ordens e escritos de qualquer natureza, com exclusão dos cheques, nos quais se determine pagamento ou entrega de dinheiro com cláusula à ordem ou à disposição, ainda que sob a forma de correspondência - sobre o respectivo valor, com o mínimo de (euro) 1 </font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>0,5% </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>23.4 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Extractos de facturas e facturas conferidas - sobre o respectivo valor, com o mínimo de € 0,5 </font>
+                     <span class="style1 ms-rteFontSize-1 ms-rteThemeForeColor-1-4">Red.Lei nº 55-B/2004, de 30/12-Até 31 de Dezembro de 2004 era 5% </span></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>0,5%(*) </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>24 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Títulos de dívida pública emitidos por governos estrangeiros, com exclusão dos títulos de dívida pública emitidos por Estados membros da União Europeia, quando existentes ou postos à venda no território nacional - sobre o valor nominal<span class="ms-rteFontSize-1 ms-rteThemeForeColor-1-4"> </span>
+                        <font class="ms-rteFontSize-1 ms-rteThemeForeColor-1-4">
+                           <span class="style1 ms-rteFontSize-1 ms-rteThemeForeColor-1-4">(Revogada pela</span><span class="style3 ms-rteFontSize-1 ms-rteThemeForeColor-1-4"> </span>
+                           <span class="style1 ms-rteFontSize-1 ms-rteThemeForeColor-1-4">Lei n.º 64-A/2008, de 31 de Dezembro)</span></font></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>0,9%</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>25 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Vales de correio e telegráficos, com excepção dos chamados «de serviço» - por cada um&#160;<span class="style1 ms-rteFontSize-1 ms-rteThemeForeColor-1-4"><font style="background-color&#58;#ffffff;">&#160;<span class="style1 ms-rteFontSize-1 ms-rteThemeForeColor-1-4">(Revogada pela</span><span class="style3 ms-rteFontSize-1 ms-rteThemeForeColor-1-4"> </span>
+                              <span class="style1 ms-rteFontSize-1 ms-rteThemeForeColor-1-4">Lei n.º 64-A/2008, de 31 de Dezembro)</span> </font></span></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>&#160;€0,05 </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>26 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"> 
+                  <font>Entradas de capital&#58;&#160;<span style="color&#58;#999999;font-size&#58;8.5pt;"><em>(verba 26 - Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span></font></td><td align="center" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>26.1 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Constituição de uma sociedade de capitais - sobre o valor real dos bens de qualquer natureza entregues ou a entregar pelos sócios após dedução das obrigações assumidas e dos encargos suportados pela sociedade em consequência de cada entrada 
+                        <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                           <em>(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>0,4% </font></td><td align="center" valign="middle"></td></tr><tr align="left" valign="top"></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>26.2 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Transformação em sociedade de capitais de uma sociedade, associação ou pessoa colectiva que não seja sociedade de capitais - sobre o valor real dos bens de qualquer natureza pertencentes à sociedade à data da transformação, após dedução das obrigações e dos encargos que a onerem nesse momento 
+                        <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                           <em>(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span><br></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>0,4% </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>26.3 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Aumento do capital social de uma sociedade de capitais mediante a entrada de bens de qualquer espécie, excepto numerário, sobre o valor real dos bens de qualquer natureza, entregues ou a entregar pelos sócios, após dedução das obrigações assumidas e dos encargos suportados pela sociedade em consequência de cada entrada - 0,4 %. 
+                        <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                           <em>(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span><br></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>0,4% </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>26.4 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Aumento do activo de uma sociedade de capitais mediante a entrada de bens de qualquer espécie remunerada não por partes representativas do capital social ou do activo mas por direitos da mesma natureza que os dos sócios, tais como direito de voto e participação nos lucros ou no saldo de liquidação - sobre o valor real dos bens de qualquer natureza entregues ou a entregar pelos sócios, após dedução das obrigações assumidas e dos encargos suportados pela sociedade em consequência de cada entrada 
+                        <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                           <em>(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span><br></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>0,4% </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>26.5&#160; </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Transferência de um país terceiro para um Estado membro da sede de direcção efectiva de uma sociedade, associação ou pessoa colectiva cuja sede estatutária se encontre num país terceiro e que seja considerada para efeitos da cobrança do imposto sobre as entradas de capital como sociedade de capitais neste Estado membro - sobre o valor real dos bens de qualquer natureza pertencentes à sociedade à data da transferência, após dedução das obrigações e dos encargos que a onerem nesse momento 
+                        <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                           <em>(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>0,4% </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>26.6 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Transferência de um país terceiro para um Estado membro da sede estatutária de uma sociedade, associação ou pessoa colectiva cuja sede de direcção efectiva se encontre num país terceiro e que seja considerada para efeitos da cobrança do imposto sobre as entradas de capital como sociedade de capitais neste Estado membro - sobre o valor real dos bens de qualquer natureza pertencentes à sociedade à data da transferência, após dedução das obrigações e dos encargos que a onerem nesse momento 
+                        <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                           <em>(Revogada&#160; pela&#160; Lei n.º 3-B/2010-28/04)</em></span></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>0,4% </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>26.7 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Transferência de um Estado membro para outro Estado membro da sede de direcção efectiva de uma sociedade, associação ou pessoa colectiva que seja considerada, para efeitos de cobrança do imposto sobre as entradas de capital, como sociedade de capitais no Estado membro referido em último lugar, e não o era no outro Estado membro, salvo quando tenha sido cobrado o imposto previsto na Directiva n.º 69/335/CE , de 17 de Julho, no Estado de proveniência - sobre o valor real dos bens de qualquer natureza pertencentes à sociedade à data da transferência, após dedução das obrigações e dos encargos que a onerem nesse momento. 
+                        <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                           <em>(Revogada&#160; pela&#160; Lei n.º 64-A/2008, de 31 de dezembro)</em></span></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>0,4% </font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>26.8 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Transferência de um Estado membro para outro Estado membro da sede estatutária de uma sociedade, associação ou pessoa colectiva cuja sede de direcção efectiva se situe num país terceiro e que seja considerada, para efeitos de cobrança do imposto sobre as entradas de capital, como sociedade de capitais no Estado membro referido em último lugar, e não o era no outro Estado membro, salvo quando tenha sido cobrado o imposto previsto na Directiva n.º 69/335/CE , de 17 de Julho, no Estado de proveniência - sobre o valor real de bens de qualquer natureza pertencentes à sociedade à data da transferência, após dedução das obrigações e dos encargos que a onerem nesse momento. 
+                        <span style="color&#58;#999999;font-size&#58;8.5pt;">
+                           <em>(Revogada&#160; pela&#160; Lei n.º 64-A/2008, de 31 de dezembro)</em></span></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>0,4%</font></td><td align="center" valign="top"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>27 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Transferências onerosas de actividades ou de exploração de serviços&#58; 
+                        <br></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>27.1 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Trespasses de estabelecimento comercial, industrial ou agrícola - sobre o seu valor 
+                        <br></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>5%</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top" bgcolor="#ffffff"></td><td valign="top" bgcolor="#ffffff"><div align="right"> 
+                     <b><font>27.2 </font></b></div></td><td align="left" valign="middle" bgcolor="#ffffff"></td><td align="left" valign="top" bgcolor="#ffffff"><p class="ATJustifiedText"> 
+                     <font>Subconcessões e trespasses de concessões feitos pelo Estado, pelas Regiões Autónomas ou pelas autarquias locais, para exploração de empresas ou de serviços de qualquer natureza, tenha ou não principiado a exploração sobre o seu valor </font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>5%</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top"></td><td valign="top"><p align="right"> 
+                     <strong><font>28</font></strong></p></td><td align="left" valign="middle"><p align="right">&#160; </p></td><td align="left" valign="top"><p class="ATJustifiedText">Propriedade, usufruto ou direito de superfície de prédios urbanos cujo valor patrimonial tributário constante da matriz, nos termos do Código do Imposto Municipal sobre Imóveis (CIMI), seja igual ou superior a € 1.000.000 - sobre o valor patrimonial tributário utilizado para efeito de IMI&#58; 
+                     <font class="ms-rteFontSize-1 ms-rteThemeForeColor-1-4">
+                        <span class="style1 ms-rteFontSize-1 ms-rteThemeForeColor-1-4">
+                           <em>(Revogada pela Lei n.º 42/2016, de 28 de dezembro) </em></span></font></p></td><td align="center" valign="middle"><p align="left">&#160;</p></td><td align="center" valign="middle"><p align="right">&#160;</p></td></tr><tr><td valign="top"></td><td valign="top"><p align="right"> 
+                     <strong><font>28.1</font></strong></p></td><td align="left" valign="middle"><p align="right">&#160;</p></td><td align="left" valign="top"><p class="ATJustifiedText">Por prédio habitacional ou por terreno para construção cuja edificação, autorizada ou prevista, seja para habitação, nos termos do disposto no Código do IMI 
+                     <font class="ms-rteFontSize-1 ms-rteThemeForeColor-1-4">
+                        <span class="style1 ms-rteFontSize-1 ms-rteThemeForeColor-1-4">
+                           <em>(Revogada pela Lei n.º 42/2016, de 28 de dezembro) </em></span></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>1%</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top"></td><td valign="top"><p align="right"> 
+                     <strong><font>28.2</font></strong></p></td><td align="left" valign="middle"><p align="right">&#160;</p></td><td align="left" valign="top"><p class="ATJustifiedText">Por prédio, quando os sujeitos passivos que não sejam pessoas singulares sejam residentes em país, território ou região sujeito a um regime fiscal claramente mais favorável, constante da lista aprovada por portaria do Ministro das Finanças 
+                     <font class="ms-rteFontSize-1 ms-rteThemeForeColor-1-4">
+                        <span class="style1 ms-rteFontSize-1 ms-rteThemeForeColor-1-4">
+                           <em>(Revogada pela Lei n.º 42/2016, de 28 de dezembro) </em></span></font></p></td><td align="center" valign="middle" bgcolor="#ffffff"> 
+                  <font>7,5%</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top"></td><td valign="top"><p align="right"> 
+                     <strong><font>29</font></strong></p></td><td align="left" valign="middle"></td><td align="left" valign="top"><p class="ATJustifiedText"> 
+                     <font>Valor líquido global dos organismos de investimento coletivo abrangidos pelo artigo 22.º do EBF&#58; 
+                        <font color="#808080">
+                           <em>
+                              <font size="1">(Aditada pelo Decreto-Lei n.º 7/2015, de 13/01, retificado pela Declaração de Retificação n.º 12/2015, de 11/03</font></em>)</font> </font></p></td><td align="center" valign="middle"></td><td align="center" valign="middle"></td></tr><tr><td valign="top"></td><td valign="top"><p align="right"> 
+                     <strong><font>29.1</font></strong></p></td><td align="left" valign="middle"></td><td align="left" valign="top"><p class="ATJustifiedText"> 
+                     <font>Organismos de investimento coletivo que invistam, exclusivamente, em instrumentos do mercado monetário e depósitos - sobre o referido valor, por cada trimestre </font>
+                     <font color="#808080" size="1">
+                        <em>(Aditada pelo Decreto-Lei n.º 7/2015, de 13/01)</em></font></p></td><td align="center" valign="middle"> 
+                  <font>0,0025 %</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top"></td><td valign="top"><p align="right"> 
+               <strong><font>29.2</font></strong></p></td><td align="left" valign="middle" style="text-align&#58;right;">&#160;</td><td align="left" valign="top"><p class="ATJustifiedText"> 
+                     <font>Outros organismos de investimento coletivo - sobre o referido valor, por cada trimestre </font>
+                     <font color="#808080" size="1">
+                        <em>(Aditada pelo Decreto-Lei n.º 7/2015, de 13/01)</em></font></p></td><td align="center" valign="middle"> 
+                  <font>0,0125 %</font></td><td align="center" valign="middle"></td></tr><tr><td valign="top"></td><td valign="top"><p align="right"> 
+                     <strong><font>30</font></strong></p></td><td align="left" valign="middle" style="text-align&#58;right;">&#160;</td><td align="left" valign="top"><p class="ATJustifiedText"><font color="#808080" size="1"><em></em></font>&#160;Criptoativos - Comissões e contraprestações cobradas por ou com intermediação de prestadores de serviços de criptoativos - sobre o valor cobrado&#58;&#160;&#160;<font color="#808080" size="1"><em>(Aditada pela Lei n.º&#160; 24-D,/2022 de 30/12&#160;)</em></font>&#160;</p></td><td align="center" valign="middle"> 
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <font>4 %</font></td><td align="center" valign="middle"></td></tr></tbody></table><p>
+         <b>Nota &#58;</b>(<font color="#ff0000">*</font>) Produz efeitos a 1 de janeiro de 2020, nos termos da al. a) do nº 2 do art.º 26º da Lei n.º 119/2019 de 18/09</p> 
+      <br> 
+   </div>
+   <br>
+   <table align="left" border="0" cellspacing="0" cellpadding="10"><tbody><tr valign="top"><td><table align="left" class="tablelex " id="Table1" cellspacing="0" cellpadding="0"><tbody><tr><td align="left" valign="bottom"></td></tr><tr><td align="left" valign="bottom"> 
+                           <strong><em><font class="header"><strong><em>&#160;Versão em vigor até&#58;</em></strong></font></em></strong></td></tr><tr><td align="left" valign="bottom" rowspan="1">​→ 
+                           <a href="/pt/informacao_fiscal/codigos_tributarios/selo/ra/Pages/ccod-selo-tabgiselora_202212.aspx">dezembro de 2022</a></td></tr><tr><td align="left" valign="bottom" rowspan="1">​→ 
+                           <a href="/pt/informacao_fiscal/codigos_tributarios/selo/ra/Pages/ccod-selo-tabgiselora_202003.aspx">março de 2020</a></td></tr><tr><td align="left" valign="bottom" rowspan="1">​→ 
+                           <a href="/pt/informacao_fiscal/codigos_tributarios/selo/ra/Pages/ccod-selo-tabgiselora_201909.aspx">setembro de 2019</a></td></tr><tr valign="middle"><td align="left" valign="bottom">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;•••</td></tr></tbody></table></td><td><table align="left" class="tablelex " id="Table1" cellspacing="0" cellpadding="0"><tbody><tr><td align="left" valign="bottom"></td></tr><tr valign="middle"><td align="left" valign="bottom"> 
+                           <strong><em><font class="header"><strong><em>Contém as alterações seguintes&#58;</em></strong></font></em></strong></td></tr><tr><td align="left" valign="bottom" rowspan="1">​→ 
+                           <a href="/pt/informacao_fiscal/codigos_tributarios/selo/ra/Pages/ccod-selo-tabgiselora_202212.aspx">Lei n.º 24-D/2022 - 30/12</a></td></tr><tr><td align="left" valign="bottom" rowspan="1">​<span aria-hidden="true"></span><font color="#808080"><em>→ </em></font> 
+                           <a href="/pt/informacao_fiscal/legislacao/diplomas_legislativos/Documents/Lei_2_2020.pdf">Lei n.º 2/2020 - 31/03</a></td></tr><tr><td align="left" valign="bottom" rowspan="1">​→ 
+                           <a href="/pt/informacao_fiscal/codigos_tributarios/selo/Pages/%3Ca%20href=">Lei n.º 119/2019 - 18/09</a></td></tr><tr valign="middle"><td align="left" valign="bottom">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;•••</td></tr></tbody></table></td></tr></tbody></table></div> ​<br></div>
+		</div>
+				
+		<div class="clearer">
+			<div class="links-top-zone">
+				<menu class="ms-hide">
+		<ie:menuitem id="MSOMenu_Help" iconsrc="/_layouts/15/images/HelpIcon.gif" onmenuclick="MSOWebPartPage_SetNewWindowLocation(MenuWebPart.getAttribute('helpLink'), MenuWebPart.getAttribute('helpMode'))" text="Help" type="option" style="display:none">
+
+		</ie:menuitem>
+	</menu>
+			</div>
+		</div>
+	    
+        <div class="col-100 clearer">
+			<div class="left-column-links">
+				<div id="ctl00_PlaceHolderMain_ctl03__ControlWrapper_SummaryLinkFieldControl" style="display:inline"><div id="slwp_ctl00_PlaceHolderMain_ctl03_ctl00" class="slm-layout-main slwpmarker" xmlns:pcm="urn:PageContentManager"><!--empty--></div></div>
+			</div>
+		</div>		
+	</div>
+   <script>
+       try {
+           $('img[alt="versão de impressão"]').hide();
+       }
+       catch (err) {
+       }
+   </script>
+   
+<div id='print-button-div'>
+    <img alt='versão para impressão' src='/DGCI/Images/print.gif' id='print-button' onclick='javascript:window.open("http://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/selo/Pages/ccod-selo-tabgiselo.aspx?print=true","printWindow","width=700,height=600,scrollbars=1");'>
+</div>
+
+<div style='display:none' id='hidZone'></div>
+                                                
+</div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                        </main>
+
+                        <div id="DeltaFormDigest">
+	
+                            
+                                <script type="text/javascript">//<![CDATA[
+        var formDigestElement = document.getElementsByName('__REQUESTDIGEST')[0];
+        if (!((formDigestElement == null) || (formDigestElement.tagName.toLowerCase() != 'input') || (formDigestElement.type.toLowerCase() != 'hidden') ||
+            (formDigestElement.value == null) || (formDigestElement.value.length <= 0)))
+        {
+            formDigestElement.value = '0xCD8FE7208C06EF9F0A8EF4F8AB42397FDFF3234187266D136B01F1BD3A72E6D850703F97C5590BDB6D70C997237849647962C886799B6CFEBCDAFB7AB27AEC6A,30 Jul 2026 09:15:14 -0000';_spPageContextInfo.updateFormDigestPageLoaded = new Date();
+        }
+        //]]>
+        </script>
+                            
+                        
+</div>
+
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+
+                    
+
+<footer role="contentinfo" class="main-footer">
+	<div class="container-wrapper">
+		<div class="container-fluid">
+			<div class="row">
+				<nav id="ctl00_ctl72_links02" class="col-sm-5 col-md-offset-3 footer-nav link-area-2" style="width:38%;"><h5>Links Úteis</h5><ul><li><a title='Respostas às questões mais frequentes (FAQ)' href='/pt/apoio_contribuinte/questoes_frequentes' target='' style=''>Questões Frequentes</a></li><li><a title='Folhetos informativos (apoio)' href='https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/Folhetos_informativos/Pages/default.aspx' target='' style=''>Folhetos informativos</a></li><li><a title='Manuais / guias' href='https://info.portaldasfinancas.gov.pt/pt/apoio_ao_contribuinte/Informacao/Paginas/default.aspx' target='' style=''>Manuais e guias</a></li><li><a title='Estatísticas declarativas e relativas a Impostos sobre o Rendimento, a Despesa e o Património' href='/pt/dgci/divulgacao/estatisticas/Pages/default.aspx' target='' style=''>Estatísticas</a></li><li><a title='Site da AT - Política de privacidade' href='/pt/quem_somos/privacidade/Pages/privacidade.aspx' target='' style=''>Segurança e Privacidade</a></li><li><a title='Hiperligações para Sites Nacionais, da União Europeia e de outras Administrações Aduaneiras e Tributárias' href='/pt/divulgacao/Pages/outros-links.aspx' target='' style=''>Ligações</a></li><li><a title='Portal de Venda de Bens da Administração Tributária e Aduaneira' href='https://vendas.portaldasfinancas.gov.pt/vendasat' target='_blank' style=''>Venda de bens</a></li><li><a title='Listas de Devedores à AT e à Segurança Social' href='http://www.portaldasfinancas.gov.pt/pt/menu.action?pai=100' target='_blank' style=''>Lista de Devedores</a></li><li><a title='Sistema de Intercâmbio de Informações sobre o IVA (VIES) - Validação do n.º de  IVA' href='http://ec.europa.eu/taxation_customs/vies/' target='_blank' style=''>Transações Intracomunitárias</a></li><li><a title='Projeto Cross-Border Ruling (CBR)' href='/pt/informacao_fiscal/uniao_europeia/projetos/CBR/Pages/default.aspx' target='' style=''>Cross-Border Ruling (CBR)</a></li></ul></nav>
+				<nav id="ctl00_ctl72_links03" class="col-sm-4  link-area-3" style="width:37%;"><ul><li><a title='Contactos' href='https://sitfiscal.portaldasfinancas.gov.pt/ebalcao/home' target='' style='margin-top:30px;width:250px !important;height:52px !important;margin-bottom: 20px;'><img src='/pt/PublishingImages/AT56_contactos_iconografia-portal_ver02.png' alt='Página de contactos'></a></li><li><a title='Siga-nos no facebook' href='https://www.facebook.com/AT.financas' target='_blank' style=''><img src='/pt/PublishingImages/AT56_facebook_ver01-40x32.png' alt='Facebook'></a></li><li><a title='Siga-nos no Instagram' href='https://www.instagram.com/at.financas' target='_blank' style='position: absolute;     left: 60px;     top: 102px;'><img src='/pt/PublishingImages/AT56_instagram_ver01-40x32.png' alt='Instagram'></a></li><li><a title='Veja os nossos tutoriais no Youtube' href='https://www.youtube.com/%40AutoridadeTributariaAduaneira' target='_blank' style='position: absolute;     left: 109px;     top: 103px;'><img src='/pt/PublishingImages/AT56_youtube_ver01-40x32.png' alt='YouTube'></a></li><li><a title='Siga-nos no X' href='https://x.com/Aut_Trib_Adua' target='' style='position: absolute;     left: 152px;     top: 99px;'><img src='/pt/PublishingImages/AT56_twitter_ver01-40x40.png' alt=''></a></li><li><a title='Siga-nos no linkedln' href='https://www.linkedin.com/company/atfinancas/' target='_blank' style='position: absolute;     left: 200px;     top: 102px;'><img src='/pt/PublishingImages/AT56_linkedin_ver01-40x32.png' alt='Linkedin'></a></li><li><a title='Aplicações móveis di​sponibilizadas pela Autoridade Tributária e Aduaneira​​' href='https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/Apps/Pages/Apps_AT_.aspx' target='' style='margin-top: 20px;'><img src='/pt/PublishingImages/AT56_apps-at_iconografia-portal_ver02.png' alt='Aplicações móveis di​sponibilizadas pela Autoridade Tributária e Aduaneira​​'></a></li><li><a title='Direitos dos Contribuintes' href='https://info.portaldasfinancas.gov.pt/pt/direitos_dos_contribuintes/Paginas/default.aspx' target='' style='margin-top: 20px;'><img src='/pt/PublishingImages/AT56_direitos-do-contribuinte_ver02-180x60.png' alt='Direitos do Contribuinte'></a></li><li><a title='Acessibilidade' href='http://www.w3.org/WAI/WCAG1AA-Conformance' target='_blank' style='margin-top: 20px;'><img src='/pt/PublishingImages/wcag1AA-blue.png' alt='Acessibilidade (W3C)'></a></li></ul></nav>
+				<nav id="ctl00_ctl72_links04" class="col-sm-3  link-area-4" style="display:none;"></nav>
+                <nav id="ctl00_ctl72_links05" class="col-sm-3  link-area-5" style="display:none;"></nav>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+                </div>
+            </div>
+        
+
+<script type="text/javascript">
+//<![CDATA[
+var _spFormDigestRefreshInterval = 1440000;
+WebForm_InitCallback(); IsSPSocialSwitchEnabled = function() { return true; };var _fV4UI = true;
+function _RegisterWebPartPageCUI()
+{
+    var initInfo = {editable: false,isEditMode: false,allowWebPartAdder: false,listId: "{cedee3f7-5dd4-43fd-b993-d08694b521ba}",itemId: 45,recycleBinEnabled: true,enableMinorVersioning: true,enableModeration: true,forceCheckout: true,rootFolderUrl: "\u002fpt\u002finformacao_fiscal\u002fcodigos_tributarios\u002fselo\u002fPages",itemPermissions:{High:16,Low:196705}};
+    SP.Ribbon.WebPartComponent.registerWithPageManager(initInfo);
+    var wpcomp = SP.Ribbon.WebPartComponent.get_instance();
+    var hid;
+    hid = document.getElementById("_wpSelected");
+    if (hid != null)
+    {
+        var wpid = hid.value;
+        if (wpid.length > 0)
+        {
+            var zc = document.getElementById(wpid);
+            if (zc != null)
+                wpcomp.selectWebPart(zc, false);
+        }
+    }
+    hid = document.getElementById("_wzSelected");
+    if (hid != null)
+    {
+        var wzid = hid.value;
+        if (wzid.length > 0)
+        {
+            wpcomp.selectWebPartZone(null, wzid);
+        }
+    }
+};
+function __RegisterWebPartPageCUI() {
+ExecuteOrDelayUntilScriptLoaded(_RegisterWebPartPageCUI, "sp.ribbon.js");}
+_spBodyOnLoadFunctionNames.push("__RegisterWebPartPageCUI");var __wpmExportWarning='This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.';var __wpmCloseProviderWarning='You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.';var __wpmDeleteWarning='You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.';
+ExecuteOrDelayUntilScriptLoaded(
+function()
+{
+var initInfo = 
+{
+itemPermMasks: {High:16,Low:196705},
+listPermMasks: {High:16,Low:196705},
+listId: "cedee3f7-5dd4-43fd-b993-d08694b521ba",
+itemId: 45,
+workflowsAssociated: false,
+editable: false,
+doNotShowProperties: false,
+enableVersioning: true
+};
+SP.Ribbon.DocLibAspxPageComponent.registerWithPageManager(initInfo);
+},
+"sp.ribbon.js");
+var g_disableCheckoutInEditMode = false;
+var _spWebPermMasks = {High:16,Low:196705};var g_clientIdDeltaPlaceHolderMain = "DeltaPlaceHolderMain";
+var g_clientIdDeltaPlaceHolderPageTitleInTitleArea = "DeltaPlaceHolderPageTitleInTitleArea";
+var g_clientIdDeltaPlaceHolderUtilityContent = "DeltaPlaceHolderUtilityContent";
+
+theForm.oldSubmit = theForm.submit;
+theForm.submit = WebForm_SaveScrollPositionSubmit;
+
+theForm.oldOnSubmit = theForm.onsubmit;
+theForm.onsubmit = WebForm_SaveScrollPositionOnSubmit;
+
+var g_commandUIHandlers = {"name":"CommandHandlers","attrs":{},"children":[]};
+//]]>
+</script>
+</form>
+
+        <span id="DeltaPlaceHolderUtilityContent">
+            
+        </span>
+        <script type="text/javascript">// <![CDATA[ 
+
+
+            var g_Workspace = "s4-workspace";
+        // ]]>
+</script>
+        
+    </body>
+</html>
+<!-- Rendered using cache profile:Public Internet (Purely Anonymous) at: 2026-07-30T10:12:38 -->
