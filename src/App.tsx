@@ -1,23 +1,21 @@
 import { Routes, Route } from "react-router-dom";
+import { Layout } from "@/components/Layout";
+import { CalculatorPage } from "@/pages/CalculatorPage";
 
-// Route surface for the app. The real pages (calculator, glossary, how-it-works) are
-// filled in by later work; this keeps the router shape stable from the first commit.
 export function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Placeholder title="Calculator" />} />
-      <Route path="/glossary" element={<Placeholder title="Glossary" />} />
-      <Route path="/how-it-works" element={<Placeholder title="How it works" />} />
-      <Route path="*" element={<Placeholder title="Not found" />} />
-    </Routes>
+    <Layout>
+      <Routes>
+        <Route path="/" element={<CalculatorPage />} />
+        {/* Glossary and How-it-works pages are added in later work. */}
+        <Route path="/glossary" element={<Placeholder title="Glossary" />} />
+        <Route path="/how-it-works" element={<Placeholder title="How it works" />} />
+        <Route path="*" element={<CalculatorPage />} />
+      </Routes>
+    </Layout>
   );
 }
 
 function Placeholder({ title }: { title: string }) {
-  return (
-    <main>
-      <h1>IMT Calculator</h1>
-      <p>{title}</p>
-    </main>
-  );
+  return <p>{title}</p>;
 }
