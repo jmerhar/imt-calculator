@@ -10,7 +10,8 @@ do Selo), for purchases under the 2026 rules — including the non-resident regi
 
 **Live:** https://calc-imt.online/
 
-No backend, no tracking: it runs entirely in the browser and is deployed to GitHub Pages.
+No backend — it runs entirely in the browser and is deployed to GitHub Pages. It uses Google
+Analytics (gtag.js) for basic, aggregate usage statistics.
 
 > ⚠️ This is an estimate, **not tax advice**. Confirm any figure with the Autoridade Tributária or a
 > notary. See the in-app *How it works* page for the exact rules and sources.
