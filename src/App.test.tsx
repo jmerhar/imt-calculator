@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi, afterEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
@@ -62,4 +62,18 @@ describe("App", () => {
     await user.click(screen.getByRole("button", { name: "PT" }));
     expect(screen.getByText(glossary[0].pt.term)).toBeInTheDocument();
   });
+
+  it("sends a Google Analytics page_view per route", async () => {
+    const gtag = vi.fn();
+    window.gtag = gtag;
+    const user = userEvent.setup();
+    renderApp();
+    expect(gtag).toHaveBeenCalledWith("event", "page_view", expect.objectContaining({ page_path: "/" }));
+    await user.click(screen.getByRole("link", { name: en.nav.glossary }));
+    expect(gtag).toHaveBeenCalledWith("event", "page_view", expect.objectContaining({ page_path: "/glossary" }));
+  });
+});
+
+afterEach(() => {
+  delete window.gtag;
 });

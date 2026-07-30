@@ -25,7 +25,8 @@
       }
       gtag("js", new Date());
 
-      gtag("config", "G-7SNXFN63ZN");
+      // Page views are sent per route by the app (HashRouter), so disable the automatic one.
+      gtag("config", "G-7SNXFN63ZN", { send_page_view: false });
     </script>
   </head>
   <body>
