@@ -1,0 +1,66 @@
+/* "Azulejo modern" design tokens. Cobalt-on-cream, warm off-white, a single ochre accent, with
+   glazed-tile result cards. Dark theme keeps the same accents on a deep slate ground. */
+
+:root {
+  /* Palette */
+  --azul-900: #14345e;
+  --azul-600: #2b5fa0;
+  --azul-400: #5b8cc4;
+  --manganese: #4b3a6b;
+  --ochre: #d99a2b;
+  --ochre-tint: #f7ecd4;
+
+  --glaze: #f7f4ed; /* app background */
+  --tile: #ffffff; /* cards */
+  --ink: #17202e; /* primary text */
+  --ink-soft: #566072; /* secondary text */
+  --line: #d9e0ea; /* hairlines / borders */
+  --line-strong: #b7c3d4;
+  --field-bg: #ffffff;
+  --warn-bg: #fdf3e7;
+  --warn-ink: #8a5a12;
+
+  /* Type */
+  --font-display: "Bricolage Grotesque", Georgia, serif;
+  --font-sans: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  /* Scale */
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s5: 24px;
+  --s6: 32px;
+  --s7: 48px;
+  --radius: 14px;
+  --radius-sm: 9px;
+
+  --shadow-card: 0 1px 2px rgba(20, 52, 94, 0.06), 0 8px 24px -16px rgba(20, 52, 94, 0.35);
+  --focus: 0 0 0 3px rgba(43, 95, 160, 0.35);
+
+  --rail-w: 48px;
+  --content-max: 1160px;
+}
+
+[data-theme="dark"] {
+  --azul-900: #0b1f38;
+  --azul-600: #6ea2df;
+  --azul-400: #3f5f86;
+  --manganese: #b8a6df;
+  --ochre: #eab54e;
+  --ochre-tint: #33280f;
+
+  --glaze: #0e1a2b;
+  --tile: #16283f;
+  --ink: #eaf0f8;
+  --ink-soft: #a7b4c6;
+  --line: #24374f;
+  --line-strong: #33496a;
+  --field-bg: #122135;
+  --warn-bg: #33280f;
+  --warn-ink: #f0cd8f;
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 30px -18px rgba(0, 0, 0, 0.8);
+  --focus: 0 0 0 3px rgba(110, 162, 223, 0.45);
+}

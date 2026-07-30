@@ -1,0 +1,593 @@
+/* Azulejo-modern layout & components. Structure classes are set by the React components; this
+   file owns all presentation. */
+
+body {
+  background: var(--glaze);
+  color: var(--ink);
+  font-family: var(--font-sans);
+}
+
+a {
+  color: var(--azul-600);
+}
+
+/* ---- App shell: a decorative azulejo rail down the left edge ------------------------------ */
+.app {
+  display: grid;
+  grid-template-columns: var(--rail-w) 1fr;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+}
+.app__rail {
+  grid-row: 1 / -1;
+  grid-column: 1;
+  background-color: var(--azul-900);
+  background-image: url("./azulejo.svg");
+  background-size: 44px 44px;
+}
+.header,
+.main,
+.footer {
+  grid-column: 2;
+  padding-inline: clamp(var(--s4), 4vw, var(--s7));
+}
+
+/* ---- Header / nav ------------------------------------------------------------------------- */
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--s5);
+  flex-wrap: wrap;
+  padding-block: var(--s4);
+  border-bottom: 1px solid var(--line);
+}
+.header__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+}
+.header__mark {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background-color: var(--azul-900);
+  background-image: url("./azulejo.svg");
+  background-size: 34px 34px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+.header__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.35rem;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+.header__subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.04em;
+}
+.nav {
+  display: flex;
+  gap: var(--s2);
+  margin-inline-start: auto;
+}
+.nav__link {
+  text-decoration: none;
+  color: var(--ink-soft);
+  font-weight: 500;
+  font-size: 0.92rem;
+  padding: var(--s2) var(--s3);
+  border-radius: var(--radius-sm);
+}
+.nav__link:hover {
+  color: var(--ink);
+  background: color-mix(in srgb, var(--azul-400) 14%, transparent);
+}
+.nav__link--active {
+  color: var(--azul-600);
+  background: color-mix(in srgb, var(--azul-400) 18%, transparent);
+}
+.header__tools {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+}
+.langswitch {
+  display: inline-flex;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.langswitch__btn {
+  border: 0;
+  background: transparent;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: var(--s1) var(--s3);
+  cursor: pointer;
+}
+.langswitch__btn[aria-pressed="true"] {
+  background: var(--azul-600);
+  color: #fff;
+}
+.iconbtn {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--field-bg);
+  color: var(--ink);
+  cursor: pointer;
+}
+.iconbtn:hover {
+  border-color: var(--azul-400);
+}
+
+/* ---- Main / panels ------------------------------------------------------------------------ */
+.main {
+  width: 100%;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding-block: var(--s6);
+}
+.calculator {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: var(--s5);
+  align-items: start;
+}
+.panel {
+  background: var(--tile);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--s5);
+  box-shadow: var(--shadow-card);
+}
+.panel--results {
+  position: sticky;
+  top: var(--s4);
+}
+.panel__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  margin: 0 0 var(--s4);
+}
+.buyers .panel__title {
+  margin-top: var(--s5);
+}
+
+/* ---- Fields & controls -------------------------------------------------------------------- */
+.form__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--s4);
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  min-width: 0;
+}
+.field__label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink);
+  display: flex;
+  align-items: baseline;
+  gap: var(--s2);
+}
+.field__optional {
+  font-weight: 400;
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  padding: 0 var(--s2);
+}
+.field__hint {
+  margin: 0;
+  font-size: 0.76rem;
+  color: var(--ink-soft);
+}
+.select,
+.num__input {
+  width: 100%;
+  font: inherit;
+  color: var(--ink);
+  background: var(--field-bg);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  padding: var(--s3);
+}
+.num {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.num__input {
+  font-family: var(--font-mono);
+}
+.num__suffix {
+  position: absolute;
+  right: var(--s3);
+  color: var(--ink-soft);
+  font-family: var(--font-mono);
+  pointer-events: none;
+}
+.select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--ink-soft) 50%),
+    linear-gradient(135deg, var(--ink-soft) 50%, transparent 50%);
+  background-position: right 16px center, right 11px center;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}
+.segmented {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.segmented__option {
+  flex: 1;
+  border: 0;
+  border-inline-start: 1px solid var(--line-strong);
+  background: var(--field-bg);
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 0.85rem;
+  padding: var(--s3) var(--s2);
+  cursor: pointer;
+}
+.segmented__option:first-child {
+  border-inline-start: 0;
+}
+.segmented__option[aria-pressed="true"] {
+  background: var(--azul-600);
+  color: #fff;
+  font-weight: 600;
+}
+.toggle {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s3);
+  grid-column: 1 / -1;
+}
+.toggle__input {
+  margin-top: 3px;
+  width: 18px;
+  height: 18px;
+  accent-color: var(--azul-600);
+  flex: none;
+}
+.toggle__label {
+  font-size: 0.85rem;
+  color: var(--ink);
+}
+
+/* ---- Mortgage & buyers -------------------------------------------------------------------- */
+.mortgage,
+.buyers {
+  margin-top: var(--s5);
+  border-top: 1px solid var(--line);
+  padding-top: var(--s4);
+}
+.mortgage__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--s4);
+  margin-top: var(--s3);
+}
+.buyer {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: var(--s4);
+  margin-bottom: var(--s3);
+  background: color-mix(in srgb, var(--azul-400) 5%, var(--tile));
+}
+.buyer__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--s3);
+}
+.buyer__title {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  margin: 0;
+}
+.buyer__remove {
+  border: 0;
+  background: transparent;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.buyer__remove:hover {
+  color: var(--manganese);
+}
+.buyer__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--s4);
+}
+
+/* ---- Buttons ------------------------------------------------------------------------------ */
+.btn {
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: var(--s3) var(--s4);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--azul-600);
+  background: var(--azul-600);
+  color: #fff;
+  cursor: pointer;
+}
+.btn:hover {
+  background: var(--azul-900);
+  border-color: var(--azul-900);
+}
+.btn--ghost {
+  background: transparent;
+  color: var(--azul-600);
+  border-style: dashed;
+  width: 100%;
+  margin-top: var(--s2);
+}
+.btn--ghost:hover {
+  background: color-mix(in srgb, var(--azul-400) 12%, transparent);
+  color: var(--azul-600);
+  border-color: var(--azul-600);
+}
+
+/* ---- Results ------------------------------------------------------------------------------ */
+.results__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s3);
+  flex-wrap: wrap;
+}
+.results__title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  margin: 0;
+}
+.results__base {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+.results__base strong {
+  font-family: var(--font-mono);
+  color: var(--ink);
+}
+.badge {
+  display: inline-block;
+  margin-inline-start: var(--s2);
+  font-size: 0.68rem;
+  color: var(--azul-600);
+  background: color-mix(in srgb, var(--azul-400) 16%, transparent);
+  border-radius: 999px;
+  padding: 1px var(--s2);
+}
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s3);
+  margin: var(--s4) 0;
+}
+/* Glazed azulejo tile: cobalt hairline, ceramic highlight, faint bevel. */
+.tile {
+  position: relative;
+  overflow: hidden;
+  background: var(--tile);
+  border: 1px solid var(--azul-400);
+  border-radius: var(--radius);
+  padding: var(--s4);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), var(--shadow-card);
+}
+.tile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 80% at 12% 0%, rgba(255, 255, 255, 0.5), transparent 62%);
+  pointer-events: none;
+}
+.tile__label {
+  font-size: 0.76rem;
+  color: var(--ink-soft);
+  margin-bottom: var(--s2);
+}
+.tile__value {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 1.15rem;
+  color: var(--azul-900);
+}
+.tile--total {
+  background: linear-gradient(180deg, var(--ochre-tint), var(--tile));
+  border-color: var(--ochre);
+}
+.tile--total .tile__value {
+  color: var(--ink);
+  font-size: 1.35rem;
+}
+[data-theme="dark"] .tile__value {
+  color: var(--ink);
+}
+
+.summary {
+  margin: var(--s4) 0;
+  display: grid;
+  gap: var(--s2);
+}
+.summary__row {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dotted var(--line);
+  padding-bottom: var(--s2);
+}
+.summary dt {
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+.summary dd {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-weight: 500;
+}
+
+.breakdown {
+  margin-top: var(--s4);
+}
+.breakdown__title {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  margin: 0 0 var(--s2);
+}
+.breakdown__row {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  padding: var(--s2) 0;
+  border-bottom: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+.breakdown__who {
+  font-size: 0.9rem;
+}
+.breakdown__val {
+  margin-inline-start: auto;
+  font-family: var(--font-mono);
+  font-weight: 600;
+}
+.breakdown__reclaim {
+  flex-basis: 100%;
+  font-size: 0.76rem;
+  color: var(--manganese);
+}
+.tag {
+  margin-inline-start: var(--s2);
+  font-size: 0.68rem;
+  color: var(--manganese);
+  border: 1px solid color-mix(in srgb, var(--manganese) 40%, transparent);
+  border-radius: 999px;
+  padding: 0 var(--s2);
+}
+.note {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  border-inline-start: 3px solid var(--azul-400);
+  padding-inline-start: var(--s3);
+  margin: var(--s4) 0;
+}
+.warning {
+  background: var(--warn-bg);
+  color: var(--warn-ink);
+  border-radius: var(--radius-sm);
+  padding: var(--s3);
+  font-size: 0.85rem;
+  margin: var(--s3) 0 0;
+}
+.results__foot {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  margin-top: var(--s4);
+  padding-top: var(--s3);
+  border-top: 1px solid var(--line);
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+}
+.calcid code {
+  font-family: var(--font-mono);
+  color: var(--ink);
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  margin-top: var(--s4);
+}
+.actions .btn {
+  flex: 1;
+  min-width: 120px;
+}
+.flash {
+  margin: var(--s3) 0 0;
+  font-size: 0.8rem;
+  color: var(--azul-600);
+}
+
+/* ---- Footer ------------------------------------------------------------------------------- */
+.footer {
+  border-top: 1px solid var(--line);
+  padding-block: var(--s5);
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  width: 100%;
+}
+.footer__disclaimer {
+  margin: 0 0 var(--s2);
+}
+.footer__meta {
+  margin: 0;
+}
+.footer__link {
+  color: var(--azul-600);
+}
+
+/* ---- Focus & motion ----------------------------------------------------------------------- */
+:where(a, button, input, select, [tabindex]):focus-visible {
+  outline: none;
+  box-shadow: var(--focus);
+  border-radius: var(--radius-sm);
+}
+
+/* ---- Responsive --------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .calculator {
+    grid-template-columns: 1fr;
+  }
+  .panel--results {
+    position: static;
+  }
+}
+@media (max-width: 560px) {
+  :root {
+    --rail-w: 8px;
+  }
+  .app__rail {
+    background-size: 8px 44px;
+  }
+  .form__grid,
+  .mortgage__grid,
+  .buyer__grid {
+    grid-template-columns: 1fr;
+  }
+  .header {
+    gap: var(--s3);
+  }
+  .nav {
+    order: 3;
+    width: 100%;
+    margin-inline-start: 0;
+  }
+  .tiles {
+    grid-template-columns: 1fr;
+  }
+}
