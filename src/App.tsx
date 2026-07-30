@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { Layout } from "@/components/Layout";
 import { CalculatorPage } from "@/pages/CalculatorPage";
 import { GlossaryPage } from "@/pages/GlossaryPage";
+import { HowItWorksPage } from "@/pages/HowItWorksPage";
 
 export function App() {
   return (
@@ -9,8 +10,7 @@ export function App() {
       <Routes>
         <Route path="/" element={<CalculatorPage />} />
         <Route path="/glossary" element={<GlossaryPage />} />
-        {/* How-it-works page is added next. */}
-        <Route path="/how-it-works" element={<GlossaryPage />} />
+        <Route path="/how-it-works" element={<HowItWorksPage />} />
         <Route path="*" element={<CalculatorPage />} />
       </Routes>
     </Layout>
