@@ -1,5 +1,5 @@
 # Codecov is informational only — the real gate is scripts/coverage-report.py --gate in CI.
-# Public repo, so uploads are tokenless.
+# Uploads use the CODECOV_TOKEN repo secret (tokenless upload is unreliable for this repo).
 coverage:
   status:
     project:

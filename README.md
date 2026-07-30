@@ -86,7 +86,8 @@ Pushing to `main` triggers `.github/workflows/deploy.yml`, which builds and depl
 Pages (Pages source must be **GitHub Actions**). The site is served at the custom domain
 `calc-imt.online` (a `public/CNAME` keeps the domain across deploys), so the Vite `base` is `/`.
 Coverage publishing needs a `COVERAGE_PAGES_TOKEN` repo secret (a PAT with write access to
-`jmerhar/coverage`); it is skipped gracefully if absent.
+`jmerhar/coverage`); it is skipped gracefully if absent. The Codecov upload uses a `CODECOV_TOKEN`
+repo secret.
 
 ## Tech stack
 
