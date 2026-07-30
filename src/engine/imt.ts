@@ -90,10 +90,10 @@ function computeBuyer(
     rule = "non_resident_7_5";
     imt = shareValue * year.nonResidentRate;
     if (buyer.exception === "becomes_resident" || buyer.exception === "accessible_rent") {
-      // Paid now, reclaimable down to ordinary later (n.º 11–12).
-      const ord = ordinary().amount;
-      reclaimableTo = round2(ord);
-      reclaimDelta = round2(imt - ord);
+      // Paid now, reclaimable down to ordinary later (n.º 11–12). Compute the delta from the
+      // rounded, displayed figures so it always equals shown IMT − shown reclaimableTo.
+      reclaimableTo = round2(ordinary().amount);
+      reclaimDelta = round2(round2(imt) - reclaimableTo);
     }
   } else {
     const o = ordinary();

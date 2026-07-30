@@ -78,7 +78,7 @@ export function ResultsPanel({
 
       <div className="tiles">
         <Tile label={t.results.imt} value={formatEuro(result.totalImt, lang)} />
-        <Tile label={t.results.stampDutyTransfer} value={formatEuro(result.totalStampDuty, lang)} />
+        <Tile label={t.results.stampDuty} value={formatEuro(result.totalStampDuty, lang)} />
         <Tile label={t.results.totalDue} value={formatEuro(result.grandTotal, lang)} accent />
       </div>
 

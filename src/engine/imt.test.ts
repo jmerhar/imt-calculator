@@ -148,6 +148,63 @@ describe("calculate — rule precedence & special cases", () => {
   });
 });
 
+describe("calculate — additional rule coverage", () => {
+  it("tax-haven 10% takes precedence over the non-resident 7.5%", () => {
+    const r = calculate(
+      input({ buyers: [buyer({ type: "entity", taxHaven: true, residency: "non_resident", exception: "none" })] }),
+    );
+    expect(r.buyers[0].rule).toBe("tax_haven_10");
+    expect(r.totalImt).toBeCloseTo(40000, 2);
+  });
+
+  it("non-resident 7.5% takes precedence over IMT Jovem", () => {
+    const r = calculate(
+      input({
+        intendedUse: "own_permanent",
+        buyers: [buyer({ residency: "non_resident", exception: "none", jovem: true })],
+      }),
+    );
+    expect(r.buyers[0].rule).toBe("non_resident_7_5");
+    expect(r.buyers[0].table).toBeNull();
+    expect(r.totalImt).toBeCloseTo(30000, 2);
+  });
+
+  it("accessible-rent non-resident is reclaimable to ordinary", () => {
+    const r = calculate(input({ buyers: [buyer({ residency: "non_resident", exception: "accessible_rent" })] }));
+    expect(r.buyers[0].imt).toBeCloseTo(30000, 2);
+    expect(r.reclaimableTotal).toBeCloseTo(10699.89, 2);
+    // Delta equals shown IMT − shown reclaimableTo.
+    expect(r.buyers[0].reclaimDelta).toBeCloseTo(r.buyers[0].imt - (r.buyers[0].reclaimableTo ?? 0), 2);
+  });
+
+  it("mortgage stamp duty for 1–5 year and sub-1-year terms", () => {
+    expect(calculate(input({ mortgage: { amount: 100000, term: "y1to5" } })).mortgageStampDuty).toBeCloseTo(500, 2);
+    expect(
+      calculate(input({ mortgage: { amount: 100000, term: "lt1", months: 6 } })).mortgageStampDuty,
+    ).toBeCloseTo(240, 2);
+    // Missing months defaults to one month.
+    expect(calculate(input({ mortgage: { amount: 100000, term: "lt1" } })).mortgageStampDuty).toBeCloseTo(40, 2);
+  });
+
+  it("uses the price when VPT is lower", () => {
+    const r = calculate(input({ price: 400000, vpt: 100000 }));
+    expect(r.taxBase).toBe(400000);
+    expect(r.baseSource).toBe("price");
+  });
+
+  it("applies the flat 7.5% top band", () => {
+    const r = calculate(input({ price: 1200000 })); // Table III, above 1 150 853
+    expect(r.totalImt).toBeCloseTo(90000, 2);
+  });
+
+  it("handles no buyers and a zero price without dividing by zero", () => {
+    expect(calculate(input({ buyers: [] })).warnings).toContain("no_buyers");
+    const zero = calculate(input({ price: 0 }));
+    expect(zero.totalImt).toBe(0);
+    expect(zero.effectiveRate).toBe(0);
+  });
+});
+
 describe("calcId", () => {
   it("is deterministic and input-sensitive", () => {
     expect(calcId(input())).toBe(calcId(input()));

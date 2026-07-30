@@ -44,13 +44,21 @@ export function BuyerCard({
           value={sharePct}
           suffix="%"
           min={0}
+          max={100}
           onChange={(n) => onChange({ share: (n ?? 0) / 100 })}
         />
 
         <Segmented<BuyerType>
           label={t.form.buyerType}
           value={buyer.type}
-          onChange={(type) => onChange({ type, taxHaven: type === "individual" ? false : buyer.taxHaven })}
+          onChange={(type) =>
+            onChange({
+              type,
+              // Tax-haven applies to entities only; IMT Jovem to individuals only.
+              taxHaven: type === "individual" ? false : buyer.taxHaven,
+              jovem: type === "entity" ? false : buyer.jovem,
+            })
+          }
           options={[
             { value: "individual", label: t.form.typeIndividual },
             { value: "entity", label: t.form.typeEntity },
@@ -89,7 +97,7 @@ export function BuyerCard({
           />
         )}
 
-        {intendedUse === "own_permanent" && (
+        {intendedUse === "own_permanent" && buyer.type === "individual" && (
           <Toggle label={t.form.jovem} checked={buyer.jovem} onChange={(jovem) => onChange({ jovem })} />
         )}
       </div>

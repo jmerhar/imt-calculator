@@ -36,6 +36,7 @@ export function NumberField({
   value,
   onChange,
   min = 0,
+  max,
   suffix,
 }: {
   label: string;
@@ -44,6 +45,7 @@ export function NumberField({
   value: number | undefined;
   onChange: (n: number | undefined) => void;
   min?: number;
+  max?: number;
   suffix?: string;
 }) {
   const id = useId();
@@ -56,6 +58,7 @@ export function NumberField({
           type="number"
           inputMode="numeric"
           min={min}
+          max={max}
           value={value ?? ""}
           onChange={(e) => onChange(e.target.value === "" ? undefined : Number(e.target.value))}
         />

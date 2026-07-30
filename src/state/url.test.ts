@@ -40,6 +40,7 @@ describe("url state", () => {
     expect(decodeState("y=2026&loc=zz&use=o&p=100000&b=1,i,0,r,n,0")).toBeNull(); // bad location
     expect(decodeState("y=2026&loc=m&use=o&p=-5&b=1,i,0,r,n,0")).toBeNull(); // negative price
     expect(decodeState("y=2026&loc=m&use=o&p=100000&b=9,i,0,r,n,0")).toBeNull(); // share > 1
+    expect(decodeState("y=2099&loc=m&use=o&p=100000&b=1,i,0,r,n,0")).toBeNull(); // no table for that year
   });
 
   it("produces a compact query string", () => {

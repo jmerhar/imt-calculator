@@ -25,12 +25,13 @@ const ROOT = resolve(HERE, "..");
 const DEFAULT_URL =
   "https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/cimt/Pages/cimt17.aspx";
 
-// Thresholds + marginal rates (percent) expected on the mainland for the baseline year. Used only
-// as a scrape tripwire; deductions are derived, so they are not part of the fingerprint.
+// Full expected mainland tables for the baseline year — thresholds, rates AND derived deductions —
+// as a scrape/derivation tripwire. Comparing deductions too catches a bad flat-band detection or a
+// continuity error, not just a mis-scraped threshold. Values are [lower, rate, deduction].
 const EXPECTED_2026 = {
-  I: [[0, 0], [106346, 2], [145470, 5], [198347, 7], [330539, 8], [660982, 6], [1150853, 7.5]],
-  II: [[0, 0], [330539, 8], [660982, 6], [1150853, 7.5]],
-  III: [[0, 1], [106346, 2], [145470, 5], [198347, 7], [330539, 8], [633931, 6], [1150853, 7.5]],
+  I: [[0, 0, 0], [106346, 0.02, 2126.92], [145470, 0.05, 6491.02], [198347, 0.07, 10457.96], [330539, 0.08, 13763.35], [660982, 0.06, 0], [1150853, 0.075, 0]],
+  II: [[0, 0, 0], [330539, 0.08, 26443.12], [660982, 0.06, 0], [1150853, 0.075, 0]],
+  III: [[0, 0.01, 0], [106346, 0.02, 1063.46], [145470, 0.05, 5427.56], [198347, 0.07, 9394.5], [330539, 0.08, 12699.89], [633931, 0.06, 0], [1150853, 0.075, 0]],
 };
 
 // Year-level constants (CIMT art. 17.º n.º 4/n.º 10 + TGIS verbas 1.1 & 17.1). Stable across the
@@ -93,13 +94,19 @@ function rowToBracket(cells) {
   const rateMatch = rateText.match(/(\d+(?:,\d+)?)/);
   if (!rateMatch) return null;
   const rate = Number(rateMatch[1].replace(",", ".")) / 100;
-  return { lower, rate };
+  // Flat ("taxa única") bands are marked as such in the source, so detect them from the text
+  // rather than by matching specific rate values (which could change in a future year).
+  const flat = /[uú]nica/i.test(rateText);
+  return { lower, rate, flat };
 }
 
 function extractRateTables(html) {
   const root = parse(html);
   const out = [];
   for (const table of root.querySelectorAll("table")) {
+    // Skip layout/container tables that merely wrap the real rate tables — otherwise the outer
+    // table's rows (all of a+b+c) look like one giant table and confuse classification.
+    if (table.querySelectorAll("table").length > 0) continue;
     const brackets = [];
     for (const tr of table.querySelectorAll("tr")) {
       const cells = tr.querySelectorAll("td,th").map((c) => c.text);
@@ -132,14 +139,14 @@ const round2 = (x) => Math.round((x + Number.EPSILON) * 100) / 100;
 // Fill in the "parcela a abater" for each bracket: 0 for the flat (taxa única) tail brackets and,
 // for the progressive prefix, the continuity value deduction_k = deduction_{k-1} + lower_k*(r_k−r_{k-1}).
 function withDeductions(brackets) {
-  // Flat tail = the last brackets at 6% then 7.5% with no threshold-continuous predecessor.
-  const flatFrom = brackets.findIndex(
-    (b, i) => i > 0 && (b.rate === 0.06 || b.rate === 0.075),
-  );
+  // Flat ("taxa única") brackets carry deduction 0 and are flagged from the source, so this holds
+  // even if a future year changes the rates or thresholds where the flat tail begins.
   let ded = 0;
-  return brackets.map((b, i) => {
-    if (flatFrom !== -1 && i >= flatFrom) return { lower: b.lower, rate: b.rate, deduction: 0 };
-    if (i > 0) ded = round2(ded + b.lower * (b.rate - brackets[i - 1].rate));
+  let prev = null;
+  return brackets.map((b) => {
+    if (b.flat) return { lower: b.lower, rate: b.rate, deduction: 0 };
+    if (prev) ded = round2(ded + b.lower * (b.rate - prev.rate));
+    prev = b;
     return { lower: b.lower, rate: b.rate, deduction: ded };
   });
 }
@@ -147,13 +154,17 @@ function withDeductions(brackets) {
 function deriveRegion(mainland) {
   // IV/V/VI = mainland I/II/III with thresholds × 1.25 (rounded), same rates, recomputed deductions.
   const scale = (t) =>
-    withDeductions(t.map((b) => ({ lower: b.lower === 0 ? 0 : roundHalfUp(b.lower * 1.25), rate: b.rate })));
+    withDeductions(
+      t.map((b) => ({ lower: b.lower === 0 ? 0 : roundHalfUp(b.lower * 1.25), rate: b.rate, flat: b.flat })),
+    );
   return { IV: scale(mainland.I), V: scale(mainland.II), VI: scale(mainland.III) };
 }
 
+// Compare the built mainland tables (thresholds, rates AND deductions) against the committed
+// baseline, failing loudly on any drift in scraping or deduction derivation.
 function verifyFingerprint(mainland) {
   for (const [id, expected] of Object.entries(EXPECTED_2026)) {
-    const got = mainland[id].map((b) => [b.lower, round2(b.rate * 100)]);
+    const got = mainland[id].map((b) => [b.lower, b.rate, b.deduction]);
     if (JSON.stringify(got) !== JSON.stringify(expected)) {
       fail(`baseline mismatch in table ${id}\n  expected ${JSON.stringify(expected)}\n  got      ${JSON.stringify(got)}`);
     }
@@ -188,16 +199,18 @@ async function main() {
   const args = parseArgs(process.argv.slice(2));
   const html = await readSource(args.source);
   const scraped = extractRateTables(html);
-  if (scraped.length < 3) fail(`expected ≥3 rate tables on the page, found ${scraped.length}`);
+  // Exactly the three mainland tables (I HPP, II Jovem, III habitação) are expected; a different
+  // count means the page changed shape and classification can't be trusted — stop and get a human.
+  if (scraped.length !== 3) fail(`expected exactly 3 rate tables on the page, found ${scraped.length}`);
   const mainlandRaw = classifyMainland(scraped);
-
-  if (args.year === 2026) verifyFingerprint(mainlandRaw);
 
   const mainland = {
     I: withDeductions(mainlandRaw.I),
     II: withDeductions(mainlandRaw.II),
     III: withDeductions(mainlandRaw.III),
   };
+  if (args.year === 2026) verifyFingerprint(mainland);
+
   const region = deriveRegion(mainlandRaw);
   const tables = { ...mainland, ...region };
   const ts = renderTs(args.year, tables);

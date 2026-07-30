@@ -69,6 +69,7 @@ export const en = {
     usingVpt: "using VPT",
     taxes: "Taxes",
     imt: "IMT",
+    stampDuty: "Stamp duty",
     stampDutyTransfer: "Stamp duty (transfer)",
     stampDutyMortgage: "Stamp duty (mortgage)",
     totalDue: "Total tax due",

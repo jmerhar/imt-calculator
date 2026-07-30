@@ -8,6 +8,7 @@ import type {
   NonResidentException,
   Residency,
 } from "@/engine/types";
+import { getYearData } from "@/engine/tables";
 
 // Compact, reversible encoding of the calculator inputs into the URL query, so a calculation can
 // be bookmarked or shared. Kept short with single-letter codes; decoding is defensive and returns
@@ -79,7 +80,10 @@ export function decodeState(qs: string): CalcInput | null {
   const location = LOC_R[p.get("loc") ?? ""] as Location | undefined;
   const intendedUse = USE_R[p.get("use") ?? ""] as IntendedUse | undefined;
   const price = num(p.get("p"));
-  if (year == null || !location || !intendedUse || price == null || price < 0) return null;
+  // Reject a year with no bundled table: otherwise calculate() would throw on a stale link.
+  if (year == null || !getYearData(year) || !location || !intendedUse || price == null || price < 0) {
+    return null;
+  }
 
   const buyersRaw = p.get("b");
   if (!buyersRaw) return null;

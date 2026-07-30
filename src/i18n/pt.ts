@@ -68,6 +68,7 @@ export const pt: Dict = {
     usingVpt: "com base no VPT",
     taxes: "Impostos",
     imt: "IMT",
+    stampDuty: "Imposto do selo",
     stampDutyTransfer: "Imposto do selo (transmissão)",
     stampDutyMortgage: "Imposto do selo (crédito)",
     totalDue: "Total de imposto a pagar",
