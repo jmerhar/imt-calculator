@@ -17,12 +17,10 @@ export function Layout({ children }: { children: ReactNode }) {
       <a className="skiplink" href="#main">
         {t.controls.skipToContent}
       </a>
-      {/* Decorative azulejo tile rail — the page signature. Hidden from assistive tech. */}
-      <div className="app__rail" aria-hidden="true" />
 
       <header className="header">
         <div className="header__brand">
-          <span className="header__mark" aria-hidden="true" />
+          <SealMark />
           <div>
             <div className="header__title">{t.app.title}</div>
             <div className="header__subtitle">{t.app.subtitle}</div>
@@ -81,6 +79,18 @@ export function Layout({ children }: { children: ReactNode }) {
         </p>
       </footer>
     </div>
+  );
+}
+
+// The brand mark: a small "selo" (seal), echoing the deed stamp / Imposto do Selo.
+function SealMark() {
+  return (
+    <svg className="header__mark" width="34" height="34" viewBox="0 0 32 32" aria-hidden="true">
+      <circle cx="16" cy="16" r="15" fill="#14345e" />
+      <circle cx="16" cy="16" r="10.5" fill="none" stroke="#f7f4ed" strokeWidth="1.6" />
+      <circle cx="16" cy="16" r="7" fill="none" stroke="#8fb3de" strokeWidth="1" />
+      <circle cx="16" cy="16" r="2.4" fill="#d99a2b" />
+    </svg>
   );
 }
 
