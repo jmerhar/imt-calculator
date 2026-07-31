@@ -57,6 +57,16 @@ function mortgageStampDuty(mortgage: Mortgage | undefined, rates: YearData["mort
   }
 }
 
+/**
+ * The value ceiling for the IMT-Jovem benefit: the upper limit of the youth table's first (0%)
+ * bracket — i.e. the `lower` bound of its second bracket. Only tables II (mainland) and V (regions)
+ * are youth tables; returns null for any other table, meaning no youth benefit applies.
+ */
+function jovemCeiling(table: TableId | null, year: YearData): number | null {
+  if (table !== "II" && table !== "V") return null;
+  return year.tables[table][1]?.lower ?? null;
+}
+
 function computeBuyer(
   buyer: Buyer,
   input: CalcInput,
@@ -64,7 +74,6 @@ function computeBuyer(
   taxBase: number,
 ): BuyerResult {
   const shareValue = taxBase * buyer.share;
-  const stampDutyTransfer = round2(shareValue * year.stampDutyTransferRate);
 
   // Ordinary IMT via the co-ownership "totality" rule (CIMT art. 17.º n.º 6 a): the rate is set
   // by the FULL tax base and applied to this buyer's share — no bracket-splitting benefit.
@@ -99,6 +108,18 @@ function computeBuyer(
     table = o.table;
     imt = o.amount;
   }
+
+  // Acquisition stamp duty (TGIS verba 1.1, 0.8% of the share value). IMT Jovem also grants a
+  // dedução à coleta of this stamp duty (DL 48-A/2024 art. 3.º → CIS art. 7.º-A): it is exempt up
+  // to the same value ceiling that bounds the youth IMT table's 0% band, and charged only on the
+  // excess, reduced pro-rata to the share (n.º 2). The credit rides on the youth table (II/V), so
+  // it never reaches a non-resident or tax-haven buyer, whose IMT is charged under a different rule
+  // (table stays null) — matching that those buyers do not get the youth IMT rates either.
+  const ceiling = jovemCeiling(table, year);
+  const stampDutyTransfer =
+    ceiling != null
+      ? round2(year.stampDutyTransferRate * buyer.share * Math.max(0, taxBase - ceiling))
+      : round2(shareValue * year.stampDutyTransferRate);
 
   imt = round2(imt);
   return {

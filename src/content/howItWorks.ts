@@ -113,13 +113,13 @@ export const howItWorks: HowToSection[] = [
     en: {
       heading: "Stamp duty",
       blocks: [
-        { p: "Stamp duty on the transfer is 0.8% of the tax base (TGIS verba 1.1). If the purchase is financed, stamp duty on the loan is added under verba 17.1: 0.6% for a term of 5 years or more, 0.5% for 1 to 5 years, and 0.04% per month below a year. A home loan is not consumer credit, so the higher verba 17.2 rates do not apply." },
+        { p: "Stamp duty on the transfer is 0.8% of the tax base (TGIS verba 1.1). Under IMT Jovem — a first own permanent home bought by someone aged 35 or under — this 0.8% is exempt up to the same ceiling as the IMT exemption and charged only on the excess (Decreto-Lei n.º 48-A/2024). If the purchase is financed, stamp duty on the loan is added under verba 17.1: 0.6% for a term of 5 years or more, 0.5% for 1 to 5 years, and 0.04% per month below a year. A home loan is not consumer credit, so the higher verba 17.2 rates do not apply." },
       ],
     },
     pt: {
       heading: "Imposto do selo",
       blocks: [
-        { p: "O imposto do selo sobre a transmissão é 0,8% da base tributável (verba 1.1 da TGIS). Se a compra for financiada, acresce o selo sobre o crédito, ao abrigo da verba 17.1: 0,6% para prazo igual ou superior a 5 anos, 0,5% de 1 a 5 anos e 0,04% por mês para menos de um ano. O crédito à habitação não é crédito ao consumo, pelo que não se aplicam as taxas mais elevadas da verba 17.2." },
+        { p: "O imposto do selo sobre a transmissão é 0,8% da base tributável (verba 1.1 da TGIS). No IMT Jovem — primeira habitação própria e permanente de quem tem até 35 anos — este 0,8% está isento até ao mesmo limite da isenção de IMT, incidindo apenas sobre o excedente (Decreto-Lei n.º 48-A/2024). Se a compra for financiada, acresce o selo sobre o crédito, ao abrigo da verba 17.1: 0,6% para prazo igual ou superior a 5 anos, 0,5% de 1 a 5 anos e 0,04% por mês para menos de um ano. O crédito à habitação não é crédito ao consumo, pelo que não se aplicam as taxas mais elevadas da verba 17.2." },
       ],
     },
   },
@@ -133,6 +133,7 @@ export const howItWorks: HowToSection[] = [
           ul: [
             "IMT rates & tables — CIMT art. 17.º (Portal das Finanças) and AT Ofício Circulado n.º 40129/2026;",
             "Non-resident, tax-haven and totality rules — CIMT art. 17.º, as amended by Decreto-Lei n.º 97/2026;",
+            "IMT Jovem (IMT + stamp-duty relief for buyers ≤ 35) — Decreto-Lei n.º 48-A/2024 (CIMT art. 9.º/17.º; CIS art. 7.º-A);",
             "Stamp duty — Tabela Geral do Imposto do Selo, verbas 1.1 and 17.",
           ],
         },
@@ -147,6 +148,7 @@ export const howItWorks: HowToSection[] = [
           ul: [
             "Taxas e tabelas de IMT — art. 17.º do CIMT (Portal das Finanças) e Ofício Circulado n.º 40129/2026 da AT;",
             "Regras de não residente, paraíso fiscal e totalidade — art. 17.º do CIMT, na redação do Decreto-Lei n.º 97/2026;",
+            "IMT Jovem (isenção de IMT e imposto do selo para compradores até 35 anos) — Decreto-Lei n.º 48-A/2024 (art. 9.º/17.º do CIMT; art. 7.º-A do CIS);",
             "Imposto do selo — Tabela Geral do Imposto do Selo, verbas 1.1 e 17.",
           ],
         },

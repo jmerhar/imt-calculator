@@ -107,13 +107,38 @@ describe("calculate — rule precedence & special cases", () => {
     expect(r.totalImt).toBeCloseTo(40000, 2);
   });
 
-  it("IMT Jovem zeroes IMT below the exemption ceiling", () => {
+  it("IMT Jovem zeroes IMT and acquisition stamp duty below the exemption ceiling", () => {
     const r = calculate(
       input({ intendedUse: "own_permanent", price: 300000, buyers: [buyer({ jovem: true })] }),
     );
     expect(r.buyers[0].table).toBe("II");
     expect(r.totalImt).toBe(0);
-    expect(r.totalStampDutyTransfer).toBeCloseTo(2400, 2);
+    // Below the €330,539 ceiling both IMT and the verba 1.1 stamp duty are fully exempt
+    // (DL 48-A/2024 → CIS art. 7.º-A), so nothing is due.
+    expect(r.totalStampDutyTransfer).toBe(0);
+    expect(r.grandTotal).toBe(0);
+  });
+
+  it("IMT Jovem above the ceiling: IMT and stamp duty charged only on the excess", () => {
+    const r = calculate(
+      input({ intendedUse: "own_permanent", price: 400000, buyers: [buyer({ jovem: true })] }),
+    );
+    expect(r.buyers[0].table).toBe("II");
+    // IMT: 400k in Table II band 330 539–660 982: 8% − 26 443.12 = 5 556.88.
+    expect(r.totalImt).toBeCloseTo(5556.88, 2);
+    // Stamp duty exempt up to €330,539, 0.8% on the excess: (400 000 − 330 539) · 0.8% = 555.69.
+    expect(r.buyers[0].stampDutyTransfer).toBeCloseTo(555.69, 2);
+    expect(r.grandTotal).toBeCloseTo(6112.57, 2);
+  });
+
+  it("IMT Jovem uses the higher autonomous-region ceiling (Table V)", () => {
+    // €400k is below the regions' €413,174 ceiling, so IMT and stamp duty are both fully exempt.
+    const r = calculate(
+      input({ location: "azores", intendedUse: "own_permanent", price: 400000, buyers: [buyer({ jovem: true })] }),
+    );
+    expect(r.buyers[0].table).toBe("V");
+    expect(r.totalImt).toBe(0);
+    expect(r.buyers[0].stampDutyTransfer).toBe(0);
   });
 
   it("autonomous-region secondary uses Table VI", () => {
@@ -166,6 +191,9 @@ describe("calculate — additional rule coverage", () => {
     expect(r.buyers[0].rule).toBe("non_resident_7_5");
     expect(r.buyers[0].table).toBeNull();
     expect(r.totalImt).toBeCloseTo(30000, 2);
+    // The youth stamp-duty credit rides on the youth IMT table; a non-resident does not use it, so
+    // the full 0.8% acquisition stamp duty still applies.
+    expect(r.buyers[0].stampDutyTransfer).toBeCloseTo(3200, 2);
   });
 
   it("accessible-rent non-resident is reclaimable to ordinary", () => {
@@ -213,6 +241,10 @@ describe("calculate — additional rule coverage", () => {
     // B: 200k·(ordinaryImt(400k,I)/400k) = 200k·(18236.65/400k) = 9118.33.
     expect(r.buyers[1].imt).toBeCloseTo(9118.33, 2);
     expect(r.totalImt).toBeCloseTo(11896.77, 2);
+    // Stamp duty: A (youth) is exempt up to €330,539 pro-rata to the 50% share, then 0.8% on the
+    // excess — 0.8% · 0.5 · (400 000 − 330 539) = 277.84; B pays the full 0.8% on 200k = 1 600.
+    expect(r.buyers[0].stampDutyTransfer).toBeCloseTo(277.84, 2);
+    expect(r.buyers[1].stampDutyTransfer).toBeCloseTo(1600, 2);
   });
 
   it("ignores the tax-haven flag for an individual (n.º 7 excludes pessoas singulares)", () => {
