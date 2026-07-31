@@ -35,7 +35,8 @@ const DIMENSIONS = [
   ["price_band", "Price band", "Coarse purchase-price bucket"],
   ["rate_band", "Rate band", "Coarse effective-tax-rate bucket"],
   ["vpt_ratio_band", "VPT ratio band", "Coarse VPT-to-price ratio bucket"],
-  ["has_non_resident", "Has non-resident", "Any buyer is a non-resident"],
+  // "Has nonresident", not "Has non-resident": GA display names forbid hyphens (see NAME_RE).
+  ["has_non_resident", "Has nonresident", "Any buyer is a non-resident"],
   ["has_entity", "Has entity", "Any buyer is a company"],
   ["has_tax_haven", "Has tax haven", "Any buyer is a tax-haven entity"],
   ["has_jovem", "Has Jovem", "IMT Jovem relief was applied"],
@@ -62,6 +63,21 @@ const METRICS = [
   ["effective_rate", "Effective rate", "STANDARD", "Total tax as a percentage of price"],
   ["vpt_ratio", "VPT ratio", "STANDARD", "VPT as a percentage of price"],
 ];
+
+// GA4 display-name rule: start with a letter, then only letters, digits, spaces or underscores
+// (no hyphens or punctuation), max 82 chars. Used to catch a bad name before any API call.
+const NAME_RE = /^[A-Za-z][A-Za-z0-9_ ]{0,81}$/;
+
+/** Fail fast if any definition's display name would be rejected by GA (so it never fails mid-run). */
+function assertValidNames() {
+  const bad = [...DIMENSIONS, ...METRICS].map(([, name]) => name).filter((n) => !NAME_RE.test(n));
+  if (bad.length) {
+    fail(
+      `invalid display name(s) — GA allows letters, digits, spaces and underscores, ` +
+        `starting with a letter: ${bad.map((n) => `"${n}"`).join(", ")}`,
+    );
+  }
+}
 
 /** Parse `--flag value` / `--flag` args into a plain object. */
 function parseArgs(argv) {
@@ -143,6 +159,7 @@ async function createDefinition(token, property, resource, body) {
 }
 
 async function main() {
+  assertValidNames();
   const args = parseArgs(process.argv.slice(2));
   const dryRun = Boolean(args["dry-run"]);
   const property = args.property ?? process.env.GA_PROPERTY_ID ?? DEFAULT_PROPERTY_ID;
