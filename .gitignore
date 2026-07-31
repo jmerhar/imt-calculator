@@ -8,3 +8,8 @@ coverage-upload/
 .env
 .env.*
 !.env.example
+
+# Google service-account keys — never commit (pass via GOOGLE_APPLICATION_CREDENTIALS instead)
+*service-account*.json
+*-key.json
+gcloud-key*.json

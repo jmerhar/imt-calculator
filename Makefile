@@ -1,4 +1,4 @@
-.PHONY: help install dev preview lint test coverage check build clean fetch-tables
+.PHONY: help install dev preview lint test coverage check build clean fetch-tables ga-setup
 
 help: ## Show available commands
 	@grep -E '^[a-zA-Z_-]+:.*##|^##@' $(MAKEFILE_LIST) | \
@@ -43,3 +43,8 @@ clean: ## Remove build + coverage artifacts (all regenerable)
 fetch-tables: ## Fetch AT IMT tables for a year and regenerate the .ts (usage: make fetch-tables YEAR=2026)
 	@test -n "$(YEAR)" || { echo "Usage: make fetch-tables YEAR=2026"; exit 1; }
 	node bin/fetch-tables.mjs $(YEAR)
+
+##@ Analytics
+
+ga-setup: ## Register GA4 custom dimensions/metrics, idempotently (uses ./ga-key.json; ARGS=--dry-run to preview)
+	node bin/ga-setup.mjs $(ARGS)

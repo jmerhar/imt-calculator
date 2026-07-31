@@ -94,6 +94,25 @@ Coverage publishing needs a `COVERAGE_PAGES_TOKEN` repo secret (a PAT with write
 `jmerhar/coverage`); it is skipped gracefully if absent. The Codecov upload uses a `CODECOV_TOKEN`
 repo secret.
 
+## Analytics
+
+The app sends privacy-conscious Google Analytics events (page views, a debounced `calculate` event,
+and share/copy/print/language/theme actions). GA4 only surfaces custom event parameters once they
+are registered as custom definitions, so `bin/ga-setup.mjs` creates them all — idempotently — from
+the single list in that file:
+
+```
+make ga-setup                # apply
+make ga-setup ARGS=--dry-run # preview, write nothing
+```
+
+It defaults to a gitignored **`./ga-key.json`** and the calc-imt property, so no arguments are
+needed (override with `--key`/`GOOGLE_APPLICATION_CREDENTIALS` and `--property`/`GA_PROPERTY_ID`).
+The key is a Google service account with the **Editor** role on the property and the **Analytics
+Admin API** enabled — **never commit it** (`ga-key.json` is gitignored). Re-run whenever new
+parameters are added; existing definitions are skipped. Explorations/reports have no public API and
+are still built in the GA UI.
+
 ## Tech stack
 
 Vite · React · TypeScript · Vitest. No UI framework — the design system is hand-authored CSS.
