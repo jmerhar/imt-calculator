@@ -1078,6 +1078,8 @@ a {
   }
   .header__tools {
     order: 3;
+    width: 100%;
+    justify-content: flex-end;
   }
   .nav {
     order: 4;
