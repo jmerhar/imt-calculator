@@ -1,7 +1,7 @@
 // Light/dark theme: initialised from a saved choice or the OS preference, applied as a
 // `data-theme` attribute on <html> that the CSS tokens key off, and persisted on change.
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useContext, useState, useEffect, useRef, useCallback, useMemo } from "react";
+import { createContext, useContext, useState, useEffect, useCallback, useMemo } from "react";
 import type { ReactNode } from "react";
 
 export type Theme = "light" | "dark";
@@ -29,38 +29,27 @@ const ThemeContext = createContext<ThemeValue | null>(null);
 /** Provides light/dark theme, reflected on `<html data-theme>` and persisted to localStorage. */
 export function ThemeProvider({ children }: { children: ReactNode }) {
   // Deterministic default (light) so the prerendered HTML and the first client render agree
-  // (hydration). The persisted/OS preference is resolved after mount.
+  // (hydration). An inline <head> script (index.html) has already set <html data-theme> from the
+  // same saved/OS preference before first paint, so the page never flashes the default.
   const [theme, setThemeState] = useState<Theme>("light");
 
+  // Resolve the real preference into React state after mount and re-assert it on <html> (idempotent
+  // with the inline script). `data-theme` is written together with every theme change — here and in
+  // setTheme/toggle below — never from a standalone [theme] effect that would run with the stale
+  // initial state. So the attribute and state can never diverge, and there is no clobber to guard.
   useEffect(() => {
-    setThemeState(initialTheme());
+    const resolved = initialTheme();
+    setThemeState(resolved);
+    document.documentElement.dataset.theme = resolved;
   }, []);
-
-  // An inline <head> script (index.html) already set <html data-theme> from the same preference
-  // before first paint, so skip the first application here — otherwise the deterministic initial
-  // ("light") state would clobber it for a frame before the mount effect above resolves the real
-  // preference, reintroducing a flash. Preference-resolution and user toggles write through.
-  const applied = useRef(false);
-  useEffect(() => {
-    if (!applied.current) {
-      applied.current = true;
-      return;
-    }
-    document.documentElement.dataset.theme = theme;
-  }, [theme]);
 
   const setTheme = useCallback((t: Theme) => {
     setThemeState(t);
+    document.documentElement.dataset.theme = t;
     if (typeof localStorage !== "undefined") localStorage.setItem(STORAGE_KEY, t);
   }, []);
 
-  const toggle = useCallback(() => {
-    setThemeState((prev) => {
-      const next = prev === "dark" ? "light" : "dark";
-      if (typeof localStorage !== "undefined") localStorage.setItem(STORAGE_KEY, next);
-      return next;
-    });
-  }, []);
+  const toggle = useCallback(() => setTheme(theme === "dark" ? "light" : "dark"), [theme, setTheme]);
 
   const value = useMemo<ThemeValue>(() => ({ theme, toggle, setTheme }), [theme, toggle, setTheme]);
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
