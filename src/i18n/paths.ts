@@ -1,11 +1,12 @@
 import type { Lang } from "@/i18n";
+import { pageSlug, canonicalKey } from "@/i18n/pages";
 import { GUIDES_SEGMENT, GUIDE_META } from "@/content/guides/registry";
 
-// URL scheme: English at the root (`/`, `/glossary`), Portuguese under `/pt` (`/pt`, `/pt/glossary`).
-// These helpers translate between a language-neutral "bare" path and the language-prefixed one.
-// Guides are the exception: their section segment and slug are both localized (`/guides/<en-slug>`
-// vs `/pt/guias/<pt-slug>`), so the EN↔PT pairing is resolved through the guide registry, not by
-// prefixing — see the guide helpers at the end of this file.
+// URL scheme: English at the root (`/`, `/glossary`), Portuguese under `/pt` with localized slugs
+// (`/pt/glossario`, `/pt/como-funciona`). A language-neutral "bare" key (the English form, e.g.
+// "/glossary") identifies a page across languages; these helpers translate between it and the
+// localized URL via the page-slug registry (src/i18n/pages.ts). Guides do the same through their own
+// registry (localized section segment + slug) — see the guide helpers at the end of this file.
 
 /** localStorage key for an explicit language choice (set when the user toggles). */
 export const LANG_STORAGE_KEY = "imt-lang";
@@ -26,24 +27,27 @@ export function preferredLang(): Lang {
 }
 
 /**
- * A clean, language- and slash-neutral page key. Strips the `/pt` prefix and any trailing slash:
- * "/pt/glossary/" → "/glossary", "/glossary/" → "/glossary", "/pt/" → "/", "/" → "/".
+ * The canonical, language-neutral page key for a pathname: drops the `/pt` prefix and maps the
+ * localized slug back to its English form. "/pt/glossario/" → "/glossary", "/glossary/" →
+ * "/glossary", "/pt/" → "/", "/" → "/".
  */
 export function barePath(pathname: string): string {
-  const key = pathname.replace(/^\/pt(?=\/|$)/, "").replace(/\/+$/, "");
-  return key === "" ? "/" : key;
+  const clean = pathname.replace(/\/+$/, "");
+  const pt = /^\/pt(\/|$)/.test(clean);
+  const rest = (pt ? clean.replace(/^\/pt/, "") : clean).replace(/^\/+/, "");
+  return canonicalKey(pt ? "pt" : "en", rest.split("/")[0] ?? "");
 }
 
 /**
- * The canonical URL for a page key in a language. Uses a trailing slash to match what GitHub Pages
- * serves and the `<link rel="canonical">`, so internal links point at the canonical URL (no 301
- * hop, no slash/non-slash inconsistency): ("en","/glossary") → "/glossary/", ("pt","/glossary") →
- * "/pt/glossary/", ("en","/") → "/", ("pt","/") → "/pt/".
+ * The canonical URL for a page key in a language, with the localized slug. Uses a trailing slash to
+ * match what GitHub Pages serves and the `<link rel="canonical">`, so internal links point at the
+ * canonical URL (no 301 hop, no slash/non-slash inconsistency): ("en","/glossary") → "/glossary/",
+ * ("pt","/glossary") → "/pt/glossario/", ("en","/") → "/", ("pt","/") → "/pt/".
  */
 export function localizedPath(lang: Lang, key: string): string {
   const prefix = lang === "pt" ? "/pt" : "";
-  const clean = key === "/" ? "" : key.replace(/\/+$/, "");
-  return clean === "" ? `${prefix}/` : `${prefix}${clean}/`;
+  const slug = pageSlug(lang, key);
+  return slug === "" ? `${prefix}/` : `${prefix}/${slug}/`;
 }
 
 /** The current path expressed in another language, preserving the page (guides included). */

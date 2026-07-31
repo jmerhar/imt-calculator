@@ -8,15 +8,17 @@ import { SEO_PAGES } from "./src/seo/meta";
 import { jsonLdFor } from "./src/seo/jsonld";
 import { guideSeoForKey } from "./src/seo/guides";
 import { buildSitemap } from "./src/seo/sitemap";
+import { pageSlug, canonicalKey } from "./src/i18n/pages";
 import { GUIDE_META, GUIDES_SEGMENT } from "./src/content/guides/registry";
 
 const escapeHtml = (s: string) =>
   s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
-// URL for a bare (language-neutral) path in a given language: EN at root, PT under /pt, trailing slash.
-const urlFor = (lang: "en" | "pt", bare: string) => {
-  const suffix = bare === "/" ? "" : bare;
-  return lang === "en" ? `${SITE_URL}${suffix}/` : `${SITE_URL}/pt${suffix === "" ? "" : suffix}/`;
+// Canonical URL for a page key in a language, with the localized slug and a trailing slash.
+const urlFor = (lang: "en" | "pt", key: string) => {
+  const prefix = lang === "pt" ? "/pt" : "";
+  const slug = pageSlug(lang, key);
+  return slug === "" ? `${SITE_URL}${prefix}/` : `${SITE_URL}${prefix}/${slug}/`;
 };
 
 // Inject per-route <title>, meta description, canonical, hreflang alternates, Open Graph/Twitter,
@@ -47,9 +49,11 @@ function injectSeo(route: string, html: string): string {
   if (guide) {
     ({ lang, canonical, altEn, altPt, title, description, jsonLd } = guide);
   } else {
-    const meta = SEO_PAGES[key] ?? SEO_PAGES["/"];
     lang = /^\/pt(\/|$)/.test(key) ? "pt" : "en";
-    const bare = key.replace(/^\/pt(?=\/|$)/, "") || "/";
+    // Map the localized route (e.g. "/pt/glossario") back to its canonical key ("/glossary").
+    const rest = key.replace(/^\/pt(?=\/|$)/, "").replace(/^\/+/, "");
+    const bare = canonicalKey(lang, rest.split("/")[0] ?? "");
+    const meta = (SEO_PAGES[bare] ?? SEO_PAGES["/"])[lang];
     canonical = urlFor(lang, bare);
     altEn = urlFor("en", bare);
     altPt = urlFor("pt", bare);

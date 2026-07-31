@@ -1,5 +1,6 @@
 import type { RouteRecord } from "vite-react-ssg";
 import type { Lang } from "@/i18n";
+import { pageSlug } from "@/i18n/pages";
 import { GUIDES_SEGMENT } from "@/content/guides/registry";
 import { RootLayout } from "@/RootLayout";
 import { CalculatorPage } from "@/pages/CalculatorPage";
@@ -9,11 +10,12 @@ import { GuidesIndexPage } from "@/pages/GuidesIndexPage";
 import { GuidePage } from "@/pages/GuidePage";
 import { NotFoundPage } from "@/pages/NotFoundPage";
 
-// The pages within a language subtree (index + the two content pages), reused for EN and PT.
-const pages = (): RouteRecord[] => [
+// The pages within a language subtree (index + the two content pages). The glossary/how-it-works
+// path segments are localized per language (EN "glossary" / PT "glossario", etc.).
+const pages = (lang: Lang): RouteRecord[] => [
   { index: true, element: <CalculatorPage />, entry: "src/pages/CalculatorPage.tsx" },
-  { path: "glossary", element: <GlossaryPage />, entry: "src/pages/GlossaryPage.tsx" },
-  { path: "how-it-works", element: <HowItWorksPage />, entry: "src/pages/HowItWorksPage.tsx" },
+  { path: pageSlug(lang, "/glossary"), element: <GlossaryPage />, entry: "src/pages/GlossaryPage.tsx" },
+  { path: pageSlug(lang, "/how-it-works"), element: <HowItWorksPage />, entry: "src/pages/HowItWorksPage.tsx" },
 ];
 
 // Guides live under a localized section segment (/guides in EN, /pt/guias in PT) with localized
@@ -38,7 +40,7 @@ export const routes: RouteRecord[] = [
     element: <RootLayout lang="en" />,
     entry: "src/RootLayout.tsx",
     children: [
-      ...pages(),
+      ...pages("en"),
       ...guideRoutes("en"),
       { path: "404", element: <NotFoundPage /> },
       { path: "*", element: <NotFoundPage /> },
@@ -48,6 +50,6 @@ export const routes: RouteRecord[] = [
     path: "/pt",
     element: <RootLayout lang="pt" />,
     entry: "src/RootLayout.tsx",
-    children: [...pages(), ...guideRoutes("pt")],
+    children: [...pages("pt"), ...guideRoutes("pt")],
   },
 ];

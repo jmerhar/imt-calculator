@@ -47,7 +47,7 @@ describe("guides — path helpers", () => {
   it("switches language across localized guide slugs and leaves other pages prefix-based", () => {
     expect(switchLangPath("/guides/imt-tables-2026/", "pt")).toBe("/pt/guias/tabelas-imt-2026/");
     expect(switchLangPath("/pt/guias/", "en")).toBe("/guides/");
-    expect(switchLangPath("/glossary/", "pt")).toBe("/pt/glossary/");
+    expect(switchLangPath("/glossary/", "pt")).toBe("/pt/glossario/");
   });
 });
 

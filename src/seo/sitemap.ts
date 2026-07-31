@@ -3,12 +3,13 @@
 // here means the guide registry is the single source of truth for both the pages and the sitemap.
 
 import { SITE_URL } from "../config";
+import { pageSlug } from "../i18n/pages";
 import { GUIDE_META, GUIDES_SEGMENT } from "../content/guides/registry";
 
-// Language-neutral pages emitted in both languages (EN at root, PT under /pt).
-const BARE_PATHS = ["/", "/glossary", "/how-it-works"];
-const bareEn = (b: string) => `${SITE_URL}${b === "/" ? "/" : `${b}/`}`;
-const barePt = (b: string) => `${SITE_URL}/pt${b === "/" ? "/" : `${b}/`}`;
+// Core pages emitted in both languages (EN at root, PT under /pt with localized slugs).
+const CORE_KEYS = ["/", "/glossary", "/how-it-works"];
+const bareEn = (key: string) => `${SITE_URL}/${pageSlug("en", key) ? `${pageSlug("en", key)}/` : ""}`;
+const barePt = (key: string) => `${SITE_URL}/pt/${pageSlug("pt", key) ? `${pageSlug("pt", key)}/` : ""}`;
 
 const indexEn = `${SITE_URL}/${GUIDES_SEGMENT.en}/`;
 const indexPt = `${SITE_URL}/pt/${GUIDES_SEGMENT.pt}/`;
@@ -24,9 +25,9 @@ interface Row {
 /** Every URL in the site with its EN/PT hreflang pair (x-default = EN). */
 function rows(): Row[] {
   const out: Row[] = [];
-  for (const b of BARE_PATHS) {
-    const en = bareEn(b);
-    const pt = barePt(b);
+  for (const key of CORE_KEYS) {
+    const en = bareEn(key);
+    const pt = barePt(key);
     out.push({ loc: en, en, pt }, { loc: pt, en, pt });
   }
   out.push({ loc: indexEn, en: indexEn, pt: indexPt }, { loc: indexPt, en: indexEn, pt: indexPt });

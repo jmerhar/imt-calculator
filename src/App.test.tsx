@@ -110,16 +110,17 @@ describe("App", () => {
     const user = userEvent.setup();
     renderApp("/glossary");
     await user.click(screen.getByRole("button", { name: "PT" }));
-    // Language is a route: the switch navigates to /pt/glossary and fires a page_view for it in PT.
+    // Language is a route: the switch navigates to the localized PT slug (/pt/glossario) and fires a
+    // page_view for it in PT.
     expect(gtag).toHaveBeenCalledWith(
       "event",
       "page_view",
-      expect.objectContaining({ page_path: "/pt/glossary/", ui_language: "pt" }),
+      expect.objectContaining({ page_path: "/pt/glossario/", ui_language: "pt" }),
     );
   });
 
   it("renders Portuguese directly at a /pt URL", () => {
-    renderApp("/pt/glossary");
+    renderApp("/pt/glossario");
     expect(screen.getByText(glossary[0].pt.term)).toBeInTheDocument();
     expect(document.documentElement.lang).toBe("pt");
   });
@@ -155,7 +156,7 @@ describe("App", () => {
     expect(document.title).toBe(`${en.app.title} · ${en.app.subtitle}`);
     await user.click(screen.getByRole("link", { name: en.nav.glossary }));
     expect(document.title).toBe(`${en.nav.glossary} · ${en.app.title}`);
-    // Switching language navigates to /pt/glossary; the tab title becomes the Portuguese one.
+    // Switching language navigates to /pt/glossario; the tab title becomes the Portuguese one.
     await user.click(screen.getByRole("button", { name: "PT" }));
     expect(document.title).toBe(`${pt.nav.glossary} · ${pt.app.title}`);
   });
