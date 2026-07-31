@@ -31,7 +31,7 @@ a distinct page. That also keeps the state token (`?c=…`) out of analytics.
 
 | Event | Fires when | Parameters |
 |---|---|---|
-| `page_view` | Each route change (initial load included) | `page_path`, `page_location`, `page_title` |
+| `page_view` | Each route change (initial load included) | `page_path`, `page_location`, `page_title`, `ui_language` |
 | `calculate` | ~1.5 s after the user pauses editing (one per scenario, only once they've interacted and price > 0) | see below |
 | `arrived_via_share` | Page loads from a valid shared link (once per load; reloads excluded) | — |
 | `bad_share_link` | Page loads with a share token that fails to decode | — |
@@ -60,7 +60,7 @@ Source of truth for the full list is `bin/ga-setup.mjs` (`DIMENSIONS` / `METRICS
 GA4 collects event parameters but will not expose them in reports until they are **registered as
 custom definitions**. Categorical parameters become **dimensions**; numeric ones become **metrics**.
 
-**17 dimensions** (all Event-scoped):
+**18 dimensions** (all Event-scoped):
 
 | Parameter | Display name |
 |---|---|
@@ -79,6 +79,7 @@ custom definitions**. Categorical parameters become **dimensions**; numeric ones
 | `has_vpt` | Has VPT |
 | `shares_valid` | Shares valid |
 | `language` | Language |
+| `ui_language` | UI language |
 | `theme` | Theme |
 | `target` | Outbound target |
 
@@ -221,12 +222,26 @@ add **Filters** at the bottom of the Settings column. Set the **date range to in
   `bad_share_link` share suggests links are being truncated somewhere (e.g. email clients wrapping
   the URL).
 
-### 6. UX preferences
+### 6. Language and theme
 
-- **Technique:** Free-form.
-- **Rows:** `Language` (filter `Event name = language_switch`) or `Theme` (filter
-  `Event name = theme_toggle`). **Values:** `Event count`.
-- *Reads as:* how often users switch away from the defaults.
+Three distinct language signals — don't confuse them:
+
+- **Built-in `Language`** (Reports → User → Demographic details, or the built-in Language dimension)
+  is the visitor's **browser language** (`navigator.language`) — e.g. it can show "German" even
+  though the app only offers EN/PT. It reflects the audience's locale, not in-app choice.
+- **`ui_language`** (our custom **UI language** dimension) is the **actual in-app language** carried
+  on every `page_view`. This is the one for *"which language do people use?"*
+- **`language` on `language_switch`** is the language a user **switched to** (deliberate switches
+  only; the default/auto-selected language fires no event). This is *"how do people switch?"*
+
+Configs:
+
+- **Which language is used:** Free-form. Filter `Event name = page_view`. **Rows:** `UI language`.
+  **Values:** `Event count`, `Total users`. → the real EN/PT split.
+- **How they switch:** Free-form. Filter `Event name = language_switch`. **Rows:** `Language`.
+  **Values:** `Event count`. → count of switches to each language.
+- **Theme:** Free-form. Filter `Event name = theme_toggle`. **Rows:** `Theme`. **Values:**
+  `Event count`. → how often users switch away from the default theme.
 
 ## Caveats
 

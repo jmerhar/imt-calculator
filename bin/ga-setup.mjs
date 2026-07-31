@@ -43,7 +43,8 @@ const DIMENSIONS = [
   ["has_mortgage", "Has mortgage", "Mortgage stamp duty was included"],
   ["has_vpt", "Has VPT", "A VPT was entered"],
   ["shares_valid", "Shares valid", "Buyer shares summed to 100%"],
-  ["language", "Language", "UI language (en / pt)"],
+  ["language", "Language", "Language switched to (en / pt), on language_switch"],
+  ["ui_language", "UI language", "Active in-app language (en / pt) at each page view"],
   ["theme", "Theme", "Theme switched to (light / dark)"],
   ["target", "Outbound target", "Which external link was clicked"],
 ];

@@ -80,13 +80,31 @@ describe("App", () => {
     expect(gtag).toHaveBeenCalledWith(
       "event",
       "page_view",
-      expect.objectContaining({ page_path: "/", page_location: `${origin}/` }),
+      expect.objectContaining({ page_path: "/", page_location: `${origin}/`, ui_language: "en" }),
     );
     await user.click(screen.getByRole("link", { name: en.nav.glossary }));
     expect(gtag).toHaveBeenCalledWith(
       "event",
       "page_view",
       expect.objectContaining({ page_path: "/glossary", page_location: `${origin}/glossary` }),
+    );
+  });
+
+  it("carries the active UI language on the page_view after a language switch", async () => {
+    const gtag = vi.fn();
+    window.gtag = gtag;
+    const user = userEvent.setup();
+    renderApp();
+    await user.click(screen.getByRole("button", { name: "PT" }));
+    // Switching keeps the same route, so no extra page_view fires for the switch itself…
+    const pageViews = gtag.mock.calls.filter((c) => c[1] === "page_view");
+    expect(pageViews).toHaveLength(1);
+    // …but the next navigation's page_view reports the now-active language.
+    await user.click(screen.getByRole("link", { name: /Glossário|Glossary/ }));
+    expect(gtag).toHaveBeenCalledWith(
+      "event",
+      "page_view",
+      expect.objectContaining({ page_path: "/glossary", ui_language: "pt" }),
     );
   });
 

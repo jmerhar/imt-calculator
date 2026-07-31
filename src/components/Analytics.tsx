@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useI18n } from "@/i18n";
 import { track } from "@/analytics";
 import { arrivalKind } from "@/state/url";
 
@@ -17,6 +18,15 @@ import { arrivalKind } from "@/state/url";
  */
 export function Analytics() {
   const { pathname } = useLocation();
+  const { lang } = useI18n();
+
+  // Track the active UI language on each page view, sampled when the route changes. Held in a ref
+  // (not a page_view dependency) so switching language — which keeps the same route — does not emit
+  // a second page view; `language_switch` already records the switch itself.
+  const langRef = useRef(lang);
+  useEffect(() => {
+    langRef.current = lang;
+  }, [lang]);
 
   // Whether this page load opened a shared link — captured once, here in a component that mounts a
   // single time per load (not in a page that remounts on navigation, which would misread the app's
@@ -32,6 +42,7 @@ export function Analytics() {
       page_path: pathname,
       page_location: `${window.location.origin}${pathname}`,
       page_title: document.title,
+      ui_language: langRef.current,
     });
   }, [pathname]);
   return null;
