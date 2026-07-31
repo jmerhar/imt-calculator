@@ -47,6 +47,27 @@ const FAQ: Record<Lang, { q: string; a: string }[]> = {
   ],
 };
 
+// A stable @id lets WebSite.publisher reference the single Organization entity across pages/languages.
+const ORG_ID = `${SITE_URL}/#organization`;
+
+const organization = () => ({
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": ORG_ID,
+  name: "IMT Calculator",
+  url: `${SITE_URL}/`,
+  logo: `${SITE_URL}/icon-512.png`,
+});
+
+const webSite = (lang: Lang, homeUrl: string) => ({
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: NAME[lang],
+  url: homeUrl,
+  inLanguage: lang,
+  publisher: { "@id": ORG_ID },
+});
+
 const webApplication = (lang: Lang, url: string) => ({
   "@context": "https://schema.org",
   "@type": "WebApplication",
@@ -83,7 +104,7 @@ const breadcrumb = (lang: Lang, name: string, url: string, homeUrl: string) => (
 export function jsonLdFor(lang: Lang, bare: string, url: string): string {
   const homeUrl = lang === "en" ? `${SITE_URL}/` : `${SITE_URL}/pt/`;
   const blocks: object[] = [];
-  if (bare === "/") blocks.push(webApplication(lang, url));
+  if (bare === "/") blocks.push(organization(), webSite(lang, homeUrl), webApplication(lang, url));
   else if (bare === "/how-it-works") {
     blocks.push(faqPage(lang), breadcrumb(lang, PAGE_NAME[lang].howItWorks, url, homeUrl));
   } else if (bare === "/glossary") {

@@ -1,0 +1,15 @@
+{
+  "name": "IMT Calculator — Portugal 2026",
+  "short_name": "IMT Calc",
+  "description": "Free calculator for Portugal's property-transfer tax (IMT) and stamp duty under the 2026 rules.",
+  "lang": "en",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f7f4ed",
+  "theme_color": "#2b5fa0",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
