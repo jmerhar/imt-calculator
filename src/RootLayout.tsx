@@ -3,7 +3,7 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import type { Lang } from "@/i18n";
 import { ThemeProvider } from "@/theme/theme";
 import { I18nProvider } from "@/i18n";
-import { preferredLang, switchLangPath } from "@/i18n/paths";
+import { barePath, preferredLang, switchLangPath } from "@/i18n/paths";
 import { Analytics } from "@/components/Analytics";
 import { Layout } from "@/components/Layout";
 
@@ -25,7 +25,7 @@ export function RootLayout({ lang = "en" }: { lang?: Lang }) {
   // (RootLayout reconciles across the redirect rather than remounting); guarded to EN pages so it
   // cannot loop (PT pages never redirect).
   useEffect(() => {
-    if (lang === "en" && REDIRECTABLE.includes(pathname) && preferredLang() === "pt") {
+    if (lang === "en" && REDIRECTABLE.includes(barePath(pathname)) && preferredLang() === "pt") {
       navigate(switchLangPath(pathname, "pt") + search, { replace: true });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps -- once on load, by design

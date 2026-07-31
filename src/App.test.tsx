@@ -100,7 +100,7 @@ describe("App", () => {
     expect(gtag).toHaveBeenCalledWith(
       "event",
       "page_view",
-      expect.objectContaining({ page_path: "/glossary", page_location: `${origin}/glossary` }),
+      expect.objectContaining({ page_path: "/glossary/", page_location: `${origin}/glossary/` }),
     );
   });
 
@@ -114,7 +114,7 @@ describe("App", () => {
     expect(gtag).toHaveBeenCalledWith(
       "event",
       "page_view",
-      expect.objectContaining({ page_path: "/pt/glossary", ui_language: "pt" }),
+      expect.objectContaining({ page_path: "/pt/glossary/", ui_language: "pt" }),
     );
   });
 
@@ -173,7 +173,7 @@ describe("App", () => {
     expect(gtag).toHaveBeenCalledWith(
       "event",
       "page_view",
-      expect.objectContaining({ page_path: "/glossary", ui_theme: "dark" }),
+      expect.objectContaining({ page_path: "/glossary/", ui_theme: "dark" }),
     );
   });
 

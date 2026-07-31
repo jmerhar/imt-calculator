@@ -21,16 +21,25 @@ export function preferredLang(): Lang {
   return "en";
 }
 
-/** Strip the language prefix: "/pt/glossary" → "/glossary", "/pt" → "/", "/glossary" → "/glossary". */
+/**
+ * A clean, language- and slash-neutral page key. Strips the `/pt` prefix and any trailing slash:
+ * "/pt/glossary/" → "/glossary", "/glossary/" → "/glossary", "/pt/" → "/", "/" → "/".
+ */
 export function barePath(pathname: string): string {
-  const stripped = pathname.replace(/^\/pt(?=\/|$)/, "");
-  return stripped === "" ? "/" : stripped;
+  const key = pathname.replace(/^\/pt(?=\/|$)/, "").replace(/\/+$/, "");
+  return key === "" ? "/" : key;
 }
 
-/** Add the language prefix to a bare path: ("pt","/glossary") → "/pt/glossary"; ("en",…) → unchanged. */
-export function localizedPath(lang: Lang, bare: string): string {
-  if (lang === "en") return bare;
-  return bare === "/" ? "/pt" : `/pt${bare}`;
+/**
+ * The canonical URL for a page key in a language. Uses a trailing slash to match what GitHub Pages
+ * serves and the `<link rel="canonical">`, so internal links point at the canonical URL (no 301
+ * hop, no slash/non-slash inconsistency): ("en","/glossary") → "/glossary/", ("pt","/glossary") →
+ * "/pt/glossary/", ("en","/") → "/", ("pt","/") → "/pt/".
+ */
+export function localizedPath(lang: Lang, key: string): string {
+  const prefix = lang === "pt" ? "/pt" : "";
+  const clean = key === "/" ? "" : key.replace(/\/+$/, "");
+  return clean === "" ? `${prefix}/` : `${prefix}${clean}/`;
 }
 
 /** The current path expressed in another language, preserving the page. */
