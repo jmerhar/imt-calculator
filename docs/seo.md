@@ -1,0 +1,200 @@
+# SEO plan — maximize organic traffic
+
+Goal: rank the IMT calculator for Portuguese property-transfer-tax queries (EN **and** PT) and grow
+organic traffic. This is a living checklist — tick items as they land. Ordered by **impact ÷ effort**;
+do P0 before P1 before P2.
+
+**Legend:** `[ ]` todo · `[x]` done · **Impact** H/M/L · **Effort** H/M/L · 🔑 = blocker others depend on.
+
+## The honest current-state audit
+
+The app is well-built but, as of this plan, **structurally near-invisible to search engines**:
+
+- 🔴 **HashRouter** — routes live behind `#/glossary`, `#/how-it-works`. Google ignores URL
+  fragments, so all three "pages" collapse to one indexable URL (`calc-imt.online/`). The glossary
+  and how-it-works content — our best keyword surface — is effectively uncrawlable as distinct pages.
+- 🔴 **Client-side rendering only** — the HTML shipped is an empty `#root`; content appears only
+  after JS runs. Googlebot can render JS but slower and less reliably; Bing and most others index
+  the raw HTML poorly. No SSR/prerender.
+- 🔴 **One URL for two languages** — EN/PT switch in-place on the same URL. Search engines can't
+  index a PT version and an EN version separately, and there's no `hreflang`. We're leaving the
+  entire Portuguese-language market (the primary audience) on the table.
+- 🟠 **Metadata is minimal** — only `title` + `description` in `index.html`; no per-route meta, no
+  canonical, no Open Graph / Twitter cards, no structured data.
+- 🟠 **No `robots.txt`, no `sitemap.xml`, no `404.html`.**
+- 🟢 Good foundations to build on: fast, accessible, HTTPS, custom domain, clean semantic-ish
+  markup, bilingual content already written.
+
+**Implication:** the top 3 items above (routing, rendering, i18n URLs) are the difference between
+"ranks for real queries" and "does not get indexed meaningfully." They are also the largest effort.
+Everything else is high-value polish that only pays off once pages are actually crawlable.
+
+> **Dependency note:** several code tasks need a new npm package (prerender/SSG, a head manager).
+> This repo's `.npmrc` pins the public registry (CI-safe), but local installs must go via the jFrog
+> proxy and then be verified against npmjs — see [`memory` / `docs`]. Budget for that friction.
+
+---
+
+## P0 — Make the site crawlable and indexable (do this first)
+
+Without these, the rest barely matters.
+
+### Routing & rendering 🔑
+
+- [ ] **Switch `HashRouter` → `BrowserRouter`** so routes are real paths (`/glossary`, not
+  `/#/glossary`). **Impact H · Effort M.** Requires a crawlable-HTML story (next item) — don't ship
+  one without the other, or deep links 404 on GitHub Pages.
+- [ ] **Pre-render each route to static HTML at build time** (SSG). On GitHub Pages there's no
+  server, so real per-route HTML must exist as files (`/index.html`, `/glossary/index.html`,
+  `/how-it-works/index.html`). Options, cheapest first:
+  - `vite-react-ssg` or `vite-plugin-ssr`/`vike` (renders React routes to HTML, hydrates client-side);
+  - a lightweight post-build prerender (Puppeteer/`@prerenderer`) over the known route list;
+  - hand-authored static HTML shells per route as a stopgap.
+  **Impact H · Effort H · 🔑** — this is the single biggest SEO win and unblocks metadata, i18n URLs,
+  and structured data being in the raw HTML.
+- [ ] **SPA deep-link fallback** as a safety net: add `public/404.html` that restores the path (the
+  classic GitHub-Pages SPA shim) so any un-prerendered path still boots the app instead of 404-ing.
+  **Impact M · Effort L.**
+- [ ] **Verify JS-off / view-source** shows real content per route after prerender (curl the built
+  files; check `#root` is populated). **Impact H · Effort L.**
+
+### Indexing signals
+
+- [ ] **`public/robots.txt`** — allow all, link the sitemap. **Impact M · Effort L.**
+- [ ] **`public/sitemap.xml`** — list every canonical URL (all routes × languages), with
+  `hreflang` alternates. Generate at build from the route list so it can't drift. **Impact H · Effort M.**
+- [ ] **Canonical tags** — one self-referential `<link rel="canonical">` per page. **Impact M · Effort L.**
+- [ ] **Register in Google Search Console** (verify via DNS TXT or the GA tag), submit the sitemap,
+  watch Coverage/Indexing. **Impact H · Effort L · 🔑 for measurement.**
+- [ ] **Register in Bing Webmaster Tools** (import from GSC). **Impact L · Effort L.**
+
+## P1 — Internationalization, metadata, structured data
+
+### Per-language URLs & hreflang 🔑
+
+- [ ] **Give each language its own URL** — e.g. `/` + `/pt/…` (or `/en/…` + `/pt/…`), one prerendered
+  page per language per route. Language becomes a route/path, not just client state. **Impact H · Effort H.**
+- [ ] **`hreflang` alternates** in `<head>` and the sitemap (`en`, `pt`, `x-default`) linking each
+  page to its other-language twin. **Impact H · Effort M.**
+- [ ] **Localized `<html lang>`, title, description, OG** per prerendered page (PT content must ship
+  PT metadata). **Impact H · Effort M.**
+- [ ] Keep the in-app language toggle, but make it **navigate** to the other-language URL (so the URL
+  and `hreflang` stay truthful) rather than only swapping state. **Impact M · Effort M.**
+
+### On-page metadata (per route, in the prerendered HTML)
+
+- [ ] **Per-route `<title>` and meta `description`** written into the static HTML (not just set by JS
+  after load) — unique, keyword-led, ≤ ~60 / ~155 chars. **Impact H · Effort M.** (A head manager
+  like `@unhead/react` or `react-helmet-async` feeds both hydration and the prerenderer.)
+- [ ] **Open Graph** (`og:title`, `og:description`, `og:type`, `og:url`, `og:image`, `og:locale` +
+  `og:locale:alternate`). **Impact M · Effort L.**
+- [ ] **Twitter Card** (`summary_large_image`). **Impact L · Effort L.**
+- [ ] **A share/OG image** (1200×630) — branded, with the house mark; per-language variants ideal.
+  **Impact M · Effort M.**
+- [ ] **`theme-color`, apple-touch-icon, web app manifest** (`site.webmanifest`) for polish + mobile.
+  **Impact L · Effort L.**
+
+### Structured data (JSON-LD, in the prerendered HTML)
+
+- [ ] **`WebApplication` / `SoftwareApplication`** on the calculator (name, description, `applicationCategory: FinanceApplication`, `offers` free, `inLanguage`). **Impact M · Effort L.**
+- [ ] **`FAQPage`** on how-it-works and any Q&A content (the non-resident rule, the 1 Sept / 1 Jan
+  dates, the totality rule). FAQ rich results drive clicks. **Impact H · Effort M.**
+- [ ] **`BreadcrumbList`** for glossary/how-it-works. **Impact L · Effort L.**
+- [ ] **`Organization` / `WebSite`** sitewide (+ `WebSite` `potentialAction` SearchAction if we add
+  on-site search later). **Impact L · Effort L.**
+- [ ] Validate with Google Rich Results Test + Schema.org validator. **Impact M · Effort L.**
+
+## P1/P2 — Content & keyword strategy (the biggest organic lever, long-term)
+
+Tooling gets pages *indexed*; **content gets them ranked.** This is where sustained organic traffic
+comes from. Bias toward Portuguese — it's the primary market.
+
+- [ ] **Keyword research & mapping** — build a target-query list and map one primary intent per page.
+  Seed terms:
+  - PT: `simulador IMT`, `calcular IMT 2026`, `IMT não residentes`, `IMT jovem`, `imposto do selo
+    compra casa`, `IMT Açores`, `IMT Madeira`, `tabelas IMT 2026`, `quanto pago de IMT`.
+  - EN: `Portugal IMT calculator`, `Portugal property transfer tax`, `IMT non-resident Portugal
+    2026`, `stamp duty Portugal property`, `buying property Portugal taxes`.
+  **Impact H · Effort M.**
+- [ ] **Optimize the three existing pages** for their mapped intent (headings, intro copy, internal
+  links, natural keyword use) without harming UX. **Impact H · Effort M.**
+- [ ] **Expand the glossary** into a genuinely useful, interlinked reference (each term crawlable);
+  consider per-term anchors/sections. **Impact M · Effort M.**
+- [ ] **Add guide/article pages** targeting high-intent long-tail queries, e.g. "IMT for
+  non-residents in 2026 — how it works", "IMT Jovem: who qualifies", "IMT vs IMI vs stamp duty",
+  "Buying property in the Azores/Madeira: the ×1.25 tables". Each: real explanation + a link into
+  the calculator. **Impact H · Effort H** (ongoing).
+- [ ] **Worked examples** (e.g. the €400k two-buyer case) as indexable content — matches "how much
+  IMT for …" queries. **Impact M · Effort M.**
+- [ ] **Internal linking** — calculator ⇄ glossary ⇄ how-it-works ⇄ guides, with descriptive anchors.
+  **Impact M · Effort L.**
+- [ ] **Freshness** — the "2026" framing is a ranking asset for the year; plan the yearly refresh
+  (tables + copy + dates) and keep an obvious "updated for <year>" signal. **Impact M · Effort L.**
+- [ ] **Cite primary sources** (CIMT, TGIS, DL 97/2026) — E-E-A-T signal for a YMYL (tax) topic.
+  Already partly done in how-it-works; make it prominent. **Impact M · Effort L.**
+
+## P2 — Performance, accessibility, semantics (mostly already good — verify & hold)
+
+- [ ] **Core Web Vitals** — confirm LCP/CLS/INP are green on mobile (PageSpeed Insights / CrUX once
+  traffic exists). The bundle is ~70 KB gzip — good; watch prerender/hydration cost. **Impact M · Effort L.**
+- [ ] **Font loading** — `font-display: swap` (via the Google Fonts URL) is set; consider
+  self-hosting or subsetting to cut the render-blocking request. **Impact L · Effort M.**
+- [ ] **Semantic HTML & headings** — one `<h1>` per page, logical `<h2>`/`<h3>`, landmarks. Audit per
+  page. **Impact M · Effort L.**
+- [ ] **Image `alt`, descriptive link text, keyboard/reduced-motion** — accessibility overlaps SEO;
+  already strong, keep it. **Impact L · Effort L.**
+- [ ] **Mobile-first UX** — already responsive; confirm no interstitials/CLS on mobile. **Impact M · Effort L.**
+
+## P2 — Off-page / authority & promotion (ongoing)
+
+Rankings for a YMYL query need trust signals and links; this is slow but decisive.
+
+- [ ] **Relevant backlinks** — expat/relocation sites (e.g. Portugal-move communities), real-estate
+  and mortgage blogs, finance directories, "useful tools" roundups. Outreach with a genuinely useful
+  free tool is realistic. **Impact H · Effort H.**
+- [ ] **Communities** — answer real questions on Reddit (r/PortugalExpats, r/portugal), expat forums,
+  Facebook groups, with the calculator where it genuinely helps (no spam). **Impact M · Effort M.**
+- [ ] **Tool/startup directories** — Product Hunt, indie-tool listings, calculator aggregators.
+  **Impact M · Effort M.**
+- [ ] **Shareability** — the existing share-link + OG image make organic sharing a mild link/traffic
+  source; ensure previews look great. **Impact L · Effort L.**
+- [ ] **(Optional) a short branded domain / consistent NAP** if we ever add an "about"/contact for
+  trust. **Impact L · Effort L.**
+
+## Measurement & iteration
+
+- [ ] **Google Search Console** — the source of truth for impressions, queries, CTR, indexing. Review
+  weekly; feed discovered queries back into content. **Impact H · Effort L.**
+- [ ] **GA4** — organic-traffic segment, landing-page performance, engagement by page (we already
+  track rich events). **Impact M · Effort L.**
+- [ ] **Rank tracking** for the target keyword set (a lightweight tracker or periodic manual checks).
+  **Impact M · Effort L.**
+- [ ] **Set a baseline now** (impressions/clicks ≈ 0) so progress is measurable after P0/P1 ship.
+
+---
+
+## Suggested roadmap
+
+1. **Phase 1 (unblock indexing):** BrowserRouter + prerender + 404 fallback → robots.txt + sitemap +
+   canonical → Search Console + submit sitemap. *Nothing else is worth doing before this.*
+2. **Phase 2 (double the market + earn clicks):** per-language URLs + hreflang + localized per-route
+   meta → Open Graph/Twitter + OG image → JSON-LD (WebApplication + FAQPage).
+3. **Phase 3 (rank & grow):** keyword mapping → optimize existing pages → add guides/worked examples
+   → internal linking. Ongoing.
+4. **Phase 4 (authority):** backlinks, community presence, directories. Ongoing.
+
+## Risks, tradeoffs & open decisions
+
+- **Migrating off HashRouter is the crux and the biggest effort.** It must land together with
+  prerender + `404.html`, or deep links break on GitHub Pages. Consider whether GitHub Pages is still
+  the right host, or whether a prerender/SSG build stays on Pages (recommended: SSG on Pages keeps it
+  free and simple).
+- **i18n URL scheme is a one-way decision** — pick `/pt/…` vs subdomain vs query param early;
+  changing later means redirects. Recommend path-prefix (`/` = EN or PT default, `/pt/…` for the
+  other) with `hreflang`.
+- **New dependencies** (SSG, head manager, prerenderer) install through jFrog locally — verify the
+  lockfile stays on npmjs before committing.
+- **Effort vs payoff:** P0 is a real project (days, not minutes); P1 metadata/JSON-LD is quick once
+  P0 exists; P2 content/off-page is the long game that actually compounds traffic.
+- **Open questions for you:** (1) keep GitHub Pages or move host? (2) EN-first or PT-first default?
+  (3) how much appetite for ongoing content writing (guides) vs. a purely tool-focused site?
