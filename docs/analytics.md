@@ -62,41 +62,44 @@ custom definitions**. Categorical parameters become **dimensions**; numeric ones
 
 **19 dimensions** (all Event-scoped):
 
-| Parameter | Display name |
-|---|---|
-| `intended_use` | Intended use |
-| `location` | Location |
-| `year` | Year |
-| `buyer_count` | Buyer count |
-| `price_band` | Price band |
-| `rate_band` | Rate band |
-| `vpt_ratio_band` | VPT ratio band |
-| `has_non_resident` | Has nonresident |
-| `has_entity` | Has entity |
-| `has_tax_haven` | Has tax haven |
-| `has_jovem` | Has Jovem |
-| `has_mortgage` | Has mortgage |
-| `has_vpt` | Has VPT |
-| `shares_valid` | Shares valid |
-| `language` | Language switch |
-| `ui_language` | UI language |
-| `theme` | Theme switch |
-| `ui_theme` | UI theme |
-| `target` | Outbound target |
+Columns map to the "Create custom dimension" form: **Dimension name** = Display name, **Event
+parameter** = Parameter, **Description** as given (Scope = Event for all).
+
+| Parameter | Display name | Description |
+|---|---|---|
+| `intended_use` | Intended use | Own permanent home vs secondary/rental |
+| `location` | Location | Mainland / Açores / Madeira |
+| `year` | Year | Tax-table year used for the calculation |
+| `buyer_count` | Buyer count | Number of buyers on the deed |
+| `price_band` | Price band | Coarse purchase-price bucket |
+| `rate_band` | Rate band | Coarse effective-tax-rate bucket |
+| `vpt_ratio_band` | VPT ratio band | Coarse VPT-to-price ratio bucket |
+| `has_non_resident` | Has nonresident | Any buyer is a non-resident |
+| `has_entity` | Has entity | Any buyer is a company |
+| `has_tax_haven` | Has tax haven | Any buyer is a tax-haven entity |
+| `has_jovem` | Has Jovem | IMT Jovem relief was applied |
+| `has_mortgage` | Has mortgage | Mortgage stamp duty was included |
+| `has_vpt` | Has VPT | A VPT was entered |
+| `shares_valid` | Shares valid | Buyer shares summed to 100% |
+| `language` | Language switch | Language switched to (en / pt), on language_switch |
+| `ui_language` | UI language | Active in-app language (en / pt) at each page view |
+| `theme` | Theme switch | Theme switched to (light / dark), on theme_toggle |
+| `ui_theme` | UI theme | Active theme (light / dark) at each page view |
+| `target` | Outbound target | Which external link was clicked |
 
 **9 metrics** (all Event-scoped, unit **Standard**):
 
-| Parameter | Display name | Notes |
+| Parameter | Display name | Description |
 |---|---|---|
-| `price` | Price | EUR |
-| `tax_base` | Tax base | EUR — max(price, VPT) |
-| `imt` | IMT | EUR |
-| `stamp_duty` | Stamp duty | EUR |
-| `grand_total` | Total tax | EUR |
-| `mortgage_amount` | Mortgage amount | EUR |
-| `vpt` | VPT | EUR |
-| `effective_rate` | Effective rate | percentage |
-| `vpt_ratio` | VPT ratio | percentage |
+| `price` | Price | Purchase price entered (EUR) |
+| `tax_base` | Tax base | max(price, VPT) — the IMT base (EUR) |
+| `imt` | IMT | Total IMT (EUR) |
+| `stamp_duty` | Stamp duty | Total stamp duty (EUR) |
+| `grand_total` | Total tax | IMT + stamp duty (EUR) |
+| `mortgage_amount` | Mortgage amount | Loan amount when a mortgage is included (EUR) |
+| `vpt` | VPT | VPT entered (EUR) |
+| `effective_rate` | Effective rate | Total tax as a percentage of price |
+| `vpt_ratio` | VPT ratio | VPT as a percentage of price |
 
 > **Why Standard, not Currency, for euro amounts:** GA4's `CURRENCY` unit requires a
 > `restrictedMetricType`, which gates the metric behind a "view revenue" permission. These are plain
