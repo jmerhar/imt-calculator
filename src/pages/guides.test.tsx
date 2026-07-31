@@ -7,6 +7,7 @@ import { en as EN } from "@/i18n/en";
 import { GUIDE_META } from "@/content/guides/registry";
 import { GUIDE_BODIES } from "@/content/guides";
 import { guidePath, guidesIndexPath, guideFromPath, switchLangPath } from "@/i18n/paths";
+import { decodeToken } from "@/state/url";
 
 function RoutedApp() {
   return useRoutes(routes as RouteObject[]);
@@ -63,15 +64,18 @@ describe("guides — pages", () => {
     );
   });
 
-  it("renders an English guide article with its title, an FAQ, and a calculator CTA", () => {
+  it("renders an English guide article with its title, an FAQ, and a prefilled calculator CTA", () => {
     renderApp("/guides/imt-non-residents-2026");
     expect(screen.getByRole("heading", { level: 1, name: nonResidents.title.en })).toBeInTheDocument();
     const faqQ = GUIDE_BODIES["imt-non-residents"].en.faq![0].q;
     expect(screen.getByText(faqQ)).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: GUIDE_BODIES["imt-non-residents"].en.cta })).toHaveAttribute(
-      "href",
-      "/",
-    );
+    // The CTA deep-links to the calculator with the article's scenario pre-filled (?c= token).
+    const cta = screen.getByRole("link", { name: GUIDE_BODIES["imt-non-residents"].en.cta });
+    const href = cta.getAttribute("href")!;
+    expect(href).toMatch(/^\/\?c=.+/);
+    const decoded = decodeToken(new URLSearchParams(href.slice(href.indexOf("?"))).get("c")!);
+    expect(decoded?.price).toBe(400000);
+    expect(decoded?.buyers[0].residency).toBe("non_resident");
   });
 
   it("renders the six 2026 rate tables in the tables guide", () => {

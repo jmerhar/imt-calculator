@@ -3,11 +3,32 @@ import { useI18n } from "@/i18n";
 import { GUIDE_BODIES, guideBySlug } from "@/content/guides";
 import type { Block } from "@/content/guides/registry";
 import { getYearData, LATEST_YEAR } from "@/engine/tables";
-import type { TableId } from "@/engine/types";
+import type { CalcInput, TableId } from "@/engine/types";
 import { guidesIndexPath, localizedPath } from "@/i18n/paths";
 import { formatAmount, formatPercent } from "@/format";
+import { defaultInput, defaultBuyer } from "@/state/defaults";
+import { encodeToken } from "@/state/url";
 import { track } from "@/analytics";
 import { NotFoundPage } from "@/pages/NotFoundPage";
+
+// The worked example each guide's CTA pre-fills into the calculator (via a ?c= token), so the
+// reader lands on the exact scenario the article describes. Guides without an entry link to an
+// empty calculator.
+const CTA_EXAMPLES: Record<string, CalcInput> = {
+  "imt-non-residents": {
+    ...defaultInput(),
+    price: 400000,
+    intendedUse: "secondary",
+    buyers: [{ ...defaultBuyer(), residency: "non_resident", exception: "none" }],
+  },
+  "imt-jovem": {
+    ...defaultInput(),
+    price: 400000,
+    intendedUse: "own_permanent",
+    buyers: [{ ...defaultBuyer(), jovem: true }],
+  },
+  "imt-tables": { ...defaultInput(), price: 400000, intendedUse: "own_permanent" },
+};
 
 /** Renders the IMT rate table `id` for the current year from the engine, so the figures stay live. */
 function BracketTable({ id }: { id: TableId }) {
@@ -60,6 +81,10 @@ export function GuidePage() {
   if (!meta) return <NotFoundPage />;
   const body = GUIDE_BODIES[meta.id][lang];
 
+  const example = CTA_EXAMPLES[meta.id];
+  const home = localizedPath(lang, "/");
+  const ctaHref = example ? `${home}?c=${encodeToken(example)}` : home;
+
   return (
     <article className="doc guide">
       <nav className="breadcrumb" aria-label="breadcrumb">
@@ -102,11 +127,7 @@ export function GuidePage() {
       )}
 
       <p className="guide__cta">
-        <Link
-          className="btn-cta"
-          to={localizedPath(lang, "/")}
-          onClick={() => track("guide_cta", { guide: meta.id })}
-        >
+        <Link className="btn-cta" to={ctaHref} onClick={() => track("guide_cta", { guide: meta.id })}>
           {body.cta}
         </Link>
       </p>
