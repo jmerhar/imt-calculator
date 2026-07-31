@@ -124,7 +124,7 @@ export const imtTables: Record<Lang, GuideBody> = {
         heading: "Imposto do selo",
         blocks: [
           {
-            p: "Além do IMT, o imposto do selo da aquisição é 0,8% da base tributável (verba 1.1 da TGIS) — ele próprio isento até ao limite do IMT Jovem numa primeira habitação elegível. Um crédito acrescenta imposto do selo sobre o empréstimo ao abrigo da verba 17.1: 0,6% para prazos iguais ou superiores a 5 anos, 0,5% de 1 a 5 anos e 0,04% por mês para menos de um ano.",
+            p: "Além do IMT, o imposto do selo da aquisição é 0,8% da base tributável (verba 1.1 da TGIS) — ele próprio isento até ao limite do IMT Jovem numa primeira habitação elegível. Havendo crédito, acresce o imposto do selo sobre o empréstimo ao abrigo da verba 17.1: 0,6% para prazos iguais ou superiores a 5 anos, 0,5% de 1 a 5 anos e 0,04% por mês para menos de um ano.",
           },
         ],
       },

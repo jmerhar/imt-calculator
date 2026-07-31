@@ -16,6 +16,8 @@ function BracketTable({ id }: { id: TableId }) {
   if (!brackets) return null;
   return (
     <table className="rate-table">
+      {/* caption must be the table's first child per the HTML content model */}
+      <caption className="rate-table__note">{t.guides.tableNote}</caption>
       <thead>
         <tr>
           <th scope="col">{t.guides.tableFrom}</th>
@@ -27,12 +29,12 @@ function BracketTable({ id }: { id: TableId }) {
         {brackets.map((b) => (
           <tr key={b.lower}>
             <td>{formatAmount(b.lower, lang, 0)}</td>
-            <td>{formatPercent(b.rate, lang, b.rate * 100 === Math.trunc(b.rate * 100) ? 0 : 1)}</td>
+            {/* whole-percent rates render without decimals; use rounding, not float compare */}
+            <td>{formatPercent(b.rate, lang, Math.round(b.rate * 1000) % 10 === 0 ? 0 : 1)}</td>
             <td>{b.deduction ? formatAmount(b.deduction, lang) : "—"}</td>
           </tr>
         ))}
       </tbody>
-      <caption className="rate-table__note">{t.guides.tableNote}</caption>
     </table>
   );
 }

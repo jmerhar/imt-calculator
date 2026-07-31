@@ -114,7 +114,7 @@ export const pt: Dict = {
     notFoundTitle: "Página não encontrada",
     notFoundBody: "Essa página não existe — pode ter mudado de sítio ou a ligação estar errada.",
     notFoundHome: "Ir para a calculadora",
-    guidesTitle: "Guias de impostos imobiliários em Portugal",
+    guidesTitle: "Guias sobre impostos imobiliários em Portugal",
     guidesIntro: "Guias em linguagem simples sobre o IMT e o imposto do selo em Portugal para 2026 — as regras, os benefícios e as tabelas de taxas, cada um ligado à calculadora.",
   },
   guides: {

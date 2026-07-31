@@ -7,7 +7,7 @@ import type { GuideBody } from "./registry";
 export const imtJovem: Record<Lang, GuideBody> = {
   en: {
     intro:
-      "IMT Jovem exempts young buyers from both IMT and the acquisition stamp duty on their first permanent home. Here is who qualifies, the 2026 value ceilings, how much it saves, and the conditions for keeping the benefit.",
+      "IMT Jovem exempts young buyers from both IMT and the acquisition stamp duty on their first own permanent home. Here is who qualifies, the 2026 value ceilings, how much it saves, and the conditions for keeping the benefit.",
     sections: [
       {
         heading: "What IMT Jovem is",
@@ -36,7 +36,7 @@ export const imtJovem: Record<Lang, GuideBody> = {
         heading: "How much you save in 2026",
         blocks: [
           {
-            p: "On the mainland, IMT and the acquisition stamp duty are fully exempt up to €330,539. Between €330,539 and €660,982, tax is due only on the excess: 8% IMT plus 0.8% stamp duty on the part above the ceiling. Above €660,982 the ordinary own-home rates apply, with no further youth benefit.",
+            p: "On the mainland, IMT and the acquisition stamp duty are fully exempt up to €330,539. Above that ceiling each is charged only on the part above it: the 0.8% stamp duty on the whole excess (with no upper limit), and IMT at 8% up to €660,982 — beyond which the ordinary own-home IMT rates apply and the IMT is no longer reduced.",
           },
           {
             p: "In the Azores and Madeira the ceiling is higher — €413,174 — because the regional tables are the mainland thresholds increased by 25% (Lei n.º 21/90).",
@@ -81,7 +81,7 @@ export const imtJovem: Record<Lang, GuideBody> = {
   },
   pt: {
     intro:
-      "O IMT Jovem isenta os jovens compradores de IMT e do imposto do selo da aquisição na sua primeira habitação permanente. Veja quem tem direito, os limites de valor de 2026, quanto poupa e as condições para manter o benefício.",
+      "O IMT Jovem isenta os jovens compradores de IMT e do imposto do selo da aquisição na sua primeira habitação própria e permanente. Veja quem tem direito, os limites de valor de 2026, quanto poupa e as condições para manter o benefício.",
     sections: [
       {
         heading: "O que é o IMT Jovem",
@@ -110,7 +110,7 @@ export const imtJovem: Record<Lang, GuideBody> = {
         heading: "Quanto poupa em 2026",
         blocks: [
           {
-            p: "No continente, o IMT e o imposto do selo da aquisição estão totalmente isentos até €330 539. Entre €330 539 e €660 982, o imposto incide apenas sobre o excedente: 8% de IMT mais 0,8% de imposto do selo sobre a parte acima do limite. Acima de €660 982 aplicam-se as taxas normais de habitação própria, sem benefício jovem adicional.",
+            p: "No continente, o IMT e o imposto do selo da aquisição estão totalmente isentos até €330 539. Acima desse limite, cada um incide apenas sobre a parte que o excede: o imposto do selo a 0,8% sobre todo o excedente (sem limite superior) e o IMT a 8% até €660 982 — acima do qual se aplicam as taxas normais de IMT de habitação própria e o IMT deixa de ser reduzido.",
           },
           {
             p: "Nos Açores e na Madeira o limite é mais alto — €413 174 — porque as tabelas regionais são os escalões do continente acrescidos de 25% (Lei n.º 21/90).",
@@ -132,7 +132,7 @@ export const imtJovem: Record<Lang, GuideBody> = {
         heading: "Manter o benefício",
         blocks: [
           {
-            p: "O imóvel tem de continuar a ser a sua habitação própria e permanente. A isenção caduca se for dado um destino diferente à casa no prazo de seis anos após a compra — mas não se a vender, se o seu agregado familiar mudar (casamento ou união de facto, a sua dissolução, ou aumento de dependentes), ou se mudar de local de trabalho para mais de 100 km (art. 11.º n.º 8 do CIMT).",
+            p: "O imóvel tem de continuar a ser a sua habitação própria e permanente. A isenção caduca se for dado um destino diferente à casa no prazo de seis anos após a compra — mas não se a vender, se o seu agregado familiar mudar (casamento ou união de facto, a sua dissolução, ou aumento de dependentes), ou se mudar de trabalho para um local a mais de 100 km de distância (art. 11.º n.º 8 do CIMT).",
           },
         ],
       },

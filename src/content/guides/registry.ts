@@ -67,8 +67,8 @@ export const GUIDE_META: GuideMeta[] = [
       pt: "IMT Jovem 2026: quem tem direito e quanto poupa",
     },
     description: {
-      en: "IMT Jovem in 2026: the IMT exemption on a first permanent home bought by under-36s, the €330,539 cap, how it maps to the tax tables, and a worked example.",
-      pt: "IMT Jovem em 2026: a isenção de IMT na primeira habitação própria e permanente para menores de 36 anos, o limite de €330 539, as tabelas aplicáveis e um exemplo.",
+      en: "IMT Jovem in 2026: the IMT and stamp-duty exemption on a first own permanent home bought by under-36s, the €330,539 cap, how it maps to the tax tables, and a worked example.",
+      pt: "IMT Jovem em 2026: a isenção de IMT e do imposto do selo na primeira habitação própria e permanente para menores de 36 anos, o limite de €330 539, as tabelas aplicáveis e um exemplo.",
     },
     navLabel: { en: "IMT Jovem", pt: "IMT Jovem" },
     published: "2026-07-31",

@@ -7,7 +7,7 @@ import type { GuideBody } from "./registry";
 export const imtNonResidents: Record<Lang, GuideBody> = {
   en: {
     intro:
-      "Since 2026, non-residents buying property in Portugal pay a flat 7.5% IMT (property-transfer tax) instead of the progressive rates. Here is exactly when that rate applies, the exceptions that let you avoid or reclaim it, and a worked example.",
+      "Since 2026, non-residents buying property in Portugal pay a flat 7.5% IMT (property-transfer tax) instead of the progressive rates. Here is exactly when that rate applies, the exceptions that let you avoid or recover it, and a worked example.",
     sections: [
       {
         heading: "What changed in 2026",
@@ -41,7 +41,7 @@ export const imtNonResidents: Record<Lang, GuideBody> = {
             ul: [
               "Former resident — a buyer who has already been a Portuguese tax resident keeps the ordinary progressive rates; the 7.5% does not apply.",
               "Becoming resident within two years — the buyer pays 7.5% at the deed but can later reclaim the difference down to the ordinary rate once residence is established (n.º 11–12).",
-              "Letting at an accessible rent — the buyer pays 7.5% now and can reclaim the same difference if the property is placed under the accessible-rent regime.",
+              "Letting at a moderate rent — the buyer pays 7.5% now and can reclaim the same difference if the property is let at a moderate rent within the legal limits.",
             ],
           },
           {
@@ -80,14 +80,14 @@ export const imtNonResidents: Record<Lang, GuideBody> = {
       },
       {
         q: "Can I get the extra tax back if I move to Portugal?",
-        a: "If you commit to becoming resident within two years, or let the property at an accessible rent, you pay 7.5% at the deed and can later reclaim the difference down to the ordinary rate (CIMT art. 17.º n.º 11–12).",
+        a: "If you commit to becoming resident within two years, or let the property at a moderate rent, you pay 7.5% at the deed and can later reclaim the difference down to the ordinary rate (CIMT art. 17.º n.º 11–12).",
       },
     ],
     cta: "Calculate your non-resident IMT",
   },
   pt: {
     intro:
-      "Desde 2026, os não residentes que compram imóveis em Portugal pagam uma taxa única de 7,5% de IMT em vez das taxas progressivas. Veja exatamente quando essa taxa se aplica, as exceções que permitem evitá-la ou reembolsá-la, e um exemplo prático.",
+      "Desde 2026, os não residentes que compram imóveis em Portugal pagam uma taxa única de 7,5% de IMT em vez das taxas progressivas. Veja exatamente quando essa taxa se aplica, as exceções que permitem evitá-la ou recuperá-la, e um exemplo prático.",
     sections: [
       {
         heading: "O que mudou em 2026",
@@ -107,7 +107,7 @@ export const imtNonResidents: Record<Lang, GuideBody> = {
             p: "Os 7,5% incidem sobre a base tributável — o maior valor entre o preço de compra e o VPT (valor patrimonial tributário) — sem escalões progressivos e sem parcela a abater. O IMT Jovem e as taxas normais de habitação própria não se aplicam enquanto vigorar a taxa de 7,5% para esse comprador.",
           },
           {
-            p: "Existe ainda uma taxa única de 10% para compradores domiciliados num paraíso fiscal (lista negra), mas apenas para empresas e outras entidades — as pessoas singulares estão expressamente excluídas (art. 17.º n.º 7), pelo que um não residente pessoa singular nunca é tributado a 10%.",
+            p: "Existe ainda uma taxa única de 10% para compradores domiciliados num paraíso fiscal (lista negra), mas apenas para empresas e outras entidades — as pessoas singulares estão expressamente excluídas (art. 17.º n.º 7), pelo que um particular não residente nunca é tributado a 10%.",
           },
         ],
       },
@@ -120,8 +120,8 @@ export const imtNonResidents: Record<Lang, GuideBody> = {
           {
             ul: [
               "Antigo residente — quem já foi residente fiscal em Portugal mantém as taxas progressivas normais; os 7,5% não se aplicam.",
-              "Passar a residente em dois anos — o comprador paga 7,5% na escritura, mas pode depois reembolsar a diferença até à taxa normal quando fixar residência (n.º 11–12).",
-              "Arrendar em renda acessível — o comprador paga 7,5% agora e pode reembolsar a mesma diferença se colocar o imóvel no regime de renda acessível.",
+              "Passar a residente em dois anos — o comprador paga 7,5% na escritura, mas pode depois reaver a diferença até à taxa normal quando fixar residência (n.º 11–12).",
+              "Arrendar com renda moderada — o comprador paga 7,5% agora e pode reaver a mesma diferença se colocar o imóvel em regime de renda moderada.",
             ],
           },
           {
@@ -141,7 +141,7 @@ export const imtNonResidents: Record<Lang, GuideBody> = {
         heading: "Exemplo: uma compra de €400 000",
         blocks: [
           {
-            p: "Um não residente pessoa singular que compra uma casa de €400 000, sem exceção: o IMT é 7,5% de €400 000 = €30 000. O imposto do selo da aquisição (verba 1.1) acrescenta 0,8% = €3 200. Total de impostos: €33 200 — uma taxa efetiva de 8,3% sobre o preço.",
+            p: "Um particular não residente que compra uma casa de €400 000, sem exceção: o IMT é 7,5% de €400 000 = €30 000. Acresce o imposto do selo da aquisição (verba 1.1), de 0,8% = €3 200. Total de impostos: €33 200 — uma taxa efetiva de 8,3% sobre o preço.",
           },
           {
             p: "Em comparação, um residente que comprasse a mesma casa como habitação secundária pagaria cerca de €19 300 de IMT progressivo mais €3 200 de imposto do selo. É a taxa única de 7,5% que torna a conta do não residente mais alta.",
@@ -155,12 +155,12 @@ export const imtNonResidents: Record<Lang, GuideBody> = {
         a: "Não. A taxa única de 7,5% aplica-se desde o quinto dia após a publicação do Decreto-Lei n.º 97/2026 (por volta de 25 de maio de 2026). Não está ligada a 1 de setembro de 2026, data que apenas inicia os regimes de arrendamento CIA e RSAA.",
       },
       {
-        q: "Os não residentes pessoas singulares alguma vez pagam a taxa de 10% de paraíso fiscal?",
-        a: "Não. A taxa de 10% aplica-se apenas a empresas e outras entidades domiciliadas numa jurisdição da lista negra; as pessoas singulares estão excluídas pelo art. 17.º n.º 7 do CIMT. Um não residente pessoa singular paga a taxa única de 7,5% (ou a taxa normal, se houver exceção).",
+        q: "Os particulares não residentes alguma vez pagam a taxa de 10% de paraíso fiscal?",
+        a: "Não. A taxa de 10% aplica-se apenas a empresas e outras entidades domiciliadas numa jurisdição da lista negra; as pessoas singulares estão excluídas pelo art. 17.º n.º 7 do CIMT. Um particular não residente paga a taxa única de 7,5% (ou a taxa normal, se houver exceção).",
       },
       {
         q: "Posso reaver o imposto adicional se me mudar para Portugal?",
-        a: "Se se comprometer a passar a residente em dois anos, ou arrendar o imóvel em renda acessível, paga 7,5% na escritura e pode depois reembolsar a diferença até à taxa normal (art. 17.º n.º 11–12 do CIMT).",
+        a: "Se se comprometer a passar a residente em dois anos, ou arrendar o imóvel com renda moderada, paga 7,5% na escritura e pode depois reaver a diferença até à taxa normal (art. 17.º n.º 11–12 do CIMT).",
       },
     ],
     cta: "Calcular o meu IMT de não residente",
