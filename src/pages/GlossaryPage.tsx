@@ -11,7 +11,7 @@ export function GlossaryPage() {
 
       <dl className="glossary">
         {glossary.map((e) => (
-          <div className="glossary__item" key={e.id}>
+          <div className="glossary__item" id={e.id} key={e.id}>
             <dt className="glossary__term">
               {lang === "en" ? (
                 <>

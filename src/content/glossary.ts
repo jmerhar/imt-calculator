@@ -151,4 +151,70 @@ export const glossary: GlossaryEntry[] = [
       def: "A autoridade tributária e aduaneira portuguesa, que liquida e cobra o IMT e o imposto do selo.",
     },
   },
+  {
+    id: "imi",
+    en: {
+      term: "IMI (Municipal Property Tax)",
+      def: "An annual municipal tax for owning property, charged on the VPT (typically 0.3–0.45% a year for urban property, set by each municipality). Separate from the one-off IMT paid when buying.",
+    },
+    pt: {
+      term: "IMI (Imposto Municipal sobre Imóveis)",
+      def: "Imposto municipal anual pela propriedade de um imóvel, incidente sobre o VPT (normalmente 0,3% a 0,45% por ano nos prédios urbanos, fixado por cada município). Distinto do IMT, pago uma só vez na compra.",
+    },
+  },
+  {
+    id: "aimi",
+    en: {
+      term: "AIMI (Additional to IMI)",
+      def: "An extra annual tax on high-value property holdings, above a VPT threshold. Most single homes are not affected.",
+    },
+    pt: {
+      term: "AIMI (Adicional ao IMI)",
+      def: "Imposto anual adicional sobre patrimónios imobiliários de valor elevado, acima de um limite de VPT. A maioria das habitações não é abrangida.",
+    },
+  },
+  {
+    id: "base-tributavel",
+    en: {
+      term: "Tax base (base tributável)",
+      def: "The value IMT and stamp duty are charged on: the higher of the purchase price and the VPT.",
+    },
+    pt: {
+      term: "Base tributável",
+      def: "O valor sobre o qual incidem o IMT e o imposto do selo: o maior entre o preço de compra e o VPT.",
+    },
+  },
+  {
+    id: "compropriedade",
+    en: {
+      term: "Co-ownership (compropriedade)",
+      def: "Buying a property in shares among several buyers. Under the totality rule the rate is set on the whole value and applied to each buyer's share, so splitting a purchase gives no bracket advantage.",
+    },
+    pt: {
+      term: "Compropriedade",
+      def: "Compra de um imóvel em quotas por vários compradores. Pela regra da totalidade, a taxa é fixada sobre o valor total e aplicada à quota de cada comprador, pelo que dividir a compra não traz vantagem de escalões.",
+    },
+  },
+  {
+    id: "contrato-promessa",
+    en: {
+      term: "CPCV (promissory contract)",
+      def: "The contrato-promessa de compra e venda — a binding pre-agreement to buy and sell, signed before the final deed, at which the deposit (sinal) is usually paid. IMT is due before the deed, not the CPCV.",
+    },
+    pt: {
+      term: "CPCV (contrato-promessa de compra e venda)",
+      def: "Acordo prévio vinculativo de compra e venda, assinado antes da escritura definitiva, altura em que normalmente se paga o sinal. O IMT é devido antes da escritura, não do CPCV.",
+    },
+  },
+  {
+    id: "residente",
+    en: {
+      term: "Tax resident (residente fiscal)",
+      def: "Someone tax-resident in Portugal. Residents pay the ordinary progressive IMT rates — in contrast to a non-resident, who pays a flat 7.5%.",
+    },
+    pt: {
+      term: "Residente fiscal",
+      def: "Quem é residente fiscal em Portugal. Os residentes pagam as taxas progressivas normais de IMT — ao contrário do não residente, que paga uma taxa única de 7,5%.",
+    },
+  },
 ];

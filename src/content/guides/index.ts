@@ -7,6 +7,8 @@ import type { Lang } from "@/i18n/lang";
 import type { GuideBody } from "./registry";
 import { imtNonResidents } from "./imt-non-residents";
 import { imtJovem } from "./imt-jovem";
+import { imtImiStampDuty } from "./imt-imi-stamp-duty";
+import { imtRegions } from "./imt-regions";
 import { imtTables } from "./imt-tables";
 
 export * from "./registry";
@@ -15,5 +17,7 @@ export * from "./registry";
 export const GUIDE_BODIES: Record<string, Record<Lang, GuideBody>> = {
   "imt-non-residents": imtNonResidents,
   "imt-jovem": imtJovem,
+  "imt-imi-stamp-duty": imtImiStampDuty,
+  "imt-regions": imtRegions,
   "imt-tables": imtTables,
 };

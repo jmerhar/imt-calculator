@@ -27,6 +27,8 @@ const CTA_EXAMPLES: Record<string, CalcInput> = {
     intendedUse: "own_permanent",
     buyers: [{ ...defaultBuyer(), jovem: true }],
   },
+  "imt-imi-stamp-duty": { ...defaultInput(), price: 400000, intendedUse: "own_permanent" },
+  "imt-regions": { ...defaultInput(), price: 400000, location: "azores", intendedUse: "own_permanent" },
   "imt-tables": { ...defaultInput(), price: 400000, intendedUse: "own_permanent" },
 };
 

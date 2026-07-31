@@ -75,6 +75,36 @@ export const GUIDE_META: GuideMeta[] = [
     updated: "2026-07-31",
   },
   {
+    id: "imt-imi-stamp-duty",
+    slug: { en: "imt-imi-stamp-duty", pt: "imt-imi-imposto-do-selo" },
+    title: {
+      en: "IMT vs IMI vs Stamp Duty in Portugal (2026)",
+      pt: "IMT, IMI e imposto do selo: qual é a diferença?",
+    },
+    description: {
+      en: "The three Portuguese property taxes people confuse: IMT and stamp duty (one-off, on the purchase) versus IMI (the annual municipal property tax). What each is, when you pay, and how they are calculated.",
+      pt: "Os três impostos imobiliários que se confundem em Portugal: o IMT e o imposto do selo (únicos, na compra) e o IMI (imposto municipal anual). O que é cada um, quando se paga e como se calcula.",
+    },
+    navLabel: { en: "IMT vs IMI vs stamp duty", pt: "IMT, IMI e imposto do selo" },
+    published: "2026-07-31",
+    updated: "2026-07-31",
+  },
+  {
+    id: "imt-regions",
+    slug: { en: "imt-azores-madeira", pt: "imt-acores-madeira" },
+    title: {
+      en: "Buying in the Azores or Madeira: the IMT ×1.25 Tables (2026)",
+      pt: "Comprar nos Açores ou na Madeira: as tabelas de IMT ×1,25",
+    },
+    description: {
+      en: "How IMT works in Portugal's autonomous regions in 2026: the regional tables are the mainland brackets increased by 25% (Lei n.º 21/90), so the same rates reach higher values. Worked example and IMT Jovem.",
+      pt: "Como funciona o IMT nas regiões autónomas em 2026: as tabelas regionais são os escalões do continente acrescidos de 25% (Lei n.º 21/90), pelo que as mesmas taxas se estendem a valores mais altos. Exemplo prático e IMT Jovem.",
+    },
+    navLabel: { en: "Azores & Madeira (×1.25)", pt: "Açores e Madeira (×1,25)" },
+    published: "2026-07-31",
+    updated: "2026-07-31",
+  },
+  {
     id: "imt-tables",
     slug: { en: "imt-tables-2026", pt: "tabelas-imt-2026" },
     title: {
