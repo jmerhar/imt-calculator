@@ -3,19 +3,21 @@
  * mobile FCP/LCP. Bricolage Grotesque and IBM Plex Sans are variable fonts (one file each);
  * IBM Plex Mono ships static weights.
  *
- * font-display: optional — the browser gives each face a brief window and, if it isn't ready,
- * renders the fallback for the whole load without swapping it later. That trades "brand font on
- * every first paint" for "no flash of changing text mid-load" (the fallbacks are matched sans /
- * mono families) and keeps fonts off the critical render path. Cached / fast loads still get the
- * web font from the first paint. The latin unicode-range covers English and Portuguese, plus the
- * punctuation/€ we use. */
+ * font-display strategy, chosen so the reader never sees a fallback typeface for the prominent text:
+ *  - Display + body (Bricolage, IBM Plex Sans): `block`. Text is invisible until the web font loads,
+ *    then paints already in the brand font — a fallback is never shown. These two faces are
+ *    preloaded (index.html) to keep that invisible window short. The cost is that above-the-fold
+ *    text (incl. the LCP element) waits on the font download, which slows FCP/LCP on slow links.
+ *  - Mono (IBM Plex Mono, result figures): `swap`. Numbers stay visible immediately in the near-
+ *    identical monospace fallback rather than going blank; the swap is imperceptible.
+ * The latin unicode-range covers English and Portuguese, plus the punctuation/€ we use. */
 
 @font-face {
   font-family: "Bricolage Grotesque";
   font-style: normal;
   font-weight: 600 700;
   font-stretch: 100%;
-  font-display: optional;
+  font-display: block;
   src: url("/fonts/bricolage-grotesque-latin.woff2") format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
     U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
@@ -26,7 +28,7 @@
   font-style: normal;
   font-weight: 400 600;
   font-stretch: 100%;
-  font-display: optional;
+  font-display: block;
   src: url("/fonts/ibm-plex-sans-latin.woff2") format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
     U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
@@ -36,7 +38,7 @@
   font-family: "IBM Plex Mono";
   font-style: normal;
   font-weight: 400;
-  font-display: optional;
+  font-display: swap;
   src: url("/fonts/ibm-plex-mono-400-latin.woff2") format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
     U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
@@ -46,7 +48,7 @@
   font-family: "IBM Plex Mono";
   font-style: normal;
   font-weight: 500;
-  font-display: optional;
+  font-display: swap;
   src: url("/fonts/ibm-plex-mono-500-latin.woff2") format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
     U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
@@ -56,7 +58,7 @@
   font-family: "IBM Plex Mono";
   font-style: normal;
   font-weight: 600;
-  font-display: optional;
+  font-display: swap;
   src: url("/fonts/ibm-plex-mono-600-latin.woff2") format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
     U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
