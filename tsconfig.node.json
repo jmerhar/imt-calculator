@@ -7,6 +7,9 @@
     "skipLibCheck": true,
 
     "moduleResolution": "bundler",
+    // vite.config imports build-time SEO/registry helpers that reference app modules via @/ (the
+    // guide registry, the DOM-free Lang type, engine types), so this project must resolve the alias.
+    "paths": { "@/*": ["./src/*"] },
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",

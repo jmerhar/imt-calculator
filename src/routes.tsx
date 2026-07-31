@@ -1,8 +1,12 @@
 import type { RouteRecord } from "vite-react-ssg";
+import type { Lang } from "@/i18n";
+import { GUIDES_SEGMENT } from "@/content/guides/registry";
 import { RootLayout } from "@/RootLayout";
 import { CalculatorPage } from "@/pages/CalculatorPage";
 import { GlossaryPage } from "@/pages/GlossaryPage";
 import { HowItWorksPage } from "@/pages/HowItWorksPage";
+import { GuidesIndexPage } from "@/pages/GuidesIndexPage";
+import { GuidePage } from "@/pages/GuidePage";
 import { NotFoundPage } from "@/pages/NotFoundPage";
 
 // The pages within a language subtree (index + the two content pages), reused for EN and PT.
@@ -11,6 +15,17 @@ const pages = (): RouteRecord[] => [
   { path: "glossary", element: <GlossaryPage />, entry: "src/pages/GlossaryPage.tsx" },
   { path: "how-it-works", element: <HowItWorksPage />, entry: "src/pages/HowItWorksPage.tsx" },
 ];
+
+// Guides live under a localized section segment (/guides in EN, /pt/guias in PT) with localized
+// slugs. The article route is dynamic (:slug); the concrete slugs are enumerated for prerendering in
+// vite.config.ts (ssgOptions.includedRoutes) from the guide registry.
+const guideRoutes = (lang: Lang): RouteRecord[] => {
+  const seg = GUIDES_SEGMENT[lang];
+  return [
+    { path: seg, element: <GuidesIndexPage />, entry: "src/pages/GuidesIndexPage.tsx" },
+    { path: `${seg}/:slug`, element: <GuidePage />, entry: "src/pages/GuidePage.tsx" },
+  ];
+};
 
 // EN is served at the root; PT under /pt. Each subtree fixes its language via RootLayout, so the
 // prerendered HTML per URL is deterministic and hydrates without a flash. `/404` is prerendered and
@@ -24,6 +39,7 @@ export const routes: RouteRecord[] = [
     entry: "src/RootLayout.tsx",
     children: [
       ...pages(),
+      ...guideRoutes("en"),
       { path: "404", element: <NotFoundPage /> },
       { path: "*", element: <NotFoundPage /> },
     ],
@@ -32,6 +48,6 @@ export const routes: RouteRecord[] = [
     path: "/pt",
     element: <RootLayout lang="pt" />,
     entry: "src/RootLayout.tsx",
-    children: pages(),
+    children: [...pages(), ...guideRoutes("pt")],
   },
 ];

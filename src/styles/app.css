@@ -713,6 +713,114 @@ a {
 .doc__body li {
   margin-bottom: var(--s2);
 }
+
+/* Guides: index cards + article chrome (breadcrumb, meta, FAQ, CTA, rate tables). */
+.guides {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--s4);
+}
+.guide-card {
+  padding: var(--s4) var(--s5);
+  background: var(--tile);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+}
+.guide-card__title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  margin: 0 0 var(--s2);
+}
+.guide-card__link {
+  color: var(--azul-600);
+  text-decoration: none;
+}
+.guide-card__link:hover {
+  text-decoration: underline;
+}
+.guide-card__desc {
+  color: var(--ink-soft);
+  margin: 0;
+}
+.breadcrumb {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin-bottom: var(--s4);
+}
+.breadcrumb a {
+  color: var(--azul-600);
+  text-decoration: none;
+}
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+.guide__meta {
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  margin: 0 0 var(--s5);
+}
+.faq-item {
+  margin-bottom: var(--s4);
+}
+.faq-item__q {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 var(--s1);
+}
+.faq-item p {
+  margin: 0;
+  color: var(--ink-soft);
+}
+.guide__cta {
+  margin-top: var(--s6);
+}
+.btn-cta {
+  display: inline-block;
+  font-weight: 600;
+  padding: var(--s3) var(--s5);
+  border-radius: var(--radius-sm);
+  background: var(--azul-600);
+  color: #fff;
+  text-decoration: none;
+}
+.btn-cta:hover {
+  background: var(--azul-900);
+}
+.rate-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 var(--s4);
+  font-size: 0.9rem;
+}
+.rate-table th,
+.rate-table td {
+  text-align: right;
+  padding: var(--s2) var(--s3);
+  border-bottom: 1px solid var(--line);
+}
+.rate-table th:first-child,
+.rate-table td:first-child {
+  text-align: left;
+}
+.rate-table th {
+  font-weight: 600;
+  color: var(--ink-soft);
+  border-bottom: 2px solid var(--azul-400);
+}
+.rate-table td {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+.rate-table__note {
+  caption-side: bottom;
+  text-align: left;
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+  padding-top: var(--s2);
+}
 .glossary {
   margin: 0;
 }

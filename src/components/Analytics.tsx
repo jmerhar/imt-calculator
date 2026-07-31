@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useI18n } from "@/i18n";
-import { barePath } from "@/i18n/paths";
+import { barePath, guideFromPath } from "@/i18n/paths";
+import { GUIDES_INDEX_SEO, guideById } from "@/content/guides/registry";
 import { useTheme } from "@/theme/theme";
 import { track } from "@/analytics";
 import { arrivalKind } from "@/state/url";
@@ -24,13 +25,22 @@ export function Analytics() {
   // Localized, per-route document title (also read by the page_view below). Mapped from the
   // language-neutral path so /glossary and /pt/glossary share the logic. Home keeps the brand
   // title; subpages read "<page> · <brand>".
+  // Guides carry their own SEO title (matching the prerendered <title>); other routes derive it
+  // from the language-neutral path. Handle guides first, since barePath doesn't model them.
+  const guide = guideFromPath(pathname);
   const bare = barePath(pathname);
-  const docTitle =
-    bare === "/glossary"
-      ? `${t.nav.glossary} · ${t.app.title}`
-      : bare === "/how-it-works"
-        ? `${t.nav.howItWorks} · ${t.app.title}`
-        : `${t.app.title} · ${t.app.subtitle}`;
+  let docTitle: string;
+  if (guide) {
+    docTitle =
+      (guide.kind === "article" && guide.id ? guideById(guide.id)?.title[lang] : undefined) ??
+      GUIDES_INDEX_SEO[lang].title;
+  } else if (bare === "/glossary") {
+    docTitle = `${t.nav.glossary} · ${t.app.title}`;
+  } else if (bare === "/how-it-works") {
+    docTitle = `${t.nav.howItWorks} · ${t.app.title}`;
+  } else {
+    docTitle = `${t.app.title} · ${t.app.subtitle}`;
+  }
   // Declared before the page_view effect so document.title is current when page_view reads it.
   // Reacts to the route and the language; a language switch updates the tab without a new page view.
   useEffect(() => {

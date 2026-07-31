@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useI18n, fmt } from "@/i18n";
 import type { Lang } from "@/i18n";
-import { LANG_STORAGE_KEY, localizedPath, switchLangPath } from "@/i18n/paths";
+import { LANG_STORAGE_KEY, localizedPath, switchLangPath, guidesIndexPath } from "@/i18n/paths";
 import { useTheme } from "@/theme/theme";
 import { LATEST_YEAR } from "@/engine/tables";
 import { track } from "@/analytics";
@@ -43,6 +43,9 @@ export function Layout({ children }: { children: ReactNode }) {
           </NavLink>
           <NavLink to={path("/how-it-works")} className={navClass}>
             {t.nav.howItWorks}
+          </NavLink>
+          <NavLink to={guidesIndexPath(lang)} className={navClass}>
+            {t.nav.guides}
           </NavLink>
         </nav>
 

@@ -12,6 +12,7 @@ export const en = {
     calculator: "Calculator",
     glossary: "Glossary",
     howItWorks: "How it works",
+    guides: "Guides",
   },
   controls: {
     language: "Language",
@@ -114,5 +115,17 @@ export const en = {
     notFoundTitle: "Page not found",
     notFoundBody: "That page doesn't exist — it may have moved, or the link may be wrong.",
     notFoundHome: "Go to the calculator",
+    guidesTitle: "Portugal property-tax guides",
+    guidesIntro: "Plain-language guides to IMT and stamp duty in Portugal for 2026 — the rules, the reliefs, and the rate tables, each linked to the calculator.",
+  },
+  guides: {
+    faqHeading: "Frequently asked questions",
+    updated: "Updated",
+    readGuide: "Read guide",
+    breadcrumbCalculator: "Calculator",
+    tableFrom: "From (€)",
+    tableRate: "Marginal rate",
+    tableDeduction: "Deduction (€)",
+    tableNote: "The marginal rate applies from the “From” value up to the next row; the top band is a single flat rate.",
   },
 } satisfies Record<string, Record<string, string>>;

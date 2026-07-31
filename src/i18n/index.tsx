@@ -6,8 +6,9 @@ import { createContext, useContext, useMemo, useEffect } from "react";
 import type { ReactNode } from "react";
 import { en } from "@/i18n/en";
 import { pt } from "@/i18n/pt";
+import type { Lang } from "@/i18n/lang";
 
-export type Lang = "en" | "pt";
+export type { Lang };
 
 // The dictionary shape: every leaf of the English dictionary widened to `string`. `pt` is typed
 // as `Dict`, so a missing or misspelled key fails type-checking (the parity test double-checks it).

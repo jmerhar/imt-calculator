@@ -2,9 +2,13 @@
 import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
 import path from "node:path";
+import { writeFileSync } from "node:fs";
 import { SITE_URL } from "./src/config";
 import { SEO_PAGES } from "./src/seo/meta";
 import { jsonLdFor } from "./src/seo/jsonld";
+import { guideSeoForKey } from "./src/seo/guides";
+import { buildSitemap } from "./src/seo/sitemap";
+import { GUIDE_META, GUIDES_SEGMENT } from "./src/content/guides/registry";
 
 const escapeHtml = (s: string) =>
   s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -15,9 +19,10 @@ const urlFor = (lang: "en" | "pt", bare: string) => {
   return lang === "en" ? `${SITE_URL}${suffix}/` : `${SITE_URL}/pt${suffix === "" ? "" : suffix}/`;
 };
 
-// Inject per-route <title>, meta description, canonical, hreflang alternates and <html lang> into
-// each prerendered page so crawlers see distinct, correct, per-language metadata (not the generic
-// index.html template). Build-time only.
+// Inject per-route <title>, meta description, canonical, hreflang alternates, Open Graph/Twitter,
+// JSON-LD and <html lang> into each prerendered page so crawlers see distinct, correct, per-language
+// metadata (not the generic index.html template). Guides resolve through the registry (localized
+// segment + slug); all other routes derive from SEO_PAGES by prefix. Build-time only.
 function injectSeo(route: string, html: string): string {
   // vite-react-ssg passes routes without a leading slash ("glossary", "pt/glossary"); normalize.
   const clean = route.replace(/^\/+|\/+$/g, "");
@@ -30,37 +35,54 @@ function injectSeo(route: string, html: string): string {
       .replace("</head>", `<meta name="robots" content="noindex" /></head>`);
   }
 
-  const meta = SEO_PAGES[key] ?? SEO_PAGES["/"];
-  const lang: "en" | "pt" = /^\/pt(\/|$)/.test(key) ? "pt" : "en";
-  const bare = key.replace(/^\/pt(?=\/|$)/, "") || "/";
+  let lang: "en" | "pt";
+  let canonical: string;
+  let altEn: string;
+  let altPt: string;
+  let title: string;
+  let description: string;
+  let jsonLd: string;
 
-  const canonical = urlFor(lang, bare);
+  const guide = guideSeoForKey(key);
+  if (guide) {
+    ({ lang, canonical, altEn, altPt, title, description, jsonLd } = guide);
+  } else {
+    const meta = SEO_PAGES[key] ?? SEO_PAGES["/"];
+    lang = /^\/pt(\/|$)/.test(key) ? "pt" : "en";
+    const bare = key.replace(/^\/pt(?=\/|$)/, "") || "/";
+    canonical = urlFor(lang, bare);
+    altEn = urlFor("en", bare);
+    altPt = urlFor("pt", bare);
+    title = meta.title;
+    description = meta.description;
+    jsonLd = jsonLdFor(lang, bare, canonical);
+  }
+
   const alternates = [
-    `<link rel="alternate" hreflang="en" href="${urlFor("en", bare)}" />`,
-    `<link rel="alternate" hreflang="pt" href="${urlFor("pt", bare)}" />`,
-    `<link rel="alternate" hreflang="x-default" href="${urlFor("en", bare)}" />`,
+    `<link rel="alternate" hreflang="en" href="${altEn}" />`,
+    `<link rel="alternate" hreflang="pt" href="${altPt}" />`,
+    `<link rel="alternate" hreflang="x-default" href="${altEn}" />`,
   ].join("");
-  const desc = `<meta name="description" content="${escapeHtml(meta.description)}" />`;
+  const desc = `<meta name="description" content="${escapeHtml(description)}" />`;
 
   const ogImage = `${SITE_URL}/og.png`;
   const social = [
     `<meta property="og:type" content="website" />`,
     `<meta property="og:site_name" content="IMT Calculator" />`,
-    `<meta property="og:title" content="${escapeHtml(meta.title)}" />`,
-    `<meta property="og:description" content="${escapeHtml(meta.description)}" />`,
+    `<meta property="og:title" content="${escapeHtml(title)}" />`,
+    `<meta property="og:description" content="${escapeHtml(description)}" />`,
     `<meta property="og:url" content="${canonical}" />`,
     `<meta property="og:image" content="${ogImage}" />`,
     `<meta property="og:locale" content="${lang === "pt" ? "pt_PT" : "en_US"}" />`,
     `<meta property="og:locale:alternate" content="${lang === "pt" ? "en_US" : "pt_PT"}" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,
-    `<meta name="twitter:title" content="${escapeHtml(meta.title)}" />`,
-    `<meta name="twitter:description" content="${escapeHtml(meta.description)}" />`,
+    `<meta name="twitter:title" content="${escapeHtml(title)}" />`,
+    `<meta name="twitter:description" content="${escapeHtml(description)}" />`,
     `<meta name="twitter:image" content="${ogImage}" />`,
   ].join("");
-  const jsonLd = jsonLdFor(lang, bare, canonical);
 
   let out = html.replace(/<html([^>]*)\slang="[^"]*"/i, `<html$1 lang="${lang}"`);
-  out = out.replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(meta.title)}</title>`);
+  out = out.replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(title)}</title>`);
   out = /<meta\s+name="description"[^>]*>/i.test(out)
     ? out.replace(/<meta\s+name="description"[^>]*>/i, desc)
     : out.replace("</head>", `${desc}</head>`);
@@ -82,6 +104,23 @@ export default defineConfig({
   ssgOptions: {
     dirStyle: "nested",
     onPageRendered: (route, html) => injectSeo(route, html),
+    // Guide article routes are dynamic (:slug); enumerate the concrete localized slugs from the
+    // registry so each is prerendered. Static routes (incl. the guides index and /404) pass through.
+    includedRoutes(paths) {
+      const staticPaths = paths.filter((p) => !p.includes(":") && !p.includes("*"));
+      const guides = GUIDE_META.flatMap((m) => [
+        `/${GUIDES_SEGMENT.en}/${m.slug.en}`,
+        `/pt/${GUIDES_SEGMENT.pt}/${m.slug.pt}`,
+      ]);
+      return [...staticPaths, ...guides];
+    },
+    // Generate the sitemap from the registry once all pages are written (localized guide URLs +
+    // hreflang), so it always matches what was prerendered.
+    onFinished: (dir: string) => {
+      const today = new Date().toISOString().slice(0, 10);
+      writeFileSync(path.join(dir, "sitemap.xml"), buildSitemap(today));
+      console.log("ssg: wrote sitemap.xml");
+    },
   },
   test: {
     environment: "jsdom",
@@ -102,6 +141,9 @@ export default defineConfig({
         "src/main.tsx",
         "src/seo/meta.ts",
         "src/seo/jsonld.ts",
+        // Build-only SEO helpers (used by this config, not the app or tests).
+        "src/seo/guides.ts",
+        "src/seo/sitemap.ts",
       ],
     },
   },

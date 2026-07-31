@@ -13,6 +13,11 @@ export function formatEuro(value: number, lang: Lang): string {
   }).format(value);
 }
 
+/** Format a plain number in the language's locale, no currency symbol (e.g. "330,539" / "330 539"). */
+export function formatAmount(value: number, lang: Lang, digits = 2): string {
+  return new Intl.NumberFormat(locale(lang), { maximumFractionDigits: digits }).format(value);
+}
+
 /** Format a 0..1 fraction as a percentage in the language's locale (e.g. "7.50%" / "7,50 %"). */
 export function formatPercent(fraction: number, lang: Lang, digits = 2): string {
   return new Intl.NumberFormat(locale(lang), {
