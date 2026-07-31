@@ -105,6 +105,28 @@ describe("CalculatorPage", () => {
       const params = gtag.mock.calls.find((c) => c[1] === "calculate")?.[2] as Record<string, unknown>;
       expect(params).not.toHaveProperty("value");
       expect(Object.values(params)).not.toContain(300000);
+      // With no VPT entered, the numeric ratio is omitted (so it never skews the average).
+      expect(params).not.toHaveProperty("vpt_ratio");
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it("sends the VPT ratio band and numeric ratio when a VPT is entered", () => {
+    vi.useFakeTimers();
+    try {
+      const gtag = vi.fn();
+      window.gtag = gtag;
+      renderPage();
+      fireEvent.change(screen.getByLabelText(en.form.price), { target: { value: "300000" } });
+      fireEvent.change(screen.getByLabelText(en.form.vpt, { exact: false }), {
+        target: { value: "240000" },
+      });
+      act(() => vi.advanceTimersByTime(1600));
+      const calls = gtag.mock.calls.filter((c) => c[1] === "calculate");
+      const params = calls[calls.length - 1][2] as Record<string, unknown>;
+      // 240k / 300k = 0.80 → band "80-90%", numeric ratio 80.
+      expect(params).toMatchObject({ has_vpt: true, vpt_ratio_band: "80-90%", vpt_ratio: 80 });
     } finally {
       vi.useRealTimers();
     }

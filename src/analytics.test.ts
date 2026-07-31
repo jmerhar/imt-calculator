@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
-import { track, priceBand, rateBand, vptRatioBand } from "@/analytics";
+import { track, priceBand, rateBand, vptRatioBand, vptRatioPct } from "@/analytics";
 
 afterEach(() => {
   delete window.gtag;
@@ -43,17 +43,36 @@ describe("vptRatioBand", () => {
 
   it("maps the VPT/price ratio to coarse bands", () => {
     expect(vptRatioBand(120_000, 300_000)).toBe("<50%"); // 0.40
-    expect(vptRatioBand(180_000, 300_000)).toBe("50-70%"); // 0.60
-    expect(vptRatioBand(240_000, 300_000)).toBe("70-90%"); // 0.80
+    expect(vptRatioBand(165_000, 300_000)).toBe("50-60%"); // 0.55
+    expect(vptRatioBand(195_000, 300_000)).toBe("60-70%"); // 0.65
+    expect(vptRatioBand(225_000, 300_000)).toBe("70-80%"); // 0.75
+    expect(vptRatioBand(255_000, 300_000)).toBe("80-90%"); // 0.85
     expect(vptRatioBand(285_000, 300_000)).toBe("90-100%"); // 0.95
     expect(vptRatioBand(360_000, 300_000)).toBe(">=100%"); // 1.20 → base is the VPT
   });
 
   it("puts each exact boundary in the upper band", () => {
-    expect(vptRatioBand(150_000, 300_000)).toBe("50-70%"); // 0.50
-    expect(vptRatioBand(210_000, 300_000)).toBe("70-90%"); // 0.70
+    expect(vptRatioBand(150_000, 300_000)).toBe("50-60%"); // 0.50
+    expect(vptRatioBand(180_000, 300_000)).toBe("60-70%"); // 0.60
+    expect(vptRatioBand(210_000, 300_000)).toBe("70-80%"); // 0.70
+    expect(vptRatioBand(240_000, 300_000)).toBe("80-90%"); // 0.80
     expect(vptRatioBand(270_000, 300_000)).toBe("90-100%"); // 0.90
     expect(vptRatioBand(300_000, 300_000)).toBe(">=100%"); // 1.00
+  });
+});
+
+describe("vptRatioPct", () => {
+  it("returns undefined without a usable VPT or price", () => {
+    expect(vptRatioPct(undefined, 300_000)).toBeUndefined();
+    expect(vptRatioPct(0, 300_000)).toBeUndefined();
+    expect(vptRatioPct(200_000, 0)).toBeUndefined();
+  });
+
+  it("returns the percentage rounded to one decimal", () => {
+    expect(vptRatioPct(240_000, 300_000)).toBe(80);
+    expect(vptRatioPct(300_000, 300_000)).toBe(100);
+    expect(vptRatioPct(123_456, 300_000)).toBe(41.2); // 0.41152 → 41.2
+    expect(vptRatioPct(360_000, 300_000)).toBe(120);
   });
 });
 

@@ -11,7 +11,7 @@ import { calculate } from "@/engine/imt";
 import { AVAILABLE_YEARS } from "@/engine/tables";
 import { defaultBuyer, defaultInput } from "@/state/defaults";
 import { readStateFromUrl, writeStateToUrl } from "@/state/url";
-import { track, priceBand, rateBand, vptRatioBand } from "@/analytics";
+import { track, priceBand, rateBand, vptRatioBand, vptRatioPct } from "@/analytics";
 import { NumberField, Segmented, SelectField, Toggle } from "@/components/controls";
 import { BuyerCard } from "@/components/BuyerCard";
 import { ResultsPanel } from "@/components/ResultsPanel";
@@ -44,6 +44,7 @@ export function CalculatorPage() {
   useEffect(() => {
     if (!interacted.current || input.price <= 0) return;
     const id = setTimeout(() => {
+      const vptRatio = vptRatioPct(input.vpt, input.price);
       track("calculate", {
         intended_use: input.intendedUse,
         location: input.location,
@@ -58,6 +59,9 @@ export function CalculatorPage() {
         price_band: priceBand(result.taxBase),
         rate_band: rateBand(result.effectiveRate),
         vpt_ratio_band: vptRatioBand(input.vpt, input.price),
+        // Numeric ratio (a percentage) only when a VPT was entered, so it never skews the average
+        // with zeros; omitted otherwise.
+        ...(vptRatio != null ? { vpt_ratio: vptRatio } : {}),
         shares_valid: !result.warnings.includes("shares_not_100"),
         // Deliberately no raw euro figure here: grandTotal is derived from the entered price, and
         // the footer promises amounts are never sent. price_band/rate_band convey magnitude coarsely.

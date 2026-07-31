@@ -34,16 +34,30 @@ export function rateBand(rate: number): string {
 }
 
 /**
- * Coarse VPT-to-price ratio band. `"none"` when no VPT was entered (or price is non-positive);
- * `">=100%"` means the VPT met or exceeded the price, so the tax base was the VPT, not the price.
- * A ratio, not an amount — it carries no absolute figure.
+ * Coarse VPT-to-price ratio band. Portuguese VPT typically falls in ~50–90% of the purchase price
+ * (roughly 40–80% per market commentary, up to ~80–90% for values aligned in the tax reforms), so
+ * the 50–100% range gets 10-point resolution, with a `<50%` tail for older under-assessed property.
+ * `"none"` when no VPT was entered (or price is non-positive); `">=100%"` means the VPT met or
+ * exceeded the price, so the tax base was the VPT, not the price. A ratio carries no absolute figure.
  */
 export function vptRatioBand(vpt: number | undefined, price: number): string {
   if (!vpt || vpt <= 0 || price <= 0) return "none";
   const ratio = vpt / price;
   if (ratio < 0.5) return "<50%";
-  if (ratio < 0.7) return "50-70%";
-  if (ratio < 0.9) return "70-90%";
+  if (ratio < 0.6) return "50-60%";
+  if (ratio < 0.7) return "60-70%";
+  if (ratio < 0.8) return "70-80%";
+  if (ratio < 0.9) return "80-90%";
   if (ratio < 1) return "90-100%";
   return ">=100%";
+}
+
+/**
+ * VPT as a percentage of price (e.g. 82.5), rounded to one decimal, or undefined when there is no
+ * usable VPT/price. Sent as a numeric GA metric so reports can show an average VPT ratio and its
+ * full distribution rather than just band counts; a ratio carries no absolute amount.
+ */
+export function vptRatioPct(vpt: number | undefined, price: number): number | undefined {
+  if (!vpt || vpt <= 0 || price <= 0) return undefined;
+  return Math.round((vpt / price) * 1000) / 10;
 }
