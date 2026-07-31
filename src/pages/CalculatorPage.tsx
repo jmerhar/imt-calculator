@@ -122,9 +122,14 @@ export function CalculatorPage() {
   const mortgageOn = input.mortgage != null;
 
   return (
-    <div className="calculator">
-      <form className="panel form" onSubmit={(e) => e.preventDefault()}>
-        <h2 className="panel__title">{t.form.heading}</h2>
+    <>
+      <header className="calc-intro">
+        <h1 className="calc-intro__title">{t.pages.calculatorH1}</h1>
+        <p className="calc-intro__lead">{t.pages.calculatorIntro}</p>
+      </header>
+      <div className="calculator">
+        <form className="panel form" onSubmit={(e) => e.preventDefault()}>
+          <h2 className="panel__title">{t.form.heading}</h2>
 
         <div className="form__cols">
           {AVAILABLE_YEARS.length > 1 && (
@@ -246,9 +251,10 @@ export function CalculatorPage() {
         </div>
       </form>
 
-      <div className="panel panel--results">
-        <ResultsPanel input={input} result={result} onReset={reset} />
+        <div className="panel panel--results">
+          <ResultsPanel input={input} result={result} onReset={reset} />
+        </div>
       </div>
-    </div>
+    </>
   );
 }

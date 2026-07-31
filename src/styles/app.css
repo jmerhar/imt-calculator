@@ -123,6 +123,24 @@ a {
   margin-inline: auto;
   padding-block: var(--s6);
 }
+.calc-intro {
+  max-width: 60ch;
+  margin: 0 0 var(--s5);
+}
+.calc-intro__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.1rem);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0 0 var(--s3);
+}
+.calc-intro__lead {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 1rem;
+  line-height: 1.55;
+}
 .calculator {
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;

@@ -106,6 +106,9 @@ export const en = {
       "This site uses cookies for anonymous, aggregate usage statistics via Google Analytics. These may include the figures you enter (such as prices), but they are property values only, never linked to your identity. The calculations themselves run entirely in your browser.",
   },
   pages: {
+    calculatorH1: "Portugal IMT & Stamp-Duty Calculator — 2026",
+    calculatorIntro:
+      "Work out the IMT (property-transfer tax) and stamp duty on a Portuguese property purchase in 2026 — with the 7.5% non-resident rate, IMT Jovem relief, multiple buyers, and the Açores and Madeira tables. Everything is calculated in your browser.",
     glossaryIntro: "Key IMT and stamp-duty terms, shown in both English and Portuguese.",
     howtoIntro: "What this tool computes, the rules it applies, and where the numbers come from.",
   },

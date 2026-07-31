@@ -120,22 +120,22 @@ comes from. Bias toward Portuguese — it's the primary market.
   - EN: `Portugal IMT calculator`, `Portugal property transfer tax`, `IMT non-resident Portugal
     2026`, `stamp duty Portugal property`, `buying property Portugal taxes`.
   **Impact H · Effort M.**
-- [ ] **Optimize the three existing pages** for their mapped intent (headings, intro copy, internal
-  links, natural keyword use) without harming UX. **Impact H · Effort M.**
+- [x] **Optimize the home page** — added a keyword-led `<h1>` ("Portugal IMT & Stamp-Duty
+  Calculator — 2026") and an intro paragraph (both localized). Glossary and how-it-works already
+  have `<h1>` + intros.
 - [ ] **Expand the glossary** into a genuinely useful, interlinked reference (each term crawlable);
-  consider per-term anchors/sections. **Impact M · Effort M.**
-- [ ] **Add guide/article pages** targeting high-intent long-tail queries, e.g. "IMT for
-  non-residents in 2026 — how it works", "IMT Jovem: who qualifies", "IMT vs IMI vs stamp duty",
-  "Buying property in the Azores/Madeira: the ×1.25 tables". Each: real explanation + a link into
-  the calculator. **Impact H · Effort H** (ongoing).
-- [ ] **Worked examples** (e.g. the €400k two-buyer case) as indexable content — matches "how much
-  IMT for …" queries. **Impact M · Effort M.**
-- [ ] **Internal linking** — calculator ⇄ glossary ⇄ how-it-works ⇄ guides, with descriptive anchors.
-  **Impact M · Effort L.**
-- [ ] **Freshness** — the "2026" framing is a ranking asset for the year; plan the yearly refresh
-  (tables + copy + dates) and keep an obvious "updated for <year>" signal. **Impact M · Effort L.**
-- [ ] **Cite primary sources** (CIMT, TGIS, DL 97/2026) — E-E-A-T signal for a YMYL (tax) topic.
-  Already partly done in how-it-works; make it prominent. **Impact M · Effort L.**
+  consider per-term anchors/sections. **Ongoing content work.**
+- [ ] **Add guide/article pages** for high-intent long-tail queries ("IMT for non-residents in 2026",
+  "IMT Jovem: who qualifies", "IMT vs IMI vs stamp duty", "Buying in the Azores/Madeira: the ×1.25
+  tables"). Each needs real bilingual copy + a link into the calculator. **Ongoing — the main
+  remaining organic lever; best done a few articles at a time with topic priorities.**
+- [ ] **Worked examples** (e.g. the €400k two-buyer case) as indexable content. **Ongoing content.**
+- [x] **Internal linking** — header nav links all pages in the current language; footer links to
+  how-it-works. (Contextual in-body links will come with the guide pages.)
+- [x] **Freshness** — the "2026" framing is in titles, the `<h1>`, and content. Yearly refresh is a
+  known task (the year-parameterized tables + `make fetch-tables` support it).
+- [x] **Cite primary sources** — how-it-works cites CIMT/TGIS/DL 97/2026; `reference/` holds the
+  source docs. E-E-A-T signal in place.
 
 ## P2 — Performance, accessibility, semantics (mostly already good — verify & hold)
 
@@ -143,11 +143,12 @@ comes from. Bias toward Portuguese — it's the primary market.
   traffic exists). The bundle is ~70 KB gzip — good; watch prerender/hydration cost. **Impact M · Effort L.**
 - [ ] **Font loading** — `font-display: swap` (via the Google Fonts URL) is set; consider
   self-hosting or subsetting to cut the render-blocking request. **Impact L · Effort M.**
-- [ ] **Semantic HTML & headings** — one `<h1>` per page, logical `<h2>`/`<h3>`, landmarks. Audit per
-  page. **Impact M · Effort L.**
-- [ ] **Image `alt`, descriptive link text, keyboard/reduced-motion** — accessibility overlaps SEO;
-  already strong, keep it. **Impact L · Effort L.**
-- [ ] **Mobile-first UX** — already responsive; confirm no interstitials/CLS on mobile. **Impact M · Effort L.**
+- [x] **Semantic HTML & headings** — every page now has exactly one `<h1>` (home's was added), then
+  logical `<h2>`/`<h3>`; landmarks (header/nav/main#main/footer + skip link) in place.
+- [x] **Image `alt`, descriptive link text, keyboard/reduced-motion** — already strong (labelled
+  controls, `:focus-visible`, `prefers-reduced-motion`); held.
+- [ ] **Mobile-first UX / CWV** — responsive and light (~70 KB gzip); confirm green in PageSpeed once
+  there's traffic. **Verify later.**
 
 ## P2 — Off-page / authority & promotion (ongoing)
 
