@@ -113,6 +113,9 @@ Admin API** enabled — **never commit it** (`ga-key.json` is gitignored). Re-ru
 parameters are added; existing definitions are skipped. Explorations/reports have no public API and
 are still built in the GA UI.
 
+See [`docs/analytics.md`](docs/analytics.md) for the full guide: every event and parameter, the
+service-account setup, verifying data, and ready-to-replicate Exploration configs.
+
 ## Tech stack
 
 Vite · React · TypeScript · Vitest. No UI framework — the design system is hand-authored CSS.
