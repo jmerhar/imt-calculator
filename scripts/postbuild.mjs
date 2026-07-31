@@ -8,7 +8,10 @@ import { copyFileSync, existsSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 const SITE_URL = "https://calc-imt.online";
-const PATHS = ["/", "/glossary/", "/how-it-works/"];
+// Language-neutral pages; each is emitted in both languages with hreflang alternates.
+const BARE_PATHS = ["/", "/glossary", "/how-it-works"];
+const enUrl = (b) => `${SITE_URL}${b === "/" ? "/" : `${b}/`}`;
+const ptUrl = (b) => `${SITE_URL}/pt${b === "/" ? "/" : `${b}/`}`;
 
 const dist = resolve(process.cwd(), "dist");
 const index = resolve(dist, "index.html");
@@ -22,9 +25,19 @@ copyFileSync(index, resolve(dist, "404.html"));
 console.log("postbuild: wrote dist/404.html (SPA fallback)");
 
 const today = new Date().toISOString().slice(0, 10);
-const urls = PATHS.map(
-  (p) => `  <url>\n    <loc>${SITE_URL}${p}</loc>\n    <lastmod>${today}</lastmod>\n  </url>`,
-).join("\n");
-const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
+const entry = (loc, bare) =>
+  `  <url>
+    <loc>${loc}</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="${enUrl(bare)}" />
+    <xhtml:link rel="alternate" hreflang="pt" href="${ptUrl(bare)}" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="${enUrl(bare)}" />
+    <lastmod>${today}</lastmod>
+  </url>`;
+const entries = BARE_PATHS.flatMap((b) => [entry(enUrl(b), b), entry(ptUrl(b), b)]).join("\n");
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+${entries}
+</urlset>
+`;
 writeFileSync(resolve(dist, "sitemap.xml"), sitemap);
-console.log(`postbuild: wrote dist/sitemap.xml (${PATHS.length} URLs)`);
+console.log(`postbuild: wrote dist/sitemap.xml (${BARE_PATHS.length * 2} URLs)`);

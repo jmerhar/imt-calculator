@@ -98,22 +98,24 @@ describe("App", () => {
     );
   });
 
-  it("carries the active UI language on the page_view after a language switch", async () => {
+  it("switches language by navigating to the /pt URL, with a page_view in the new language", async () => {
     const gtag = vi.fn();
     window.gtag = gtag;
     const user = userEvent.setup();
-    renderApp();
+    renderApp("/glossary");
     await user.click(screen.getByRole("button", { name: "PT" }));
-    // Switching keeps the same route, so no extra page_view fires for the switch itself…
-    const pageViews = gtag.mock.calls.filter((c) => c[1] === "page_view");
-    expect(pageViews).toHaveLength(1);
-    // …but the next navigation's page_view reports the now-active language.
-    await user.click(screen.getByRole("link", { name: /Glossário|Glossary/ }));
+    // Language is a route: the switch navigates to /pt/glossary and fires a page_view for it in PT.
     expect(gtag).toHaveBeenCalledWith(
       "event",
       "page_view",
-      expect.objectContaining({ page_path: "/glossary", ui_language: "pt" }),
+      expect.objectContaining({ page_path: "/pt/glossary", ui_language: "pt" }),
     );
+  });
+
+  it("renders Portuguese directly at a /pt URL", () => {
+    renderApp("/pt/glossary");
+    expect(screen.getByText(glossary[0].pt.term)).toBeInTheDocument();
+    expect(document.documentElement.lang).toBe("pt");
   });
 
   it("sets a localized document title per route", async () => {
@@ -122,7 +124,7 @@ describe("App", () => {
     expect(document.title).toBe(`${en.app.title} · ${en.app.subtitle}`);
     await user.click(screen.getByRole("link", { name: en.nav.glossary }));
     expect(document.title).toBe(`${en.nav.glossary} · ${en.app.title}`);
-    // Localized and reactive: switching language updates the tab title without navigating.
+    // Switching language navigates to /pt/glossary; the tab title becomes the Portuguese one.
     await user.click(screen.getByRole("button", { name: "PT" }));
     expect(document.title).toBe(`${pt.nav.glossary} · ${pt.app.title}`);
   });

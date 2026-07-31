@@ -29,9 +29,11 @@ export function ResultsPanel({
   // Clear a pending flash timer if the panel unmounts, so it never fires setState afterwards.
   useEffect(() => () => clearTimeout(flashTimer.current), []);
 
-  // The single reversible code that carries the whole calculation, on the canonical site URL so a
-  // shared link always points at the real site (and so server/client render identically).
-  const link = `${SITE_URL}/?c=${encodeToken(input)}`;
+  // The single reversible code that carries the whole calculation, on the canonical site URL in the
+  // active language (EN at /, PT at /pt/) so a shared link opens the calculator in the same language
+  // and renders identically on server and client.
+  const home = lang === "en" ? "/" : "/pt/";
+  const link = `${SITE_URL}${home}?c=${encodeToken(input)}`;
 
   const notify = (msg: string) => {
     clearTimeout(flashTimer.current); // supersede any in-flight message so timers don't overlap

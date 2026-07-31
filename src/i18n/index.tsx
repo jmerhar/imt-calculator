@@ -2,7 +2,7 @@
 // is the conventional shape for a React context module; fast-refresh's component-only rule does
 // not apply usefully here.
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useContext, useState, useCallback, useMemo, useEffect } from "react";
+import { createContext, useContext, useMemo, useEffect } from "react";
 import type { ReactNode } from "react";
 import { en } from "@/i18n/en";
 import { pt } from "@/i18n/pt";
@@ -16,19 +16,6 @@ export type Dict = Widen<typeof en>;
 
 export const dictionaries: Record<Lang, Dict> = { en, pt };
 
-const STORAGE_KEY = "imt-lang";
-
-function initialLang(): Lang {
-  if (typeof localStorage !== "undefined") {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved === "en" || saved === "pt") return saved;
-  }
-  if (typeof navigator !== "undefined" && navigator.language?.toLowerCase().startsWith("pt")) {
-    return "pt";
-  }
-  return "en";
-}
-
 /** Substitute `{name}` placeholders, e.g. fmt("Rates for {year}.", { year: 2026 }). */
 export function fmt(template: string, vars: Record<string, string | number>): string {
   return template.replace(/\{(\w+)\}/g, (_, k) => String(vars[k] ?? `{${k}}`));
@@ -37,37 +24,26 @@ export function fmt(template: string, vars: Record<string, string | number>): st
 interface I18nValue {
   lang: Lang;
   t: Dict;
-  setLang: (l: Lang) => void;
 }
 
 const I18nContext = createContext<I18nValue | null>(null);
 
-/** Provides the active language and its dictionary; persists the choice to localStorage. */
-export function I18nProvider({ children }: { children: ReactNode }) {
-  // Start from a deterministic default (en) so the prerendered HTML and the first client render
-  // agree — a hydration requirement for static generation. The persisted/browser language is
-  // resolved after mount.
-  const [lang, setLangState] = useState<Lang>("en");
-
-  useEffect(() => {
-    setLangState(initialLang());
-  }, []);
-
+/**
+ * Provides the active language and its dictionary. The language is driven by the route (EN at `/`,
+ * PT at `/pt/…`) and passed in, so the prerendered HTML for each language URL is deterministic and
+ * hydrates without a flash. Switching language is a navigation (see Layout), not local state.
+ */
+export function I18nProvider({ lang = "en", children }: { lang?: Lang; children: ReactNode }) {
   // Keep <html lang> in sync for assistive tech and hyphenation.
   useEffect(() => {
     document.documentElement.lang = lang;
   }, [lang]);
 
-  const setLang = useCallback((l: Lang) => {
-    setLangState(l);
-    if (typeof localStorage !== "undefined") localStorage.setItem(STORAGE_KEY, l);
-  }, []);
-
-  const value = useMemo<I18nValue>(() => ({ lang, t: dictionaries[lang], setLang }), [lang, setLang]);
+  const value = useMemo<I18nValue>(() => ({ lang, t: dictionaries[lang] }), [lang]);
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
 }
 
-/** Access the current language, its dictionary (`t`), and `setLang`. Throws outside I18nProvider. */
+/** Access the current language and its dictionary (`t`). Throws outside I18nProvider. */
 export function useI18n(): I18nValue {
   const ctx = useContext(I18nContext);
   if (!ctx) throw new Error("useI18n must be used within <I18nProvider>");

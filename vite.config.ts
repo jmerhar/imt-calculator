@@ -8,20 +8,37 @@ import { SEO_PAGES } from "./src/seo/meta";
 const escapeHtml = (s: string) =>
   s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
-// Inject per-route <title>, meta description and canonical into each prerendered page so crawlers
-// see distinct, correct metadata (not the generic index.html template). Build-time only.
+// URL for a bare (language-neutral) path in a given language: EN at root, PT under /pt, trailing slash.
+const urlFor = (lang: "en" | "pt", bare: string) => {
+  const suffix = bare === "/" ? "" : bare;
+  return lang === "en" ? `${SITE_URL}${suffix}/` : `${SITE_URL}/pt${suffix === "" ? "" : suffix}/`;
+};
+
+// Inject per-route <title>, meta description, canonical, hreflang alternates and <html lang> into
+// each prerendered page so crawlers see distinct, correct, per-language metadata (not the generic
+// index.html template). Build-time only.
 function injectSeo(route: string, html: string): string {
-  // vite-react-ssg passes routes without a leading slash ("glossary"); normalize to "/glossary".
+  // vite-react-ssg passes routes without a leading slash ("glossary", "pt/glossary"); normalize.
   const clean = route.replace(/^\/+|\/+$/g, "");
   const key = clean ? `/${clean}` : "/";
   const meta = SEO_PAGES[key] ?? SEO_PAGES["/"];
-  const canonical = clean ? `${SITE_URL}/${clean}/` : `${SITE_URL}/`;
+  const lang: "en" | "pt" = /^\/pt(\/|$)/.test(key) ? "pt" : "en";
+  const bare = key.replace(/^\/pt(?=\/|$)/, "") || "/";
+
+  const canonical = urlFor(lang, bare);
+  const alternates = [
+    `<link rel="alternate" hreflang="en" href="${urlFor("en", bare)}" />`,
+    `<link rel="alternate" hreflang="pt" href="${urlFor("pt", bare)}" />`,
+    `<link rel="alternate" hreflang="x-default" href="${urlFor("en", bare)}" />`,
+  ].join("");
   const desc = `<meta name="description" content="${escapeHtml(meta.description)}" />`;
-  let out = html.replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(meta.title)}</title>`);
+
+  let out = html.replace(/<html([^>]*)\slang="[^"]*"/i, `<html$1 lang="${lang}"`);
+  out = out.replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(meta.title)}</title>`);
   out = /<meta\s+name="description"[^>]*>/i.test(out)
     ? out.replace(/<meta\s+name="description"[^>]*>/i, desc)
     : out.replace("</head>", `${desc}</head>`);
-  return out.replace("</head>", `<link rel="canonical" href="${canonical}" /></head>`);
+  return out.replace("</head>", `<link rel="canonical" href="${canonical}" />${alternates}</head>`);
 }
 
 // Absolute base "/" is required so nested prerendered pages (e.g. /glossary/index.html) reference

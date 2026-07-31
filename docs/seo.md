@@ -76,14 +76,15 @@ Without these, the rest barely matters.
 
 ### Per-language URLs & hreflang 🔑
 
-- [ ] **Give each language its own URL** — e.g. `/` + `/pt/…` (or `/en/…` + `/pt/…`), one prerendered
-  page per language per route. Language becomes a route/path, not just client state. **Impact H · Effort H.**
-- [ ] **`hreflang` alternates** in `<head>` and the sitemap (`en`, `pt`, `x-default`) linking each
-  page to its other-language twin. **Impact H · Effort M.**
-- [ ] **Localized `<html lang>`, title, description, OG** per prerendered page (PT content must ship
-  PT metadata). **Impact H · Effort M.**
-- [ ] Keep the in-app language toggle, but make it **navigate** to the other-language URL (so the URL
-  and `hreflang` stay truthful) rather than only swapping state. **Impact M · Effort M.**
+- [x] **Give each language its own URL** — EN at `/`, PT under `/pt/…`; six prerendered pages.
+  Language is driven by the route (RootLayout passes `lang`), not client state, so each URL's HTML
+  is deterministic and hydrates without a flash.
+- [x] **`hreflang` alternates** — `en`/`pt`/`x-default` in each page's `<head>` (build-time) and in
+  the sitemap (`xhtml:link`), reciprocal and self-referential. Verified in `dist`.
+- [x] **Localized `<html lang>`, title, description** per prerendered page (PT pages ship PT
+  metadata; `src/seo/meta.ts` + injectSeo). OG is Phase 4.
+- [x] **Language toggle navigates** to the other-language URL (preserving the `?c=` token) instead
+  of swapping state, so the URL and `hreflang` stay truthful.
 
 ### On-page metadata (per route, in the prerendered HTML)
 

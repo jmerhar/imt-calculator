@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useI18n } from "@/i18n";
+import { barePath } from "@/i18n/paths";
 import { useTheme } from "@/theme/theme";
 import { track } from "@/analytics";
 import { arrivalKind } from "@/state/url";
@@ -20,12 +21,14 @@ export function Analytics() {
   const { lang, t } = useI18n();
   const { theme } = useTheme();
 
-  // Localized, per-route document title (also read by the page_view below). The home route keeps
-  // the brand title; subpages read "<page> · <brand>".
+  // Localized, per-route document title (also read by the page_view below). Mapped from the
+  // language-neutral path so /glossary and /pt/glossary share the logic. Home keeps the brand
+  // title; subpages read "<page> · <brand>".
+  const bare = barePath(pathname);
   const docTitle =
-    pathname === "/glossary"
+    bare === "/glossary"
       ? `${t.nav.glossary} · ${t.app.title}`
-      : pathname === "/how-it-works"
+      : bare === "/how-it-works"
         ? `${t.nav.howItWorks} · ${t.app.title}`
         : `${t.app.title} · ${t.app.subtitle}`;
   // Declared before the page_view effect so document.title is current when page_view reads it.

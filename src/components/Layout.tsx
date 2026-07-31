@@ -1,15 +1,20 @@
 import type { ReactNode } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useI18n, fmt } from "@/i18n";
 import type { Lang } from "@/i18n";
+import { localizedPath, switchLangPath } from "@/i18n/paths";
 import { useTheme } from "@/theme/theme";
 import { LATEST_YEAR } from "@/engine/tables";
 import { track } from "@/analytics";
 
 /** App shell: header (brand, nav, language + theme controls), the page body, and the footer. */
 export function Layout({ children }: { children: ReactNode }) {
-  const { t, lang, setLang } = useI18n();
+  const { t, lang } = useI18n();
   const { theme, toggle } = useTheme();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  // Nav targets are prefixed for the active language (EN at root, PT under /pt).
+  const path = (bare: string) => localizedPath(lang, bare);
 
   const navClass = ({ isActive }: { isActive: boolean }) =>
     isActive ? "nav__link nav__link--active" : "nav__link";
@@ -30,13 +35,13 @@ export function Layout({ children }: { children: ReactNode }) {
         </div>
 
         <nav className="nav" aria-label={t.app.title}>
-          <NavLink to="/" className={navClass} end>
+          <NavLink to={path("/")} className={navClass} end>
             {t.nav.calculator}
           </NavLink>
-          <NavLink to="/glossary" className={navClass}>
+          <NavLink to={path("/glossary")} className={navClass}>
             {t.nav.glossary}
           </NavLink>
-          <NavLink to="/how-it-works" className={navClass}>
+          <NavLink to={path("/how-it-works")} className={navClass}>
             {t.nav.howItWorks}
           </NavLink>
         </nav>
@@ -50,8 +55,12 @@ export function Layout({ children }: { children: ReactNode }) {
                 className="langswitch__btn"
                 aria-pressed={lang === l}
                 onClick={() => {
-                  if (l !== lang) track("language_switch", { language: l });
-                  setLang(l);
+                  if (l === lang) return;
+                  // Language is a route: navigate to the same page in the other language, keeping
+                  // the ?c= state token (written via replaceState, so read from the live URL).
+                  track("language_switch", { language: l });
+                  const search = typeof window !== "undefined" ? window.location.search : "";
+                  navigate(switchLangPath(pathname, l) + search);
                 }}
               >
                 {l.toUpperCase()}
@@ -79,7 +88,7 @@ export function Layout({ children }: { children: ReactNode }) {
       <footer className="footer">
         <p className="footer__disclaimer">{t.footer.disclaimer}</p>
         <p className="footer__meta">
-          <NavLink to="/how-it-works" className="footer__link">
+          <NavLink to={path("/how-it-works")} className="footer__link">
             {t.footer.sources}
           </NavLink>
           <span aria-hidden="true"> · </span>
