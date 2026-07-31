@@ -78,6 +78,10 @@ export interface BuyerResult {
   shareValue: number;
   table: TableId | null; // null when a flat non-resident/tax-haven rate was applied
   imt: number;
+  /** The rate behind `imt`: the ordinary bracket's marginal rate, or the flat rule's rate. */
+  imtRate: number;
+  /** The ordinary bracket's "parcela a abater"; 0 for flat rules. Together: `base × rate − deduction`. */
+  imtDeduction: number;
   rule: ImtRule;
   /** When the 7.5% was paid but is reclaimable (exceptions b/c): the ordinary amount and delta. */
   reclaimableTo?: number;

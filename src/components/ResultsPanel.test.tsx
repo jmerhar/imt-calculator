@@ -43,6 +43,37 @@ describe("ResultsPanel", () => {
     expect(screen.getByText(/Reclaimable later/)).toBeInTheDocument();
   });
 
+  it("shows the flat IMT formula for a single non-resident buyer, without a deduction hint", () => {
+    setup({
+      ...defaultInput(),
+      price: 400000,
+      intendedUse: "secondary",
+      buyers: [
+        { share: 1, type: "individual", taxHaven: false, residency: "non_resident", exception: "none", jovem: false },
+      ],
+    });
+    const formula = screen.getByText(en.results.formulaTitle).closest("details")!;
+    expect(formula).toHaveTextContent("× 7.5%");
+    expect(formula).toHaveTextContent("€30,000.00");
+    expect(screen.queryByText(en.results.formulaDeductionHint)).not.toBeInTheDocument();
+  });
+
+  it("shows the ordinary base × rate − deduction formula with the deduction hint", () => {
+    setup({
+      ...defaultInput(),
+      price: 400000,
+      intendedUse: "secondary",
+      buyers: [
+        { share: 1, type: "individual", taxHaven: false, residency: "resident", exception: "none", jovem: false },
+      ],
+    });
+    const formula = screen.getByText(en.results.formulaTitle).closest("details")!;
+    // Table III at €400,000: €400,000 × 8% − €12,699.89 = €19,300.11.
+    expect(formula).toHaveTextContent("× 8% − €12,699.89");
+    expect(formula).toHaveTextContent("€19,300.11");
+    expect(screen.getByText(en.results.formulaDeductionHint)).toBeInTheDocument();
+  });
+
   it("copies the share link and the result summary", async () => {
     setup(defaultInput());
 

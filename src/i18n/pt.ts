@@ -85,6 +85,9 @@ export const pt: Dict = {
     ruleTaxHaven: "Paraíso fiscal 10%",
     shareLink: "Ligação partilhável",
     table: "Tabela",
+    formulaTitle: "Fórmula do IMT",
+    formulaDeductionHint:
+      "A taxa é a do escalão para o valor tributável total; a dedução é a parcela a abater desse escalão.",
   },
   actions: {
     copy: "Copiar resultado",

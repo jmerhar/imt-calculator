@@ -86,6 +86,9 @@ export const en = {
     ruleTaxHaven: "Tax haven 10%",
     shareLink: "Shareable link",
     table: "Table",
+    formulaTitle: "IMT formula",
+    formulaDeductionHint:
+      "The rate is the bracket for the full tax base; the deduction is that bracket's parcela a abater.",
   },
   actions: {
     copy: "Copy result",

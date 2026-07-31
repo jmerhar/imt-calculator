@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useI18n, fmt } from "@/i18n";
-import type { ImtRule, CalcInput, CalcResult } from "@/engine/types";
+import type { ImtRule, BuyerResult, CalcInput, CalcResult } from "@/engine/types";
 import { formatEuro, formatPercent } from "@/format";
 import { encodeToken } from "@/state/url";
 import { track } from "@/analytics";
@@ -50,6 +50,29 @@ export function ResultsPanel({
     }
   };
 
+  // Minimal decimal places so a rate reads "7.5%"/"8%", not "7.50%"/"8.00%".
+  const pctDigits = (fraction: number) => {
+    const p = fraction * 100;
+    if (Number.isInteger(p)) return 0;
+    if (Number.isInteger(p * 10)) return 1;
+    return 2;
+  };
+  const pct = (fraction: number) => formatPercent(fraction, lang, pctDigits(fraction));
+
+  // The AT `base × rate − deduction` formula for one buyer with the numbers filled in. Co-owners
+  // split by the totality rule, so a share below 1 scales the whole-property amount rather than
+  // moving the buyer into a lower bracket; that shows as a leading `share ×`. Flat rules
+  // (non-resident, tax haven) carry no deduction, so only `base × rate` is shown.
+  const imtFormula = (b: BuyerResult): string => {
+    const base = formatEuro(result.taxBase, lang);
+    const core =
+      b.imtDeduction > 0
+        ? `${base} × ${pct(b.imtRate)} − ${formatEuro(b.imtDeduction, lang)}`
+        : `${base} × ${pct(b.imtRate)}`;
+    const lhs = b.share === 1 ? core : `${pct(b.share)} × (${core})`;
+    return `${lhs} = ${formatEuro(b.imt, lang)}`;
+  };
+
   const copyResult = () => {
     track("copy_result");
     const lines = [
@@ -86,6 +109,27 @@ export function ResultsPanel({
         <Tile label={t.results.stampDuty} value={formatEuro(result.totalStampDuty, lang)} />
         <Tile label={t.results.totalDue} value={formatEuro(result.grandTotal, lang)} accent />
       </div>
+
+      {result.taxBase > 0 && (
+        <details className="formula">
+          <summary className="formula__summary">{t.results.formulaTitle}</summary>
+          <div className="formula__body">
+            {result.buyers.map((b, i) => (
+              <div className="formula__row" key={i}>
+                {result.buyers.length > 1 && (
+                  <span className="formula__who">
+                    {t.form.buyer} {i + 1}
+                  </span>
+                )}
+                <code className="formula__expr">{imtFormula(b)}</code>
+              </div>
+            ))}
+            {result.buyers.some((b) => b.rule === "ordinary" && b.imtDeduction > 0) && (
+              <p className="formula__hint">{t.results.formulaDeductionHint}</p>
+            )}
+          </div>
+        </details>
+      )}
 
       <dl className="summary">
         <div className="summary__row">

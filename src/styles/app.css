@@ -598,6 +598,49 @@ a {
   padding-inline-start: var(--s3);
   margin: var(--s4) 0;
 }
+/* Collapsed disclosure showing the `base × rate − deduction` IMT formula behind the headline. */
+.formula {
+  margin: var(--s4) 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: var(--s2) var(--s3);
+}
+.formula__summary {
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+.formula__summary:hover {
+  color: var(--ink);
+}
+.formula__body {
+  margin-top: var(--s3);
+  display: grid;
+  gap: var(--s3);
+}
+/* Each buyer's label sits on its own line above the expression, so a long formula (with a
+   deduction term) and a short flat one line up the same way rather than one wrapping and one not. */
+.formula__row {
+  display: grid;
+  gap: 4px;
+}
+.formula__who {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.formula__expr {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.82rem;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+.formula__hint {
+  margin: 0;
+  font-size: 0.76rem;
+  color: var(--ink-soft);
+}
 .warning {
   background: var(--warn-bg);
   color: var(--warn-ink);

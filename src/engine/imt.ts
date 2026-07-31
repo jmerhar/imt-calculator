@@ -32,15 +32,22 @@ export function pickTable(location: Location, use: IntendedUse, jovem: boolean):
 }
 
 /**
- * Ordinary IMT on a value using the AT bracket formula `base * rate − deduction`. The applicable
- * bracket is the one with the greatest `lower` strictly below `base` (so a value exactly on a
- * threshold falls in the lower "até X" bracket). Flat brackets carry deduction 0, so the same
- * formula yields `base * rate`.
+ * The applicable bracket for a value: the one with the greatest `lower` strictly below `base` (so a
+ * value exactly on a threshold falls in the lower "até X" bracket).
+ */
+export function pickBracket(base: number, brackets: Bracket[]): Bracket {
+  let chosen = brackets[0];
+  for (const b of brackets) if (b.lower < base) chosen = b;
+  return chosen;
+}
+
+/**
+ * Ordinary IMT on a value using the AT bracket formula `base * rate − deduction`. Flat brackets
+ * carry deduction 0, so the same formula yields `base * rate`.
  */
 export function ordinaryImt(base: number, brackets: Bracket[]): number {
   if (base <= 0) return 0;
-  let chosen = brackets[0];
-  for (const b of brackets) if (b.lower < base) chosen = b;
+  const chosen = pickBracket(base, brackets);
   return Math.max(0, base * chosen.rate - chosen.deduction);
 }
 
@@ -76,16 +83,23 @@ function computeBuyer(
   const shareValue = taxBase * buyer.share;
 
   // Ordinary IMT via the co-ownership "totality" rule (CIMT art. 17.º n.º 6 a): the rate is set
-  // by the FULL tax base and applied to this buyer's share — no bracket-splitting benefit.
-  const ordinary = (): { table: TableId; amount: number } => {
+  // by the FULL tax base and applied to this buyer's share — no bracket-splitting benefit. `rate`
+  // and `deduction` are the bracket terms behind the amount, surfaced so the UI can show the
+  // `base × rate − deduction` formula (they reduce to the whole amount when share is 1).
+  const ordinary = (): { table: TableId; amount: number; rate: number; deduction: number } => {
     const table = pickTable(input.location, input.intendedUse, buyer.jovem);
+    const bracket = pickBracket(taxBase, year.tables[table]);
     const effRate = taxBase > 0 ? ordinaryImt(taxBase, year.tables[table]) / taxBase : 0;
-    return { table, amount: shareValue * effRate };
+    return { table, amount: shareValue * effRate, rate: bracket.rate, deduction: bracket.deduction };
   };
 
   let rule: ImtRule = "ordinary";
   let table: TableId | null = null;
   let imt: number;
+  // The rate and deduction that produced `imt`, for the displayed formula. Flat rules carry no
+  // deduction; for reclaimable non-residents these describe the 7.5% actually charged now.
+  let imtRate: number;
+  let imtDeduction = 0;
   let reclaimableTo: number | undefined;
   let reclaimDelta: number | undefined;
 
@@ -93,10 +107,12 @@ function computeBuyer(
     // Tax-haven flat 10% (art. 17.º n.º 4) takes precedence; entities only (n.º 7).
     rule = "tax_haven_10";
     imt = shareValue * year.taxHavenRate;
+    imtRate = year.taxHavenRate;
   } else if (buyer.residency === "non_resident" && buyer.exception !== "former_resident") {
     // Non-resident flat 7.5% (art. 17.º n.º 10). Former residents fall through to ordinary.
     rule = "non_resident_7_5";
     imt = shareValue * year.nonResidentRate;
+    imtRate = year.nonResidentRate;
     if (buyer.exception === "becomes_resident" || buyer.exception === "accessible_rent") {
       // Paid now, reclaimable down to ordinary later (n.º 11–12). Compute the delta from the
       // rounded, displayed figures so it always equals shown IMT − shown reclaimableTo.
@@ -107,6 +123,8 @@ function computeBuyer(
     const o = ordinary();
     table = o.table;
     imt = o.amount;
+    imtRate = o.rate;
+    imtDeduction = o.deduction;
   }
 
   // Acquisition stamp duty (TGIS verba 1.1, 0.8% of the share value). IMT Jovem also grants a
@@ -127,6 +145,8 @@ function computeBuyer(
     shareValue: round2(shareValue),
     table,
     imt,
+    imtRate,
+    imtDeduction,
     rule,
     reclaimableTo,
     reclaimDelta,
