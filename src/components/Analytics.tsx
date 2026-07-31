@@ -1,6 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { track } from "@/analytics";
+import { arrivalKind } from "@/state/url";
 
 /**
  * Sends a Google Analytics page_view on each route change (the initial one included). GA's own
@@ -16,6 +17,16 @@ import { track } from "@/analytics";
  */
 export function Analytics() {
   const { pathname } = useLocation();
+
+  // Whether this page load opened a shared link — captured once, here in a component that mounts a
+  // single time per load (not in a page that remounts on navigation, which would misread the app's
+  // own continuously-written token as a fresh arrival).
+  const [arrival] = useState(arrivalKind);
+  useEffect(() => {
+    if (arrival === "ok") track("arrived_via_share");
+    else if (arrival === "bad") track("bad_share_link");
+  }, [arrival]);
+
   useEffect(() => {
     track("page_view", {
       page_path: pathname,

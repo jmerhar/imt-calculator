@@ -4,8 +4,6 @@ import userEvent from "@testing-library/user-event";
 import { I18nProvider } from "@/i18n";
 import { en } from "@/i18n/en";
 import { CalculatorPage } from "@/pages/CalculatorPage";
-import { encodeToken } from "@/state/url";
-import { defaultInput } from "@/state/defaults";
 
 beforeEach(() => {
   window.history.replaceState(null, "", "#/");
@@ -97,25 +95,14 @@ describe("CalculatorPage", () => {
         "calculate",
         expect.objectContaining({ price_band: "250-500k", buyer_count: 1, shares_valid: true }),
       );
+
+      // Privacy: the event must not carry any raw euro figure derived from the entered price.
+      const params = gtag.mock.calls.find((c) => c[1] === "calculate")?.[2] as Record<string, unknown>;
+      expect(params).not.toHaveProperty("value");
+      expect(Object.values(params)).not.toContain(300000);
     } finally {
       vi.useRealTimers();
     }
-  });
-
-  it("reports arriving via a valid shared link", () => {
-    const gtag = vi.fn();
-    window.gtag = gtag;
-    window.history.replaceState(null, "", `#/?c=${encodeToken(defaultInput())}`);
-    renderPage();
-    expect(gtag).toHaveBeenCalledWith("event", "arrived_via_share", undefined);
-  });
-
-  it("reports arriving via a broken shared link", () => {
-    const gtag = vi.fn();
-    window.gtag = gtag;
-    window.history.replaceState(null, "", "#/?c=!!!!");
-    renderPage();
-    expect(gtag).toHaveBeenCalledWith("event", "bad_share_link", undefined);
   });
 
   it("tracks a reset", async () => {

@@ -16,12 +16,6 @@ import { NumberField, Segmented, SelectField, Toggle } from "@/components/contro
 import { BuyerCard } from "@/components/BuyerCard";
 import { ResultsPanel } from "@/components/ResultsPanel";
 
-/** True if the current URL arrived with a share token. */
-function arrivalKind(): "none" | "ok" | "bad" {
-  if (typeof window === "undefined" || !/[?&]c=/.test(window.location.hash)) return "none";
-  return readStateFromUrl() ? "ok" : "bad";
-}
-
 /** Distribute shares equally, giving the last buyer the rounding remainder so they sum to 1. */
 function equalShares(buyers: Buyer[]): Buyer[] {
   const n = buyers.length;
@@ -37,19 +31,11 @@ function equalShares(buyers: Buyer[]): Buyer[] {
 export function CalculatorPage() {
   const { t } = useI18n();
   const [input, setInput] = useState<CalcInput>(() => readStateFromUrl() ?? defaultInput());
-  // Captured once, from the URL as it was at first render (before the effect below rewrites it).
-  const [arrival] = useState(arrivalKind);
   const interacted = useRef(false);
 
   useEffect(() => {
     writeStateToUrl(input);
   }, [input]);
-
-  // Report whether this visit opened a shared link (and whether that link was valid).
-  useEffect(() => {
-    if (arrival === "ok") track("arrived_via_share");
-    else if (arrival === "bad") track("bad_share_link");
-  }, [arrival]);
 
   const result = useMemo(() => calculate(input), [input]);
 
@@ -72,7 +58,8 @@ export function CalculatorPage() {
         price_band: priceBand(result.taxBase),
         rate_band: rateBand(result.effectiveRate),
         shares_valid: !result.warnings.includes("shares_not_100"),
-        value: result.grandTotal,
+        // Deliberately no raw euro figure here: grandTotal is derived from the entered price, and
+        // the footer promises amounts are never sent. price_band/rate_band convey magnitude coarsely.
       });
     }, 1500);
     return () => clearTimeout(id);

@@ -296,6 +296,30 @@ export function readStateFromUrl(): CalcInput | null {
   return decodeState(qs); // tolerate a readable query too
 }
 
+/** True if this document was loaded by a reload (rather than a fresh navigation to the URL). */
+function isReload(): boolean {
+  if (typeof performance === "undefined" || !performance.getEntriesByType) return false;
+  const nav = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
+  return nav?.type === "reload";
+}
+
+/**
+ * Classify how this page load began, for analytics:
+ * - `"ok"`  — the URL carried a valid state token, i.e. someone opened a shared link;
+ * - `"bad"` — it carried a token that failed to decode (a broken/truncated shared link);
+ * - `"none"` — no token, or a reload of a URL we ourselves wrote (not a genuine share arrival).
+ *
+ * Must be read once at page load (before the app rewrites the hash), not on every component
+ * mount — the calculator writes `?c=…` continuously, so a later read would misread the user's own
+ * token as an arrival. Reloads are excluded so refreshing your own work is not counted as a share.
+ */
+export function arrivalKind(): "none" | "ok" | "bad" {
+  if (typeof window === "undefined") return "none";
+  if (!/[?&]c=/.test(window.location.hash)) return "none";
+  if (isReload()) return "none";
+  return readStateFromUrl() ? "ok" : "bad";
+}
+
 /**
  * Write inputs into the hash query without navigating: preserves the current hash path and uses
  * replaceState (no history spam, no hashchange, so the router does not react).

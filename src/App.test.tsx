@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, afterEach } from "vitest";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
@@ -7,6 +7,12 @@ import { ThemeProvider } from "@/theme/theme";
 import { App } from "@/App";
 import { en } from "@/i18n/en";
 import { glossary } from "@/content/glossary";
+import { encodeToken } from "@/state/url";
+import { defaultInput } from "@/state/defaults";
+
+beforeEach(() => {
+  window.history.replaceState(null, "", "#/");
+});
 
 function renderApp(initialPath = "/") {
   return render(
@@ -114,6 +120,46 @@ describe("App", () => {
   it("shows the privacy note in the footer", () => {
     renderApp();
     expect(screen.getByText(en.footer.privacy)).toBeInTheDocument();
+  });
+
+  it("reports a share arrival once when the URL carries a valid token", async () => {
+    const gtag = vi.fn();
+    window.gtag = gtag;
+    window.history.replaceState(null, "", `#/?c=${encodeToken(defaultInput())}`);
+    const user = userEvent.setup();
+    renderApp();
+    // Navigating between pages must NOT re-fire it: arrival is a once-per-load signal, not per view.
+    await user.click(screen.getByRole("link", { name: en.nav.glossary }));
+    await user.click(screen.getByRole("link", { name: en.nav.calculator }));
+    const arrivals = gtag.mock.calls.filter((c) => c[1] === "arrived_via_share");
+    expect(arrivals).toHaveLength(1);
+  });
+
+  it("reports a broken shared link", () => {
+    const gtag = vi.fn();
+    window.gtag = gtag;
+    window.history.replaceState(null, "", "#/?c=!!!!");
+    renderApp();
+    expect(gtag).toHaveBeenCalledWith("event", "bad_share_link", undefined);
+  });
+
+  it("does not report a share arrival on a plain visit", () => {
+    const gtag = vi.fn();
+    window.gtag = gtag;
+    renderApp();
+    expect(gtag).not.toHaveBeenCalledWith("event", "arrived_via_share", undefined);
+  });
+
+  it("does not count a reload of one's own link as a share arrival", () => {
+    const gtag = vi.fn();
+    window.gtag = gtag;
+    window.history.replaceState(null, "", `#/?c=${encodeToken(defaultInput())}`);
+    const nav = vi
+      .spyOn(performance, "getEntriesByType")
+      .mockReturnValue([{ type: "reload" } as unknown as PerformanceEntry]);
+    renderApp();
+    expect(gtag).not.toHaveBeenCalledWith("event", "arrived_via_share", undefined);
+    nav.mockRestore();
   });
 });
 
