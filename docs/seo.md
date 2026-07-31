@@ -41,22 +41,24 @@ Without these, the rest barely matters.
 
 ### Routing & rendering 🔑
 
-- [ ] **Switch `HashRouter` → `BrowserRouter`** so routes are real paths (`/glossary`, not
-  `/#/glossary`). **Impact H · Effort M.** Requires a crawlable-HTML story (next item) — don't ship
-  one without the other, or deep links 404 on GitHub Pages.
-- [ ] **Pre-render each route to static HTML at build time** (SSG). On GitHub Pages there's no
-  server, so real per-route HTML must exist as files (`/index.html`, `/glossary/index.html`,
-  `/how-it-works/index.html`). Options, cheapest first:
-  - `vite-react-ssg` or `vite-plugin-ssr`/`vike` (renders React routes to HTML, hydrates client-side);
-  - a lightweight post-build prerender (Puppeteer/`@prerenderer`) over the known route list;
-  - hand-authored static HTML shells per route as a stopgap.
-  **Impact H · Effort H · 🔑** — this is the single biggest SEO win and unblocks metadata, i18n URLs,
-  and structured data being in the raw HTML.
-- [ ] **SPA deep-link fallback** as a safety net: add `public/404.html` that restores the path (the
-  classic GitHub-Pages SPA shim) so any un-prerendered path still boots the app instead of 404-ing.
-  **Impact M · Effort L.**
-- [ ] **Verify JS-off / view-source** shows real content per route after prerender (curl the built
-  files; check `#root` is populated). **Impact H · Effort L.**
+- [x] **Switch `HashRouter` → real paths** — done via `vite-react-ssg` (data `BrowserRouter`); routes
+  are `/`, `/glossary`, `/how-it-works`. The URL state token moved from the hash to the real query
+  string (`/?c=…`), with a legacy-hash fallback so old shared links still decode.
+- [x] **Pre-render each route to static HTML at build time** — `vite-react-ssg build` emits
+  `/index.html`, `/glossary/index.html`, `/how-it-works/index.html` (nested `dirStyle`), then
+  hydrates on the client. Chosen for the maintained SSG + head + hydration support.
+- [x] **SPA deep-link fallback** — `scripts/postbuild.mjs` writes `dist/404.html` from the built
+  shell so any un-prerendered path boots the app.
+- [x] **Verify JS-off / view-source** — confirmed each built route contains real rendered DOM
+  (form, glossary terms, how-it-works copy), assets are absolute `/assets/…`, and `vite preview`
+  serves `/glossary` with HTTP 200.
+
+> Migration caveats (from adversarial review): token share links from the HashRouter era
+> (`/#/?c=…`) still decode via a fallback, but old **non-token** hash deep links to sub-pages
+> (`/#/glossary`) land on the calculator (BrowserRouter ignores the fragment) — acceptable, rarely
+> shared. Per-route `<title>`/canonical/meta are still the generic ones in the prerendered HTML —
+> **fixed next in the metadata items below**. Tests render via `MemoryRouter`, so the production
+> data-router + hydration path is covered by the build and the live site, not unit tests.
 
 ### Indexing signals
 

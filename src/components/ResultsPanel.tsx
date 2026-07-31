@@ -4,6 +4,7 @@ import type { ImtRule, CalcInput, CalcResult } from "@/engine/types";
 import { formatEuro, formatPercent } from "@/format";
 import { encodeToken } from "@/state/url";
 import { track } from "@/analytics";
+import { SITE_URL } from "@/config";
 
 function ruleLabel(rule: ImtRule, t: ReturnType<typeof useI18n>["t"]): string {
   if (rule === "non_resident_7_5") return t.results.ruleNonResident;
@@ -28,9 +29,9 @@ export function ResultsPanel({
   // Clear a pending flash timer if the panel unmounts, so it never fires setState afterwards.
   useEffect(() => () => clearTimeout(flashTimer.current), []);
 
-  // The single reversible code that carries the whole calculation; kept current every render and
-  // shown in the field below so it can be copied without opening anything.
-  const link = `${window.location.origin}${window.location.pathname}#/?c=${encodeToken(input)}`;
+  // The single reversible code that carries the whole calculation, on the canonical site URL so a
+  // shared link always points at the real site (and so server/client render identically).
+  const link = `${SITE_URL}/?c=${encodeToken(input)}`;
 
   const notify = (msg: string) => {
     clearTimeout(flashTimer.current); // supersede any in-flight message so timers don't overlap

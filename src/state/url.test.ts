@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, beforeEach } from "vitest";
 import {
   encodeState,
   decodeState,
@@ -135,12 +135,23 @@ describe("url state", () => {
   });
 });
 
-describe("url read/write (hash)", () => {
-  it("writes state to the hash and reads it back", () => {
+describe("url read/write (query string)", () => {
+  beforeEach(() => {
+    // Clear both the search and the hash between cases so each starts from a bare path.
+    window.history.replaceState(null, "", "/");
+  });
+
+  it("writes state to the query string and reads it back", () => {
     const input = { ...defaultInput(), price: 500000 };
     writeStateToUrl(input);
-    expect(window.location.hash).toContain("?c=");
+    expect(window.location.search).toContain("c=");
+    expect(window.location.hash).toBe(""); // token lives in the real query, not the hash
     expect(readStateFromUrl()).toEqual(input);
+  });
+
+  it("still reads a legacy hash token (links shared during the HashRouter era)", () => {
+    window.location.hash = "#/?c=" + encodeToken({ ...defaultInput(), price: 500000 });
+    expect(readStateFromUrl()).toEqual({ ...defaultInput(), price: 500000 });
   });
 
   it("still reads a legacy readable-query hash", () => {
@@ -149,7 +160,6 @@ describe("url read/write (hash)", () => {
   });
 
   it("returns null when the URL carries no state", () => {
-    window.location.hash = "#/";
     expect(readStateFromUrl()).toBeNull();
   });
 });

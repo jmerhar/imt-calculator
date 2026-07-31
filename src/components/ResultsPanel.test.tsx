@@ -47,7 +47,7 @@ describe("ResultsPanel", () => {
     setup(defaultInput());
 
     fireEvent.click(screen.getByRole("button", { name: en.actions.copyLink }));
-    expect(writeText).toHaveBeenCalledWith(expect.stringContaining("#/?c="));
+    expect(writeText).toHaveBeenCalledWith(expect.stringContaining("calc-imt.online/?c="));
     expect(await screen.findByText(en.actions.linkCopied)).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: en.actions.copy }));

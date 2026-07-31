@@ -20,7 +20,7 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      # Vite base is "./" (relative), so the build works at the domain root and any sub-path.
+      # Static prerender (vite-react-ssg) + 404.html fallback; Vite base "/" for the custom domain.
       - run: npm run build
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

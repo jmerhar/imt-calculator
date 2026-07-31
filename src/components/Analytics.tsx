@@ -10,13 +10,10 @@ import { arrivalKind } from "@/state/url";
  * (the initial one included). GA's own automatic page_view is disabled in index.html so this is
  * the single source of page views.
  *
- * We route with HashRouter, so the path lives in the URL fragment (`…/#/glossary`). GA derives its
- * page-path dimension from `page_location`'s PATH and ignores the fragment, so sending the real URL
- * would collapse every route to "/". We send a synthetic path-based location instead so each route
- * is a distinct page in GA — and, as a bonus, it omits the hash query (the state token), keeping
- * analytics free of the values people enter. Depends on the route path only: the calculator
- * rewrites the hash query on every input change (via replaceState, which the router ignores), and
- * we don't want a page view per keystroke.
+ * page_location is built from the route path (origin + pathname), deliberately omitting the query
+ * string so the state token (`?c=…`) — derived from the values people enter — never reaches GA.
+ * Depends on the route path only: the calculator rewrites the query on every input change (via
+ * replaceState, which the router ignores), and we don't want a page view per keystroke.
  */
 export function Analytics() {
   const { pathname } = useLocation();

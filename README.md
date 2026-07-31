@@ -87,9 +87,10 @@ reference/      primary-source documents
 ## Deployment
 
 Pushing to `main` triggers `.github/workflows/deploy.yml`, which builds and deploys to GitHub
-Pages (Pages source must be **GitHub Actions**). The site is served at the custom domain
-`calc-imt.online` (a `public/CNAME` keeps the domain across deploys). The Vite `base` is `"./"`
-(relative), so the build works both at the domain root and under a project sub-path.
+Pages (Pages source must be **GitHub Actions**). The build (`vite-react-ssg`) **prerenders each
+route to static HTML** for crawlability and writes a `404.html` SPA fallback; see
+[`docs/seo.md`](docs/seo.md). The site is served at the custom domain `calc-imt.online` (a
+`public/CNAME` keeps the domain across deploys); the Vite `base` is `"/"` (domain root).
 Coverage publishing needs a `COVERAGE_PAGES_TOKEN` repo secret (a PAT with write access to
 `jmerhar/coverage`); it is skipped gracefully if absent. The Codecov upload uses a `CODECOV_TOKEN`
 repo secret.

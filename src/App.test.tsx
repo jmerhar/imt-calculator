@@ -1,10 +1,8 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { MemoryRouter } from "react-router-dom";
-import { I18nProvider } from "@/i18n";
-import { ThemeProvider } from "@/theme/theme";
-import { App } from "@/App";
+import { MemoryRouter, useRoutes, type RouteObject } from "react-router-dom";
+import { routes } from "@/routes";
 import { en } from "@/i18n/en";
 import { pt } from "@/i18n/pt";
 import { glossary } from "@/content/glossary";
@@ -12,18 +10,21 @@ import { encodeToken } from "@/state/url";
 import { defaultInput } from "@/state/defaults";
 
 beforeEach(() => {
-  window.history.replaceState(null, "", "#/");
+  window.history.replaceState(null, "", "/");
 });
 
+// Render the real route tree (its root layout supplies the theme/i18n providers). We use the
+// non-data MemoryRouter + useRoutes, not createMemoryRouter: the data router builds a Request from
+// a relative URL on navigation, which Node rejects under jsdom. Production uses the data router via
+// vite-react-ssg (validated by the build and the live site).
+function RoutedApp() {
+  return useRoutes(routes as RouteObject[]);
+}
 function renderApp(initialPath = "/") {
   return render(
-    <ThemeProvider>
-      <I18nProvider>
-        <MemoryRouter initialEntries={[initialPath]}>
-          <App />
-        </MemoryRouter>
-      </I18nProvider>
-    </ThemeProvider>,
+    <MemoryRouter initialEntries={[initialPath]}>
+      <RoutedApp />
+    </MemoryRouter>,
   );
 }
 
@@ -178,7 +179,7 @@ describe("App", () => {
   it("reports a share arrival once when the URL carries a valid token", async () => {
     const gtag = vi.fn();
     window.gtag = gtag;
-    window.history.replaceState(null, "", `#/?c=${encodeToken(defaultInput())}`);
+    window.history.replaceState(null, "", `/?c=${encodeToken(defaultInput())}`);
     const user = userEvent.setup();
     renderApp();
     // Navigating between pages must NOT re-fire it: arrival is a once-per-load signal, not per view.
@@ -191,7 +192,7 @@ describe("App", () => {
   it("reports a broken shared link", () => {
     const gtag = vi.fn();
     window.gtag = gtag;
-    window.history.replaceState(null, "", "#/?c=!!!!");
+    window.history.replaceState(null, "", "/?c=!!!!");
     renderApp();
     expect(gtag).toHaveBeenCalledWith("event", "bad_share_link", undefined);
   });
@@ -206,7 +207,7 @@ describe("App", () => {
   it("does not count a reload of one's own link as a share arrival", () => {
     const gtag = vi.fn();
     window.gtag = gtag;
-    window.history.replaceState(null, "", `#/?c=${encodeToken(defaultInput())}`);
+    window.history.replaceState(null, "", `/?c=${encodeToken(defaultInput())}`);
     const nav = vi
       .spyOn(performance, "getEntriesByType")
       .mockReturnValue([{ type: "reload" } as unknown as PerformanceEntry]);

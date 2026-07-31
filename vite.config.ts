@@ -1,15 +1,21 @@
+/// <reference types="vite-react-ssg" />
 import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
 import path from "node:path";
 
-// Relative asset paths so the build works both at the custom-domain root (calc-imt.online)
-// and at a GitHub Pages project sub-path (jmerhar.github.io/imt-calculator/) — no rebuild needed
-// if the custom domain is removed. HashRouter keeps client routing path-independent too.
+// Absolute base "/" is required so nested prerendered pages (e.g. /glossary/index.html) reference
+// assets from the domain root. The site is served at the custom domain calc-imt.online; reverting
+// to a GitHub Pages project sub-path would need a matching base.
 export default defineConfig({
-  base: "./",
+  base: "/",
   plugins: [react()],
   resolve: {
     alias: { "@": path.resolve(__dirname, "./src") },
+  },
+  // vite-react-ssg: prerender each static route to its own directory (/glossary/index.html) for
+  // clean, crawlable URLs.
+  ssgOptions: {
+    dirStyle: "nested",
   },
   test: {
     environment: "jsdom",

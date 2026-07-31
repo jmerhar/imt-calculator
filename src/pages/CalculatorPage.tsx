@@ -35,13 +35,21 @@ export function CalculatorPage() {
   // reads the pristine URL before we begin rewriting it.
   const [input, setInput] = useState<CalcInput>(defaultInput);
   const interacted = useRef(false);
+  // Whether this visit arrived with a shared link; if so we keep the token in the URL.
+  const arrivedWithToken = useRef(false);
 
   useEffect(() => {
     const fromUrl = readStateFromUrl();
-    if (fromUrl) setInput(fromUrl);
+    if (fromUrl) {
+      arrivedWithToken.current = true;
+      setInput(fromUrl);
+    }
   }, []);
 
   useEffect(() => {
+    // Keep a fresh visit on the clean canonical URL: only mirror state into the query once the user
+    // has interacted (or arrived via a shared link), not for the untouched default.
+    if (!interacted.current && !arrivedWithToken.current) return;
     writeStateToUrl(input);
   }, [input]);
 

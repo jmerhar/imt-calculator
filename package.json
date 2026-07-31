@@ -7,7 +7,7 @@
   "license": "GPL-3.0-or-later",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite-react-ssg build && node scripts/postbuild.mjs",
     "preview": "vite preview",
     "lint": "eslint .",
     "typecheck": "tsc -b",

@@ -279,21 +279,29 @@ export function decodeToken(token: string): CalcInput | null {
   return decodeCompact(payload);
 }
 
-/** The query part of the current hash route (`#/path?query`), or "". */
-function currentHashQuery(): string {
+/** The query part of a legacy hash route (`#/path?query`), or "" — for links from the HashRouter era. */
+function legacyHashQuery(): string {
   const hash = window.location.hash.replace(/^#/, "");
   const q = hash.indexOf("?");
   return q === -1 ? "" : hash.slice(q + 1);
 }
 
-/** Parse calculator inputs from the current URL, or null if absent/invalid. */
-export function readStateFromUrl(): CalcInput | null {
-  if (typeof window === "undefined") return null;
-  const qs = currentHashQuery();
+/** Parse a query string into inputs: a compact `c=` token, or a legacy readable query. */
+function parseQuery(qs: string): CalcInput | null {
   if (!qs) return null;
   const token = new URLSearchParams(qs).get("c");
   if (token) return decodeToken(token);
   return decodeState(qs); // tolerate a readable query too
+}
+
+/**
+ * Parse calculator inputs from the current URL, or null if absent/invalid. Reads the real query
+ * string first (current form, `/?c=…`), then falls back to the hash query so links shared during
+ * the HashRouter era (`/#/?c=…`) keep working.
+ */
+export function readStateFromUrl(): CalcInput | null {
+  if (typeof window === "undefined") return null;
+  return parseQuery(window.location.search.replace(/^\?/, "")) ?? parseQuery(legacyHashQuery());
 }
 
 /** True if this document was loaded by a reload (rather than a fresh navigation to the URL). */
@@ -315,19 +323,18 @@ function isReload(): boolean {
  */
 export function arrivalKind(): "none" | "ok" | "bad" {
   if (typeof window === "undefined") return "none";
-  if (!/[?&]c=/.test(window.location.hash)) return "none";
+  const hasToken = /[?&]c=/.test(window.location.search) || /[?&]c=/.test(window.location.hash);
+  if (!hasToken) return "none";
   if (isReload()) return "none";
   return readStateFromUrl() ? "ok" : "bad";
 }
 
 /**
- * Write inputs into the hash query without navigating: preserves the current hash path and uses
- * replaceState (no history spam, no hashchange, so the router does not react).
+ * Write inputs into the real query string without navigating: keeps the current path and uses
+ * replaceState (no history spam; the router listens to popstate, not replaceState, so it does not
+ * react and re-render on every keystroke).
  */
 export function writeStateToUrl(input: CalcInput): void {
   if (typeof window === "undefined") return;
-  const hash = window.location.hash.replace(/^#/, "") || "/";
-  const path = hash.split("?")[0] || "/";
-  const newHash = `#${path}?c=${encodeToken(input)}`;
-  window.history.replaceState(null, "", newHash);
+  window.history.replaceState(null, "", `${window.location.pathname}?c=${encodeToken(input)}`);
 }

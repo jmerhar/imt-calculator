@@ -6,7 +6,7 @@ import { en } from "@/i18n/en";
 import { CalculatorPage } from "@/pages/CalculatorPage";
 
 beforeEach(() => {
-  window.history.replaceState(null, "", "#/");
+  window.history.replaceState(null, "", "/");
 });
 
 afterEach(() => {
@@ -31,7 +31,7 @@ describe("CalculatorPage", () => {
   it("shows a copyable share link carrying the state token", () => {
     renderPage();
     const link = screen.getByRole("textbox") as HTMLInputElement;
-    expect(link.value).toContain("#/?c=");
+    expect(link.value).toContain("calc-imt.online/?c=");
   });
 
   it("adds a second buyer and reveals the per-buyer breakdown", async () => {
