@@ -6,6 +6,7 @@ import { I18nProvider } from "@/i18n";
 import { ThemeProvider } from "@/theme/theme";
 import { App } from "@/App";
 import { en } from "@/i18n/en";
+import { pt } from "@/i18n/pt";
 import { glossary } from "@/content/glossary";
 import { encodeToken } from "@/state/url";
 import { defaultInput } from "@/state/defaults";
@@ -85,6 +86,7 @@ describe("App", () => {
         page_location: `${origin}/`,
         ui_language: "en",
         ui_theme: "light",
+        page_title: `${en.app.title} · ${en.app.subtitle}`,
       }),
     );
     await user.click(screen.getByRole("link", { name: en.nav.glossary }));
@@ -111,6 +113,17 @@ describe("App", () => {
       "page_view",
       expect.objectContaining({ page_path: "/glossary", ui_language: "pt" }),
     );
+  });
+
+  it("sets a localized document title per route", async () => {
+    const user = userEvent.setup();
+    renderApp();
+    expect(document.title).toBe(`${en.app.title} · ${en.app.subtitle}`);
+    await user.click(screen.getByRole("link", { name: en.nav.glossary }));
+    expect(document.title).toBe(`${en.nav.glossary} · ${en.app.title}`);
+    // Localized and reactive: switching language updates the tab title without navigating.
+    await user.click(screen.getByRole("button", { name: "PT" }));
+    expect(document.title).toBe(`${pt.nav.glossary} · ${pt.app.title}`);
   });
 
   it("carries the active theme on the page_view after a theme toggle", async () => {

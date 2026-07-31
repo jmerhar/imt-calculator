@@ -27,7 +27,9 @@ values, never tied to a person (see [Privacy](#privacy)).
 Page views are sent per route by the app (GA's automatic page_view is disabled). Because the app
 uses `HashRouter`, the route lives in the URL fragment, which GA ignores when deriving the page
 path — so the app sends a **path-based `page_location`** (`origin` + route path) to make each route
-a distinct page. That also keeps the state token (`?c=…`) out of analytics.
+a distinct page. That also keeps the state token (`?c=…`) out of analytics. The document title is
+set **per route and localized** (e.g. "Glossary · IMT Calculator"), so GA's page-*title* report
+distinguishes routes too.
 
 | Event | Fires when | Parameters |
 |---|---|---|

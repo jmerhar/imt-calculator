@@ -6,8 +6,9 @@ import { track } from "@/analytics";
 import { arrivalKind } from "@/state/url";
 
 /**
- * Sends a Google Analytics page_view on each route change (the initial one included). GA's own
- * automatic page_view is disabled in index.html so this is the single source of page views.
+ * Sets the per-route document title and sends a Google Analytics page_view on each route change
+ * (the initial one included). GA's own automatic page_view is disabled in index.html so this is
+ * the single source of page views.
  *
  * We route with HashRouter, so the path lives in the URL fragment (`…/#/glossary`). GA derives its
  * page-path dimension from `page_location`'s PATH and ignores the fragment, so sending the real URL
@@ -19,8 +20,22 @@ import { arrivalKind } from "@/state/url";
  */
 export function Analytics() {
   const { pathname } = useLocation();
-  const { lang } = useI18n();
+  const { lang, t } = useI18n();
   const { theme } = useTheme();
+
+  // Localized, per-route document title (also read by the page_view below). The home route keeps
+  // the brand title; subpages read "<page> · <brand>".
+  const docTitle =
+    pathname === "/glossary"
+      ? `${t.nav.glossary} · ${t.app.title}`
+      : pathname === "/how-it-works"
+        ? `${t.nav.howItWorks} · ${t.app.title}`
+        : `${t.app.title} · ${t.app.subtitle}`;
+  // Declared before the page_view effect so document.title is current when page_view reads it.
+  // Reacts to the route and the language; a language switch updates the tab without a new page view.
+  useEffect(() => {
+    document.title = docTitle;
+  }, [docTitle]);
 
   // Track the active UI language and theme on each page view, sampled when the route changes. Held
   // in refs (not page_view dependencies) so switching language or theme — which keeps the same
