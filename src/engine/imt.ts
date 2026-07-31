@@ -45,7 +45,7 @@ export function ordinaryImt(base: number, brackets: Bracket[]): number {
 }
 
 function mortgageStampDuty(mortgage: Mortgage | undefined, rates: YearData["mortgageRates"]): number {
-  if (!mortgage || mortgage.amount <= 0) return 0;
+  if (!mortgage || !(mortgage.amount > 0)) return 0;
   switch (mortgage.term) {
     case "ge5":
       return mortgage.amount * rates.ge5;

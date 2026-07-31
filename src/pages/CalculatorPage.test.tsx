@@ -163,6 +163,18 @@ describe("CalculatorPage", () => {
     expect(share.value).toBe("100");
   });
 
+  it("leaves the price box empty (not '0') when cleared, so new digits don't get a leading zero", () => {
+    renderPage();
+    const price = screen.getByLabelText(en.form.price) as HTMLInputElement;
+    fireEvent.change(price, { target: { value: "300000" } });
+    expect(price.value).toBe("300000");
+    // Deleting the value must show an empty field, not a stray 0 that would prefix the next digits.
+    fireEvent.change(price, { target: { value: "" } });
+    expect(price.value).toBe("");
+    fireEvent.change(price, { target: { value: "400000" } });
+    expect(price.value).toBe("400000");
+  });
+
   it("clears the non-resident exception when a buyer switches back to resident", async () => {
     const user = userEvent.setup();
     renderPage();

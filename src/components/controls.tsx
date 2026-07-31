@@ -33,7 +33,9 @@ export function Field({
 /**
  * A labelled numeric input. Empty maps to `undefined`; any entered number is clamped to
  * `[min, max]` and non-numeric input is treated as empty, so out-of-range or junk values can
- * never reach the caller's state (and therefore never a shared link).
+ * never reach the caller's state (and therefore never a shared link). A non-finite `value`
+ * (`undefined` or `NaN`) renders as an empty field, so a caller can use `NaN` to mean "no value
+ * yet" without the box showing a stray `0`.
  */
 export function NumberField({
   label,
@@ -65,7 +67,7 @@ export function NumberField({
           inputMode="numeric"
           min={min}
           max={max}
-          value={value ?? ""}
+          value={Number.isFinite(value) ? value : ""}
           onChange={(e) => {
             if (e.target.value === "") return onChange(undefined);
             let n = Number(e.target.value);

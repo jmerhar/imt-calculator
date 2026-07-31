@@ -58,7 +58,7 @@ export function CalculatorPage() {
   // A single, debounced "calculate" event once the user pauses — one event per scenario, not per
   // keystroke — with coarse, non-identifying parameters describing what was computed.
   useEffect(() => {
-    if (!interacted.current || input.price <= 0) return;
+    if (!interacted.current || !(input.price > 0)) return;
     const id = setTimeout(() => {
       const vptRatio = vptRatioPct(input.vpt, input.price);
       track("calculate", {
@@ -161,7 +161,7 @@ export function CalculatorPage() {
             hint={t.form.priceHint}
             value={input.price}
             suffix="€"
-            onChange={(n) => update({ price: n ?? 0 })}
+            onChange={(n) => update({ price: n ?? NaN })}
           />
 
           <Segmented<IntendedUse>
@@ -198,7 +198,7 @@ export function CalculatorPage() {
                 label={t.form.mortgageAmount}
                 value={input.mortgage.amount}
                 suffix="€"
-                onChange={(n) => update({ mortgage: { ...input.mortgage!, amount: n ?? 0 } })}
+                onChange={(n) => update({ mortgage: { ...input.mortgage!, amount: n ?? NaN } })}
               />
               <SelectField<MortgageTerm>
                 label={t.form.mortgageTerm}
