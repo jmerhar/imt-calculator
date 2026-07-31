@@ -159,7 +159,7 @@ export const glossary: GlossaryEntry[] = [
     },
     pt: {
       term: "IMI (Imposto Municipal sobre Imóveis)",
-      def: "Imposto municipal anual pela propriedade de um imóvel, incidente sobre o VPT (normalmente 0,3% a 0,45% por ano nos prédios urbanos, fixado por cada município). Distinto do IMT, pago uma só vez na compra.",
+      def: "Imposto municipal anual pela propriedade de um imóvel, incidente sobre o VPT (normalmente 0,3% a 0,45% por ano nos prédios urbanos, fixada por cada município). Distinto do IMT, pago uma só vez na compra.",
     },
   },
   {
@@ -203,7 +203,7 @@ export const glossary: GlossaryEntry[] = [
     },
     pt: {
       term: "CPCV (contrato-promessa de compra e venda)",
-      def: "Acordo prévio vinculativo de compra e venda, assinado antes da escritura definitiva, altura em que normalmente se paga o sinal. O IMT é devido antes da escritura, não do CPCV.",
+      def: "Acordo prévio vinculativo de compra e venda, assinado antes da escritura definitiva, altura em que normalmente se paga o sinal. O IMT é devido antes da escritura, e não na fase do contrato-promessa.",
     },
   },
   {
@@ -214,7 +214,7 @@ export const glossary: GlossaryEntry[] = [
     },
     pt: {
       term: "Residente fiscal",
-      def: "Quem é residente fiscal em Portugal. Os residentes pagam as taxas progressivas normais de IMT — ao contrário do não residente, que paga uma taxa única de 7,5%.",
+      def: "Quem tem residência fiscal em Portugal. Os residentes pagam as taxas progressivas normais de IMT — ao contrário do não residente, que paga uma taxa única de 7,5%.",
     },
   },
 ];

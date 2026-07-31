@@ -71,7 +71,7 @@ export const imtRegions: Record<Lang, GuideBody> = {
   },
   pt: {
     intro:
-      "Comprar nos Açores ou na Madeira usa tabelas de IMT próprias: as mesmas taxas do continente, mas com os limites de valor 25% mais altos, pelo que um dado preço é tributado um pouco menos do que no continente. Veja como funciona, com um exemplo prático.",
+      "A compra nos Açores ou na Madeira segue tabelas de IMT próprias: as mesmas taxas do continente, mas com os limites de valor 25% mais altos, pelo que um dado preço é tributado um pouco menos do que no continente. Veja como funciona, com um exemplo prático.",
     sections: [
       {
         heading: "A regra do ×1,25",
@@ -85,7 +85,7 @@ export const imtRegions: Record<Lang, GuideBody> = {
         heading: "Que tabela se aplica",
         blocks: [
           {
-            p: "A região usa a Tabela IV para habitação própria e permanente, a Tabela V para a primeira habitação ao abrigo do IMT Jovem, e a Tabela VI para outra habitação (secundária ou arrendamento) — as equivalentes regionais das Tabelas I, II e III do continente. A calculadora escolhe a correta automaticamente quando define a localização como Açores ou Madeira.",
+            p: "A região usa a Tabela IV para habitação própria e permanente, a Tabela V para a primeira habitação ao abrigo do IMT Jovem, e a Tabela VI para outra habitação (secundária ou arrendamento) — as equivalentes regionais das Tabelas I, II e III do continente. A calculadora escolhe a correta automaticamente quando definir a localização como Açores ou Madeira.",
           },
         ],
       },

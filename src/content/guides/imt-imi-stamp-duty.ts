@@ -106,7 +106,7 @@ export const imtImiStampDuty: Record<Lang, GuideBody> = {
             ul: [
               "IMT — único, na compra; taxa progressiva sobre o máximo entre preço e VPT; pago antes da escritura.",
               "Imposto do selo — único, na compra; 0,8% da base (+ selo do crédito, se houver empréstimo).",
-              "IMI — anual, pela propriedade; cerca de 0,3% a 0,45% do VPT nos prédios urbanos, fixado pelo município.",
+              "IMI — anual, pela propriedade; cerca de 0,3% a 0,45% do VPT nos prédios urbanos, fixada pelo município.",
             ],
           },
           {
