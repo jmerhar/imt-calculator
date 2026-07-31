@@ -1,5 +1,6 @@
 import { ViteReactSSG } from "vite-react-ssg";
 import { routes } from "@/routes";
+import "@/styles/fonts.css";
 import "@/styles/index.css";
 import "@/styles/tokens.css";
 import "@/styles/app.css";

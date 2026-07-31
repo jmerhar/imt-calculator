@@ -8,12 +8,10 @@
       name="description"
       content="Calculate Portuguese property-transfer tax (IMT) and stamp duty for a purchase in 2026, including the non-resident rules under Decreto-Lei n.º 97/2026."
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Self-hosted fonts (see src/styles/fonts.css); preload the two above-the-fold faces (body
+         text + display heading) so they don't gate LCP. Mono loads on demand. -->
+    <link rel="preload" href="/fonts/ibm-plex-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin />
     <!-- Default title for the initial load and crawlers; the app sets a per-route title once mounted. -->
     <title>IMT Calculator · Portugal · 2026</title>
 

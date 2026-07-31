@@ -665,8 +665,8 @@ a {
 .footer__privacy {
   margin: var(--s3) 0 0;
   font-size: 0.72rem;
+  /* No opacity: --ink-soft alone meets WCAG AA contrast; fading it below that fails (Lighthouse). */
   color: var(--ink-soft);
-  opacity: 0.85;
 }
 
 /* ---- Doc pages (glossary, how-it-works) --------------------------------------------------- */
