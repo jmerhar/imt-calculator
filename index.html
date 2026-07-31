@@ -3,20 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Apply the saved/OS theme before first paint so there is no flash of the default (light)
+         theme on load. Mirrors initialTheme() in src/theme/theme.tsx. The attribute lives on <html>,
+         outside React's root, so it never causes a hydration mismatch. -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("imt-theme");
+          if (t !== "light" && t !== "dark")
+            t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+          document.documentElement.dataset.theme = t;
+        } catch (e) {}
+      })();
+    </script>
+
     <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
     <meta
       name="description"
       content="Calculate Portuguese property-transfer tax (IMT) and stamp duty for a purchase in 2026, including the non-resident rules under Decreto-Lei n.º 97/2026."
     />
-    <!-- Self-hosted fonts (see src/styles/fonts.css); preload the two above-the-fold faces (body
-         text + display heading) so they don't gate LCP. Mono loads on demand. -->
-    <link rel="preload" href="/fonts/ibm-plex-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <!-- Self-hosted fonts: see src/styles/fonts.css. No preloads — with font-display: optional the
+         faces are off the critical render path, so preloading would only compete with
+         render-critical CSS/JS on slow connections without arriving in time to be used. -->
+
     <!-- Default title for the initial load and crawlers; the app sets a per-route title once mounted. -->
     <title>IMT Calculator · Portugal · 2026</title>
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SNXFN63ZN"></script>
+    <!-- Google Analytics (gtag.js). The inline stub defines the event queue synchronously so the
+         app can push events from first render; the heavy gtag.js script is fetched only once the
+         page is idle, so it never competes for the main thread or bandwidth during initial render.
+         Queued events flush when it arrives. -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -29,6 +46,14 @@
       // Page views are sent per route by the app, so disable the automatic one.
       if (location.hostname !== "localhost" && location.hostname !== "127.0.0.1") {
         gtag("config", "G-7SNXFN63ZN", { send_page_view: false });
+        var loadGtag = function () {
+          var s = document.createElement("script");
+          s.async = true;
+          s.src = "https://www.googletagmanager.com/gtag/js?id=G-7SNXFN63ZN";
+          document.head.appendChild(s);
+        };
+        if ("requestIdleCallback" in window) requestIdleCallback(loadGtag, { timeout: 3000 });
+        else window.addEventListener("load", loadGtag);
       }
     </script>
   </head>

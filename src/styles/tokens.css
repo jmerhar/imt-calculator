@@ -2,6 +2,8 @@
    glazed-tile result cards. Dark theme keeps the same accents on a deep slate ground. */
 
 :root {
+  color-scheme: light;
+
   /* Palette */
   --azul-900: #14345e;
   --azul-600: #2b5fa0;
@@ -20,8 +22,9 @@
   --warn-bg: #fdf3e7;
   --warn-ink: #8a5a12;
 
-  /* Type */
-  --font-display: "Bricolage Grotesque", Georgia, serif;
+  /* Type — the display face is a grotesque sans, so its fallback is a sans (not a serif): if the
+     web font isn't used for a load, headings still read as the intended sans rather than jumping. */
+  --font-display: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-sans: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 
@@ -42,6 +45,7 @@
 }
 
 [data-theme="dark"] {
+  color-scheme: dark;
   --azul-900: #0b1f38;
   --azul-600: #6ea2df;
   --azul-400: #3f5f86;

@@ -1,7 +1,7 @@
 // Light/dark theme: initialised from a saved choice or the OS preference, applied as a
 // `data-theme` attribute on <html> that the CSS tokens key off, and persisted on change.
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useContext, useState, useEffect, useCallback, useMemo } from "react";
+import { createContext, useContext, useState, useEffect, useRef, useCallback, useMemo } from "react";
 import type { ReactNode } from "react";
 
 export type Theme = "light" | "dark";
@@ -36,7 +36,16 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     setThemeState(initialTheme());
   }, []);
 
+  // An inline <head> script (index.html) already set <html data-theme> from the same preference
+  // before first paint, so skip the first application here — otherwise the deterministic initial
+  // ("light") state would clobber it for a frame before the mount effect above resolves the real
+  // preference, reintroducing a flash. Preference-resolution and user toggles write through.
+  const applied = useRef(false);
   useEffect(() => {
+    if (!applied.current) {
+      applied.current = true;
+      return;
+    }
     document.documentElement.dataset.theme = theme;
   }, [theme]);
 
