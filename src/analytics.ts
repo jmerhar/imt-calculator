@@ -32,3 +32,18 @@ export function rateBand(rate: number): string {
   if (pct < 7) return "5-7%";
   return ">=7%";
 }
+
+/**
+ * Coarse VPT-to-price ratio band. `"none"` when no VPT was entered (or price is non-positive);
+ * `">=100%"` means the VPT met or exceeded the price, so the tax base was the VPT, not the price.
+ * A ratio, not an amount — it carries no absolute figure.
+ */
+export function vptRatioBand(vpt: number | undefined, price: number): string {
+  if (!vpt || vpt <= 0 || price <= 0) return "none";
+  const ratio = vpt / price;
+  if (ratio < 0.5) return "<50%";
+  if (ratio < 0.7) return "50-70%";
+  if (ratio < 0.9) return "70-90%";
+  if (ratio < 1) return "90-100%";
+  return ">=100%";
+}

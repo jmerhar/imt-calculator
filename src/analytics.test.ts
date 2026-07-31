@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
-import { track, priceBand, rateBand } from "@/analytics";
+import { track, priceBand, rateBand, vptRatioBand } from "@/analytics";
 
 afterEach(() => {
   delete window.gtag;
@@ -31,6 +31,29 @@ describe("rateBand", () => {
     expect(rateBand(0.03)).toBe("3-5%");
     expect(rateBand(0.05)).toBe("5-7%");
     expect(rateBand(0.07)).toBe(">=7%");
+  });
+});
+
+describe("vptRatioBand", () => {
+  it("returns 'none' without a usable VPT or price", () => {
+    expect(vptRatioBand(undefined, 300_000)).toBe("none");
+    expect(vptRatioBand(0, 300_000)).toBe("none");
+    expect(vptRatioBand(200_000, 0)).toBe("none");
+  });
+
+  it("maps the VPT/price ratio to coarse bands", () => {
+    expect(vptRatioBand(120_000, 300_000)).toBe("<50%"); // 0.40
+    expect(vptRatioBand(180_000, 300_000)).toBe("50-70%"); // 0.60
+    expect(vptRatioBand(240_000, 300_000)).toBe("70-90%"); // 0.80
+    expect(vptRatioBand(285_000, 300_000)).toBe("90-100%"); // 0.95
+    expect(vptRatioBand(360_000, 300_000)).toBe(">=100%"); // 1.20 → base is the VPT
+  });
+
+  it("puts each exact boundary in the upper band", () => {
+    expect(vptRatioBand(150_000, 300_000)).toBe("50-70%"); // 0.50
+    expect(vptRatioBand(210_000, 300_000)).toBe("70-90%"); // 0.70
+    expect(vptRatioBand(270_000, 300_000)).toBe("90-100%"); // 0.90
+    expect(vptRatioBand(300_000, 300_000)).toBe(">=100%"); // 1.00
   });
 });
 

@@ -93,7 +93,12 @@ describe("CalculatorPage", () => {
       expect(gtag).toHaveBeenCalledWith(
         "event",
         "calculate",
-        expect.objectContaining({ price_band: "250-500k", buyer_count: 1, shares_valid: true }),
+        expect.objectContaining({
+          price_band: "250-500k",
+          buyer_count: 1,
+          shares_valid: true,
+          vpt_ratio_band: "none",
+        }),
       );
 
       // Privacy: the event must not carry any raw euro figure derived from the entered price.
