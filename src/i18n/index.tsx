@@ -44,9 +44,16 @@ const I18nContext = createContext<I18nValue | null>(null);
 
 /** Provides the active language and its dictionary; persists the choice to localStorage. */
 export function I18nProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>(initialLang);
+  // Start from a deterministic default (en) so the prerendered HTML and the first client render
+  // agree — a hydration requirement for static generation. The persisted/browser language is
+  // resolved after mount.
+  const [lang, setLangState] = useState<Lang>("en");
 
-  // Keep <html lang> in sync (including the initial render) for assistive tech and hyphenation.
+  useEffect(() => {
+    setLangState(initialLang());
+  }, []);
+
+  // Keep <html lang> in sync for assistive tech and hyphenation.
   useEffect(() => {
     document.documentElement.lang = lang;
   }, [lang]);

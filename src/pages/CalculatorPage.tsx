@@ -30,8 +30,16 @@ function equalShares(buyers: Buyer[]): Buyer[] {
 /** The calculator: the input form and the live results panel, with state mirrored to the URL. */
 export function CalculatorPage() {
   const { t } = useI18n();
-  const [input, setInput] = useState<CalcInput>(() => readStateFromUrl() ?? defaultInput());
+  // Start from the default so the prerendered HTML and first client render agree (hydration); a
+  // shared link is applied after mount. This effect is declared before the URL-writing one so it
+  // reads the pristine URL before we begin rewriting it.
+  const [input, setInput] = useState<CalcInput>(defaultInput);
   const interacted = useRef(false);
+
+  useEffect(() => {
+    const fromUrl = readStateFromUrl();
+    if (fromUrl) setInput(fromUrl);
+  }, []);
 
   useEffect(() => {
     writeStateToUrl(input);

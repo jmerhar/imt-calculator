@@ -28,7 +28,13 @@ const ThemeContext = createContext<ThemeValue | null>(null);
 
 /** Provides light/dark theme, reflected on `<html data-theme>` and persisted to localStorage. */
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>(initialTheme);
+  // Deterministic default (light) so the prerendered HTML and the first client render agree
+  // (hydration). The persisted/OS preference is resolved after mount.
+  const [theme, setThemeState] = useState<Theme>("light");
+
+  useEffect(() => {
+    setThemeState(initialTheme());
+  }, []);
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
