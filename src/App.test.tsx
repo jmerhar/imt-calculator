@@ -63,14 +63,25 @@ describe("App", () => {
     expect(screen.getByText(glossary[0].pt.term)).toBeInTheDocument();
   });
 
-  it("sends a Google Analytics page_view per route", async () => {
+  it("sends a Google Analytics page_view per route with a path-based location", async () => {
     const gtag = vi.fn();
     window.gtag = gtag;
     const user = userEvent.setup();
+    const origin = window.location.origin;
     renderApp();
-    expect(gtag).toHaveBeenCalledWith("event", "page_view", expect.objectContaining({ page_path: "/" }));
+    // page_location must carry the route in its PATH (not the hash), because that is what GA uses
+    // to distinguish pages — a hash-based location would collapse every route to "/".
+    expect(gtag).toHaveBeenCalledWith(
+      "event",
+      "page_view",
+      expect.objectContaining({ page_path: "/", page_location: `${origin}/` }),
+    );
     await user.click(screen.getByRole("link", { name: en.nav.glossary }));
-    expect(gtag).toHaveBeenCalledWith("event", "page_view", expect.objectContaining({ page_path: "/glossary" }));
+    expect(gtag).toHaveBeenCalledWith(
+      "event",
+      "page_view",
+      expect.objectContaining({ page_path: "/glossary", page_location: `${origin}/glossary` }),
+    );
   });
 
   it("tracks the language switch", async () => {
