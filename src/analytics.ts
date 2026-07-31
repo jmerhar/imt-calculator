@@ -1,6 +1,7 @@
-// Thin wrapper over Google Analytics (gtag). All events are aggregate and privacy-safe: money is
-// reported as coarse bands, never the raw figure. gtag is injected by index.html; when it is
-// absent (tests, blockers) every call is a silent no-op.
+// Thin wrapper over Google Analytics (gtag). Events carry both coarse bands (dimensions, for quick
+// grouping) and the exact aggregate figures (metrics, for averages and distributions). The figures
+// are property values, not personal data, and are never tied to a user. gtag is injected by
+// index.html; when it is absent (tests, blockers) every call is a silent no-op.
 
 declare global {
   interface Window {

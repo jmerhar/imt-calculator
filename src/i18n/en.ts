@@ -103,7 +103,7 @@ export const en = {
     github: "Source on GitHub",
     dataYear: "Rates and tables for {year}.",
     privacy:
-      "This site uses cookies only for anonymous, aggregate usage statistics (Google Analytics). No amounts you enter are stored or sent anywhere; all calculations run in your browser.",
+      "This site uses cookies for anonymous, aggregate usage statistics via Google Analytics. These may include the figures you enter (such as prices), but they are property values only, never linked to your identity. The calculations themselves run entirely in your browser.",
   },
   pages: {
     glossaryIntro: "Key IMT and stamp-duty terms, shown in both English and Portuguese.",

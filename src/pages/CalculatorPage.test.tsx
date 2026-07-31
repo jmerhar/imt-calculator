@@ -88,7 +88,8 @@ describe("CalculatorPage", () => {
       fireEvent.change(price, { target: { value: "300000" } });
       expect(gtag).not.toHaveBeenCalledWith("event", "calculate", expect.anything());
 
-      // A single event fires once edits settle, carrying coarse (non-identifying) parameters.
+      // A single event fires once edits settle, carrying both bands and exact aggregate figures.
+      // Default own-permanent mainland at €300k → Table I: IMT 10 542.04 + IS 2 400 = 12 942.04.
       act(() => vi.advanceTimersByTime(1600));
       expect(gtag).toHaveBeenCalledWith(
         "event",
@@ -98,14 +99,18 @@ describe("CalculatorPage", () => {
           buyer_count: 1,
           shares_valid: true,
           vpt_ratio_band: "none",
+          price: 300000,
+          tax_base: 300000,
+          imt: 10542.04,
+          stamp_duty: 2400,
+          grand_total: 12942.04,
+          effective_rate: 4.31,
         }),
       );
 
-      // Privacy: the event must not carry any raw euro figure derived from the entered price.
+      // With no VPT entered, the VPT figures are omitted (so they never skew averages).
       const params = gtag.mock.calls.find((c) => c[1] === "calculate")?.[2] as Record<string, unknown>;
-      expect(params).not.toHaveProperty("value");
-      expect(Object.values(params)).not.toContain(300000);
-      // With no VPT entered, the numeric ratio is omitted (so it never skews the average).
+      expect(params).not.toHaveProperty("vpt");
       expect(params).not.toHaveProperty("vpt_ratio");
     } finally {
       vi.useRealTimers();
@@ -125,8 +130,13 @@ describe("CalculatorPage", () => {
       act(() => vi.advanceTimersByTime(1600));
       const calls = gtag.mock.calls.filter((c) => c[1] === "calculate");
       const params = calls[calls.length - 1][2] as Record<string, unknown>;
-      // 240k / 300k = 0.80 → band "80-90%", numeric ratio 80.
-      expect(params).toMatchObject({ has_vpt: true, vpt_ratio_band: "80-90%", vpt_ratio: 80 });
+      // 240k / 300k = 0.80 → band "80-90%", numeric ratio 80, raw VPT 240 000.
+      expect(params).toMatchObject({
+        has_vpt: true,
+        vpt_ratio_band: "80-90%",
+        vpt_ratio: 80,
+        vpt: 240000,
+      });
     } finally {
       vi.useRealTimers();
     }

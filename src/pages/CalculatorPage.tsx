@@ -56,15 +56,21 @@ export function CalculatorPage() {
         has_jovem: input.buyers.some((b) => b.jovem),
         has_mortgage: input.mortgage != null,
         has_vpt: input.vpt != null && input.vpt > 0,
+        // Coarse bands — GA dimensions, for grouping.
         price_band: priceBand(result.taxBase),
         rate_band: rateBand(result.effectiveRate),
         vpt_ratio_band: vptRatioBand(input.vpt, input.price),
-        // Numeric ratio (a percentage) only when a VPT was entered, so it never skews the average
-        // with zeros; omitted otherwise.
-        ...(vptRatio != null ? { vpt_ratio: vptRatio } : {}),
+        // Exact aggregate figures — GA metrics, for averages and distributions.
+        price: input.price,
+        tax_base: result.taxBase,
+        imt: result.totalImt,
+        stamp_duty: result.totalStampDuty,
+        grand_total: result.grandTotal,
+        effective_rate: Math.round(result.effectiveRate * 10000) / 100, // percentage, 2 dp
+        // VPT figures only when a VPT was entered, so they never skew averages with zeros.
+        ...(vptRatio != null ? { vpt: input.vpt, vpt_ratio: vptRatio } : {}),
+        ...(input.mortgage ? { mortgage_amount: input.mortgage.amount } : {}),
         shares_valid: !result.warnings.includes("shares_not_100"),
-        // Deliberately no raw euro figure here: grandTotal is derived from the entered price, and
-        // the footer promises amounts are never sent. price_band/rate_band convey magnitude coarsely.
       });
     }, 1500);
     return () => clearTimeout(id);

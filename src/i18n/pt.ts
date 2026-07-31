@@ -102,7 +102,7 @@ export const pt: Dict = {
     github: "Código no GitHub",
     dataYear: "Taxas e tabelas de {year}.",
     privacy:
-      "Este site usa cookies apenas para estatísticas de utilização anónimas e agregadas (Google Analytics). Os valores que introduz não são guardados nem enviados para lado nenhum; todos os cálculos são feitos no seu navegador.",
+      "Este site usa cookies para estatísticas de utilização anónimas e agregadas através do Google Analytics. Estas podem incluir os valores que introduz (como preços), mas são apenas valores de imóveis e nunca associados à sua identidade. Os cálculos em si são feitos inteiramente no seu navegador.",
   },
   pages: {
     glossaryIntro: "Termos essenciais do IMT e do imposto do selo, apresentados em inglês e português.",
