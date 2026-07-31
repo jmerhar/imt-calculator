@@ -1,4 +1,4 @@
-.PHONY: help install dev preview lint test coverage check build clean fetch-tables ga-setup og-image
+.PHONY: help install dev preview lint test coverage check build clean fetch-tables ga-setup og-image psi
 
 help: ## Show available commands
 	@grep -E '^[a-zA-Z_-]+:.*##|^##@' $(MAKEFILE_LIST) | \
@@ -51,3 +51,6 @@ ga-setup: ## Register GA4 custom dimensions/metrics, idempotently (uses ./ga-key
 
 og-image: ## Regenerate the Open Graph share image (public/og.png) from its SVG
 	node scripts/gen-og.mjs
+
+psi: ## PageSpeed Insights report (uses ./ga-key.json; URL=… STRATEGY=mobile|desktop)
+	node bin/psi.mjs $(URL) --strategy $(or $(STRATEGY),mobile)
