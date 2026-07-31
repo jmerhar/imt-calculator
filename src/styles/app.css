@@ -81,6 +81,21 @@ a {
   align-items: center;
   gap: var(--s3);
 }
+/* The nav toggle only exists on narrow screens; the media query reveals it. */
+.nav-toggle {
+  display: none;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--field-bg);
+  color: var(--ink);
+  cursor: pointer;
+}
+.nav-toggle:hover {
+  border-color: var(--azul-400);
+}
 .langswitch {
   display: inline-flex;
   border: 1px solid var(--line-strong);
@@ -877,6 +892,7 @@ a {
    (only the chosen segmented option prints) so the sheet reads like a printed statement. */
 @media print {
   .nav,
+  .nav-toggle,
   .header__tools,
   .skiplink,
   .actions,
@@ -1049,10 +1065,34 @@ a {
   .header {
     gap: var(--s3);
   }
-  .nav {
+  /* Row 1: brand grows to push the toggle to the right edge. Row 2: language + theme controls.
+     The nav (row 3) is hidden until the toggle opens it, then stacks as a vertical menu. */
+  .header__brand {
+    order: 1;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .nav-toggle {
+    display: inline-grid;
+    order: 2;
+  }
+  .header__tools {
     order: 3;
+  }
+  .nav {
+    order: 4;
     width: 100%;
     margin-inline-start: 0;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--s1);
+  }
+  .nav--open {
+    display: flex;
+  }
+  .nav__link {
+    padding: var(--s3);
   }
   .tiles {
     grid-template-columns: 1fr;

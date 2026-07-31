@@ -19,6 +19,7 @@ export const pt: Dict = {
     toLight: "Mudar para tema claro",
     toDark: "Mudar para tema escuro",
     skipToContent: "Saltar para o conteúdo",
+    menu: "Menu",
   },
   form: {
     heading: "Dados da compra",

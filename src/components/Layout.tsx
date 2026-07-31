@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useI18n, fmt } from "@/i18n";
 import type { Lang } from "@/i18n";
@@ -15,6 +15,12 @@ export function Layout({ children }: { children: ReactNode }) {
   const { pathname } = useLocation();
   // Nav targets are prefixed for the active language (EN at root, PT under /pt).
   const path = (bare: string) => localizedPath(lang, bare);
+
+  // On narrow screens the nav collapses behind a toggle; it is always shown on wider viewports
+  // (the toggle is hidden there via CSS). Any navigation closes it, so a tapped link doesn't leave
+  // the menu hanging open over the new page.
+  const [menuOpen, setMenuOpen] = useState(false);
+  useEffect(() => setMenuOpen(false), [pathname]);
 
   const navClass = ({ isActive }: { isActive: boolean }) =>
     isActive ? "nav__link nav__link--active" : "nav__link";
@@ -34,7 +40,22 @@ export function Layout({ children }: { children: ReactNode }) {
           </div>
         </div>
 
-        <nav className="nav" aria-label={t.app.title}>
+        <button
+          type="button"
+          className="nav-toggle"
+          aria-label={t.controls.menu}
+          aria-expanded={menuOpen}
+          aria-controls="primary-nav"
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          {menuOpen ? <CloseIcon /> : <MenuIcon />}
+        </button>
+
+        <nav
+          className={menuOpen ? "nav nav--open" : "nav"}
+          id="primary-nav"
+          aria-label={t.app.title}
+        >
           <NavLink to={path("/")} className={navClass} end>
             {t.nav.calculator}
           </NavLink>
@@ -132,6 +153,22 @@ function HouseMark() {
       >
         €
       </text>
+    </svg>
+  );
+}
+
+function MenuIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+      <path d="M4 7h16M4 12h16M4 17h16" />
+    </svg>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+      <path d="M6 6l12 12M18 6L6 18" />
     </svg>
   );
 }

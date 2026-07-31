@@ -20,6 +20,7 @@ export const en = {
     toLight: "Switch to light theme",
     toDark: "Switch to dark theme",
     skipToContent: "Skip to content",
+    menu: "Menu",
   },
   form: {
     heading: "Purchase details",

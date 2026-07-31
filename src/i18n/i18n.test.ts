@@ -17,7 +17,7 @@ describe("i18n dictionaries", () => {
 
   it("no Portuguese string is left as the English original", () => {
     // Guards against copy-paste stubs; the shared "IMT" / "Portugal · 2026" values are expected.
-    const shared = new Set(["IMT", "Portugal · 2026", "Madeira", "Subtotal"]);
+    const shared = new Set(["IMT", "Portugal · 2026", "Madeira", "Subtotal", "Menu"]);
     const enFlat = Object.fromEntries(paths(en).map((p) => [p, get(en, p)]));
     for (const p of paths(pt)) {
       const ptVal = get(pt, p);
