@@ -71,6 +71,17 @@ export function Layout({ children }: { children: ReactNode }) {
         </nav>
 
         <div className="header__tools">
+          <button
+            type="button"
+            className="iconbtn"
+            onClick={() => {
+              track("theme_toggle", { theme: theme === "dark" ? "light" : "dark" });
+              toggle();
+            }}
+            aria-label={theme === "dark" ? t.controls.toLight : t.controls.toDark}
+          >
+            {theme === "dark" ? <SunIcon /> : <MoonIcon />}
+          </button>
           <div className="langswitch" role="group" aria-label={t.controls.language}>
             {(["en", "pt"] as Lang[]).map((l) => (
               <button
@@ -93,17 +104,6 @@ export function Layout({ children }: { children: ReactNode }) {
               </button>
             ))}
           </div>
-          <button
-            type="button"
-            className="iconbtn"
-            onClick={() => {
-              track("theme_toggle", { theme: theme === "dark" ? "light" : "dark" });
-              toggle();
-            }}
-            aria-label={theme === "dark" ? t.controls.toLight : t.controls.toDark}
-          >
-            {theme === "dark" ? <SunIcon /> : <MoonIcon />}
-          </button>
         </div>
       </header>
 
