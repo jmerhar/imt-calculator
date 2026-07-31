@@ -4,6 +4,7 @@ import react from "@vitejs/plugin-react";
 import path from "node:path";
 import { SITE_URL } from "./src/config";
 import { SEO_PAGES } from "./src/seo/meta";
+import { jsonLdFor } from "./src/seo/jsonld";
 
 const escapeHtml = (s: string) =>
   s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -33,12 +34,30 @@ function injectSeo(route: string, html: string): string {
   ].join("");
   const desc = `<meta name="description" content="${escapeHtml(meta.description)}" />`;
 
+  const ogImage = `${SITE_URL}/og.png`;
+  const social = [
+    `<meta property="og:type" content="website" />`,
+    `<meta property="og:site_name" content="IMT Calculator" />`,
+    `<meta property="og:title" content="${escapeHtml(meta.title)}" />`,
+    `<meta property="og:description" content="${escapeHtml(meta.description)}" />`,
+    `<meta property="og:url" content="${canonical}" />`,
+    `<meta property="og:image" content="${ogImage}" />`,
+    `<meta property="og:locale" content="${lang === "pt" ? "pt_PT" : "en_US"}" />`,
+    `<meta property="og:locale:alternate" content="${lang === "pt" ? "en_US" : "pt_PT"}" />`,
+    `<meta name="twitter:card" content="summary_large_image" />`,
+    `<meta name="twitter:title" content="${escapeHtml(meta.title)}" />`,
+    `<meta name="twitter:description" content="${escapeHtml(meta.description)}" />`,
+    `<meta name="twitter:image" content="${ogImage}" />`,
+  ].join("");
+  const jsonLd = jsonLdFor(lang, bare, canonical);
+
   let out = html.replace(/<html([^>]*)\slang="[^"]*"/i, `<html$1 lang="${lang}"`);
   out = out.replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(meta.title)}</title>`);
   out = /<meta\s+name="description"[^>]*>/i.test(out)
     ? out.replace(/<meta\s+name="description"[^>]*>/i, desc)
     : out.replace("</head>", `${desc}</head>`);
-  return out.replace("</head>", `<link rel="canonical" href="${canonical}" />${alternates}</head>`);
+  const head = `<link rel="canonical" href="${canonical}" />${alternates}${social}${jsonLd}`;
+  return out.replace("</head>", `${head}</head>`);
 }
 
 // Absolute base "/" is required so nested prerendered pages (e.g. /glossary/index.html) reference
@@ -74,6 +93,7 @@ export default defineConfig({
         "src/engine/types.ts",
         "src/main.tsx",
         "src/seo/meta.ts",
+        "src/seo/jsonld.ts",
       ],
     },
   },

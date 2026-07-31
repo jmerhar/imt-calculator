@@ -1,4 +1,4 @@
-.PHONY: help install dev preview lint test coverage check build clean fetch-tables ga-setup
+.PHONY: help install dev preview lint test coverage check build clean fetch-tables ga-setup og-image
 
 help: ## Show available commands
 	@grep -E '^[a-zA-Z_-]+:.*##|^##@' $(MAKEFILE_LIST) | \
@@ -48,3 +48,6 @@ fetch-tables: ## Fetch AT IMT tables for a year and regenerate the .ts (usage: m
 
 ga-setup: ## Register GA4 custom dimensions/metrics, idempotently (uses ./ga-key.json; ARGS=--dry-run to preview)
 	node bin/ga-setup.mjs $(ARGS)
+
+og-image: ## Regenerate the Open Graph share image (public/og.png) from its SVG
+	node scripts/gen-og.mjs

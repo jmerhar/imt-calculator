@@ -91,23 +91,22 @@ Without these, the rest barely matters.
 - [x] **Per-route `<title>` and meta `description`** — written into the static HTML at build time
   (`vite-react-ssg` `onPageRendered`, strings in `src/seo/meta.ts`), unique per route. Localized PT
   variants come with the per-language URLs in Phase 3.
-- [ ] **Open Graph** (`og:title`, `og:description`, `og:type`, `og:url`, `og:image`, `og:locale` +
-  `og:locale:alternate`). **Impact M · Effort L.**
-- [ ] **Twitter Card** (`summary_large_image`). **Impact L · Effort L.**
-- [ ] **A share/OG image** (1200×630) — branded, with the house mark; per-language variants ideal.
-  **Impact M · Effort M.**
-- [ ] **`theme-color`, apple-touch-icon, web app manifest** (`site.webmanifest`) for polish + mobile.
-  **Impact L · Effort L.**
+- [x] **Open Graph** — `og:type/site_name/title/description/url/image` + localized `og:locale`
+  (+ alternate), injected per page at build.
+- [x] **Twitter Card** — `summary_large_image` with title/description/image.
+- [x] **Share/OG image** (1200×630) — branded PNG at `public/og.png`, generated from an SVG by
+  `scripts/gen-og.mjs` (`make og-image`). One shared image; per-language variants optional later.
+- [ ] **`theme-color`, apple-touch-icon, web app manifest** — deferred polish (low impact).
 
 ### Structured data (JSON-LD, in the prerendered HTML)
 
-- [ ] **`WebApplication` / `SoftwareApplication`** on the calculator (name, description, `applicationCategory: FinanceApplication`, `offers` free, `inLanguage`). **Impact M · Effort L.**
-- [ ] **`FAQPage`** on how-it-works and any Q&A content (the non-resident rule, the 1 Sept / 1 Jan
-  dates, the totality rule). FAQ rich results drive clicks. **Impact H · Effort M.**
-- [ ] **`BreadcrumbList`** for glossary/how-it-works. **Impact L · Effort L.**
-- [ ] **`Organization` / `WebSite`** sitewide (+ `WebSite` `potentialAction` SearchAction if we add
-  on-site search later). **Impact L · Effort L.**
-- [ ] Validate with Google Rich Results Test + Schema.org validator. **Impact M · Effort L.**
+- [x] **`WebApplication`** on the calculator (FinanceApplication, free offer, `inLanguage`),
+  localized. `src/seo/jsonld.ts`.
+- [x] **`FAQPage`** on how-it-works — three localized Q&As (non-resident date, totality rule,
+  non-resident rate). Valid JSON verified in `dist`.
+- [x] **`BreadcrumbList`** on glossary + how-it-works.
+- [ ] **`Organization` / `WebSite` SearchAction** — deferred (no on-site search yet; low impact).
+- [ ] ⚠️ **YOUR TASK — validate** with Google Rich Results Test once live (needs the public URL).
 
 ## P1/P2 — Content & keyword strategy (the biggest organic lever, long-term)
 
