@@ -67,10 +67,9 @@ Without these, the rest barely matters.
   canonical URLs matching what Pages serves). Will gain `hreflang` alternates in Phase 3.
 - [x] **Canonical tags** — self-referential `<link rel="canonical">` per prerendered page (injected
   build-time via `vite-react-ssg` `onPageRendered`; subpages use the trailing-slash form).
-- [ ] ⚠️ **YOUR TASK — Register in Google Search Console** (verify via DNS TXT or the GA tag), submit
-  `https://calc-imt.online/sitemap.xml`, watch Coverage/Indexing. **🔑 for measurement — I can't do
-  this; it needs your Google account.**
-- [ ] ⚠️ **YOUR TASK — Register in Bing Webmaster Tools** (import from GSC).
+- [x] **Registered in Google Search Console** and submitted `https://calc-imt.online/sitemap.xml`.
+  Ongoing: watch Coverage/Indexing weekly (see Measurement below).
+- [x] **Registered in Bing Webmaster Tools** and submitted the sitemap.
 
 ## P1 — Internationalization, metadata, structured data
 
@@ -139,16 +138,16 @@ comes from. Bias toward Portuguese — it's the primary market.
 
 ## P2 — Performance, accessibility, semantics (mostly already good — verify & hold)
 
-- [ ] **Core Web Vitals** — confirm LCP/CLS/INP are green on mobile (PageSpeed Insights / CrUX once
-  traffic exists). The bundle is ~70 KB gzip — good; watch prerender/hydration cost. **Impact M · Effort L.**
-- [ ] **Font loading** — `font-display: swap` (via the Google Fonts URL) is set; consider
-  self-hosting or subsetting to cut the render-blocking request. **Impact L · Effort M.**
+- [x] **Core Web Vitals** — mobile PageSpeed Performance ~99 (LCP 2.1 s, CLS 0, TBT 20 ms), desktop
+  100 (lab, Slow-4G). Re-check field data (CrUX) in Search Console once traffic accrues.
+- [x] **Font loading** — self-hosted, latin-subset woff2 (no Google Fonts request); display + body
+  on `font-display: block` + preload (never a fallback flash), figures on `swap`. Analytics deferred
+  to idle. `bin/psi.mjs` (`make psi`) runs PageSpeed on demand.
 - [x] **Semantic HTML & headings** — every page now has exactly one `<h1>` (home's was added), then
   logical `<h2>`/`<h3>`; landmarks (header/nav/main#main/footer + skip link) in place.
 - [x] **Image `alt`, descriptive link text, keyboard/reduced-motion** — already strong (labelled
   controls, `:focus-visible`, `prefers-reduced-motion`); held.
-- [ ] **Mobile-first UX / CWV** — responsive and light (~70 KB gzip); confirm green in PageSpeed once
-  there's traffic. **Verify later.**
+- [x] **Mobile-first UX / CWV** — responsive, light (~70 KB gzip), mobile PageSpeed ~99. Held.
 
 ## P2 — Off-page / authority & promotion (ongoing)
 
