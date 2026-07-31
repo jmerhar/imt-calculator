@@ -31,7 +31,7 @@ a distinct page. That also keeps the state token (`?c=…`) out of analytics.
 
 | Event | Fires when | Parameters |
 |---|---|---|
-| `page_view` | Each route change (initial load included) | `page_path`, `page_location`, `page_title`, `ui_language` |
+| `page_view` | Each route change (initial load included) | `page_path`, `page_location`, `page_title`, `ui_language`, `ui_theme` |
 | `calculate` | ~1.5 s after the user pauses editing (one per scenario, only once they've interacted and price > 0) | see below |
 | `arrived_via_share` | Page loads from a valid shared link (once per load; reloads excluded) | — |
 | `bad_share_link` | Page loads with a share token that fails to decode | — |
@@ -60,7 +60,7 @@ Source of truth for the full list is `bin/ga-setup.mjs` (`DIMENSIONS` / `METRICS
 GA4 collects event parameters but will not expose them in reports until they are **registered as
 custom definitions**. Categorical parameters become **dimensions**; numeric ones become **metrics**.
 
-**18 dimensions** (all Event-scoped):
+**19 dimensions** (all Event-scoped):
 
 | Parameter | Display name |
 |---|---|
@@ -80,7 +80,8 @@ custom definitions**. Categorical parameters become **dimensions**; numeric ones
 | `shares_valid` | Shares valid |
 | `language` | Language switch |
 | `ui_language` | UI language |
-| `theme` | Theme |
+| `theme` | Theme switch |
+| `ui_theme` | UI theme |
 | `target` | Outbound target |
 
 **9 metrics** (all Event-scoped, unit **Standard**):
@@ -224,25 +225,23 @@ add **Filters** at the bottom of the Settings column. Set the **date range to in
 
 ### 6. Language and theme
 
-Three distinct language signals — don't confuse them:
+Language and theme each have the **same two-signal split** — the *active* value (on every
+`page_view`) versus the *switched-to* value (only on a deliberate switch). Don't confuse them, and
+note that GA's **built-in `Language`** is a third, unrelated signal: the visitor's **browser
+language** (`navigator.language`) — it can show e.g. "German" even though the app only offers EN/PT,
+so it reflects the audience's locale, not in-app choice.
 
-- **Built-in `Language`** (Reports → User → Demographic details, or the built-in Language dimension)
-  is the visitor's **browser language** (`navigator.language`) — e.g. it can show "German" even
-  though the app only offers EN/PT. It reflects the audience's locale, not in-app choice.
-- **`ui_language`** (our custom **UI language** dimension) is the **actual in-app language** carried
-  on every `page_view`. This is the one for *"which language do people use?"*
-- **`language` on `language_switch`** (custom **Language switch** dimension) is the language a user
-  **switched to** (deliberate switches only; the default/auto-selected language fires no event).
-  This is *"how do people switch?"*
+| Question | Dimension | Filter event |
+|---|---|---|
+| Which language do people use? | **UI language** (`ui_language`) | `page_view` |
+| How do people switch language? | **Language switch** (`language`) | `language_switch` |
+| Which theme do people use? | **UI theme** (`ui_theme`) | `page_view` |
+| How do people switch theme? | **Theme switch** (`theme`) | `theme_toggle` |
 
-Configs:
-
-- **Which language is used:** Free-form. Filter `Event name = page_view`. **Rows:** `UI language`.
-  **Values:** `Event count`, `Total users`. → the real EN/PT split.
-- **How they switch:** Free-form. Filter `Event name = language_switch`. **Rows:** `Language switch`.
-  **Values:** `Event count`. → count of switches to each language.
-- **Theme:** Free-form. Filter `Event name = theme_toggle`. **Rows:** `Theme`. **Values:**
-  `Event count`. → how often users switch away from the default theme.
+For each: Free-form, apply the **Filter** (`Event name = …`), put the **dimension** on **Rows**, and
+use `Event count` (and `Total users`) as **Values**. The "active" rows (`page_view`) give the real
+usage split — including users who never switch, who fire no switch event. `>=100%`-style edge cases
+don't apply here; the values are just `en`/`pt` and `light`/`dark`.
 
 ## Caveats
 

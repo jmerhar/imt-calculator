@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useI18n } from "@/i18n";
+import { useTheme } from "@/theme/theme";
 import { track } from "@/analytics";
 import { arrivalKind } from "@/state/url";
 
@@ -19,14 +20,17 @@ import { arrivalKind } from "@/state/url";
 export function Analytics() {
   const { pathname } = useLocation();
   const { lang } = useI18n();
+  const { theme } = useTheme();
 
-  // Track the active UI language on each page view, sampled when the route changes. Held in a ref
-  // (not a page_view dependency) so switching language — which keeps the same route — does not emit
-  // a second page view; `language_switch` already records the switch itself.
+  // Track the active UI language and theme on each page view, sampled when the route changes. Held
+  // in refs (not page_view dependencies) so switching language or theme — which keeps the same
+  // route — does not emit a second page view; language_switch/theme_toggle record the switch.
   const langRef = useRef(lang);
+  const themeRef = useRef(theme);
   useEffect(() => {
     langRef.current = lang;
-  }, [lang]);
+    themeRef.current = theme;
+  }, [lang, theme]);
 
   // Whether this page load opened a shared link — captured once, here in a component that mounts a
   // single time per load (not in a page that remounts on navigation, which would misread the app's
@@ -43,6 +47,7 @@ export function Analytics() {
       page_location: `${window.location.origin}${pathname}`,
       page_title: document.title,
       ui_language: langRef.current,
+      ui_theme: themeRef.current,
     });
   }, [pathname]);
   return null;

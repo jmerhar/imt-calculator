@@ -80,7 +80,12 @@ describe("App", () => {
     expect(gtag).toHaveBeenCalledWith(
       "event",
       "page_view",
-      expect.objectContaining({ page_path: "/", page_location: `${origin}/`, ui_language: "en" }),
+      expect.objectContaining({
+        page_path: "/",
+        page_location: `${origin}/`,
+        ui_language: "en",
+        ui_theme: "light",
+      }),
     );
     await user.click(screen.getByRole("link", { name: en.nav.glossary }));
     expect(gtag).toHaveBeenCalledWith(
@@ -105,6 +110,23 @@ describe("App", () => {
       "event",
       "page_view",
       expect.objectContaining({ page_path: "/glossary", ui_language: "pt" }),
+    );
+  });
+
+  it("carries the active theme on the page_view after a theme toggle", async () => {
+    const gtag = vi.fn();
+    window.gtag = gtag;
+    const user = userEvent.setup();
+    renderApp();
+    await user.click(screen.getByRole("button", { name: en.controls.toDark }));
+    // Toggling keeps the same route, so no extra page_view fires for the toggle itself…
+    expect(gtag.mock.calls.filter((c) => c[1] === "page_view")).toHaveLength(1);
+    // …but the next navigation's page_view reports the now-active theme.
+    await user.click(screen.getByRole("link", { name: en.nav.glossary }));
+    expect(gtag).toHaveBeenCalledWith(
+      "event",
+      "page_view",
+      expect.objectContaining({ page_path: "/glossary", ui_theme: "dark" }),
     );
   });
 

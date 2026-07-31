@@ -45,7 +45,8 @@ const DIMENSIONS = [
   ["shares_valid", "Shares valid", "Buyer shares summed to 100%"],
   ["language", "Language switch", "Language switched to (en / pt), on language_switch"],
   ["ui_language", "UI language", "Active in-app language (en / pt) at each page view"],
-  ["theme", "Theme", "Theme switched to (light / dark)"],
+  ["theme", "Theme switch", "Theme switched to (light / dark), on theme_toggle"],
+  ["ui_theme", "UI theme", "Active theme (light / dark) at each page view"],
   ["target", "Outbound target", "Which external link was clicked"],
 ];
 
