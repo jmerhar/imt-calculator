@@ -78,7 +78,7 @@ custom definitions**. Categorical parameters become **dimensions**; numeric ones
 | `has_mortgage` | Has mortgage |
 | `has_vpt` | Has VPT |
 | `shares_valid` | Shares valid |
-| `language` | Language |
+| `language` | Language switch |
 | `ui_language` | UI language |
 | `theme` | Theme |
 | `target` | Outbound target |
@@ -231,14 +231,15 @@ Three distinct language signals — don't confuse them:
   though the app only offers EN/PT. It reflects the audience's locale, not in-app choice.
 - **`ui_language`** (our custom **UI language** dimension) is the **actual in-app language** carried
   on every `page_view`. This is the one for *"which language do people use?"*
-- **`language` on `language_switch`** is the language a user **switched to** (deliberate switches
-  only; the default/auto-selected language fires no event). This is *"how do people switch?"*
+- **`language` on `language_switch`** (custom **Language switch** dimension) is the language a user
+  **switched to** (deliberate switches only; the default/auto-selected language fires no event).
+  This is *"how do people switch?"*
 
 Configs:
 
 - **Which language is used:** Free-form. Filter `Event name = page_view`. **Rows:** `UI language`.
   **Values:** `Event count`, `Total users`. → the real EN/PT split.
-- **How they switch:** Free-form. Filter `Event name = language_switch`. **Rows:** `Language`.
+- **How they switch:** Free-form. Filter `Event name = language_switch`. **Rows:** `Language switch`.
   **Values:** `Event count`. → count of switches to each language.
 - **Theme:** Free-form. Filter `Event name = theme_toggle`. **Rows:** `Theme`. **Values:**
   `Event count`. → how often users switch away from the default theme.

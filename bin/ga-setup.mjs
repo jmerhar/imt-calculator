@@ -43,7 +43,7 @@ const DIMENSIONS = [
   ["has_mortgage", "Has mortgage", "Mortgage stamp duty was included"],
   ["has_vpt", "Has VPT", "A VPT was entered"],
   ["shares_valid", "Shares valid", "Buyer shares summed to 100%"],
-  ["language", "Language", "Language switched to (en / pt), on language_switch"],
+  ["language", "Language switch", "Language switched to (en / pt), on language_switch"],
   ["ui_language", "UI language", "Active in-app language (en / pt) at each page view"],
   ["theme", "Theme", "Theme switched to (light / dark)"],
   ["target", "Outbound target", "Which external link was clicked"],
@@ -159,6 +159,43 @@ async function createDefinition(token, property, resource, body) {
   return data;
 }
 
+/** Update an existing definition's display name (resourceName is the full `properties/…/…/id`). */
+async function renameDefinition(token, resourceName, displayName) {
+  const res = await fetch(`${ADMIN}/${resourceName}?updateMask=displayName`, {
+    method: "PATCH",
+    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ displayName }),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) fail(`renaming ${resourceName} failed: ${data.error?.message ?? res.status}`);
+}
+
+/**
+ * Bring a resource's definitions in line with the canonical list: create the missing ones and
+ * rename any whose display name has drifted, leaving the rest untouched. `existing` maps parameter
+ * name → the live definition object.
+ */
+async function reconcile(token, property, resource, label, defs, existing, dryRun) {
+  const stats = { created: 0, renamed: 0, unchanged: 0 };
+  for (const def of defs) {
+    const cur = existing.get(def.parameterName);
+    if (!cur) {
+      if (!dryRun) await createDefinition(token, property, resource, def);
+      console.log(`  + ${label} ${def.parameterName} (${dryRun ? "would create" : "created"})`);
+      stats.created++;
+    } else if (cur.displayName !== def.displayName) {
+      if (!dryRun) await renameDefinition(token, cur.name, def.displayName);
+      const how = dryRun ? "would rename" : "renamed";
+      console.log(`  ~ ${label} ${def.parameterName} (${how}: "${cur.displayName}" → "${def.displayName}")`);
+      stats.renamed++;
+    } else {
+      console.log(`  = ${label} ${def.parameterName} (unchanged)`);
+      stats.unchanged++;
+    }
+  }
+  return stats;
+}
+
 async function main() {
   assertValidNames();
   const args = parseArgs(process.argv.slice(2));
@@ -179,56 +216,34 @@ async function main() {
     : "https://www.googleapis.com/auth/analytics.edit";
   const token = await getAccessToken(key, scope);
 
-  const existingDims = new Set((await listAll(token, property, "customDimensions")).map((d) => d.parameterName));
-  const existingMetrics = new Set((await listAll(token, property, "customMetrics")).map((m) => m.parameterName));
+  const dims = DIMENSIONS.map(([parameterName, displayName, description]) => ({
+    parameterName,
+    displayName,
+    description,
+    scope: "EVENT",
+  }));
+  const metrics = METRICS.map(([parameterName, displayName, measurementUnit, description]) => ({
+    parameterName,
+    displayName,
+    description,
+    measurementUnit,
+    scope: "EVENT",
+  }));
+
+  const existingDims = new Map((await listAll(token, property, "customDimensions")).map((d) => [d.parameterName, d]));
+  const existingMetrics = new Map((await listAll(token, property, "customMetrics")).map((m) => [m.parameterName, m]));
 
   console.log(`Property ${property}${dryRun ? "  (dry run — nothing will be written)" : ""}`);
-  let created = 0;
-  let skipped = 0;
+  const d = await reconcile(token, property, "customDimensions", "dimension", dims, existingDims, dryRun);
+  const m = await reconcile(token, property, "customMetrics", "metric", metrics, existingMetrics, dryRun);
 
-  for (const [parameterName, displayName, description] of DIMENSIONS) {
-    if (existingDims.has(parameterName)) {
-      console.log(`  = dimension ${parameterName} (exists)`);
-      skipped++;
-      continue;
-    }
-    if (dryRun) {
-      console.log(`  + dimension ${parameterName} (would create)`);
-    } else {
-      await createDefinition(token, property, "customDimensions", {
-        parameterName,
-        displayName,
-        description,
-        scope: "EVENT",
-      });
-      console.log(`  + dimension ${parameterName} (created)`);
-    }
-    created++;
-  }
-
-  for (const [parameterName, displayName, measurementUnit, description] of METRICS) {
-    if (existingMetrics.has(parameterName)) {
-      console.log(`  = metric ${parameterName} (exists)`);
-      skipped++;
-      continue;
-    }
-    if (dryRun) {
-      console.log(`  + metric ${parameterName} (would create)`);
-    } else {
-      await createDefinition(token, property, "customMetrics", {
-        parameterName,
-        displayName,
-        description,
-        measurementUnit,
-        scope: "EVENT",
-      });
-      console.log(`  + metric ${parameterName} (created)`);
-    }
-    created++;
-  }
-
-  const verb = dryRun ? "to create" : "created";
-  console.log(`\n✓ ${created} ${verb}, ${skipped} already present.`);
+  const created = d.created + m.created;
+  const renamed = d.renamed + m.renamed;
+  const unchanged = d.unchanged + m.unchanged;
+  console.log(
+    `\n✓ ${created} ${dryRun ? "to create" : "created"}, ` +
+      `${renamed} ${dryRun ? "to rename" : "renamed"}, ${unchanged} unchanged.`,
+  );
 }
 
 main().catch((e) => fail(e.message));
