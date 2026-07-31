@@ -4,9 +4,10 @@ The technical SEO is done (see `docs/seo.md`): the site is crawlable, prerendere
 hreflang, and rich-result-annotated. **Content is now the lever.** This plan maps target queries to
 pages and specifies a first batch of guide articles. **PT-first** — Portugal is the primary market.
 
-> Status: **draft for sign-off.** Nothing here is written yet. Approve the architecture + the first
-> batch (or edit the topics), and I'll produce the articles in atomic commits with adversarial +
-> native-pt-PT review, exactly like the engine/i18n work.
+> Status: **first batch shipped.** The guides section (localized slugs, JSON-LD, prefilled-CTA
+> worked examples) and the three articles below are live, adversarial- and native-pt-PT-reviewed.
+> Remaining: the backlog articles and glossary expansion. The localized-slug decision was taken
+> (localized — see below).
 
 ## Principles
 
@@ -54,20 +55,18 @@ Once Search Console has data, feed real discovered queries back into this map (M
 - **Internal linking:** add a "Guides" nav entry; each guide links to the calculator (deep-linked
   where useful) and to 1–2 sibling guides; how-it-works/glossary link out to relevant guides.
 
-### ❓ One decision needed: localized slugs
+### ✅ Decision taken: localized slugs
 
 PT ranks better with **localized slugs** (`/pt/guias/imt-nao-residentes-2026/`) than with English
-slugs under `/pt/` (`/pt/guides/imt-non-residents-2026/`). The current path helpers assume the same
-slug in both languages (prefix-only). Localized slugs need a small **per-page slug map** keyed by
-language, threaded through `localizedPath`/`barePath`/hreflang + the sitemap.
+slugs under `/pt/`, so we went with localized slugs throughout — guides **and** the core pages
+(`/pt/glossario`, `/pt/como-funciona`). The EN↔PT pairing is resolved through the guide registry
+(`content/guides/registry.ts`) and the page-slug registry (`src/i18n/pages.ts`), threaded through
+`localizedPath`/`barePath`, hreflang/canonical, and the sitemap.
 
-- **Recommended:** localized slugs (`/guides/…` EN, `/pt/guias/…` PT) — better PT SEO, ~half a day
-  to extend the mapping once, then free per article.
-- **Simpler:** shared English slugs under `/pt/guides/…` — no mapping change, weaker PT signal.
+## First batch (3 articles) — ✅ shipped
 
-## First batch (3 articles) — proposed specs
-
-Ordered by impact ÷ effort. Each is bilingual; PT shown, EN mirrors.
+All three are live (bilingual, localized slugs, Article/FAQ/Breadcrumb JSON-LD, prefilled-CTA worked
+examples). Specs kept for reference; PT shown, EN mirrors.
 
 ### 1. IMT para não residentes em 2026 (`imt-nao-residentes-2026`)
 - **Primary:** `IMT não residentes`. **Intent:** informational, high-worry, we have authority.

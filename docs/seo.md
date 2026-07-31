@@ -71,9 +71,10 @@ Without these, the rest barely matters.
 
 ### Per-language URLs & hreflang 🔑
 
-- ✅ **Give each language its own URL** — EN at `/`, PT under `/pt/…`; six prerendered pages.
-  Language is driven by the route (RootLayout passes `lang`), not client state, so each URL's HTML
-  is deterministic and hydrates without a flash.
+- ✅ **Give each language its own URL** — EN at `/`, PT under `/pt/…`, with **localized slugs**
+  (`/pt/glossario`, `/pt/como-funciona`, `/pt/guias/<slug>`). Language is driven by the route
+  (RootLayout passes `lang`), not client state, so each URL's HTML is deterministic and hydrates
+  without a flash.
 - ✅ **`hreflang` alternates** — `en`/`pt`/`x-default` in each page's `<head>` (build-time) and in
   the sitemap (`xhtml:link`), reciprocal and self-referential. Verified in `dist`.
 - ✅ **Localized `<html lang>`, title, description** per prerendered page (PT pages ship PT
@@ -110,8 +111,8 @@ Without these, the rest barely matters.
 Tooling gets pages *indexed*; **content gets them ranked.** This is where sustained organic traffic
 comes from. Bias toward Portuguese — it's the primary market. **Planned in `docs/content-plan.md`.**
 
-- ⏳ **Keyword research & mapping** — target-query list, one primary intent per page. See
-  `docs/content-plan.md`. Seed terms:
+- ✅ **Keyword research & mapping** — target-query list with one primary intent per page, in
+  `docs/content-plan.md`. Refine from real Search Console queries as they arrive. Seed terms:
   - PT: `simulador IMT`, `calcular IMT 2026`, `IMT não residentes`, `IMT jovem`, `imposto do selo
     compra casa`, `IMT Açores`, `IMT Madeira`, `tabelas IMT 2026`, `quanto pago de IMT`.
   - EN: `Portugal IMT calculator`, `Portugal property transfer tax`, `IMT non-resident Portugal
@@ -120,13 +121,14 @@ comes from. Bias toward Portuguese — it's the primary market. **Planned in `do
 - ✅ **Optimize the home page** — added a keyword-led `<h1>` ("Portugal IMT & Stamp-Duty
   Calculator — 2026") and an intro paragraph (both localized). Glossary and how-it-works already
   have `<h1>` + intros.
+- ✅ **Guides section shipped (first batch)** — a `/guides` (PT `/pt/guias`) section with localized
+  slugs and three bilingual articles: IMT for non-residents, IMT Jovem, and the 2026 rate tables.
+  Each has Article + FAQ + Breadcrumb JSON-LD and a calculator CTA. **More articles are the ongoing
+  lever** (see the backlog in `docs/content-plan.md`): IMT vs IMI vs stamp duty, Açores/Madeira, etc.
+- ✅ **Worked examples** — embedded in the guides (e.g. the €400k non-resident and IMT Jovem cases)
+  and deep-linked: each guide's CTA pre-fills that scenario into the calculator via a `?c=` token.
 - ⏳ **Expand the glossary** into a genuinely useful, interlinked reference (each term crawlable);
-  consider per-term anchors/sections. Part of the content plan.
-- ⏳ **Add guide/article pages** for high-intent long-tail queries ("IMT for non-residents in 2026",
-  "IMT Jovem: who qualifies", "IMT vs IMI vs stamp duty", "Buying in the Azores/Madeira: the ×1.25
-  tables"). Each needs real bilingual copy + a link into the calculator. **The main remaining
-  organic lever;** batched in the content plan.
-- ⏳ **Worked examples** (e.g. the €400k two-buyer case) as indexable content. Part of the content plan.
+  consider per-term anchors and cross-links from the guides. Part of the content plan.
 - ✅ **Internal linking** — header nav links all pages in the current language; footer links to
   how-it-works. (Contextual in-body links will come with the guide pages.)
 - ✅ **Freshness** — the "2026" framing is in titles, the `<h1>`, and content. Yearly refresh is a
@@ -183,7 +185,9 @@ Rankings for a YMYL query need trust signals and links; this is slow but decisiv
    meta → Open Graph/Twitter + OG image → JSON-LD (WebApplication + FAQPage + Organization/WebSite).
    ✅ **Done.**
 3. **Phase 3 (rank & grow):** keyword mapping → optimize existing pages → add guides/worked examples
-   → internal linking. ⏳ **In progress — see `docs/content-plan.md`.**
+   → internal linking. ⏳ **In progress:** the guides section + first three articles have shipped
+   (with prefilled-CTA worked examples and localized slugs); remaining = more guide articles +
+   glossary expansion. See `docs/content-plan.md`.
 4. **Phase 4 (authority):** backlinks, community presence, directories. 📋 **Later, ongoing.**
 
 ## Resolved decisions
