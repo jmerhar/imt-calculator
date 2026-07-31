@@ -110,5 +110,8 @@ export const pt: Dict = {
       "Calcule o IMT (imposto municipal sobre transmissões) e o imposto do selo na compra de um imóvel em Portugal em 2026 — com a taxa de 7,5% para não residentes, o IMT Jovem, vários compradores e as tabelas dos Açores e da Madeira. Tudo é calculado no seu navegador.",
     glossaryIntro: "Termos essenciais do IMT e do imposto do selo, apresentados em inglês e português.",
     howtoIntro: "O que esta ferramenta calcula, as regras que aplica e a origem dos valores.",
+    notFoundTitle: "Página não encontrada",
+    notFoundBody: "Essa página não existe — pode ter mudado de sítio ou a ligação estar errada.",
+    notFoundHome: "Ir para a calculadora",
   },
 };

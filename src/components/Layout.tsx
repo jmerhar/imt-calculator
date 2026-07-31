@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useI18n, fmt } from "@/i18n";
 import type { Lang } from "@/i18n";
-import { localizedPath, switchLangPath } from "@/i18n/paths";
+import { LANG_STORAGE_KEY, localizedPath, switchLangPath } from "@/i18n/paths";
 import { useTheme } from "@/theme/theme";
 import { LATEST_YEAR } from "@/engine/tables";
 import { track } from "@/analytics";
@@ -56,8 +56,10 @@ export function Layout({ children }: { children: ReactNode }) {
                 aria-pressed={lang === l}
                 onClick={() => {
                   if (l === lang) return;
-                  // Language is a route: navigate to the same page in the other language, keeping
-                  // the ?c= state token (written via replaceState, so read from the live URL).
+                  // A deliberate choice: remember it so the load-time redirect honours it and never
+                  // overrides the user. Then navigate to the same page in the other language,
+                  // keeping the ?c= state token (written via replaceState, so read from the live URL).
+                  if (typeof localStorage !== "undefined") localStorage.setItem(LANG_STORAGE_KEY, l);
                   track("language_switch", { language: l });
                   const search = typeof window !== "undefined" ? window.location.search : "";
                   navigate(switchLangPath(pathname, l) + search);

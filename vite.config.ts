@@ -22,6 +22,14 @@ function injectSeo(route: string, html: string): string {
   // vite-react-ssg passes routes without a leading slash ("glossary", "pt/glossary"); normalize.
   const clean = route.replace(/^\/+|\/+$/g, "");
   const key = clean ? `/${clean}` : "/";
+
+  // The 404 page must not be indexed or canonicalized; just set a title + robots noindex.
+  if (key === "/404") {
+    return html
+      .replace(/<title>[\s\S]*?<\/title>/, `<title>Page not found · IMT Calculator</title>`)
+      .replace("</head>", `<meta name="robots" content="noindex" /></head>`);
+  }
+
   const meta = SEO_PAGES[key] ?? SEO_PAGES["/"];
   const lang: "en" | "pt" = /^\/pt(\/|$)/.test(key) ? "pt" : "en";
   const bare = key.replace(/^\/pt(?=\/|$)/, "") || "/";

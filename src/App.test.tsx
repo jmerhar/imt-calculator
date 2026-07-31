@@ -6,8 +6,14 @@ import { routes } from "@/routes";
 import { en } from "@/i18n/en";
 import { pt } from "@/i18n/pt";
 import { glossary } from "@/content/glossary";
+import { LANG_STORAGE_KEY } from "@/i18n/paths";
 import { encodeToken } from "@/state/url";
 import { defaultInput } from "@/state/defaults";
+
+/** Force the browser language for the redirect tests (jsdom defaults to en-US). */
+function setBrowserLang(value: string) {
+  Object.defineProperty(navigator, "language", { value, configurable: true });
+}
 
 beforeEach(() => {
   window.history.replaceState(null, "", "/");
@@ -118,6 +124,31 @@ describe("App", () => {
     expect(document.documentElement.lang).toBe("pt");
   });
 
+  it("shows a not-found page for an unknown path, not the calculator", () => {
+    renderApp("/does-not-exist");
+    expect(screen.getByText(en.pages.notFoundTitle)).toBeInTheDocument();
+    expect(screen.queryByText(en.form.heading)).not.toBeInTheDocument();
+  });
+
+  it("redirects a Portuguese-preferring visitor from / to /pt", async () => {
+    setBrowserLang("pt-PT");
+    renderApp("/");
+    expect(await screen.findByText(pt.pages.calculatorH1)).toBeInTheDocument();
+  });
+
+  it("does NOT redirect when the visitor explicitly chose English", () => {
+    setBrowserLang("pt-PT");
+    localStorage.setItem(LANG_STORAGE_KEY, "en"); // a deliberate choice must win over the browser
+    renderApp("/");
+    expect(screen.getByText(en.pages.calculatorH1)).toBeInTheDocument();
+    localStorage.removeItem(LANG_STORAGE_KEY);
+  });
+
+  it("does not redirect an English-preferring visitor", () => {
+    renderApp("/");
+    expect(screen.getByText(en.pages.calculatorH1)).toBeInTheDocument();
+  });
+
   it("sets a localized document title per route", async () => {
     const user = userEvent.setup();
     renderApp();
@@ -221,4 +252,5 @@ describe("App", () => {
 
 afterEach(() => {
   delete window.gtag;
+  setBrowserLang("en-US"); // reset so language-redirect state doesn't leak between tests
 });

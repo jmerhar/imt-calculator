@@ -111,5 +111,8 @@ export const en = {
       "Work out the IMT (property-transfer tax) and stamp duty on a Portuguese property purchase in 2026 — with the 7.5% non-resident rate, IMT Jovem relief, multiple buyers, and the Açores and Madeira tables. Everything is calculated in your browser.",
     glossaryIntro: "Key IMT and stamp-duty terms, shown in both English and Portuguese.",
     howtoIntro: "What this tool computes, the rules it applies, and where the numbers come from.",
+    notFoundTitle: "Page not found",
+    notFoundBody: "That page doesn't exist — it may have moved, or the link may be wrong.",
+    notFoundHome: "Go to the calculator",
   },
 } satisfies Record<string, Record<string, string>>;
