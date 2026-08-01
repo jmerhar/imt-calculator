@@ -97,15 +97,28 @@ examples). Specs kept for reference; PT shown, EN mirrors.
 - **Schema:** Article + BreadcrumbList. (Tables as semantic `<table>` — also good for featured
   snippets.) **CTA:** to the calculator.
 
-**Next batch (backlog):** IMT vs IMI vs imposto do selo · Comprar nos Açores/Madeira (×1.25) ·
-worked example: two-buyer €400k (former-resident + non-resident) as a standalone indexable page.
+## Second batch — ✅ shipped
+
+- ✅ **IMT vs IMI vs imposto do selo** (`imt-imi-stamp-duty` / `imt-imi-imposto-do-selo`) — clarifies
+  the one-off purchase taxes (IMT + stamp duty, which the calculator computes) vs the annual IMI.
+- ✅ **Comprar nos Açores/Madeira** (`imt-azores-madeira` / `imt-acores-madeira`) — the ×1.25 tables,
+  a verified €400k Table IV example, and the higher IMT Jovem ceiling. CTA prefills an Azores case.
+
+**Backlog (not yet written):**
+- 📋 **Worked example: two-buyer €400k** (former-resident + non-resident, → €27,850.06) as a
+  standalone indexable page — strong for long-tail "quanto pago" queries. (Worked examples are
+  already embedded in the guides + prefilled CTAs; this would be a dedicated example page.)
+- 📋 Further long-tail topics as Search Console reveals real queries (e.g. IMT Jovem eligibility
+  edge cases, VPT vs price, mortgage stamp-duty terms).
 
 ## Glossary & worked examples
 
-- **Glossary expansion** — add per-term anchors (`/glossary#vpt`) and cross-link terms into the
-  guides; ensure each term is a crawlable, self-contained definition. Low effort, compounding.
-- **Worked examples** — turn the locked test cases (e.g. the €400k two-buyer → €27,850.06) into an
-  indexable example page; strong for long-tail "quanto pago" queries and links back to the calculator.
+- ✅ **Glossary expansion** — added six terms (IMI, AIMI, tax base, co-ownership, CPCV, tax resident)
+  and per-term `id` anchors so pages can deep-link (`/glossary#imi`). Optional: contextual in-body
+  links from guide prose into the glossary.
+- ✅ **Worked examples in guides** — the €400k non-resident, IMT Jovem, and Açores cases live inside
+  the guides and are deep-linked via prefilled `?c=` CTAs. 📋 A *standalone* worked-example page
+  (the two-buyer €27,850.06 case) is still open (see backlog above).
 
 ## Cadence & guardrails
 
