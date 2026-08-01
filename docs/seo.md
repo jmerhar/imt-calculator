@@ -105,7 +105,10 @@ Without these, the rest barely matters.
 - ✅ **`BreadcrumbList`** on glossary + how-it-works.
 - ✅ **`Organization` + `WebSite`** on the home page (both languages), linked by a stable `@id`.
   ➖ **SearchAction omitted** — no on-site search to point it at.
-- ⏳ ⚠️ **YOUR TASK — validate** with Google Rich Results Test once live (needs the public URL).
+- ✅ **Validated with the Google Rich Results Test** — Article, BreadcrumbList, and the guides-index
+  ItemList (Carousel) all report valid / eligible. The non-critical Article warnings were fixed:
+  added `image`, ISO datetimes with a time zone (`…T00:00:00Z`), and a full Organization publisher
+  with a logo (so the reference resolves on the article page).
 
 ## P1/P2 — Content & keyword strategy (the biggest organic lever, long-term)
 
@@ -202,7 +205,7 @@ Rankings for a YMYL query need trust signals and links; this is slow but decisiv
 - **Content appetite:** willing to invest in ongoing content (guides) — hence Phase 3.
 - **Theme:** respects the OS `prefers-color-scheme` (no forced default).
 
-## Open decisions (❓)
+## Open decisions
 
-- Whether to add an about/contact surface (would enable a consistent NAP / `Organization` contact
-  point and a small trust boost).
+- 📋 **About/contact surface** — deferred (not now, possibly later). Would enable an `Organization`
+  contact point / consistent NAP and a small trust boost; no plan to add it yet.
