@@ -3,8 +3,9 @@ import type { YearData } from "@/engine/types";
 // pre-bundles vite.config.ts with esbuild, which does not apply the "@" alias.
 import { data2026 } from "./2026";
 
-// Registry of tax-year data. To support 2027, run `make fetch-tables YEAR=2027` (which writes
-// `2027.ts` from the AT source) and add it here — the year selector picks it up automatically.
+// Registry of tax-year data; the newest registered year is LATEST_YEAR, which the whole UI tracks.
+// To add a year, run `make bump-year YEAR=…` — it fetches the AT tables, adds the entry here, and
+// recomputes the guide figures (see docs/year-rollover.md). The year selector picks it up here.
 const YEARS: Record<number, YearData> = {
   2026: data2026,
 };

@@ -1,4 +1,4 @@
-.PHONY: help install dev preview lint test coverage check build clean fetch-tables precompute-guides ga-setup og-image icons psi
+.PHONY: help install dev preview lint test coverage check build clean fetch-tables precompute-guides bump-year ga-setup og-image icons psi
 
 help: ## Show available commands
 	@grep -E '^[a-zA-Z_-]+:.*##|^##@' $(MAKEFILE_LIST) | \
@@ -46,6 +46,10 @@ fetch-tables: ## Fetch AT IMT tables for a year and regenerate the .ts (usage: m
 
 precompute-guides: ## Recompute the guides' worked-example figures from the engine into computed.ts
 	node bin/precompute-guides.mjs
+
+bump-year: ## Roll over to a new tax year: fetch + register tables, recompute figures, regen OG, check (usage: make bump-year YEAR=2027)
+	@test -n "$(YEAR)" || { echo "Usage: make bump-year YEAR=2027"; exit 1; }
+	node bin/bump-year.mjs $(YEAR)
 
 ##@ Analytics
 

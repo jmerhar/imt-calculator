@@ -8,6 +8,8 @@ import { GUIDE_META } from "@/content/guides/registry";
 import { GUIDE_BODIES } from "@/content/guides";
 import { guidePath, guidesIndexPath, guideFromPath, switchLangPath } from "@/i18n/paths";
 import { decodeToken } from "@/state/url";
+import { getYearData, LATEST_YEAR } from "@/engine/tables";
+import { formatAmount } from "@/format";
 
 function RoutedApp() {
   return useRoutes(routes as RouteObject[]);
@@ -87,11 +89,13 @@ describe("guides — pages", () => {
     expect(container.textContent).not.toMatch(/\{\w+\}/);
   });
 
-  it("renders the six 2026 rate tables in the tables guide", () => {
+  it("renders the six rate tables in the tables guide from live engine data", () => {
     renderApp("/guides/imt-tables");
     expect(screen.getAllByRole("table")).toHaveLength(6);
-    // A known Table I threshold, locale-formatted, proves the live engine data is rendered.
-    expect(screen.getAllByText("106,346").length).toBeGreaterThan(0);
+    // A Table I threshold for the latest year, locale-formatted, proves the live engine data is
+    // rendered — derived from the engine so it stays valid after a year bump.
+    const threshold = formatAmount(getYearData(LATEST_YEAR)!.tables.I[1].lower, "en", 0);
+    expect(screen.getAllByText(threshold).length).toBeGreaterThan(0);
   });
 
   it("renders the Portuguese article at its localized slug", () => {
