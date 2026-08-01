@@ -2,6 +2,69 @@
 
 > Converted to Markdown from [`sources/Decreto-Lei-97-2026.txt`](sources/Decreto-Lei-97-2026.txt) for readability. The file in `sources/` is the authoritative original.
 
+## Índice
+
+- [Preâmbulo](#preâmbulo)
+- [CAPÍTULO I — DISPOSIÇÕES GERAIS](#capítulo-i--disposições-gerais)
+  - [Artigo 1.º — Objeto](#artigo-1º--objeto)
+  - [Artigo 2.º — Âmbito de aplicação](#artigo-2º--âmbito-de-aplicação)
+  - [Artigo 3.º — Determinação dos valores de aquisição ou de renda mensal](#artigo-3º--determinação-dos-valores-de-aquisição-ou-de-renda-mensal)
+- [CAPÍTULO II — ALTERAÇÕES LEGISLATIVAS](#capítulo-ii--alterações-legislativas)
+  - [Artigo 4.º — Alteração ao Código do Imposto sobre o Valor Acrescentado](#artigo-4º--alteração-ao-código-do-imposto-sobre-o-valor-acrescentado)
+  - [Artigo 5.º — Alteração ao Código do Imposto sobre o Rendimento das Pessoas Singulares](#artigo-5º--alteração-ao-código-do-imposto-sobre-o-rendimento-das-pessoas-singulares)
+  - [Artigo 6.º — Alteração ao Código do Imposto Municipal sobre as Transmissões Onerosas de Imóveis](#artigo-6º--alteração-ao-código-do-imposto-municipal-sobre-as-transmissões-onerosas-de-imóveis)
+  - [Artigo 7.º — Alteração ao Estatuto dos Benefícios Fiscais](#artigo-7º--alteração-ao-estatuto-dos-benefícios-fiscais)
+  - [Artigo 8.º — Aditamento à lista I anexa ao Código do Imposto sobre o Valor Acrescentado](#artigo-8º--aditamento-à-lista-i-anexa-ao-código-do-imposto-sobre-o-valor-acrescentado)
+  - [Artigo 9.º — Aditamento ao Estatuto dos Benefícios Fiscais](#artigo-9º--aditamento-ao-estatuto-dos-benefícios-fiscais)
+- [CAPÍTULO III — DISPOSIÇÕES COMPLEMENTARES](#capítulo-iii--disposições-complementares)
+  - [Artigo 10.º — Regime aplicável à verba 2.42.1 da lista I anexa ao Código do Imposto sobre o Valor Acrescentado](#artigo-10º--regime-aplicável-à-verba-2421-da-lista-i-anexa-ao-código-do-imposto-sobre-o-valor-acrescentado)
+  - [Artigo 11.º — Regularização do imposto a favor do Estado](#artigo-11º--regularização-do-imposto-a-favor-do-estado)
+  - [Artigo 12.º — Monitorização e avaliação](#artigo-12º--monitorização-e-avaliação)
+  - [Artigo 13.º — Plataformas eletrónicas e interoperabilidade](#artigo-13º--plataformas-eletrónicas-e-interoperabilidade)
+- [CAPÍTULO IV — DISPOSIÇÕES FINAIS E TRANSITÓRIAS](#capítulo-iv--disposições-finais-e-transitórias)
+  - [Artigo 14.º — Referências legais](#artigo-14º--referências-legais)
+  - [Artigo 15.º — Norma transitória](#artigo-15º--norma-transitória)
+  - [Artigo 16.º — Regulamentação](#artigo-16º--regulamentação)
+  - [Artigo 17.º — Norma revogatória](#artigo-17º--norma-revogatória)
+  - [Artigo 18.º — Produção de efeitos](#artigo-18º--produção-de-efeitos)
+- [ANEXO I — Contratos de investimento para arrendamento habitacional](#anexo-i--contratos-de-investimento-para-arrendamento-habitacional)
+    - [Artigo 1.º — Forma, conteúdo e procedimento](#artigo-1º--forma-conteúdo-e-procedimento)
+    - [Artigo 2.º — Condições de elegibilidade](#artigo-2º--condições-de-elegibilidade)
+    - [Artigo 3.º — Benefícios fiscais](#artigo-3º--benefícios-fiscais)
+    - [Artigo 4.º — Afetação a arrendamento](#artigo-4º--afetação-a-arrendamento)
+    - [Artigo 5.º — Reequilíbrio económico-financeiro](#artigo-5º--reequilíbrio-económico-financeiro)
+    - [Artigo 6.º — Resolução](#artigo-6º--resolução)
+    - [Artigo 7.º — Efeitos da resolução](#artigo-7º--efeitos-da-resolução)
+    - [Artigo 8.º — Transmissão](#artigo-8º--transmissão)
+    - [Artigo 9.º — Registo predial](#artigo-9º--registo-predial)
+    - [Artigo 10.º — Fiscalização e acompanhamento](#artigo-10º--fiscalização-e-acompanhamento)
+- [ANEXO II — Regime de restituição parcial do montante equivalente ao imposto sobre o valor acrescentado suportado por pessoas singulares em empreitadas de construção de imóveis para habitação própria e permanente](#anexo-ii--regime-de-restituição-parcial-do-montante-equivalente-ao-imposto-sobre-o-valor-acrescentado-suportado-por-pessoas-singulares-em-empreitadas-de-construção-de-imóveis-para-habitação-própria-e-permanente)
+  - [CAPÍTULO I — DISPOSIÇÕES GERAIS](#capítulo-i--disposições-gerais-1)
+    - [Artigo 1.º — Objeto](#artigo-1º--objeto-1)
+    - [Artigo 2.º — Âmbito subjetivo e objetivo](#artigo-2º--âmbito-subjetivo-e-objetivo)
+  - [CAPÍTULO II — DESPESAS ELEGÍVEIS](#capítulo-ii--despesas-elegíveis)
+    - [Artigo 3.º — Despesas elegíveis para restituição](#artigo-3º--despesas-elegíveis-para-restituição)
+  - [CAPÍTULO III — PROCEDIMENTO](#capítulo-iii--procedimento)
+    - [Artigo 4.º — Apresentação do pedido](#artigo-4º--apresentação-do-pedido)
+    - [Artigo 5.º — Prazo de restituição](#artigo-5º--prazo-de-restituição)
+  - [CAPÍTULO IV — PAGAMENTO E SALVAGUARDAS](#capítulo-iv--pagamento-e-salvaguardas)
+    - [Artigo 6.º — Montante e forma de restituição](#artigo-6º--montante-e-forma-de-restituição)
+    - [Artigo 7.º — Reposição](#artigo-7º--reposição)
+  - [CAPÍTULO V — DISPOSIÇÕES FINAIS](#capítulo-v--disposições-finais)
+    - [Artigo 8.º — Regime subsidiário](#artigo-8º--regime-subsidiário)
+- [ANEXO III — Regime simplificado de arrendamento acessível](#anexo-iii--regime-simplificado-de-arrendamento-acessível)
+    - [Artigo 1.º — Objeto](#artigo-1º--objeto-2)
+    - [Artigo 2.º — Âmbito](#artigo-2º--âmbito)
+    - [Artigo 3.º — Finalidade e objeto do contrato](#artigo-3º--finalidade-e-objeto-do-contrato)
+    - [Artigo 4.º — Limite máximo de renda mensal](#artigo-4º--limite-máximo-de-renda-mensal)
+    - [Artigo 5.º — Prazo contratual](#artigo-5º--prazo-contratual)
+    - [Artigo 6.º — Regime fiscal](#artigo-6º--regime-fiscal)
+    - [Artigo 7.º — Incumprimento](#artigo-7º--incumprimento)
+    - [Artigo 8.º — Programas municipais de arrendamento acessível](#artigo-8º--programas-municipais-de-arrendamento-acessível)
+    - [Artigo 9.º — Arrendamento acessível público](#artigo-9º--arrendamento-acessível-público)
+
+## Preâmbulo
+
 Decreto-Lei n.º 97/2026
 de 20 de maio
 O XXV Governo Constitucional assume a habitação como uma prioridade que carece de uma abordagem integrada de modo a dar resposta à realidade nacional no que respeita às adversidades no acesso à primeira habitação própria e permanente (HPP), marcada por elevados custos na construção, reabilitação, aquisição, bem como no acesso ao arrendamento, marcado pela falta de oferta a custos controlados.
@@ -28,13 +91,9 @@ Assim:
 
 No uso da autorização legislativa concedida pelo artigo 1.º da Lei n.º 9-A/2026, de 6 de março, e nos termos das alíneas a) e b) do n.º 1 do artigo 198.º da Constituição, o Governo decreta o seguinte:
 
-CAPÍTULO I
+## CAPÍTULO I — DISPOSIÇÕES GERAIS
 
-DISPOSIÇÕES GERAIS
-
-Artigo 1.º
-
-Objeto
+### Artigo 1.º — Objeto
 
 1 - O presente decreto-lei aprova medidas de incentivo à habitação e ao arrendamento ou subarrendamento habitacional.
 
@@ -58,9 +117,7 @@ c) Alteração ao Estatuto dos Benefícios Fiscais (EBF), aprovado em anexo ao D
 
 4 - O presente decreto-lei procede, ainda, à alteração das taxas de Imposto Municipal sobre as Transmissões Onerosas de Imóveis (IMT) aplicáveis a não residentes, bem como ao alargamento do prazo para pagamento daquele imposto, alterando o Código do IMT, aprovado em anexo ao Decreto-Lei n.º 287/2003, de 12 de novembro.
 
-Artigo 2.º
-
-Âmbito de aplicação
+### Artigo 2.º — Âmbito de aplicação
 
 1 - As medidas aprovadas pelo presente decreto-lei aplicam-se:
 
@@ -80,9 +137,7 @@ b) No caso do preço moderado de venda, o limite superior do 2.º escalão a que
 
 4 - As medidas previstas no presente decreto-lei não prejudicam a opção pela aplicação do regime mais favorável.
 
-Artigo 3.º
-
-Determinação dos valores de aquisição ou de renda mensal
+### Artigo 3.º — Determinação dos valores de aquisição ou de renda mensal
 
 1 - Para efeitos do n.º 2 do artigo anterior, considera-se como valor de aquisição ou de renda mensal, a totalidade do valor pago pelo prédio urbano, prédio misto ou fração autónoma no âmbito da transação ou do contrato de arrendamento, acrescido do valor correspondente aos bens móveis, equipamentos ou partes acessórias que, pela sua natureza, fiquem ligados materialmente ao imóvel com carácter de permanência, bem como dos serviços que contribuam para a sua valorização, ainda que, em qualquer caso, sejam objeto de negócios jurídicos distintos.
 
@@ -90,13 +145,9 @@ Determinação dos valores de aquisição ou de renda mensal
 
 3 - No caso de arrendamento, para os efeitos previstos no n.º 1, considera-se o valor anual, dividido pelo número de meses decorridos em cada ano.
 
-CAPÍTULO II
+## CAPÍTULO II — ALTERAÇÕES LEGISLATIVAS
 
-ALTERAÇÕES LEGISLATIVAS
-
-Artigo 4.º
-
-Alteração ao Código do Imposto sobre o Valor Acrescentado
+### Artigo 4.º — Alteração ao Código do Imposto sobre o Valor Acrescentado
 
 Os artigos 2.º e 27.º do Código do IVA passam a ter a seguinte redação:
 
@@ -164,9 +215,7 @@ Artigo 27.º
 
 10 - [...]»
 
-Artigo 5.º
-
-Alteração ao Código do Imposto sobre o Rendimento das Pessoas Singulares
+### Artigo 5.º — Alteração ao Código do Imposto sobre o Rendimento das Pessoas Singulares
 
 Os artigos 10.º, 43.º, 78.º-E e 101.º do Código do IRS passam a ter a seguinte redação:
 
@@ -360,9 +409,7 @@ f) 10 %, tratando-se de rendimentos da categoria F abrangidos pelo n.º 1 do art
 
 13 - [...]»
 
-Artigo 6.º
-
-Alteração ao Código do Imposto Municipal sobre as Transmissões Onerosas de Imóveis
+### Artigo 6.º — Alteração ao Código do Imposto Municipal sobre as Transmissões Onerosas de Imóveis
 
 Os artigos 17.º e 36.º do Código do IMT passam a ter a seguinte redação:
 
@@ -426,9 +473,7 @@ Artigo 36.º
 
 11 - [...]»
 
-Artigo 7.º
-
-Alteração ao Estatuto dos Benefícios Fiscais
+### Artigo 7.º — Alteração ao Estatuto dos Benefícios Fiscais
 
 O artigo 24.º-A do EBF passa a ter a seguinte redação:
 
@@ -450,15 +495,19 @@ a) Os rendimentos auferidos por participantes ou acionistas decorrentes de unida
 
 b) O montante dos restantes rendimentos auferidos por participantes ou acionistas decorrentes de unidades de participação ou participações sociais, por distribuição ou mediante operação de resgate ou liquidação, é, para efeitos de IRS ou de IRC, igual à diferença entre o montante obtido e o montante correspondente à percentagem de exclusão a considerar de acordo com a tabela seguinte:
 
-   Ativo elegível  Exclusão de tributação   Mais de 5 % até 10 %  2,5 %   Mais de 10 % até 15 %  5 %   Mais de 15 % até 25 %  7,5 %   Mais de 25 % a 50 %  15 %   Mais de 50 %  30 %   
+| Ativo elegível | Exclusão de tributação |
+| --- | --- |
+| Mais de 5 % até 10 % | 2,5 % |
+| Mais de 10 % até 15 % | 5 % |
+| Mais de 15 % até 25 % | 7,5 % |
+| Mais de 25 % a 50 % | 15 % |
+| Mais de 50 % | 30 % |
 
 3 - [...]
 
 4 - Aos organismos de investimento alternativo que se enquadrem nos dois últimos escalões da tabela prevista na alínea b) do n.º 2 é aplicável uma redução em 25 % da taxa prevista na verba 29.2 da TGIS.»
 
-Artigo 8.º
-
-Aditamento à lista I anexa ao Código do Imposto sobre o Valor Acrescentado
+### Artigo 8.º — Aditamento à lista I anexa ao Código do Imposto sobre o Valor Acrescentado
 
 É aditada a verba 2.42 à lista I anexa ao Código do IVA, com a seguinte redação:
 
@@ -470,9 +519,7 @@ Os termos e as condições para a aplicação desta verba são estabelecidos em 
 
 2.42.2 - Prédios urbanos ou frações autónomas de prédios urbanos para arrendamento habitacional ou arrendamento para subarrendamento habitacional abrangidos pelo regime de contratos de investimento para arrendamento aprovado em anexo ao Decreto-Lei n.º 97/2026, de 20 de maio.»
 
-Artigo 9.º
-
-Aditamento ao Estatuto dos Benefícios Fiscais
+### Artigo 9.º — Aditamento ao Estatuto dos Benefícios Fiscais
 
 São aditados os artigos 45.º-B e 45.º-C ao EBF com a seguinte redação:
 
@@ -506,13 +553,9 @@ Rendimentos prediais no âmbito do arrendamento para habitação
 
 2 - Os rendimentos prediais decorrentes de contratos de arrendamento destinados exclusivamente ao arrendamento para habitação com renda mensal que não exceda os limites a que se referem os n. os 2 e 3 do artigo 2.º do Decreto-Lei n.º 97/2026, de 20 de maio, auferidos até 31 de dezembro de 2029, são considerados apenas em 50 %, quando obtidos por sujeitos passivos de IRC, ou por sujeitos passivos de IRS, com contabilidade organizada, no âmbito da categoria B.»
 
-CAPÍTULO III
+## CAPÍTULO III — DISPOSIÇÕES COMPLEMENTARES
 
-DISPOSIÇÕES COMPLEMENTARES
-
-Artigo 10.º
-
-Regime aplicável à verba 2.42.1 da lista I anexa ao Código do Imposto sobre o Valor Acrescentado
+### Artigo 10.º — Regime aplicável à verba 2.42.1 da lista I anexa ao Código do Imposto sobre o Valor Acrescentado
 
 1 - Podem beneficiar da aplicação da verba 2.42.1 da lista I anexa ao Código do IVA as empreitadas de construção ou reabilitação de imóveis que se destinem à venda para habitação própria e permanente do adquirente ou de imóveis que se destinem exclusivamente ao arrendamento habitacional, desde que:
 
@@ -548,9 +591,7 @@ v) Não seja convencionada a possibilidade de subarrendamento por montante super
 
 7 - A verba 2.42.1 cessa a sua vigência a 31 de dezembro de 2032.
 
-Artigo 11.º
-
-Regularização do imposto a favor do Estado
+### Artigo 11.º — Regularização do imposto a favor do Estado
 
 1 - Sempre que não se verifique, ou deixe de se verificar, qualquer das condições previstas para efeitos de aplicação da taxa reduzida, nos termos da verba 2.42.1 da lista I anexa ao Código do IVA e do artigo anterior, o sujeito passivo deve regularizar o imposto em falta.
 
@@ -562,29 +603,21 @@ b) Através da substituição da declaração a que se refere a alínea c) do n.
 
 3 - Para efeitos dos números anteriores, o prazo previsto no n.º 1 do artigo 94.º do Código do IVA conta-se do termo do prazo legal para o cumprimento daquelas obrigações.
 
-Artigo 12.º
-
-Monitorização e avaliação
+### Artigo 12.º — Monitorização e avaliação
 
 1 - Sem prejuízo das competências próprias da Autoridade Tributária e Aduaneira, o Instituto da Habitação e da Reabilitação Urbana, I. P. (IHRU, I. P.), assegura a monitorização da aplicação do disposto no presente decreto-lei, com a colaboração da Autoridade Tributária e Aduaneira, da Segurança Social, do Instituto dos Registos e Notariado, I. P., e do Instituto Nacional de Estatística, I. P.
 
 2 - A avaliação dos resultados da aplicação do presente decreto-lei é objeto de relatório intercalar a apresentar pelo IHRU, I. P., ao membro do Governo responsável pela área da habitação até 31 de dezembro de 2028, e de relatório final a apresentar do mesmo modo até 31 de dezembro de 2030.
 
-Artigo 13.º
-
-Plataformas eletrónicas e interoperabilidade
+### Artigo 13.º — Plataformas eletrónicas e interoperabilidade
 
 1 - Até 1 de setembro de 2026, são disponibilizadas as adaptações nas plataformas eletrónicas necessárias para aplicação das alterações estabelecidas no presente decreto-lei, designadamente para efeitos de aplicação das disposições relativas ao Regime Especial de Investimento de Arrendamento e ao RSAA.
 
 2 - O IHRU, I. P., a Autoridade Tributária e Aduaneira, a Segurança Social e a Agência para a Reforma Tecnológica do Estado, I. P., devem estabelecer protocolos de interoperabilidade destinados a permitir a disponibilização das informações necessárias à aplicação e fiscalização das medidas previstas no presente decreto-lei.
 
-CAPÍTULO IV
+## CAPÍTULO IV — DISPOSIÇÕES FINAIS E TRANSITÓRIAS
 
-DISPOSIÇÕES FINAIS E TRANSITÓRIAS
-
-Artigo 14.º
-
-Referências legais
+### Artigo 14.º — Referências legais
 
 Para os efeitos previstos em todas as normas legais e regulamentares e em todos os atos e contratos em vigor, considera-se que a partir da data de produção de efeitos estabelecida no n.º 1 do artigo 18.º:
 
@@ -592,9 +625,7 @@ a) As referências ao Programa de Apoio ao Arrendamento e ao Decreto-Lei n.º 68
 
 b) As referências aos limites do preço de renda do Programa de Apoio ao Arrendamento, nos termos do artigo 10.º do Decreto-Lei n.º 68/2019, de 22 de maio, ou na Portaria n.º 176/2019, de 6 de junho, consideram-se reportadas aos limites máximos de renda mensal previstos no artigo 4.º do anexo iii ao presente decreto-lei.
 
-Artigo 15.º
-
-Norma transitória
+### Artigo 15.º — Norma transitória
 
 1 - O limite previsto no n.º 10 do artigo 78.º-E do Código do IRS, na redação conferida pelo presente decreto-lei, aplica-se a partir do ano de 2027, inclusive, aplicando-se no ano de 2026 o limite de 900,00 €.
 
@@ -602,21 +633,15 @@ Norma transitória
 
 3 - Os programas municipais de arrendamento acessível ao abrigo do artigo 23.º do Decreto-Lei n.º 68/2019, de 22 de maio, são considerados programas municipais de arrendamento acessível para os efeitos previstos no artigo 8.º do RSAA, dispensando-se a aplicação do disposto no n.º 3 desse artigo relativamente àqueles cuja compatibilidade tenha sido reconhecida nos termos do artigo 23.º do Decreto-Lei n.º 68/2019, de 22 de maio.
 
-Artigo 16.º
-
-Regulamentação
+### Artigo 16.º — Regulamentação
 
 No prazo de 30 dias a contar da publicação do presente decreto-lei, são aprovadas as portarias referidas no n.º 5 do artigo 1.º e no n.º 1 do artigo 9.º do anexo i ao presente decreto-lei e no n.º 1 do artigo 4.º do anexo iii ao presente decreto-lei.
 
-Artigo 17.º
-
-Norma revogatória
+### Artigo 17.º — Norma revogatória
 
 Sem prejuízo do disposto no artigo seguinte, são revogados os Decretos-Leis n. os 68/2019, de 22 de maio, e 69/2019, de 22 de maio.
 
-Artigo 18.º
-
-Produção de efeitos
+### Artigo 18.º — Produção de efeitos
 
 1 - Produzem efeitos a 1 de setembro de 2026:
 
@@ -662,15 +687,11 @@ Referendado em 13 de maio de 2026.
 
 O Primeiro-Ministro, Luís Montenegro.
 
-ANEXO I
+## ANEXO I — Contratos de investimento para arrendamento habitacional
 
 [a que se referem a alínea b) do n.º 2 do artigo 1.º, o artigo 16.º e a alínea b) do n.º 1 do artigo 18.º]
 
-Contratos de investimento para arrendamento habitacional
-
-Artigo 1.º
-
-Forma, conteúdo e procedimento
+#### Artigo 1.º — Forma, conteúdo e procedimento
 
 1 - Podem ser concedidos benefícios fiscais, através de contrato de investimento para arrendamento (CIA), com um período de vigência até 25 anos a contar da sua celebração, sem prejuízo do disposto no n.º 6.
 
@@ -684,9 +705,7 @@ Forma, conteúdo e procedimento
 
 6 - No âmbito de parcerias público-privadas constituídas ao abrigo do Decreto-Lei n.º 111/2012, de 23 de maio, o prazo do CIA é idêntico ao prazo do contrato de parceria.
 
-Artigo 2.º
-
-Condições de elegibilidade
+#### Artigo 2.º — Condições de elegibilidade
 
 1 - Para os efeitos de aplicação do presente regime, são elegíveis os investimentos quando:
 
@@ -718,9 +737,7 @@ e) Cumprir atempadamente as obrigações legais a que estejam vinculados, design
 
 f) Cumprir as demais obrigações estabelecidas no CIA e no presente regime.
 
-Artigo 3.º
-
-Benefícios fiscais
+#### Artigo 3.º — Benefícios fiscais
 
 1 - Aos CIA são aplicáveis os seguintes benefícios fiscais:
 
@@ -754,9 +771,7 @@ h) Redução de 50 % da taxa prevista na verba 29.2 da TGIS, em função da prop
 
 6 - As restituições autorizadas são pagas exclusivamente por transferência bancária para o número internacional de conta bancária (IBAN) que conste da base de dados da Autoridade Tributária e Aduaneira.
 
-Artigo 4.º
-
-Afetação a arrendamento
+#### Artigo 4.º — Afetação a arrendamento
 
 1 - As habitações a afetar a arrendamento, nos termos do CIA, devem ser objeto de contratos de arrendamento habitacional ou arrendamento para subarrendamento habitacional, de acordo com o regime legal estabelecido naquele contrato, nos seguintes prazos:
 
@@ -768,15 +783,11 @@ b) No caso de imóveis a que se refere na subalínea ii) da alínea a) do n.º 1
 
 3 - Para efeitos do presente regime, as habitações a que se refere o n.º 1 devem ser objeto de contrato de arrendamento habitacional ou arrendamento para subarrendamento habitacional durante o período mínimo de oito meses por cada ano completo de vigência do CIA, salvo impedimento justificado.
 
-Artigo 5.º
-
-Reequilíbrio económico-financeiro
+#### Artigo 5.º — Reequilíbrio económico-financeiro
 
 As alterações legislativas e regulamentares que alterem o regime de fixação e atualização de rendas ou outro regime contratual relevante, que afete o equilíbrio económico-financeiro dos contratos celebrados ao abrigo de um CIA, conferem ao investidor o direito a indemnização, nos termos do disposto no artigo 282.º do Código dos Contratos Públicos.
 
-Artigo 6.º
-
-Resolução
+#### Artigo 6.º — Resolução
 
 1 - O IHRU, I. P., pode propor a resolução do CIA, quando se verifique uma ou mais das seguintes situações:
 
@@ -788,9 +799,7 @@ c) Recusa injustificada em fornecer informações e documentos demonstrativos do
 
 2 - Compete aos membros do Governo responsáveis pelas áreas das finanças e da habitação a aprovação, por despacho, da resolução a que se refere o número anterior.
 
-Artigo 7.º
-
-Efeitos da resolução
+#### Artigo 7.º — Efeitos da resolução
 
 1 - A resolução do contrato nos termos do artigo anterior implica a perda dos benefícios fiscais atribuídos pelo CIA até à data da notificação dessa resolução, e o consequente pagamento dos montantes correspondentes às seguintes percentagens:
 
@@ -802,9 +811,7 @@ c) No caso de incumprimento ocorrido nos últimos cinco anos de vigência, 30 %.
 
 2 - As importâncias devidas ao abrigo do número anterior devem ser pagas no prazo de 30 dias, contados da notificação da resolução do contrato, acrescidas de juros compensatórios, nos termos do artigo 35.º da Lei Geral Tributária, havendo lugar a procedimento executivo na falta de pagamento dentro daquele prazo.
 
-Artigo 8.º
-
-Transmissão
+#### Artigo 8.º — Transmissão
 
 1 - A posição contratual do CIA pode ser transmitida, desde que, cumulativamente:
 
@@ -818,17 +825,13 @@ c) O contrato de transmissão inclua a assunção expressa, pelo transmissário,
 
 3 - Verificados os requisitos estabelecidos no número anterior, a transmissão da posição contratual é autorizada mediante despacho do membro do Governo responsável pela área da habitação, mediante proposta do IHRU, I. P.
 
-Artigo 9.º
-
-Registo predial
+#### Artigo 9.º — Registo predial
 
 1 - A autorização para a transmissão dos imóveis afetos a arrendamento nos termos do CIA, a que se refere o n.º 2 do artigo anterior, configura um ónus sujeito a registo predial, a promover gratuitamente pelo IHRU, I. P., nos termos estabelecidos por portaria dos membros do Governo responsáveis pelas áreas da habitação e da justiça.
 
 2 - O registo referido no número anterior caduca com termo do prazo de vigência do CIA a que se refere os n. os 1 e 6 do artigo 1.º, sem prejuízo de poder ser cancelado, ou reduzido aos imóveis afetos ou a afetar a arrendamento habitacional, com base em declaração emitida pelo IRHU, I. P., comprovativa dos factos registados.
 
-Artigo 10.º
-
-Fiscalização e acompanhamento
+#### Artigo 10.º — Fiscalização e acompanhamento
 
 1 - Sem prejuízo das competências próprias da Autoridade Tributária e Aduaneira em matéria de fiscalização e acompanhamento, a verificação do cumprimento dos contratos de investimento abrangidos pelo presente anexo compete ao IHRU, I. P.
 
@@ -840,25 +843,17 @@ Fiscalização e acompanhamento
 
 5 - Para efeitos do cumprimento do previsto no artigo 7.º do Estatuto dos Benefícios Fiscais, o IHRU, I. P., disponibiliza à autoridade Tributária e Aduaneira os CIA celebrados, bem como os elementos previstos no número anterior.
 
-ANEXO II
+## ANEXO II — Regime de restituição parcial do montante equivalente ao imposto sobre o valor acrescentado suportado por pessoas singulares em empreitadas de construção de imóveis para habitação própria e permanente
 
 [a que se referem a alínea c) do n.º 2 do artigo 1.º e os n. os 4, 5 e 8 do artigo 18.º]
 
-Regime de restituição parcial do montante equivalente ao imposto sobre o valor acrescentado suportado por pessoas singulares em empreitadas de construção de imóveis para habitação própria e permanente
+### CAPÍTULO I — DISPOSIÇÕES GERAIS
 
-CAPÍTULO I
-
-DISPOSIÇÕES GERAIS
-
-Artigo 1.º
-
-Objeto
+#### Artigo 1.º — Objeto
 
 O presente regime regula a restituição parcial do montante equivalente ao imposto sobre o valor acrescentado (IVA) suportado, por pessoas singulares, fora do âmbito do exercício de uma atividade empresarial ou profissional, com empreitadas de construção de imóveis destinados à respetiva habitação própria e permanente.
 
-Artigo 2.º
-
-Âmbito subjetivo e objetivo
+#### Artigo 2.º — Âmbito subjetivo e objetivo
 
 1 - Podem beneficiar do presente regime as pessoas singulares que contratem empreitadas de construção, fora do âmbito do exercício de uma atividade empresarial ou profissional, cuja exigibilidade do IVA ocorra até 31 de dezembro de 2032.
 
@@ -872,25 +867,17 @@ Artigo 2.º
 
 6 - A este regime aplica-se ainda o disposto no artigo 10.º do presente decreto-lei, com as necessárias adaptações.
 
-CAPÍTULO II
+### CAPÍTULO II — DESPESAS ELEGÍVEIS
 
-DESPESAS ELEGÍVEIS
-
-Artigo 3.º
-
-Despesas elegíveis para restituição
+#### Artigo 3.º — Despesas elegíveis para restituição
 
 1 - É elegível, para efeitos de cálculo da restituição, o IVA suportado nas empreitadas de construção de imóveis abrangidos pelo presente regime em que tenha sido aplicada a taxa normal de imposto, que conste em faturas emitidas nos termos legais e cujos elementos tenham sido comunicados nos termos do artigo 3.º do Decreto-Lei n.º 198/2012, de 24 de agosto.
 
 2 - Não é elegível a mera aquisição de materiais incorporados na construção do imóvel.
 
-CAPÍTULO III
+### CAPÍTULO III — PROCEDIMENTO
 
-PROCEDIMENTO
-
-Artigo 4.º
-
-Apresentação do pedido
+#### Artigo 4.º — Apresentação do pedido
 
 1 - O pedido de restituição é apresentado, exclusivamente por transmissão eletrónica de dados, à Autoridade Tributária e Aduaneira, no prazo de 12 meses após a emissão da documentação relativa ao início de utilização, nos termos do Regime Jurídico da Urbanização e Edificação (RJUE).
 
@@ -912,49 +899,33 @@ f) Faturas comprovativas da totalidade dos custos de construção.
 
 4 - O pedido de restituição pode ser corrigido por iniciativa do beneficiário no prazo previsto no n.º 1.
 
-Artigo 5.º
-
-Prazo de restituição
+#### Artigo 5.º — Prazo de restituição
 
 A Autoridade Tributária e Aduaneira procede à restituição no prazo máximo de 150 dias a contar da receção do pedido devidamente instruído.
 
-CAPÍTULO IV
+### CAPÍTULO IV — PAGAMENTO E SALVAGUARDAS
 
-PAGAMENTO E SALVAGUARDAS
-
-Artigo 6.º
-
-Montante e forma de restituição
+#### Artigo 6.º — Montante e forma de restituição
 
 1 - Ao abrigo do presente regime o montante restituído corresponde à diferença entre o montante do IVA efetiva e comprovadamente suportado à taxa normal e aquele que resultaria da aplicação da taxa reduzida que incida sobre as despesas elegíveis nos termos do artigo 3.º
 
 2 - As restituições são pagas exclusivamente por transferência bancária para o número internacional de conta bancária (IBAN) que conste da base de dados da Autoridade Tributária e Aduaneira.
 
-Artigo 7.º
-
-Reposição
+#### Artigo 7.º — Reposição
 
 Sempre que não se verifique, ou deixe de se verificar qualquer das condições para aplicação do presente regime, a Autoridade Tributária e Aduaneira pode proceder à correção do montante restituído no prazo de quatro anos contados do termo do prazo legal para o cumprimento daquelas condições, sendo emitida a liquidação adicional correspondente.
 
-CAPÍTULO V
+### CAPÍTULO V — DISPOSIÇÕES FINAIS
 
-DISPOSIÇÕES FINAIS
-
-Artigo 8.º
-
-Regime subsidiário
+#### Artigo 8.º — Regime subsidiário
 
 Em tudo o que não estiver expressamente previsto no presente anexo, aplica-se o Código do IVA e respetiva legislação complementar.
 
-ANEXO III
+## ANEXO III — Regime simplificado de arrendamento acessível
 
 [a que se refere a alínea d) do n.º 2 do artigo 1.º, as alíneas a) e b) do artigo 14.º e o n.º 4 do artigo 18.º]
 
-Regime simplificado de arrendamento acessível
-
-Artigo 1.º
-
-Objeto
+#### Artigo 1.º — Objeto
 
 O regime simplificado de arrendamento acessível (RSAA) estabelece:
 
@@ -966,9 +937,7 @@ c) O regime aplicável aos programas municipais de arrendamento acessível;
 
 d) O regime aplicável aos contratos de arrendamento acessível celebrados por entidades públicas.
 
-Artigo 2.º
-
-Âmbito
+#### Artigo 2.º — Âmbito
 
 O RSAA aplica-se a:
 
@@ -976,9 +945,7 @@ a) Contratos de arrendamento, arrendamento para subarrendamento habitacional e s
 
 b) Programas aprovados pelos municípios e entidades intermunicipais tendo por finalidade o incentivo à oferta de habitação na modalidade de arrendamento acessível.
 
-Artigo 3.º
-
-Finalidade e objeto do contrato
+#### Artigo 3.º — Finalidade e objeto do contrato
 
 1 - Os contratos de arrendamento acessível, previstos na alínea a) do artigo anterior, podem ter por finalidade:
 
@@ -998,9 +965,7 @@ ii) Quarto com janela para o exterior ou varanda ou marquise em contacto direto 
 
 3 - Os contratos de arrendamento acessível regem-se pelo regime geral de arrendamento urbano para habitação, nos termos do Código Civil e do Novo Regime do Arrendamento Urbano (NRAU), aprovado pela Lei n.º 6/2006 de 27 de fevereiro.
 
-Artigo 4.º
-
-Limite máximo de renda mensal
+#### Artigo 4.º — Limite máximo de renda mensal
 
 1 - Nos contratos de arrendamento acessível, a renda mensal deve ser igual ou inferior ao limite máximo por tipologia a definir em portaria dos membros do Governo responsáveis pelas áreas das finanças e da habitação, tendo por base 80 % da mediana de valores de renda divulgada pelo Instituto Nacional de Estatística, I. P. (INE, I. P.), para o concelho do locado, e podendo tomar em consideração as características dos imóveis, designadamente o nível de eficiência energética e a disponibilidade de estacionamento privativo.
 
@@ -1008,9 +973,7 @@ Limite máximo de renda mensal
 
 3 - Os limites máximos de renda aplicáveis nos termos do presente artigo não incluem as despesas ou encargos que sejam devidos nos termos do artigo 1078.º do Código Civil.
 
-Artigo 5.º
-
-Prazo contratual
+#### Artigo 5.º — Prazo contratual
 
 1 - Os contratos de arrendamento acessível para residência permanente a que se refere a alínea a) do n.º 1 do artigo 3.º devem ter prazo mínimo de três anos.
 
@@ -1018,9 +981,7 @@ Prazo contratual
 
 3 - O contrato referido no número anterior pode ser renovado, desde que a finalidade temporária se mantenha.
 
-Artigo 6.º
-
-Regime fiscal
+#### Artigo 6.º — Regime fiscal
 
 1 - Os rendimentos prediais dos contratos de arrendamento habitacional, arrendamento para subarrendamento habitacional e subarrendamento habitacional que observem as condições estabelecidas no presente capítulo estão isentos de tributação em imposto sobre o rendimento de pessoas singulares e imposto sobre o rendimento de pessoas coletivas.
 
@@ -1036,9 +997,7 @@ b) Comprovativo da comunicação do contrato no Portal das Finanças.
 
 5 - O disposto nos n. os 1 e 2 abrange as renovações contratuais e mantêm-se em caso de transmissão do locado, desde que o contrato se mantenha em vigor.
 
-Artigo 7.º
-
-Incumprimento
+#### Artigo 7.º — Incumprimento
 
 1 - O incumprimento dos requisitos estabelecidos nos artigos anteriores implica a perda dos benefícios fiscais concedidos desde o momento do incumprimento com a consequente obrigação de proceder à declaração desse facto para efeitos de regularização da diferença entre o montante do imposto que foi pago em cada ano e aquele que deveria ter sido pago, acrescida de juros compensatórios.
 
@@ -1046,9 +1005,7 @@ Incumprimento
 
 3 - Para efeitos do disposto no n.º 1, suspende-se o prazo de caducidade do direito à liquidação de imposto nos termos da alínea c) do n.º 2 do artigo 46.º da Lei Geral Tributária.
 
-Artigo 8.º
-
-Programas municipais de arrendamento acessível
+#### Artigo 8.º — Programas municipais de arrendamento acessível
 
 1 - O disposto no artigo 6.º aplica-se aos contratos de arrendamento habitacional, arrendamento para subarrendamento habitacional e subarrendamento habitacional celebrados no âmbito de programas municipais de arrendamento acessível aprovados por municípios ou por entidades intermunicipais, desde que observem os limites máximos de renda e os prazos mínimos de contrato estabelecidos nos artigos 4.º e 5.º
 
@@ -1060,9 +1017,7 @@ Programas municipais de arrendamento acessível
 
 5 - No âmbito dos programas municipais a que se refere o n.º 3, o município pode proceder ao cumprimento do disposto no n.º 3 do artigo 6.º por conta dos proprietários aderentes ao programa municipal, desde que obtido o consentimento devido para o efeito.
 
-Artigo 9.º
-
-Arrendamento acessível público
+#### Artigo 9.º — Arrendamento acessível público
 
 1 - As entidades públicas podem celebrar contratos de arrendamento ou subarrendamento habitacional nos termos do presente regime, tendo por objeto prédios urbanos, partes de prédios urbanos, partes urbanas de prédios mistos ou frações autónomas que não se encontrem legalmente vinculados ao regime de arrendamento apoiado ou a outro regime especial de arrendamento público.
 

@@ -2,53 +2,19 @@
 
 > Converted to Markdown from [`sources/CIMT-art17-portaldasfinancas.html`](sources/CIMT-art17-portaldasfinancas.html) for readability. The file in `sources/` is the authoritative original.
 
-Turn on more accessible mode
+## Índice
 
-Turn off more accessible mode
+- [Artigo 17.º — Taxas](#artigo-17º--taxas)
+  - [n.º 1, alínea a) — habitação própria e permanente](#nº-1-alínea-a--habitação-própria-e-permanente)
+  - [n.º 1, alínea b) — habitação própria e permanente (n.os 2 a 5 do art. 9.º)](#nº-1-alínea-b--habitação-própria-e-permanente-nos-2-a-5-do-art-9º)
+  - [n.º 1, alínea c) — habitação (restantes casos)](#nº-1-alínea-c--habitação-restantes-casos)
+  - [n.º 1, alíneas d) e e); n.os 2 a 12](#nº-1-alíneas-d-e-e-nos-2-a-12)
+- [Redações anteriores, em vigor até](#redações-anteriores-em-vigor-até)
+- [Artigo alterado por](#artigo-alterado-por)
 
-Skip Ribbon Commands
+## Artigo 17.º — Taxas
 
-Skip to main content
-
-Turn off Animations
-
-Turn on Animations
-
-SharePoint
-
-Sign In
-
-Follow
-
-quarta-feira, 29 julho 2026
-
-Menu
-
-- A AT
-
-- Agenda Fiscal
-
-- Serviços
-
-- Informação Fiscal e Aduaneira
-
-- Apoio ao Contribuinte
-
-- Grandes Contribuintes
-
-- U-TAX
-
-- Estatísticas
-
-- Tax Information
-
-- Cidadania Fiscal
-
-Informação Fiscal  Códigos Tributários  CIMT
-
-Page Image
-
-Page Content
+### n.º 1, alínea a) — habitação própria e permanente
 
 | Valor sobre que incide o IMT( em euros) | Taxas percentuais |  |
 | --- | --- | --- |
@@ -67,6 +33,8 @@ Page Content
 
 (b) Redação da Lei nº 82/2023, de 29 de dezembro
 
+### n.º 1, alínea b) — habitação própria e permanente (n.os 2 a 5 do art. 9.º)
+
 b) Aquisição de prédio urbano ou de fração autónoma de prédio urbano destinado exclusivamente a habitação própria e permanente abrangida pelos  n.os  2 a 5 do artigo 9.º, cujo valor exceda o valor máximo do 1.º escalão da tabela seguinte:
 
 | Valor sobre que incide o IMT( em euros) | Taxas percentuais |  |
@@ -82,6 +50,8 @@ b) Aquisição de prédio urbano ou de fração autónoma de prédio urbano dest
 (a) Redação da Lei nº 73-A/2025, de 30 de dezembro
 
 (b) Redação     do Decreto-Lei n.º 48-A/2024, de 25/07
+
+### n.º 1, alínea c) — habitação (restantes casos)
 
 c)  Aquisição de prédio urbano ou de fração autónoma de prédio urbano destinado exclusivamente a habitação, não abrangida pelas alíneas anteriores:
 
@@ -101,6 +71,8 @@ c)  Aquisição de prédio urbano ou de fração autónoma de prédio urbano des
 (a) Redação da Lei nº 73-A/2025, de 30 de dezembro
 
 (b) Redação     do Decreto-Lei n.º 48-A/2024, de 25/07, retificado pela Declaração de Retificação n.º 32/2024/1, de 21/08; entrada em vigor no dia 26 de julho, com produção de efeitos a 1 de agosto de 2024
+
+### n.º 1, alíneas d) e e); n.os 2 a 12
 
 d) Aquisição de prédios rústicos - 5%;    (Anterior alínea c), Redação do Decreto-Lei n.º 48-A/2024, de 25/07)
 
@@ -146,102 +118,45 @@ c) O imóvel seja destinado ao arrendamento para habitação com renda mensal qu
 
 12 - O requerimento previsto no número anterior, dirigido aos serviços competentes da Autoridade Tributária e Aduaneira, é apresentado pelo interessado no prazo de seis meses a contar da data em que se torne residente ou em que seja celebrado contrato de arrendamento nos termos das alíneas b) e c) do n.º 10, respetivamente. (Aditado pelo Decreto-Lei n.º 97/2026, de 20 de maio)
 
-## [+ info] Redações anteriores, em vigor até:
+## Redações anteriores, em vigor até
 
-dezembro de 2025
+- dezembro de 2025
+- dezembro de 2024
+- julho de 2024
+- dezembro de 2023
+- dezembro de 2022
+- junho de 2022
+- dezembro de 2020
+- março de 2020
+- março de 2016
+- abril de 2012
+- dezembro de 2011
+- dezembro de 2010
+- dezembro de 2009
+- dezembro de 2008
+- dezembro de 2007
+- dezembro de 2006
+- dezembro de 2005
+- dezembro de 2004
 
-dezembro de 2024
+## Artigo alterado por
 
-julho de 2024
-
-dezembro de 2023
-
-dezembro de 2022
-
-junho de 2022
-
-dezembro de 2020
-
-março de 2020
-
-março de 2016
-
-abril de 2012
-
-dezembro de 2011
-
-dezembro de 2010
-
-dezembro de 2009
-
-dezembro de 2008
-
-dezembro de 2007
-
-dezembro de 2006
-
-dezembro de 2005
-
-dezembro de 2004
-
-## [+ info] Artigo alterado por:
-
-Lei n.º 73-A/2025, de 30/12
-
-Lei n.º 45-A/2024, de 31/12
-
-Decreto-Lei n.º 48-A/2024, de 25/07
-
-Lei n.º 82/2023, de 29/12
-
-Declaração de Retificação n.º 7/2023, de 15/02
-
-Lei n.º 24-D/2022, de 30/12
-
-Lei n.º 12/2022, de 27/06
-
-Lei n.º 75-B/2020, de 31/12
-
-Lei n.º 2/2020, de 31/03
-
-Lei n.º 7-A/2016, de 30/03
-
-Lei n.º 20/2012, de 14/05
-
-Lei n.º 64-B/2011, de 30/12
-
-Lei n.º 55-A/2010, de 31/12
-
-Lei n.º 3-B/2010, de 28/04
-
-Lei n.º 64-A/2008, de 31/12
-
-Lei n.º 67-A/2007, de 31/12
-
-Lei n.º 53-A/2006, de 29/12
-
-Lei n.º 60-A/2005, de 30/12
-
-Lei n.º 55-B/2004, de 30/12
-
-##### Links Úteis
-
-- Questões Frequentes
-
-- Folhetos informativos
-
-- Manuais e guias
-
-- Estatísticas
-
-- Segurança e Privacidade
-
-- Ligações
-
-- Venda de bens
-
-- Lista de Devedores
-
-- Transações Intracomunitárias
-
-- Cross-Border Ruling (CBR)
+- Lei n.º 73-A/2025, de 30/12
+- Lei n.º 45-A/2024, de 31/12
+- Decreto-Lei n.º 48-A/2024, de 25/07
+- Lei n.º 82/2023, de 29/12
+- Declaração de Retificação n.º 7/2023, de 15/02
+- Lei n.º 24-D/2022, de 30/12
+- Lei n.º 12/2022, de 27/06
+- Lei n.º 75-B/2020, de 31/12
+- Lei n.º 2/2020, de 31/03
+- Lei n.º 7-A/2016, de 30/03
+- Lei n.º 20/2012, de 14/05
+- Lei n.º 64-B/2011, de 30/12
+- Lei n.º 55-A/2010, de 31/12
+- Lei n.º 3-B/2010, de 28/04
+- Lei n.º 64-A/2008, de 31/12
+- Lei n.º 67-A/2007, de 31/12
+- Lei n.º 53-A/2006, de 29/12
+- Lei n.º 60-A/2005, de 30/12
+- Lei n.º 55-B/2004, de 30/12

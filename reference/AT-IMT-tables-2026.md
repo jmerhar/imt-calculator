@@ -8,7 +8,16 @@ IMT – Tabelas práticas em vigor 2026
 
 A AT procedeu à divulgação, através do Ofício Circulado n.º 40129/2026, de 6 de janeiro, das tabelas práticas de IMT, Imposto Municipal sobre as Transmissões Onerosas de Imóveis, em vigor desde 1 de janeiro de 2026 da AT.
 
-### TABELA I
+## Índice
+
+- [Tabela I — Continente, habitação própria e permanente](#tabela-i)
+- [Tabela II — Continente, HPP (IMT Jovem, ≤ 35 anos)](#tabela-ii)
+- [Tabela III — Continente, habitação](#tabela-iii)
+- [Tabela IV — Regiões Autónomas, habitação própria e permanente](#tabela-iv)
+- [Tabela V — Regiões Autónomas, HPP (IMT Jovem, ≤ 35 anos)](#tabela-v)
+- [Tabela VI — Regiões Autónomas, habitação](#tabela-vi)
+
+## TABELA I
 
 (CONTINENTE – HABITAÇÃO PRÓPRIA E PERMANENTE)
 
@@ -22,7 +31,7 @@ A AT procedeu à divulgação, através do Ofício Circulado n.º 40129/2026, de
 | De mais de 660 982 e até 1 150 853 | Taxa única de 6% |  |
 | Superior a 1 150 853 | Taxa única de 7,5% |  |
 
-### TABELA II
+## TABELA II
 
 (CONTINENTE – HABITAÇÃO PRÓPRIA E PERMANENTE)
 
@@ -35,7 +44,7 @@ Por jovens com idade igual ou inferior a 35 anos
 | De mais de 660 982 e até 1 150 853 | Taxa única de 6% |  |
 | Superior a 1 150 853 | Taxa única de 7,5% |  |
 
-### TABELA III
+## TABELA III
 
 (CONTINENTE – HABITAÇÃO)
 
@@ -49,7 +58,7 @@ Por jovens com idade igual ou inferior a 35 anos
 | De mais de 633 931 e até 1 150 85 | Taxa única de 6% |  |
 | Superior a 1 150 853 | Taxa única de 7,5% |  |
 
-### TABELA IV
+## TABELA IV
 
 (REGIÕES AUTÓNOMAS HABITAÇÃO PRÓPRIA E PERMANENTE)
 
@@ -63,7 +72,7 @@ Por jovens com idade igual ou inferior a 35 anos
 | De mais de 826 228 e até 1 438 566 | Taxa única de 6% |  |
 | Superior a 1 438 566 | Taxa única de 7,5% |  |
 
-### TABELA V
+## TABELA V
 
 (REGIÕES AUTÓNOMAS HABITAÇÃO PRÓPRIA E PERMANENTE)
 
@@ -76,7 +85,7 @@ Por jovens com idade igual ou inferior a 35 anos
 | De mais de 826 228 e até 1 438 566 | Taxa única de 6% |  |
 | Superior a 1 438 566 | Taxa única de 7,5% |  |
 
-### TABELA VI
+## TABELA VI
 
 (REGIÕES AUTÓNOMAS – HABITAÇÃO)
 
