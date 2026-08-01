@@ -7,6 +7,7 @@ import { SITE_URL } from "../config";
 import { GUIDES_SEGMENT, GUIDE_META, GUIDES_INDEX_SEO } from "../content/guides/registry";
 import type { GuideMeta } from "../content/guides/registry";
 import { GUIDE_BODIES } from "../content/guides";
+import { resolveText } from "../content/guides/figures";
 
 type Lang = "en" | "pt";
 
@@ -85,7 +86,10 @@ function articleJsonLd(lang: Lang, m: GuideMeta, url: string): string {
     { name: m.navLabel[lang], item: url },
   ]);
   const body = GUIDE_BODIES[m.id][lang];
-  const faq = body.faq?.length ? script(faqPage(lang, body.faq)) : "";
+  // Resolve {token} figures/year in the FAQ so the FAQPage JSON-LD carries real numbers, not tokens.
+  const faq = body.faq?.length
+    ? script(faqPage(lang, body.faq.map((f) => ({ q: resolveText(f.q, lang), a: resolveText(f.a, lang) }))))
+    : "";
   return script(article) + script(crumbs) + faq;
 }
 

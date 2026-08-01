@@ -1,8 +1,9 @@
 import type { Lang } from "@/i18n/lang";
 import type { GuideBody } from "./registry";
 
-// Guide: buying in the Azores/Madeira — the ×1.25 regional IMT tables. Bilingual. Figures match the
-// engine's 2026 tables IV/V/VI (mainland thresholds × 1.25, Lei n.º 21/90).
+// Guide: buying in the Azores/Madeira — the ×1.25 regional IMT tables (Lei n.º 21/90). Bilingual.
+// Worked-example figures (bracket rate, band, deduction, amounts) are {tokens} resolved from
+// computed.ts (precomputed from tables IV/V/VI), so they always match the calculator.
 
 export const imtRegions: Record<Lang, GuideBody> = {
   en: {
@@ -29,10 +30,10 @@ export const imtRegions: Record<Lang, GuideBody> = {
         heading: "Worked example: a €400,000 home in the Azores",
         blocks: [
           {
-            p: "An own permanent home at €400,000 in the Azores uses Table IV: the €400,000 falls in the 7% band (247,934–413,174), so IMT is 400,000 × 7% − 13,072.48 = €14,927.52. Add 0.8% stamp duty (€3,200) for €18,127.52 in total.",
+            p: "An own permanent home at €400,000 in the Azores uses Table IV: the €400,000 falls in the {regionRate} band ({regionBandLo}–{regionBandHi}), so IMT is 400,000 × {regionRate} − {regionDeduction} = €{regionImt}. Add 0.8% stamp duty (€{stamp400}) for €{regionTotal} in total.",
           },
           {
-            p: "The same €400,000 own home on the mainland (Table I) would be €18,236.65 IMT + €3,200 = €21,436.65 — about €3,300 more, purely from the ×1.25 thresholds.",
+            p: "The same €400,000 own home on the mainland (Table I) would be €{regionMainlandImt} IMT + €{stamp400} = €{regionMainlandTotal} — about €{regionDiff} more, purely from the ×1.25 thresholds.",
           },
         ],
       },
@@ -40,7 +41,7 @@ export const imtRegions: Record<Lang, GuideBody> = {
         heading: "IMT Jovem in the regions",
         blocks: [
           {
-            p: "IMT Jovem works the same way, with the higher regional ceiling: a first own permanent home for a buyer aged 35 or under is exempt from IMT and the acquisition stamp duty up to €413,174 (Table V), versus €330,539 on the mainland — and charged only on any excess above that.",
+            p: "IMT Jovem works the same way, with the higher regional ceiling: a first own permanent home for a buyer aged 35 or under is exempt from IMT and the acquisition stamp duty up to €{jovemCapRegion} (Table V), versus €{jovemCap} on the mainland — and charged only on any excess above that.",
           },
         ],
       },
@@ -93,10 +94,10 @@ export const imtRegions: Record<Lang, GuideBody> = {
         heading: "Exemplo: uma casa de €400 000 nos Açores",
         blocks: [
           {
-            p: "Uma habitação própria e permanente de €400 000 nos Açores usa a Tabela IV: os €400 000 caem no escalão de 7% (247 934–413 174), pelo que o IMT é 400 000 × 7% − 13 072,48 = €14 927,52. Acresce 0,8% de imposto do selo (€3 200), num total de €18 127,52.",
+            p: "Uma habitação própria e permanente de €400 000 nos Açores usa a Tabela IV: os €400 000 caem no escalão de {regionRate} ({regionBandLo}–{regionBandHi}), pelo que o IMT é 400 000 × {regionRate} − {regionDeduction} = €{regionImt}. Acresce 0,8% de imposto do selo (€{stamp400}), num total de €{regionTotal}.",
           },
           {
-            p: "A mesma casa própria de €400 000 no continente (Tabela I) seria €18 236,65 de IMT + €3 200 = €21 436,65 — cerca de €3 300 a mais, apenas devido aos limites ×1,25.",
+            p: "A mesma casa própria de €400 000 no continente (Tabela I) seria €{regionMainlandImt} de IMT + €{stamp400} = €{regionMainlandTotal} — cerca de €{regionDiff} a mais, apenas devido aos limites ×1,25.",
           },
         ],
       },
@@ -104,7 +105,7 @@ export const imtRegions: Record<Lang, GuideBody> = {
         heading: "IMT Jovem nas regiões",
         blocks: [
           {
-            p: "O IMT Jovem funciona da mesma forma, com o limite regional mais alto: a primeira habitação própria e permanente de quem tem até 35 anos está isenta de IMT e do imposto do selo da aquisição até €413 174 (Tabela V), contra €330 539 no continente — e só é tributada sobre o eventual excedente.",
+            p: "O IMT Jovem funciona da mesma forma, com o limite regional mais alto: a primeira habitação própria e permanente de quem tem até 35 anos está isenta de IMT e do imposto do selo da aquisição até €{jovemCapRegion} (Tabela V), contra €{jovemCap} no continente — e só é tributada sobre o eventual excedente.",
           },
         ],
       },

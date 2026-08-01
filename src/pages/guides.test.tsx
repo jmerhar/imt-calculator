@@ -78,6 +78,15 @@ describe("guides — pages", () => {
     expect(decoded?.buyers[0].residency).toBe("non_resident");
   });
 
+  it("resolves precomputed figures and the year in guide prose, leaving no raw tokens", () => {
+    const { container } = renderApp("/guides/imt-jovem");
+    // Worked-example figures come from computed.ts (the engine), interpolated at render.
+    expect(container.textContent).toContain("€5,556.88");
+    expect(container.textContent).toContain("€330,539");
+    // No {token} placeholder must leak into the rendered output.
+    expect(container.textContent).not.toMatch(/\{\w+\}/);
+  });
+
   it("renders the six 2026 rate tables in the tables guide", () => {
     renderApp("/guides/imt-tables");
     expect(screen.getAllByRole("table")).toHaveLength(6);

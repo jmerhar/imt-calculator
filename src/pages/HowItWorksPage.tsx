@@ -1,5 +1,6 @@
 import { useI18n } from "@/i18n";
 import { howItWorks } from "@/content/howItWorks";
+import { resolveText } from "@/content/guides/figures";
 import { localizedPath } from "@/i18n/paths";
 import { Breadcrumb } from "@/components/Breadcrumb";
 
@@ -16,15 +17,15 @@ export function HowItWorksPage() {
         const c = lang === "en" ? s.en : s.pt;
         return (
           <section className="doc__section" key={s.id}>
-            <h2 className="doc__h2">{c.heading}</h2>
+            <h2 className="doc__h2">{resolveText(c.heading, lang)}</h2>
             <div className="doc__body">
               {c.blocks.map((b, i) =>
                 "p" in b ? (
-                  <p key={i}>{b.p}</p>
+                  <p key={i}>{resolveText(b.p, lang)}</p>
                 ) : (
                   <ul key={i}>
                     {b.ul.map((li, j) => (
-                      <li key={j}>{li}</li>
+                      <li key={j}>{resolveText(li, lang)}</li>
                     ))}
                   </ul>
                 ),

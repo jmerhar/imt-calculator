@@ -1,8 +1,9 @@
 import type { Lang } from "@/i18n/lang";
 import type { GuideBody } from "./registry";
 
-// Guide: IMT for non-residents (2026). Bilingual. Figures cite CIMT art. 17.º as amended by
-// Decreto-Lei n.º 97/2026 and match the calculator's engine.
+// Guide: IMT for non-residents. Bilingual; the flat 7.5% cites CIMT art. 17.º as amended by
+// Decreto-Lei n.º 97/2026. Mentions of the 2026 reform are legislative history and stay literal;
+// the worked-example figures are {tokens} resolved from computed.ts (precomputed from the engine).
 
 export const imtNonResidents: Record<Lang, GuideBody> = {
   en: {
@@ -61,10 +62,10 @@ export const imtNonResidents: Record<Lang, GuideBody> = {
         heading: "Worked example: a €400,000 purchase",
         blocks: [
           {
-            p: "A non-resident individual buying a €400,000 home, with no exception: IMT is 7.5% of €400,000 = €30,000. Acquisition stamp duty (verba 1.1) adds 0.8% = €3,200. Total tax: €33,200 — an effective 8.3% of the price.",
+            p: "A non-resident individual buying a €400,000 home, with no exception: IMT is 7.5% of €400,000 = €{nonResidentImt}. Acquisition stamp duty (verba 1.1) adds 0.8% = €{stamp400}. Total tax: €{nonResidentTotal} — an effective {nonResidentEffRate} of the price.",
           },
           {
-            p: "By comparison, a resident buying the same home as a secondary property would pay progressive IMT of about €19,300 plus €3,200 stamp duty. The 7.5% flat rate is what makes the non-resident's bill higher.",
+            p: "By comparison, a resident buying the same home as a secondary property would pay progressive IMT of about €{nonResidentOrdinaryImt} plus €{stamp400} stamp duty. The 7.5% flat rate is what makes the non-resident's bill higher.",
           },
         ],
       },
@@ -141,10 +142,10 @@ export const imtNonResidents: Record<Lang, GuideBody> = {
         heading: "Exemplo: uma compra de €400 000",
         blocks: [
           {
-            p: "Um particular não residente que compra uma casa de €400 000, sem exceção: o IMT é 7,5% de €400 000 = €30 000. Acresce o imposto do selo da aquisição (verba 1.1), de 0,8% = €3 200. Total de impostos: €33 200 — uma taxa efetiva de 8,3% sobre o preço.",
+            p: "Um particular não residente que compra uma casa de €400 000, sem exceção: o IMT é 7,5% de €400 000 = €{nonResidentImt}. Acresce o imposto do selo da aquisição (verba 1.1), de 0,8% = €{stamp400}. Total de impostos: €{nonResidentTotal} — uma taxa efetiva de {nonResidentEffRate} sobre o preço.",
           },
           {
-            p: "Em comparação, um residente que comprasse a mesma casa como habitação secundária pagaria cerca de €19 300 de IMT progressivo mais €3 200 de imposto do selo. É a taxa única de 7,5% que torna a conta do não residente mais alta.",
+            p: "Em comparação, um residente que comprasse a mesma casa como habitação secundária pagaria cerca de €{nonResidentOrdinaryImt} de IMT progressivo mais €{stamp400} de imposto do selo. É a taxa única de 7,5% que torna a conta do não residente mais alta.",
           },
         ],
       },

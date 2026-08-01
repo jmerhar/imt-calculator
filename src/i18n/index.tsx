@@ -9,6 +9,9 @@ import { pt } from "@/i18n/pt";
 import type { Lang } from "@/i18n/lang";
 
 export type { Lang };
+// fmt lives in the DOM-free lang module so build-time helpers (SEO, guide content resolver) can use
+// it without importing this React entry; re-exported here for the app's normal "@/i18n" imports.
+export { fmt } from "@/i18n/lang";
 
 // The dictionary shape: every leaf of the English dictionary widened to `string`. `pt` is typed
 // as `Dict`, so a missing or misspelled key fails type-checking (the parity test double-checks it).
@@ -16,11 +19,6 @@ type Widen<T> = { [K in keyof T]: T[K] extends string ? string : Widen<T[K]> };
 export type Dict = Widen<typeof en>;
 
 export const dictionaries: Record<Lang, Dict> = { en, pt };
-
-/** Substitute `{name}` placeholders, e.g. fmt("Rates for {year}.", { year: 2026 }). */
-export function fmt(template: string, vars: Record<string, string | number>): string {
-  return template.replace(/\{(\w+)\}/g, (_, k) => String(vars[k] ?? `{${k}}`));
-}
 
 interface I18nValue {
   lang: Lang;

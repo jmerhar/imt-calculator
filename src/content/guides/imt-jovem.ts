@@ -1,13 +1,14 @@
 import type { Lang } from "@/i18n/lang";
 import type { GuideBody } from "./registry";
 
-// Guide: IMT Jovem (2026). Bilingual. Figures cite Decreto-Lei n.º 48-A/2024 (CIMT art. 9.º/17.º;
-// CIS art. 7.º-A) and the 2026 tables; they match the calculator's engine.
+// Guide: IMT Jovem. Bilingual; the young-buyer relief cites Decreto-Lei n.º 48-A/2024 (CIMT art.
+// 9.º/17.º; CIS art. 7.º-A). Worked-example figures, ceilings and the year are {tokens} resolved
+// from computed.ts (precomputed from the engine), so they always match the calculator.
 
 export const imtJovem: Record<Lang, GuideBody> = {
   en: {
     intro:
-      "IMT Jovem exempts young buyers from both IMT and the acquisition stamp duty on their first own permanent home. Here is who qualifies, the 2026 value ceilings, how much it saves, and the conditions for keeping the benefit.",
+      "IMT Jovem exempts young buyers from both IMT and the acquisition stamp duty on their first own permanent home. Here is who qualifies, the {year} value ceilings, how much it saves, and the conditions for keeping the benefit.",
     sections: [
       {
         heading: "What IMT Jovem is",
@@ -33,13 +34,13 @@ export const imtJovem: Record<Lang, GuideBody> = {
         ],
       },
       {
-        heading: "How much you save in 2026",
+        heading: "How much you save in {year}",
         blocks: [
           {
-            p: "On the mainland, IMT and the acquisition stamp duty are fully exempt up to €330,539. Above that ceiling each is charged only on the part above it: the 0.8% stamp duty on the whole excess (with no upper limit), and IMT at 8% up to €660,982 — beyond which the ordinary own-home IMT rates apply and the IMT is no longer reduced.",
+            p: "On the mainland, IMT and the acquisition stamp duty are fully exempt up to €{jovemCap}. Above that ceiling each is charged only on the part above it: the 0.8% stamp duty on the whole excess (with no upper limit), and IMT at {jovemRate} up to €{jovemUpper} — beyond which the ordinary own-home IMT rates apply and the IMT is no longer reduced.",
           },
           {
-            p: "In the Azores and Madeira the ceiling is higher — €413,174 — because the regional tables are the mainland thresholds increased by 25% (Lei n.º 21/90).",
+            p: "In the Azores and Madeira the ceiling is higher — €{jovemCapRegion} — because the regional tables are the mainland thresholds increased by 25% (Lei n.º 21/90).",
           },
         ],
       },
@@ -47,10 +48,10 @@ export const imtJovem: Record<Lang, GuideBody> = {
         heading: "Worked examples",
         blocks: [
           {
-            p: "A €300,000 first home on the mainland: below the €330,539 ceiling, so IMT and acquisition stamp duty are both €0 — the purchase taxes are fully waived.",
+            p: "A €300,000 first home on the mainland: below the €{jovemCap} ceiling, so IMT and acquisition stamp duty are both €0 — the purchase taxes are fully waived.",
           },
           {
-            p: "A €400,000 first home on the mainland: IMT is 8% of the €69,461 above the ceiling = €5,556.88, and stamp duty is 0.8% of that same excess = €555.69. Total purchase tax: €6,112.57, versus €21,436.65 (€18,236.65 IMT + €3,200 stamp duty) without the relief — a saving of about €15,324.",
+            p: "A €400,000 first home on the mainland: IMT is {jovemRate} of the €{jovemExcess} above the ceiling = €{jovemImt}, and stamp duty is 0.8% of that same excess = €{jovemStamp}. Total purchase tax: €{jovemTotal}, versus €{jovemOrdinaryTotal} (€{jovemOrdinaryImt} IMT + €{stamp400} stamp duty) without the relief — a saving of about €{jovemSaving}.",
           },
         ],
       },
@@ -66,11 +67,11 @@ export const imtJovem: Record<Lang, GuideBody> = {
     faq: [
       {
         q: "Does IMT Jovem also cover stamp duty?",
-        a: "Yes. Decreto-Lei n.º 48-A/2024 exempts both IMT and the 0.8% acquisition stamp duty (verba 1.1) up to the same value ceiling — €330,539 on the mainland in 2026, €413,174 in the Azores and Madeira — with tax on the excess above it.",
+        a: "Yes. Decreto-Lei n.º 48-A/2024 exempts both IMT and the 0.8% acquisition stamp duty (verba 1.1) up to the same value ceiling — €{jovemCap} on the mainland in {year}, €{jovemCapRegion} in the Azores and Madeira — with tax on the excess above it.",
       },
       {
         q: "What if the home costs more than the ceiling?",
-        a: "You still get the relief up to the ceiling. Only the part of the value above €330,539 (mainland) is taxed — at 8% IMT plus 0.8% stamp duty — so a more expensive home is only partially, not fully, exempt.",
+        a: "You still get the relief up to the ceiling. Only the part of the value above €{jovemCap} (mainland) is taxed — at {jovemRate} IMT plus 0.8% stamp duty — so a more expensive home is only partially, not fully, exempt.",
       },
       {
         q: "We are buying together and only one of us is under 36 — do we lose it?",
@@ -81,7 +82,7 @@ export const imtJovem: Record<Lang, GuideBody> = {
   },
   pt: {
     intro:
-      "O IMT Jovem isenta os jovens compradores de IMT e do imposto do selo da aquisição na sua primeira habitação própria e permanente. Veja quem tem direito, os limites de valor de 2026, quanto poupa e as condições para manter o benefício.",
+      "O IMT Jovem isenta os jovens compradores de IMT e do imposto do selo da aquisição na sua primeira habitação própria e permanente. Veja quem tem direito, os limites de valor de {year}, quanto poupa e as condições para manter o benefício.",
     sections: [
       {
         heading: "O que é o IMT Jovem",
@@ -107,13 +108,13 @@ export const imtJovem: Record<Lang, GuideBody> = {
         ],
       },
       {
-        heading: "Quanto poupa em 2026",
+        heading: "Quanto poupa em {year}",
         blocks: [
           {
-            p: "No continente, o IMT e o imposto do selo da aquisição estão totalmente isentos até €330 539. Acima desse limite, cada um incide apenas sobre a parte que o excede: o imposto do selo a 0,8% sobre todo o excedente (sem limite superior) e o IMT a 8% até €660 982 — acima do qual se aplicam as taxas normais de IMT de habitação própria e o IMT deixa de ser reduzido.",
+            p: "No continente, o IMT e o imposto do selo da aquisição estão totalmente isentos até €{jovemCap}. Acima desse limite, cada um incide apenas sobre a parte que o excede: o imposto do selo a 0,8% sobre todo o excedente (sem limite superior) e o IMT a {jovemRate} até €{jovemUpper} — acima do qual se aplicam as taxas normais de IMT de habitação própria e o IMT deixa de ser reduzido.",
           },
           {
-            p: "Nos Açores e na Madeira o limite é mais alto — €413 174 — porque as tabelas regionais são os escalões do continente acrescidos de 25% (Lei n.º 21/90).",
+            p: "Nos Açores e na Madeira o limite é mais alto — €{jovemCapRegion} — porque as tabelas regionais são os escalões do continente acrescidos de 25% (Lei n.º 21/90).",
           },
         ],
       },
@@ -121,10 +122,10 @@ export const imtJovem: Record<Lang, GuideBody> = {
         heading: "Exemplos",
         blocks: [
           {
-            p: "Uma primeira casa de €300 000 no continente: abaixo do limite de €330 539, pelo que o IMT e o imposto do selo da aquisição são ambos €0 — os impostos da compra são totalmente dispensados.",
+            p: "Uma primeira casa de €300 000 no continente: abaixo do limite de €{jovemCap}, pelo que o IMT e o imposto do selo da aquisição são ambos €0 — os impostos da compra são totalmente dispensados.",
           },
           {
-            p: "Uma primeira casa de €400 000 no continente: o IMT é 8% dos €69 461 acima do limite = €5 556,88, e o imposto do selo é 0,8% desse mesmo excedente = €555,69. Total de impostos da compra: €6 112,57, contra €21 436,65 (€18 236,65 de IMT + €3 200 de imposto do selo) sem o benefício — uma poupança de cerca de €15 324.",
+            p: "Uma primeira casa de €400 000 no continente: o IMT é {jovemRate} dos €{jovemExcess} acima do limite = €{jovemImt}, e o imposto do selo é 0,8% desse mesmo excedente = €{jovemStamp}. Total de impostos da compra: €{jovemTotal}, contra €{jovemOrdinaryTotal} (€{jovemOrdinaryImt} de IMT + €{stamp400} de imposto do selo) sem o benefício — uma poupança de cerca de €{jovemSaving}.",
           },
         ],
       },
@@ -140,11 +141,11 @@ export const imtJovem: Record<Lang, GuideBody> = {
     faq: [
       {
         q: "O IMT Jovem também abrange o imposto do selo?",
-        a: "Sim. O Decreto-Lei n.º 48-A/2024 isenta tanto o IMT como o imposto do selo de 0,8% da aquisição (verba 1.1) até ao mesmo limite de valor — €330 539 no continente em 2026, €413 174 nos Açores e na Madeira — com imposto apenas sobre o excedente.",
+        a: "Sim. O Decreto-Lei n.º 48-A/2024 isenta tanto o IMT como o imposto do selo de 0,8% da aquisição (verba 1.1) até ao mesmo limite de valor — €{jovemCap} no continente em {year}, €{jovemCapRegion} nos Açores e na Madeira — com imposto apenas sobre o excedente.",
       },
       {
         q: "E se a casa custar mais do que o limite?",
-        a: "Continua a beneficiar da isenção até ao limite. Só a parte do valor acima de €330 539 (continente) é tributada — a 8% de IMT mais 0,8% de imposto do selo — pelo que uma casa mais cara fica apenas parcialmente, e não totalmente, isenta.",
+        a: "Continua a beneficiar da isenção até ao limite. Só a parte do valor acima de €{jovemCap} (continente) é tributada — a {jovemRate} de IMT mais 0,8% de imposto do selo — pelo que uma casa mais cara fica apenas parcialmente, e não totalmente, isenta.",
       },
       {
         q: "Vamos comprar juntos e só um de nós tem menos de 36 anos — perdemos o benefício?",

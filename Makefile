@@ -1,4 +1,4 @@
-.PHONY: help install dev preview lint test coverage check build clean fetch-tables ga-setup og-image icons psi
+.PHONY: help install dev preview lint test coverage check build clean fetch-tables precompute-guides ga-setup og-image icons psi
 
 help: ## Show available commands
 	@grep -E '^[a-zA-Z_-]+:.*##|^##@' $(MAKEFILE_LIST) | \
@@ -43,6 +43,9 @@ clean: ## Remove build + coverage artifacts (all regenerable)
 fetch-tables: ## Fetch AT IMT tables for a year and regenerate the .ts (usage: make fetch-tables YEAR=2026)
 	@test -n "$(YEAR)" || { echo "Usage: make fetch-tables YEAR=2026"; exit 1; }
 	node bin/fetch-tables.mjs $(YEAR)
+
+precompute-guides: ## Recompute the guides' worked-example figures from the engine into computed.ts
+	node bin/precompute-guides.mjs
 
 ##@ Analytics
 

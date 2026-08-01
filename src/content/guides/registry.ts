@@ -9,8 +9,9 @@
 
 import type { Lang } from "@/i18n/lang";
 import type { TableId } from "@/engine/types";
-// Relative import: this module is reachable from vite.config.ts (esbuild, no "@" alias) at build time.
+// Relative imports: this module is reachable from vite.config.ts (esbuild, no "@" alias) at build time.
 import { LATEST_YEAR } from "../../engine/tables";
+import { FIGURES } from "./computed";
 
 /** The section path segment per language: /guides/… (EN) and /pt/guias/… (PT). */
 export const GUIDES_SEGMENT: Record<Lang, string> = { en: "guides", pt: "guias" };
@@ -69,8 +70,8 @@ export const GUIDE_META: GuideMeta[] = [
       pt: `IMT Jovem ${LATEST_YEAR}: quem tem direito e quanto poupa`,
     },
     description: {
-      en: `IMT Jovem in ${LATEST_YEAR}: the IMT and stamp-duty exemption on a first own permanent home bought by under-36s, the €330,539 cap, how it maps to the tax tables, and a worked example.`,
-      pt: `IMT Jovem em ${LATEST_YEAR}: a isenção de IMT e do imposto do selo na primeira habitação própria e permanente para menores de 36 anos, o limite de €330 539, as tabelas aplicáveis e um exemplo.`,
+      en: `IMT Jovem in ${LATEST_YEAR}: the IMT and stamp-duty exemption on a first own permanent home bought by under-36s, the €${FIGURES.en.jovemCap} cap, how it maps to the tax tables, and a worked example.`,
+      pt: `IMT Jovem em ${LATEST_YEAR}: a isenção de IMT e do imposto do selo na primeira habitação própria e permanente para menores de 36 anos, o limite de €${FIGURES.pt.jovemCap}, as tabelas aplicáveis e um exemplo.`,
     },
     navLabel: { en: "IMT Jovem", pt: "IMT Jovem" },
     published: "2026-07-31",

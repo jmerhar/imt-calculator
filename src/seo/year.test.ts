@@ -6,6 +6,7 @@ import { SITE_URL } from "@/config";
 import { SEO_PAGES } from "@/seo/meta";
 import { jsonLdFor } from "@/seo/jsonld";
 import { GUIDE_META, GUIDES_INDEX_SEO } from "@/content/guides/registry";
+import { GENERATED_FOR_YEAR } from "@/content/guides/computed";
 
 // Drift guard for the yearly 2026 → 2027 rollover. The display tax-year must come from LATEST_YEAR
 // (the newest registered tables), so after `make bump-year` every user-facing title/description
@@ -69,5 +70,12 @@ describe("display tax-year tracks LATEST_YEAR", () => {
 
   it.each(resolved)("%s carries no stray tax-year", (_k, value) => {
     expect(strayYears(value)).toEqual([]);
+  });
+
+  // The guide worked-example figures (computed.ts) are regenerated per year by bin/precompute-guides.
+  // If the tables are bumped but the figures aren't regenerated, the guides would show last year's
+  // numbers — this catches that before it ships (run `make precompute-guides`).
+  it("guide figures were generated for the latest registered year", () => {
+    expect(GENERATED_FOR_YEAR).toBe(LATEST_YEAR);
   });
 });

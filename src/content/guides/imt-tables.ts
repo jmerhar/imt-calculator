@@ -1,13 +1,14 @@
 import type { Lang } from "@/i18n/lang";
 import type { GuideBody } from "./registry";
 
-// Guide: IMT tables 2026. Bilingual. The { table } blocks render the live 2026 brackets from the
-// engine (src/engine/tables/2026.ts), so the figures shown here always match the calculator.
+// Guide: the IMT rate tables. Bilingual. The { table } blocks render the live brackets for the
+// latest registered year from the engine; the ceilings and year labels are {tokens} resolved at
+// render (computed.ts), so the guide always matches the calculator.
 
 export const imtTables: Record<Lang, GuideBody> = {
   en: {
     intro:
-      "IMT is charged on progressive bands that depend on the property's location, its use, and whether the buyer qualifies for IMT Jovem. These are the 2026 tables for mainland Portugal, the Azores and Madeira, and how the applicable one is chosen.",
+      "IMT is charged on progressive bands that depend on the property's location, its use, and whether the buyer qualifies for IMT Jovem. These are the {year} tables for mainland Portugal, the Azores and Madeira, and how the applicable one is chosen.",
     sections: [
       {
         heading: "How IMT is calculated",
@@ -18,11 +19,11 @@ export const imtTables: Record<Lang, GuideBody> = {
         ],
       },
       {
-        heading: "Mainland tables (2026)",
+        heading: "Mainland tables ({year})",
         blocks: [
           { p: "Table I — own permanent home (habitação própria e permanente):" },
           { table: "I" },
-          { p: "Table II — own permanent home under IMT Jovem (first home, buyer aged 35 or under): fully exempt up to €330,539, then 8% on the excess." },
+          { p: "Table II — own permanent home under IMT Jovem (first home, buyer aged 35 or under): fully exempt up to €{jovemCap}, then {jovemRate} on the excess." },
           { table: "II" },
           { p: "Table III — other housing (secondary homes and rentals):" },
           { table: "III" },
@@ -36,7 +37,7 @@ export const imtTables: Record<Lang, GuideBody> = {
           },
           { p: "Table IV — own permanent home:" },
           { table: "IV" },
-          { p: "Table V — own permanent home under IMT Jovem (exempt up to €413,174):" },
+          { p: "Table V — own permanent home under IMT Jovem (exempt up to €{jovemCapRegion}):" },
           { table: "V" },
           { p: "Table VI — other housing:" },
           { table: "VI" },
@@ -69,15 +70,15 @@ export const imtTables: Record<Lang, GuideBody> = {
         a: "It is a fixed amount subtracted after applying a band's marginal rate, so that the tax is continuous across band boundaries. The calculator applies it automatically; the flat top bands carry a deduction of zero.",
       },
       {
-        q: "Are these the 2026 figures?",
-        a: "Yes. The tables are for the 2026 tax year, from CIMT art. 17.º and the AT practical tables (Ofício Circulado n.º 40129/2026), and they are the exact figures the calculator uses.",
+        q: "Are these the {year} figures?",
+        a: "Yes. The tables are for the {year} tax year, from CIMT art. 17.º and the AT practical tables (Ofício Circulado n.º 40129/2026), and they are the exact figures the calculator uses.",
       },
     ],
-    cta: "Calculate with the 2026 tables",
+    cta: "Calculate with the {year} tables",
   },
   pt: {
     intro:
-      "O IMT é cobrado por escalões progressivos que dependem da localização do imóvel, da sua finalidade e de o comprador ter ou não direito ao IMT Jovem. Estas são as tabelas de 2026 para o continente, os Açores e a Madeira, e como se escolhe a tabela aplicável.",
+      "O IMT é cobrado por escalões progressivos que dependem da localização do imóvel, da sua finalidade e de o comprador ter ou não direito ao IMT Jovem. Estas são as tabelas de {year} para o continente, os Açores e a Madeira, e como se escolhe a tabela aplicável.",
     sections: [
       {
         heading: "Como se calcula o IMT",
@@ -88,11 +89,11 @@ export const imtTables: Record<Lang, GuideBody> = {
         ],
       },
       {
-        heading: "Tabelas do continente (2026)",
+        heading: "Tabelas do continente ({year})",
         blocks: [
           { p: "Tabela I — habitação própria e permanente:" },
           { table: "I" },
-          { p: "Tabela II — habitação própria e permanente ao abrigo do IMT Jovem (primeira habitação, comprador até 35 anos): isenção total até €330 539 e depois 8% sobre o excedente." },
+          { p: "Tabela II — habitação própria e permanente ao abrigo do IMT Jovem (primeira habitação, comprador até 35 anos): isenção total até €{jovemCap} e depois {jovemRate} sobre o excedente." },
           { table: "II" },
           { p: "Tabela III — outra habitação (habitação secundária e arrendamento):" },
           { table: "III" },
@@ -106,7 +107,7 @@ export const imtTables: Record<Lang, GuideBody> = {
           },
           { p: "Tabela IV — habitação própria e permanente:" },
           { table: "IV" },
-          { p: "Tabela V — habitação própria e permanente ao abrigo do IMT Jovem (isenção até €413 174):" },
+          { p: "Tabela V — habitação própria e permanente ao abrigo do IMT Jovem (isenção até €{jovemCapRegion}):" },
           { table: "V" },
           { p: "Tabela VI — outra habitação:" },
           { table: "VI" },
@@ -139,10 +140,10 @@ export const imtTables: Record<Lang, GuideBody> = {
         a: "É um montante fixo subtraído após aplicar a taxa marginal do escalão, para que o imposto seja contínuo nas fronteiras dos escalões. A calculadora aplica-a automaticamente; os escalões de taxa única têm parcela a abater igual a zero.",
       },
       {
-        q: "Estes são os valores de 2026?",
-        a: "Sim. As tabelas referem-se ao ano fiscal de 2026, do art. 17.º do CIMT e das tabelas práticas da AT (Ofício Circulado n.º 40129/2026), e são exatamente os valores que a calculadora usa.",
+        q: "Estes são os valores de {year}?",
+        a: "Sim. As tabelas referem-se ao ano fiscal de {year}, do art. 17.º do CIMT e das tabelas práticas da AT (Ofício Circulado n.º 40129/2026), e são exatamente os valores que a calculadora usa.",
       },
     ],
-    cta: "Calcular com as tabelas de 2026",
+    cta: "Calcular com as tabelas de {year}",
   },
 };

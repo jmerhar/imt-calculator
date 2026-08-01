@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { useI18n } from "@/i18n";
 import { GUIDE_BODIES, guideBySlug } from "@/content/guides";
 import type { Block } from "@/content/guides/registry";
+import { resolveText } from "@/content/guides/figures";
 import { getYearData, LATEST_YEAR } from "@/engine/tables";
 import type { CalcInput, TableId } from "@/engine/types";
 import { guidesIndexPath, localizedPath } from "@/i18n/paths";
@@ -64,12 +65,13 @@ function BracketTable({ id }: { id: TableId }) {
 }
 
 function GuideBlock({ block }: { block: Block }) {
-  if ("p" in block) return <p>{block.p}</p>;
+  const { lang } = useI18n();
+  if ("p" in block) return <p>{resolveText(block.p, lang)}</p>;
   if ("ul" in block)
     return (
       <ul>
         {block.ul.map((li, i) => (
-          <li key={i}>{li}</li>
+          <li key={i}>{resolveText(li, lang)}</li>
         ))}
       </ul>
     );
@@ -102,11 +104,11 @@ export function GuidePage() {
       <p className="guide__meta">
         {t.guides.updated} <time dateTime={meta.updated}>{meta.updated}</time>
       </p>
-      <p className="doc__intro">{body.intro}</p>
+      <p className="doc__intro">{resolveText(body.intro, lang)}</p>
 
       {body.sections.map((s, i) => (
         <section className="doc__section" key={i}>
-          <h2 className="doc__h2">{s.heading}</h2>
+          <h2 className="doc__h2">{resolveText(s.heading, lang)}</h2>
           <div className="doc__body">
             {s.blocks.map((b, j) => (
               <GuideBlock key={j} block={b} />
@@ -121,8 +123,8 @@ export function GuidePage() {
           <div className="doc__body">
             {body.faq.map((f, i) => (
               <div className="faq-item" key={i}>
-                <h3 className="faq-item__q">{f.q}</h3>
-                <p>{f.a}</p>
+                <h3 className="faq-item__q">{resolveText(f.q, lang)}</h3>
+                <p>{resolveText(f.a, lang)}</p>
               </div>
             ))}
           </div>
@@ -131,7 +133,7 @@ export function GuidePage() {
 
       <p className="guide__cta">
         <Link className="btn-cta" to={ctaHref} onClick={() => track("guide_cta", { guide: meta.id })}>
-          {body.cta}
+          {resolveText(body.cta, lang)}
         </Link>
       </p>
     </article>

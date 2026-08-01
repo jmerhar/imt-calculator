@@ -56,11 +56,11 @@ export const glossary: GlossaryEntry[] = [
     id: "jovem",
     en: {
       term: "IMT Jovem (young buyers' relief)",
-      def: "Relief for a first own permanent home bought by people aged 35 or under: both IMT and the 0.8% acquisition stamp duty are exempt up to a ceiling (€330,539 on the mainland in 2026) and charged only on the excess above it.",
+      def: "Relief for a first own permanent home bought by people aged 35 or under: both IMT and the 0.8% acquisition stamp duty are exempt up to a ceiling (€{jovemCap} on the mainland in {year}) and charged only on the excess above it.",
     },
     pt: {
       term: "IMT Jovem",
-      def: "Benefício para a primeira habitação própria e permanente de pessoas até 35 anos: o IMT e o imposto do selo de 0,8% da aquisição estão isentos até um limite (€330 539 no continente em 2026) e apenas incidem sobre o excedente.",
+      def: "Benefício para a primeira habitação própria e permanente de pessoas até 35 anos: o IMT e o imposto do selo de 0,8% da aquisição estão isentos até um limite (€{jovemCap} no continente em {year}) e apenas incidem sobre o excedente.",
     },
   },
   {

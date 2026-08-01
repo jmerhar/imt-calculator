@@ -1,5 +1,6 @@
 import { useI18n } from "@/i18n";
 import { glossary } from "@/content/glossary";
+import { resolveText } from "@/content/guides/figures";
 import { localizedPath } from "@/i18n/paths";
 import { Breadcrumb } from "@/components/Breadcrumb";
 
@@ -25,7 +26,7 @@ export function GlossaryPage() {
                 e.pt.term
               )}
             </dt>
-            <dd className="glossary__def">{lang === "en" ? e.en.def : e.pt.def}</dd>
+            <dd className="glossary__def">{resolveText(lang === "en" ? e.en.def : e.pt.def, lang)}</dd>
           </div>
         ))}
       </dl>

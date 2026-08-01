@@ -63,7 +63,7 @@ export const howItWorks: HowToSection[] = [
   {
     id: "nonresident",
     en: {
-      heading: "Non-resident buyers (2026)",
+      heading: "Non-resident buyers ({year})",
       blocks: [
         { p: "Since Decreto-Lei n.º 97/2026, a non-resident buying housing pays a flat 7.5% IMT with no exemption or reduction (CIMT art. 17.º n.º 10), unless one of these applies:" },
         {
@@ -78,7 +78,7 @@ export const howItWorks: HowToSection[] = [
       ],
     },
     pt: {
-      heading: "Compradores não residentes (2026)",
+      heading: "Compradores não residentes ({year})",
       blocks: [
         { p: "Desde o Decreto-Lei n.º 97/2026, um não residente que compre habitação paga uma taxa fixa de IMT de 7,5%, sem isenção nem redução (art. 17.º n.º 10 do CIMT), salvo se:" },
         {
@@ -128,7 +128,7 @@ export const howItWorks: HowToSection[] = [
     en: {
       heading: "Data & sources",
       blocks: [
-        { p: "Rates and tables are for the 2026 tax year. The autonomous-region tables are the mainland thresholds increased by 25% (Lei n.º 21/90). Future years can be added from the same official sources without touching the calculation logic." },
+        { p: "Rates and tables are for the {year} tax year. The autonomous-region tables are the mainland thresholds increased by 25% (Lei n.º 21/90). Future years can be added from the same official sources without touching the calculation logic." },
         {
           ul: [
             "IMT rates & tables — CIMT art. 17.º (Portal das Finanças) and AT Ofício Circulado n.º 40129/2026;",
@@ -143,7 +143,7 @@ export const howItWorks: HowToSection[] = [
     pt: {
       heading: "Dados e fontes",
       blocks: [
-        { p: "As taxas e tabelas referem-se ao ano fiscal de 2026. As tabelas das regiões autónomas são os escalões do continente acrescidos de 25% (Lei n.º 21/90). Anos futuros podem ser adicionados a partir das mesmas fontes oficiais sem alterar a lógica de cálculo." },
+        { p: "As taxas e tabelas referem-se ao ano fiscal de {year}. As tabelas das regiões autónomas são os escalões do continente acrescidos de 25% (Lei n.º 21/90). Anos futuros podem ser adicionados a partir das mesmas fontes oficiais sem alterar a lógica de cálculo." },
         {
           ul: [
             "Taxas e tabelas de IMT — art. 17.º do CIMT (Portal das Finanças) e Ofício Circulado n.º 40129/2026 da AT;",
