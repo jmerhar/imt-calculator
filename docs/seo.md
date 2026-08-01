@@ -141,8 +141,10 @@ comes from. Bias toward Portuguese — it's the primary market. **Planned in `do
 - ✅ **Internal linking** — header nav links all pages in the current language; footer links to
   how-it-works; visible breadcrumbs on every sub-page; each guide CTA deep-links into the
   calculator. Optional next step: contextual in-body links from guide prose to glossary terms.
-- ✅ **Freshness** — the "2026" framing is in titles, the `<h1>`, and content. Yearly refresh is a
-  known task (the year-parameterized tables + `make fetch-tables` support it).
+- ✅ **Freshness** — the tax-year framing in titles, the `<h1>`, meta, guides and OG images now
+  derives from `LATEST_YEAR` (the newest registered tables), not the calendar; guide figures are
+  precomputed from the engine. The yearly refresh is one command, `make bump-year YEAR=…`, plus a
+  human data review — see `docs/year-rollover.md`. Slugs are evergreen so the URLs never churn.
 - ✅ **Cite primary sources** — how-it-works cites CIMT/TGIS/DL 97/2026; `reference/` holds the
   source docs. E-E-A-T signal in place.
 

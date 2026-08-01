@@ -18,7 +18,8 @@ pages and specifies a first batch of guide articles. **PT-first** — Portugal i
 - **E-E-A-T**: cite primary sources (CIMT, TGIS, DL 97/2026) as how-it-works already does. YMYL topic
   → trust matters.
 - **Bilingual parity**: every guide ships EN + PT with reciprocal hreflang, like the existing pages.
-- **Freshness**: "2026" in titles/H1; a yearly refresh pass is already a known task.
+- **Freshness**: the year in titles/H1 tracks `LATEST_YEAR` (templated), not the URL; the yearly
+  refresh is `make bump-year YEAR=…` — see `docs/year-rollover.md`.
 
 ## Keyword map (intent → page)
 
