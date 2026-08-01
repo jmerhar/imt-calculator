@@ -56,20 +56,24 @@ Once Search Console has data, feed real discovered queries back into this map (M
 - **Internal linking:** add a "Guides" nav entry; each guide links to the calculator (deep-linked
   where useful) and to 1–2 sibling guides; how-it-works/glossary link out to relevant guides.
 
-### ✅ Decision taken: localized slugs
+### ✅ Decision taken: localized, **evergreen** slugs
 
-PT ranks better with **localized slugs** (`/pt/guias/imt-nao-residentes-2026/`) than with English
+PT ranks better with **localized slugs** (`/pt/guias/imt-nao-residentes/`) than with English
 slugs under `/pt/`, so we went with localized slugs throughout — guides **and** the core pages
 (`/pt/glossario`, `/pt/como-funciona`). The EN↔PT pairing is resolved through the guide registry
 (`content/guides/registry.ts`) and the page-slug registry (`src/i18n/pages.ts`), threaded through
 `localizedPath`/`barePath`, hreflang/canonical, and the sitemap.
+
+Slugs are **year-free** (evergreen): the tax year lives in the title/H1 (templated from
+`LATEST_YEAR`), never the URL. GitHub Pages can't 301, so a year-in-slug would break the URL every
+January; a stable slug keeps its ranking history across rollovers. See `docs/year-rollover.md`.
 
 ## First batch (3 articles) — ✅ shipped
 
 All three are live (bilingual, localized slugs, Article/FAQ/Breadcrumb JSON-LD, prefilled-CTA worked
 examples). Specs kept for reference; PT shown, EN mirrors.
 
-### 1. IMT para não residentes em 2026 (`imt-nao-residentes-2026`)
+### 1. IMT para não residentes em 2026 (`imt-nao-residentes`)
 - **Primary:** `IMT não residentes`. **Intent:** informational, high-worry, we have authority.
 - **Title (PT):** "IMT para não residentes em 2026: a taxa de 7,5% explicada" (~58 ch).
 - **H1:** "IMT para não residentes em Portugal (2026)".
@@ -79,7 +83,7 @@ examples). Specs kept for reference; PT shown, EN mirrors.
 - **Schema:** Article + FAQPage (reuse/extend the how-it-works Q&As). **CTA:** deep link to a
   non-resident pre-filled calc.
 
-### 2. IMT Jovem 2026: quem tem direito e quanto poupa (`imt-jovem-2026`)
+### 2. IMT Jovem 2026: quem tem direito e quanto poupa (`imt-jovem`)
 - **Primary:** `IMT jovem`. **Intent:** eligibility + savings, high volume among first-time buyers.
 - **Title (PT):** "IMT Jovem 2026: quem tem direito e quanto poupa" (~52 ch).
 - **H1:** "IMT Jovem em 2026: elegibilidade e poupança".
@@ -88,7 +92,7 @@ examples). Specs kept for reference; PT shown, EN mirrors.
   with Jovem enabled.
 - **Schema:** Article + FAQPage. **CTA:** deep link to a Jovem example.
 
-### 3. Tabelas de IMT 2026 (`tabelas-imt-2026`)
+### 3. Tabelas de IMT 2026 (`tabelas-imt`)
 - **Primary:** `tabelas IMT 2026`. **Intent:** reference; strong "useful tool" landing.
 - **Title (PT):** "Tabelas de IMT 2026: escalões e taxas (todas as regiões)" (~57 ch).
 - **H1:** "Tabelas de IMT 2026 (Continente, Açores, Madeira)".

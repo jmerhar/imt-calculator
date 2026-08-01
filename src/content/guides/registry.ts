@@ -48,7 +48,7 @@ export interface GuideMeta {
 export const GUIDE_META: GuideMeta[] = [
   {
     id: "imt-non-residents",
-    slug: { en: "imt-non-residents-2026", pt: "imt-nao-residentes-2026" },
+    slug: { en: "imt-non-residents", pt: "imt-nao-residentes" },
     title: {
       en: `IMT for Non-Residents in Portugal (${LATEST_YEAR})`,
       pt: `IMT para não residentes em ${LATEST_YEAR}: a taxa de 7,5%`,
@@ -63,7 +63,7 @@ export const GUIDE_META: GuideMeta[] = [
   },
   {
     id: "imt-jovem",
-    slug: { en: "imt-jovem-2026", pt: "imt-jovem-2026" },
+    slug: { en: "imt-jovem", pt: "imt-jovem" },
     title: {
       en: `IMT Jovem ${LATEST_YEAR}: Who Qualifies and How Much You Save`,
       pt: `IMT Jovem ${LATEST_YEAR}: quem tem direito e quanto poupa`,
@@ -108,7 +108,7 @@ export const GUIDE_META: GuideMeta[] = [
   },
   {
     id: "imt-tables",
-    slug: { en: "imt-tables-2026", pt: "tabelas-imt-2026" },
+    slug: { en: "imt-tables", pt: "tabelas-imt" },
     title: {
       en: `IMT Tables ${LATEST_YEAR}: Brackets and Rates (All Regions)`,
       pt: `Tabelas de IMT ${LATEST_YEAR}: escalões e taxas`,
