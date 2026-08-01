@@ -64,7 +64,7 @@ function articleJsonLd(lang: Lang, m: GuideMeta, url: string): string {
     headline: m.title[lang],
     description: m.description[lang],
     inLanguage: lang,
-    image: [`${SITE_URL}/og.png`],
+    image: [`${SITE_URL}/og-${lang}.png`],
     // Full ISO 8601 with a time zone — a bare date reads as an "invalid datetime" to Google.
     datePublished: `${m.published}T00:00:00Z`,
     dateModified: `${m.updated}T00:00:00Z`,

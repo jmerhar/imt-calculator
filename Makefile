@@ -49,7 +49,7 @@ fetch-tables: ## Fetch AT IMT tables for a year and regenerate the .ts (usage: m
 ga-setup: ## Register GA4 custom dimensions/metrics, idempotently (uses ./ga-key.json; ARGS=--dry-run to preview)
 	node bin/ga-setup.mjs $(ARGS)
 
-og-image: ## Regenerate the Open Graph share image (public/og.png) from its SVG
+og-image: ## Regenerate the per-language Open Graph share images (public/og-en.png, og-pt.png)
 	node scripts/gen-og.mjs
 
 icons: ## Regenerate the PNG app icons (apple-touch-icon + PWA manifest) from favicon.svg

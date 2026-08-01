@@ -69,7 +69,7 @@ function injectSeo(route: string, html: string): string {
   ].join("");
   const desc = `<meta name="description" content="${escapeHtml(description)}" />`;
 
-  const ogImage = `${SITE_URL}/og.png`;
+  const ogImage = `${SITE_URL}/og-${lang}.png`;
   const social = [
     `<meta property="og:type" content="website" />`,
     `<meta property="og:site_name" content="IMT Calculator" />`,
@@ -77,6 +77,8 @@ function injectSeo(route: string, html: string): string {
     `<meta property="og:description" content="${escapeHtml(description)}" />`,
     `<meta property="og:url" content="${canonical}" />`,
     `<meta property="og:image" content="${ogImage}" />`,
+    `<meta property="og:image:width" content="1200" />`,
+    `<meta property="og:image:height" content="630" />`,
     `<meta property="og:locale" content="${lang === "pt" ? "pt_PT" : "en_US"}" />`,
     `<meta property="og:locale:alternate" content="${lang === "pt" ? "en_US" : "pt_PT"}" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,

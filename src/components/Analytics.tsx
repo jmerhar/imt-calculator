@@ -55,7 +55,10 @@ export function Analytics() {
     document.querySelector('meta[property="og:url"]')?.setAttribute("content", url);
     document.querySelector('meta[property="og:title"]')?.setAttribute("content", docTitle);
     document.querySelector('meta[name="twitter:title"]')?.setAttribute("content", docTitle);
-  }, [pathname, docTitle]);
+    const ogImage = `${SITE_URL}/og-${lang}.png`;
+    document.querySelector('meta[property="og:image"]')?.setAttribute("content", ogImage);
+    document.querySelector('meta[name="twitter:image"]')?.setAttribute("content", ogImage);
+  }, [pathname, docTitle, lang]);
 
   // Track the active UI language and theme on each page view, sampled when the route changes. Held
   // in refs (not page_view dependencies) so switching language or theme — which keeps the same

@@ -90,8 +90,9 @@ Without these, the rest barely matters.
 - ✅ **Open Graph** — `og:type/site_name/title/description/url/image` + localized `og:locale`
   (+ alternate), injected per page at build.
 - ✅ **Twitter Card** — `summary_large_image` with title/description/image.
-- ✅ **Share/OG image** (1200×630) — branded PNG at `public/og.png`, generated from an SVG by
-  `scripts/gen-og.mjs` (`make og-image`). One shared image; per-language variants optional later.
+- ✅ **Share/OG image** (1200×630) — **per-language** branded PNGs (`public/og-en.png`,
+  `public/og-pt.png`), generated from SVGs by `scripts/gen-og.mjs` (`make og-image`); injectSeo
+  serves the one matching each page's language (with `og:image:width/height`).
 - ✅ **`theme-color`, apple-touch-icon, web app manifest** — per-scheme `theme-color`, an
   apple-touch-icon, and `public/manifest.webmanifest` make the site installable and tint the mobile
   browser UI. Icons generated from `favicon.svg` by `scripts/gen-icons.mjs` (`make icons`).
