@@ -2,13 +2,17 @@
 // Localized per language. Pure module (no browser/React), so the config can import it.
 
 import { SITE_URL } from "../config";
+// Relative import: this module is bundled into vite.config.ts (esbuild, no "@" alias) at build time.
+import { LATEST_YEAR } from "../engine/tables";
 
 type Lang = "en" | "pt";
 
 const NAME: Record<Lang, string> = { en: "IMT Calculator", pt: "Calculadora de IMT" };
+// The ruleset year tracks the latest registered tables; the FAQ dates below are legislative history
+// (Decreto-Lei n.º 97/2026) and stay literal.
 const APP_DESC: Record<Lang, string> = {
-  en: "Free calculator for Portugal's property-transfer tax (IMT) and stamp duty (2026 rules).",
-  pt: "Calculadora gratuita do IMT e do imposto do selo em Portugal (regras de 2026).",
+  en: `Free calculator for Portugal's property-transfer tax (IMT) and stamp duty (${LATEST_YEAR} rules).`,
+  pt: `Calculadora gratuita do IMT e do imposto do selo em Portugal (regras de ${LATEST_YEAR}).`,
 };
 const PAGE_NAME: Record<Lang, { glossary: string; howItWorks: string }> = {
   en: { glossary: "Glossary", howItWorks: "How it works" },

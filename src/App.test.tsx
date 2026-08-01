@@ -9,6 +9,14 @@ import { glossary } from "@/content/glossary";
 import { LANG_STORAGE_KEY } from "@/i18n/paths";
 import { encodeToken } from "@/state/url";
 import { defaultInput } from "@/state/defaults";
+import { fmt } from "@/i18n";
+import { LATEST_YEAR } from "@/engine/tables";
+
+// The tax year in the subtitle / H1 is templated ({year}) and resolved with LATEST_YEAR at render,
+// so tests match the resolved text rather than the raw template.
+const y = { year: LATEST_YEAR };
+const homeTitle = `${en.app.title} · ${fmt(en.app.subtitle, y)}`;
+const calcH1 = (l: typeof en | typeof pt) => fmt(l.pages.calculatorH1, y);
 
 /** Force the browser language for the redirect tests (jsdom defaults to en-US). */
 function setBrowserLang(value: string) {
@@ -93,7 +101,7 @@ describe("App", () => {
         page_location: `${origin}/`,
         ui_language: "en",
         ui_theme: "light",
-        page_title: `${en.app.title} · ${en.app.subtitle}`,
+        page_title: homeTitle,
       }),
     );
     await user.click(screen.getByRole("link", { name: en.nav.glossary }));
@@ -134,26 +142,26 @@ describe("App", () => {
   it("redirects a Portuguese-preferring visitor from / to /pt", async () => {
     setBrowserLang("pt-PT");
     renderApp("/");
-    expect(await screen.findByText(pt.pages.calculatorH1)).toBeInTheDocument();
+    expect(await screen.findByText(calcH1(pt))).toBeInTheDocument();
   });
 
   it("does NOT redirect when the visitor explicitly chose English", () => {
     setBrowserLang("pt-PT");
     localStorage.setItem(LANG_STORAGE_KEY, "en"); // a deliberate choice must win over the browser
     renderApp("/");
-    expect(screen.getByText(en.pages.calculatorH1)).toBeInTheDocument();
+    expect(screen.getByText(calcH1(en))).toBeInTheDocument();
     localStorage.removeItem(LANG_STORAGE_KEY);
   });
 
   it("does not redirect an English-preferring visitor", () => {
     renderApp("/");
-    expect(screen.getByText(en.pages.calculatorH1)).toBeInTheDocument();
+    expect(screen.getByText(calcH1(en))).toBeInTheDocument();
   });
 
   it("sets a localized document title per route", async () => {
     const user = userEvent.setup();
     renderApp();
-    expect(document.title).toBe(`${en.app.title} · ${en.app.subtitle}`);
+    expect(document.title).toBe(homeTitle);
     await user.click(screen.getByRole("link", { name: en.nav.glossary }));
     expect(document.title).toBe(`${en.nav.glossary} · ${en.app.title}`);
     // Switching language navigates to /pt/glossario; the tab title becomes the Portuguese one.

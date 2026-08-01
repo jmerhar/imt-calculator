@@ -36,7 +36,7 @@ export function Layout({ children }: { children: ReactNode }) {
           <HouseMark />
           <div>
             <div className="header__title">{t.app.title}</div>
-            <div className="header__subtitle">{t.app.subtitle}</div>
+            <div className="header__subtitle">{fmt(t.app.subtitle, { year: LATEST_YEAR })}</div>
           </div>
         </div>
 

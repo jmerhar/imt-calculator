@@ -3,9 +3,20 @@
 // Regenerate with `make og-image`. injectSeo (vite.config) serves the image matching each page's
 // language, so a shared PT page previews in Portuguese.
 
-import { writeFileSync } from "node:fs";
+import { writeFileSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import sharp from "sharp";
+
+// The advertised year tracks the latest registered tax-table module (the YEARS map in
+// src/engine/tables/index.ts), so the OG images never show a year the calculator can't compute.
+// Parsed from source (rather than imported) because this is a plain Node script with no TS loader.
+function latestRegisteredYear() {
+  const idx = readFileSync(resolve(process.cwd(), "src/engine/tables/index.ts"), "utf8");
+  const years = [...idx.matchAll(/(\d{4}):\s*data\d{4}/g)].map((m) => Number(m[1]));
+  if (!years.length) throw new Error("gen-og: no registered years in src/engine/tables/index.ts");
+  return Math.max(...years);
+}
+const YEAR = latestRegisteredYear();
 
 const svg = ({ title, titleSize, sub, line1, line2, bodySize }) => `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <rect width="1200" height="630" fill="#14345E"/>
@@ -26,17 +37,17 @@ const variants = {
   en: {
     title: "IMT Calculator",
     titleSize: 88,
-    sub: "Portugal · 2026",
+    sub: `Portugal · ${YEAR}`,
     line1: "Property-transfer tax (IMT) &amp; stamp duty,",
-    line2: "computed in your browser — 2026 rules.",
+    line2: `computed in your browser — ${YEAR} rules.`,
     bodySize: 42,
   },
   pt: {
     title: "Calculadora de IMT",
     titleSize: 72,
-    sub: "Portugal · 2026",
+    sub: `Portugal · ${YEAR}`,
     line1: "IMT e imposto do selo, calculados no",
-    line2: "seu navegador — regras de 2026.",
+    line2: `seu navegador — regras de ${YEAR}.`,
     bodySize: 42,
   },
 };

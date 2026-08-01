@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useI18n } from "@/i18n";
+import { useI18n, fmt } from "@/i18n";
 import type {
   Buyer,
   CalcInput,
@@ -8,7 +8,7 @@ import type {
   MortgageTerm,
 } from "@/engine/types";
 import { calculate } from "@/engine/imt";
-import { AVAILABLE_YEARS } from "@/engine/tables";
+import { AVAILABLE_YEARS, LATEST_YEAR } from "@/engine/tables";
 import { defaultBuyer, defaultInput } from "@/state/defaults";
 import { readStateFromUrl, writeStateToUrl } from "@/state/url";
 import { track, priceBand, rateBand, vptRatioBand, vptRatioPct } from "@/analytics";
@@ -124,8 +124,8 @@ export function CalculatorPage() {
   return (
     <>
       <header className="calc-intro">
-        <h1 className="calc-intro__title">{t.pages.calculatorH1}</h1>
-        <p className="calc-intro__lead">{t.pages.calculatorIntro}</p>
+        <h1 className="calc-intro__title">{fmt(t.pages.calculatorH1, { year: LATEST_YEAR })}</h1>
+        <p className="calc-intro__lead">{fmt(t.pages.calculatorIntro, { year: LATEST_YEAR })}</p>
       </header>
       <div className="calculator">
         <form className="panel form" onSubmit={(e) => e.preventDefault()}>

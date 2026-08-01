@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { useI18n } from "@/i18n";
+import { useI18n, fmt } from "@/i18n";
 import { barePath, guideFromPath } from "@/i18n/paths";
 import { GUIDES_INDEX_SEO, guideById } from "@/content/guides/registry";
+import { LATEST_YEAR } from "@/engine/tables";
 import { SITE_URL } from "@/config";
 import { useTheme } from "@/theme/theme";
 import { track } from "@/analytics";
@@ -40,7 +41,7 @@ export function Analytics() {
   } else if (bare === "/how-it-works") {
     docTitle = `${t.nav.howItWorks} · ${t.app.title}`;
   } else {
-    docTitle = `${t.app.title} · ${t.app.subtitle}`;
+    docTitle = `${t.app.title} · ${fmt(t.app.subtitle, { year: LATEST_YEAR })}`;
   }
   // Keep the tab title and the shareable-URL meta (canonical + og:url/title) in sync with the route.
   // These are baked per URL into the prerendered HTML, but on client-side navigation the app must

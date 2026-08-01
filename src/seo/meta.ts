@@ -4,23 +4,25 @@
 // per-route titles (Analytics.tsx) for consistency.
 
 import type { Lang } from "@/i18n/lang";
+// Relative import: this module is bundled into vite.config.ts (esbuild, no "@" alias) at build time.
+import { LATEST_YEAR } from "../engine/tables";
 
 export interface PageSeo {
   title: string;
   description: string;
 }
 
+// The tax year in titles/descriptions tracks the latest registered tables (LATEST_YEAR), never the
+// calendar; law references (e.g. Decreto-Lei n.º 97/2026) are literal and must not be interpolated.
 export const SEO_PAGES: Record<string, Record<Lang, PageSeo>> = {
   "/": {
     en: {
-      title: "IMT Calculator · Portugal · 2026",
-      description:
-        "Free calculator for Portugal's property-transfer tax (IMT) and stamp duty in 2026 — including the non-resident 7.5% rate, IMT Jovem relief, multiple buyers, and the Açores/Madeira tables. Runs in your browser.",
+      title: `IMT Calculator · Portugal · ${LATEST_YEAR}`,
+      description: `Free calculator for Portugal's property-transfer tax (IMT) and stamp duty in ${LATEST_YEAR} — including the non-resident 7.5% rate, IMT Jovem relief, multiple buyers, and the Açores/Madeira tables. Runs in your browser.`,
     },
     pt: {
-      title: "Calculadora de IMT · Portugal · 2026",
-      description:
-        "Calculadora gratuita do IMT (imposto municipal sobre transmissões) e do imposto do selo em Portugal para 2026 — inclui a taxa de 7,5% para não residentes, o IMT Jovem, vários compradores e as tabelas dos Açores e da Madeira. Funciona no seu navegador.",
+      title: `Calculadora de IMT · Portugal · ${LATEST_YEAR}`,
+      description: `Calculadora gratuita do IMT (imposto municipal sobre transmissões) e do imposto do selo em Portugal para ${LATEST_YEAR} — inclui a taxa de 7,5% para não residentes, o IMT Jovem, vários compradores e as tabelas dos Açores e da Madeira. Funciona no seu navegador.`,
     },
   },
   "/glossary": {
@@ -38,13 +40,11 @@ export const SEO_PAGES: Record<string, Record<Lang, PageSeo>> = {
   "/how-it-works": {
     en: {
       title: "How it works · IMT Calculator",
-      description:
-        "How the calculator computes Portuguese IMT and stamp duty for 2026: the progressive brackets, the co-ownership totality rule, the non-resident 7.5% rate, mortgage stamp duty, and the official CIMT/TGIS sources.",
+      description: `How the calculator computes Portuguese IMT and stamp duty for ${LATEST_YEAR}: the progressive brackets, the co-ownership totality rule, the non-resident 7.5% rate, mortgage stamp duty, and the official CIMT/TGIS sources.`,
     },
     pt: {
       title: "Como funciona · Calculadora de IMT",
-      description:
-        "Como a calculadora apura o IMT e o imposto do selo em Portugal para 2026: os escalões progressivos, a regra da totalidade na compropriedade, a taxa de 7,5% para não residentes, o imposto do selo do crédito e as fontes oficiais (CIMT/TGIS).",
+      description: `Como a calculadora apura o IMT e o imposto do selo em Portugal para ${LATEST_YEAR}: os escalões progressivos, a regra da totalidade na compropriedade, a taxa de 7,5% para não residentes, o imposto do selo do crédito e as fontes oficiais (CIMT/TGIS).`,
     },
   },
 };

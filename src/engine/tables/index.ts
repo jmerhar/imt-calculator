@@ -1,5 +1,7 @@
 import type { YearData } from "@/engine/types";
-import { data2026 } from "@/engine/tables/2026";
+// Relative (not "@/") so build-time SEO modules that need LATEST_YEAR can be reached when Vite
+// pre-bundles vite.config.ts with esbuild, which does not apply the "@" alias.
+import { data2026 } from "./2026";
 
 // Registry of tax-year data. To support 2027, run `make fetch-tables YEAR=2027` (which writes
 // `2027.ts` from the AT source) and add it here — the year selector picks it up automatically.

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { useI18n } from "@/i18n";
+import { useI18n, fmt } from "@/i18n";
+import { LATEST_YEAR } from "@/engine/tables";
 import { GUIDE_META } from "@/content/guides/registry";
 import { guidePath, localizedPath } from "@/i18n/paths";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -12,7 +13,7 @@ export function GuidesIndexPage() {
     <article className="doc">
       <Breadcrumb items={[{ label: t.nav.calculator, to: localizedPath(lang, "/") }, { label: t.nav.guides }]} />
       <h1 className="doc__title">{t.pages.guidesTitle}</h1>
-      <p className="doc__intro">{t.pages.guidesIntro}</p>
+      <p className="doc__intro">{fmt(t.pages.guidesIntro, { year: LATEST_YEAR })}</p>
 
       <ul className="guides">
         {GUIDE_META.map((g) => (

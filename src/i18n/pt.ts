@@ -4,7 +4,7 @@ import type { Dict } from "@/i18n";
 export const pt: Dict = {
   app: {
     title: "Calculadora de IMT",
-    subtitle: "Portugal · 2026",
+    subtitle: "Portugal · {year}",
     tagline: "IMT e imposto do selo, calculados no seu navegador.",
   },
   nav: {
@@ -110,16 +110,16 @@ export const pt: Dict = {
       "Este site usa cookies para estatísticas de utilização anónimas e agregadas através do Google Analytics. Estas podem incluir os valores que introduz (como preços), mas são apenas valores de imóveis e nunca associados à sua identidade. Os cálculos em si são feitos inteiramente no seu navegador.",
   },
   pages: {
-    calculatorH1: "Calculadora de IMT e Imposto do Selo — Portugal 2026",
+    calculatorH1: "Calculadora de IMT e Imposto do Selo — Portugal {year}",
     calculatorIntro:
-      "Calcule o IMT (imposto municipal sobre transmissões) e o imposto do selo na compra de um imóvel em Portugal em 2026 — com a taxa de 7,5% para não residentes, o IMT Jovem, vários compradores e as tabelas dos Açores e da Madeira. Tudo é calculado no seu navegador.",
+      "Calcule o IMT (imposto municipal sobre transmissões) e o imposto do selo na compra de um imóvel em Portugal em {year} — com a taxa de 7,5% para não residentes, o IMT Jovem, vários compradores e as tabelas dos Açores e da Madeira. Tudo é calculado no seu navegador.",
     glossaryIntro: "Termos essenciais do IMT e do imposto do selo, apresentados em inglês e português.",
     howtoIntro: "O que esta ferramenta calcula, as regras que aplica e a origem dos valores.",
     notFoundTitle: "Página não encontrada",
     notFoundBody: "Essa página não existe — pode ter mudado de sítio ou a ligação estar errada.",
     notFoundHome: "Ir para a calculadora",
     guidesTitle: "Guias sobre impostos imobiliários em Portugal",
-    guidesIntro: "Guias em linguagem simples sobre o IMT e o imposto do selo em Portugal para 2026 — as regras, os benefícios e as tabelas de taxas, cada um ligado à calculadora.",
+    guidesIntro: "Guias em linguagem simples sobre o IMT e o imposto do selo em Portugal para {year} — as regras, os benefícios e as tabelas de taxas, cada um ligado à calculadora.",
   },
   guides: {
     faqHeading: "Perguntas frequentes",

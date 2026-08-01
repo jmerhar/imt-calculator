@@ -5,7 +5,7 @@
 export const en = {
   app: {
     title: "IMT Calculator",
-    subtitle: "Portugal · 2026",
+    subtitle: "Portugal · {year}",
     tagline: "Property-transfer tax (IMT) and stamp duty, computed in your browser.",
   },
   nav: {
@@ -111,16 +111,16 @@ export const en = {
       "This site uses cookies for anonymous, aggregate usage statistics via Google Analytics. These may include the figures you enter (such as prices), but they are property values only, never linked to your identity. The calculations themselves run entirely in your browser.",
   },
   pages: {
-    calculatorH1: "Portugal IMT & Stamp-Duty Calculator — 2026",
+    calculatorH1: "Portugal IMT & Stamp-Duty Calculator — {year}",
     calculatorIntro:
-      "Work out the IMT (property-transfer tax) and stamp duty on a Portuguese property purchase in 2026 — with the 7.5% non-resident rate, IMT Jovem relief, multiple buyers, and the Açores and Madeira tables. Everything is calculated in your browser.",
+      "Work out the IMT (property-transfer tax) and stamp duty on a Portuguese property purchase in {year} — with the 7.5% non-resident rate, IMT Jovem relief, multiple buyers, and the Açores and Madeira tables. Everything is calculated in your browser.",
     glossaryIntro: "Key IMT and stamp-duty terms, shown in both English and Portuguese.",
     howtoIntro: "What this tool computes, the rules it applies, and where the numbers come from.",
     notFoundTitle: "Page not found",
     notFoundBody: "That page doesn't exist — it may have moved, or the link may be wrong.",
     notFoundHome: "Go to the calculator",
     guidesTitle: "Portugal property-tax guides",
-    guidesIntro: "Plain-language guides to IMT and stamp duty in Portugal for 2026 — the rules, the reliefs, and the rate tables, each linked to the calculator.",
+    guidesIntro: "Plain-language guides to IMT and stamp duty in Portugal for {year} — the rules, the reliefs, and the rate tables, each linked to the calculator.",
   },
   guides: {
     faqHeading: "Frequently asked questions",
