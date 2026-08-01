@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useI18n } from "@/i18n";
 import { barePath, guideFromPath } from "@/i18n/paths";
 import { GUIDES_INDEX_SEO, guideById } from "@/content/guides/registry";
+import { SITE_URL } from "@/config";
 import { useTheme } from "@/theme/theme";
 import { track } from "@/analytics";
 import { arrivalKind } from "@/state/url";
@@ -41,11 +42,20 @@ export function Analytics() {
   } else {
     docTitle = `${t.app.title} · ${t.app.subtitle}`;
   }
-  // Declared before the page_view effect so document.title is current when page_view reads it.
-  // Reacts to the route and the language; a language switch updates the tab without a new page view.
+  // Keep the tab title and the shareable-URL meta (canonical + og:url/title) in sync with the route.
+  // These are baked per URL into the prerendered HTML, but on client-side navigation the app must
+  // refresh them — otherwise a mobile "Share" (which reads og:url) would share the URL the visitor
+  // landed on, not the one they navigated to. The query string is dropped so the shared link is the
+  // clean canonical page, not the `?c=` state token. Runs before the page_view effect so
+  // document.title is current when that reads it.
   useEffect(() => {
     document.title = docTitle;
-  }, [docTitle]);
+    const url = `${SITE_URL}${pathname.endsWith("/") ? pathname : `${pathname}/`}`;
+    document.querySelector('link[rel="canonical"]')?.setAttribute("href", url);
+    document.querySelector('meta[property="og:url"]')?.setAttribute("content", url);
+    document.querySelector('meta[property="og:title"]')?.setAttribute("content", docTitle);
+    document.querySelector('meta[name="twitter:title"]')?.setAttribute("content", docTitle);
+  }, [pathname, docTitle]);
 
   // Track the active UI language and theme on each page view, sampled when the route changes. Held
   // in refs (not page_view dependencies) so switching language or theme — which keeps the same
