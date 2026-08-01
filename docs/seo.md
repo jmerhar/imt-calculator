@@ -103,7 +103,8 @@ Without these, the rest barely matters.
   localized. `src/seo/jsonld.ts`.
 - ✅ **`FAQPage`** on how-it-works — three localized Q&As (non-resident date, totality rule,
   non-resident rate). Valid JSON verified in `dist`.
-- ✅ **`BreadcrumbList`** on glossary + how-it-works.
+- ✅ **`BreadcrumbList`** on glossary, how-it-works, the guides index, and every guide article —
+  with **visible breadcrumbs** on each sub-page matching the markup (shared `Breadcrumb` component).
 - ✅ **`Organization` + `WebSite`** on the home page (both languages), linked by a stable `@id`.
   ➖ **SearchAction omitted** — no on-site search to point it at.
 - ✅ **Validated with the Google Rich Results Test** — Article, BreadcrumbList, and the guides-index
@@ -138,7 +139,8 @@ comes from. Bias toward Portuguese — it's the primary market. **Planned in `do
   resident) with per-term `id` anchors for deep-linking (e.g. `/glossary#imi`). Optional next step:
   contextual in-body links from guide prose to glossary terms.
 - ✅ **Internal linking** — header nav links all pages in the current language; footer links to
-  how-it-works. (Contextual in-body links will come with the guide pages.)
+  how-it-works; visible breadcrumbs on every sub-page; each guide CTA deep-links into the
+  calculator. Optional next step: contextual in-body links from guide prose to glossary terms.
 - ✅ **Freshness** — the "2026" framing is in titles, the `<h1>`, and content. Yearly refresh is a
   known task (the year-parameterized tables + `make fetch-tables` support it).
 - ✅ **Cite primary sources** — how-it-works cites CIMT/TGIS/DL 97/2026; `reference/` holds the
@@ -168,10 +170,12 @@ Rankings for a YMYL query need trust signals and links; this is slow but decisiv
   Facebook groups, with the calculator where it genuinely helps (no spam). **Impact M · Effort M.**
 - 📋 **Tool/startup directories** — Product Hunt, indie-tool listings, calculator aggregators.
   **Impact M · Effort M.**
-- ⏳ **Shareability** — the share-link + OG image make organic sharing a mild link/traffic source;
-  verify previews look great across platforms. **Impact L · Effort L.**
-- ❓ **(Optional) a short branded domain / consistent NAP** if we ever add an "about"/contact for
-  trust. Needs a decision on whether to add an about/contact surface. **Impact L · Effort L.**
+- ✅ **Shareability** — per-language OG images (`og-en.png`/`og-pt.png`) with `og:image:width/height`,
+  the in-app share-link, and OG previews verified across platforms. Fixed a bug where a mobile Share
+  after client-side navigation shared the landed URL: canonical + `og:url`/`og:title`/`og:image` now
+  update on every route change.
+- 📋 **(Optional) a short branded domain / consistent NAP** if we ever add an "about"/contact for
+  trust. Decision: deferred (see Open decisions). **Impact L · Effort L.**
 
 ## Measurement & iteration
 
@@ -181,7 +185,8 @@ Rankings for a YMYL query need trust signals and links; this is slow but decisiv
   track rich events). **Impact M · Effort L.**
 - 📋 **Rank tracking** for the target keyword set (a lightweight tracker or periodic manual checks).
   **Impact M · Effort L.**
-- ⏳ **Set a baseline now** (impressions/clicks ≈ 0) so progress is measurable after P0/P1 ship.
+- ✅ **Baseline captured** — Search Console is indexing (first impressions arriving, e.g. "imt
+  portugal" at ~position 72, 0 clicks). Starting point ≈ 0, so growth is measurable from here.
 
 ---
 

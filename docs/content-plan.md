@@ -4,10 +4,11 @@ The technical SEO is done (see `docs/seo.md`): the site is crawlable, prerendere
 hreflang, and rich-result-annotated. **Content is now the lever.** This plan maps target queries to
 pages and specifies a first batch of guide articles. **PT-first** — Portugal is the primary market.
 
-> Status: **first batch shipped.** The guides section (localized slugs, JSON-LD, prefilled-CTA
-> worked examples) and the three articles below are live, adversarial- and native-pt-PT-reviewed.
-> Remaining: the backlog articles and glossary expansion. The localized-slug decision was taken
-> (localized — see below).
+> Status: **two batches shipped (five guides).** The guides section — localized slugs, Article +
+> FAQ + Breadcrumb JSON-LD (Rich-Results-validated), visible breadcrumbs, prefilled-CTA worked
+> examples, and per-language OG images — is live, adversarial- and native-pt-PT-reviewed. The
+> glossary is expanded with anchors. Remaining: more articles as queries warrant + a standalone
+> worked-example page (see backlog). The localized-slug decision was taken (localized — see below).
 
 ## Principles
 
