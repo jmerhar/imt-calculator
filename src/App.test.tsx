@@ -218,7 +218,8 @@ describe("App", () => {
     renderApp();
     // Navigating between pages must NOT re-fire it: arrival is a once-per-load signal, not per view.
     await user.click(screen.getByRole("link", { name: en.nav.glossary }));
-    await user.click(screen.getByRole("link", { name: en.nav.calculator }));
+    // The glossary page also has a "Calculator" breadcrumb link; the header-nav one is first in DOM.
+    await user.click(screen.getAllByRole("link", { name: en.nav.calculator })[0]);
     const arrivals = gtag.mock.calls.filter((c) => c[1] === "arrived_via_share");
     expect(arrivals).toHaveLength(1);
   });

@@ -9,6 +9,7 @@ import { formatAmount, formatPercent } from "@/format";
 import { defaultInput, defaultBuyer } from "@/state/defaults";
 import { encodeToken } from "@/state/url";
 import { track } from "@/analytics";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { NotFoundPage } from "@/pages/NotFoundPage";
 
 // The worked example each guide's CTA pre-fills into the calculator (via a ?c= token), so the
@@ -89,13 +90,13 @@ export function GuidePage() {
 
   return (
     <article className="doc guide">
-      <nav className="breadcrumb" aria-label="breadcrumb">
-        <Link to={localizedPath(lang, "/")}>{t.guides.breadcrumbCalculator}</Link>
-        <span aria-hidden="true"> / </span>
-        <Link to={guidesIndexPath(lang)}>{t.nav.guides}</Link>
-        <span aria-hidden="true"> / </span>
-        <span aria-current="page">{meta.navLabel[lang]}</span>
-      </nav>
+      <Breadcrumb
+        items={[
+          { label: t.nav.calculator, to: localizedPath(lang, "/") },
+          { label: t.nav.guides, to: guidesIndexPath(lang) },
+          { label: meta.navLabel[lang] },
+        ]}
+      />
 
       <h1 className="doc__title">{meta.title[lang]}</h1>
       <p className="guide__meta">
