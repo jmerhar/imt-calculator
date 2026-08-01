@@ -10,7 +10,6 @@ import { GUIDE_BODIES } from "../content/guides";
 
 type Lang = "en" | "pt";
 
-const ORG_ID = `${SITE_URL}/#organization`;
 const BRAND: Record<Lang, string> = { en: "IMT Calculator", pt: "Calculadora de IMT" };
 const GUIDES_NAME: Record<Lang, string> = { en: "Guides", pt: "Guias" };
 
@@ -65,11 +64,21 @@ function articleJsonLd(lang: Lang, m: GuideMeta, url: string): string {
     headline: m.title[lang],
     description: m.description[lang],
     inLanguage: lang,
-    datePublished: m.published,
-    dateModified: m.updated,
+    image: [`${SITE_URL}/og.png`],
+    // Full ISO 8601 with a time zone — a bare date reads as an "invalid datetime" to Google.
+    datePublished: `${m.published}T00:00:00Z`,
+    dateModified: `${m.updated}T00:00:00Z`,
     mainEntityOfPage: url,
     author: { "@type": "Organization", name: BRAND.en, url: `${SITE_URL}/` },
-    publisher: { "@id": ORG_ID },
+    // A full Organization (with logo) rather than an @id ref: the Organization node only lives on
+    // the home page, so on an article the reference wouldn't resolve to a name/logo for the
+    // Article rich result.
+    publisher: {
+      "@type": "Organization",
+      name: BRAND.en,
+      url: `${SITE_URL}/`,
+      logo: { "@type": "ImageObject", url: `${SITE_URL}/icon-512.png` },
+    },
   };
   const crumbs = breadcrumb(lang, [
     { name: GUIDES_NAME[lang], item: indexUrl(lang) },
