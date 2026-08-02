@@ -24,9 +24,20 @@ export function BuyerCard({
   return (
     <div className="buyer">
       <div className="buyer__head">
-        <h3 className="buyer__title">
-          {t.form.buyer} {index + 1}
-        </h3>
+        <div className="buyer__id">
+          <h3 className="buyer__title">
+            {t.form.buyer} {index + 1}
+          </h3>
+          <input
+            type="text"
+            className="buyer__name"
+            value={buyer.name ?? ""}
+            placeholder={t.form.buyerNamePlaceholder}
+            aria-label={`${t.form.buyerName} — ${t.form.buyer} ${index + 1}`}
+            maxLength={40}
+            onChange={(e) => onChange({ name: e.target.value })}
+          />
+        </div>
         {canRemove && (
           <button
             type="button"

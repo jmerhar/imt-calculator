@@ -48,6 +48,8 @@ export const pt: Dict = {
     buyer: "Comprador",
     addBuyer: "Adicionar comprador",
     removeBuyer: "Remover",
+    buyerName: "Nome",
+    buyerNamePlaceholder: "Nome (opcional)",
     share: "Quota",
     buyerType: "Comprador",
     typeIndividual: "Particular",

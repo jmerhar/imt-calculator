@@ -75,6 +75,41 @@ describe("url state", () => {
     expect(decodeToken(token)).toEqual(input);
   });
 
+  it("round-trips buyer names through the token, even with delimiter/flag characters", () => {
+    const input: CalcInput = {
+      ...defaultInput(),
+      price: 400000,
+      intendedUse: "secondary",
+      buyers: [
+        { name: "Maria | Silva; Lda,", share: 0.5, type: "individual", taxHaven: false, residency: "non_resident", exception: "accessible_rent", jovem: false },
+        { name: "José", share: 0.5, type: "entity", taxHaven: true, residency: "resident", exception: "none", jovem: false },
+      ],
+    };
+    const decoded = decodeToken(encodeToken(input))!;
+    expect(decoded).toEqual(input);
+    // A name full of delimiters and flag letters ("a" = accessible_rent) must not corrupt the
+    // flags it is stored next to.
+    expect(decoded.buyers[0].residency).toBe("non_resident");
+    expect(decoded.buyers[0].exception).toBe("accessible_rent");
+  });
+
+  it("encodes a lone named default buyer instead of omitting it as a plain default", () => {
+    const input: CalcInput = {
+      ...defaultInput(),
+      buyers: [{ name: "Ana", share: 1, type: "individual", taxHaven: false, residency: "resident", exception: "none", jovem: false }],
+    };
+    expect(encodeCompact(input)).toContain("b100~Ana");
+    expect(decodeToken(encodeToken(input))).toEqual(input);
+  });
+
+  it("drops a blank/whitespace-only name so it stays a plain default buyer", () => {
+    const input: CalcInput = {
+      ...defaultInput(),
+      buyers: [{ name: "   ", share: 1, type: "individual", taxHaven: false, residency: "resident", exception: "none", jovem: false }],
+    };
+    expect(encodeCompact(input)).toBe("p250000");
+  });
+
   it("keeps the common case tiny (defaults omitted, no percent-encoding)", () => {
     // One resident individual buying an own home: only the price survives.
     expect(encodeCompact(defaultInput())).toBe("p250000");

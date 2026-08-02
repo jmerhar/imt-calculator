@@ -23,6 +23,12 @@ export function ResultsPanel({
   onReset: () => void;
 }) {
   const { t, lang } = useI18n();
+
+  // A buyer's own name if given, else the ordinal fallback ("Buyer 2"). Read from the inputs (order
+  // matches the results), so a named buyer is recognisable in the breakdown and shared links.
+  const buyerLabel = (i: number): string =>
+    input.buyers[i]?.name?.trim() || `${t.form.buyer} ${i + 1}`;
+
   const [flash, setFlash] = useState<string | null>(null);
   const flashTimer = useRef<ReturnType<typeof setTimeout>>();
 
@@ -117,9 +123,7 @@ export function ResultsPanel({
             {result.buyers.map((b, i) => (
               <div className="formula__row" key={i}>
                 {result.buyers.length > 1 && (
-                  <span className="formula__who">
-                    {t.form.buyer} {i + 1}
-                  </span>
+                  <span className="formula__who">{buyerLabel(i)}</span>
                 )}
                 <code className="formula__expr">{imtFormula(b)}</code>
               </div>
@@ -154,9 +158,7 @@ export function ResultsPanel({
           {result.buyers.map((b, i) => (
             <div className="bd-buyer" key={i}>
               <div className="bd-buyer__head">
-                <span className="bd-buyer__name">
-                  {t.form.buyer} {i + 1}
-                </span>
+                <span className="bd-buyer__name">{buyerLabel(i)}</span>
                 <span className="tag">{ruleLabel(b.rule, t)}</span>
               </div>
               <dl className="bd-lines">

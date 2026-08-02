@@ -136,10 +136,14 @@ function isDefaultBuyer(b: Buyer): boolean {
     !b.taxHaven &&
     b.residency === "resident" &&
     b.exception === "none" &&
-    !b.jovem
+    !b.jovem &&
+    !b.name?.trim()
   );
 }
 
+// An optional buyer name is appended after a `~` marker and percent-encoded, so the flag letters
+// and the structural delimiters (`;`, `|`, `,`) can never appear literally inside a name. The name
+// runs from the first `~` to the end of the buyer token; a `~` inside the name is harmless.
 function encodeBuyerCompact(b: Buyer): string {
   let s = String(Number((b.share * 100).toFixed(2))); // share as a percent
   if (b.type === "entity") s += "e";
@@ -149,11 +153,19 @@ function encodeBuyerCompact(b: Buyer): string {
     if (b.exception !== "none") s += EXC[b.exception];
   }
   if (b.jovem) s += "j";
+  const name = b.name?.trim();
+  if (name) s += "~" + encodeURIComponent(name);
   return s;
 }
 
 function parseBuyerCompact(tok: string): Buyer | null {
-  const m = tok.match(/^(\d*\.?\d+)(.*)$/);
+  // Split the name off first: flag letters (e/h/n/f/b/a/j) must be read from the flags only, never
+  // from the name (e.g. "Maria" contains an "a" that would otherwise read as accessible_rent).
+  const tilde = tok.indexOf("~");
+  const core = tilde === -1 ? tok : tok.slice(0, tilde);
+  const nameRaw = tilde === -1 ? "" : tok.slice(tilde + 1);
+
+  const m = core.match(/^(\d*\.?\d+)(.*)$/);
   if (!m) return null;
   // Shares are stored to 4 decimals (e.g. 0.3334); round back to that precision so a decoded
   // share equals the one that was encoded rather than a float-error neighbour of it.
@@ -170,7 +182,16 @@ function parseBuyerCompact(tok: string): Buyer | null {
         : f.includes("a")
           ? "accessible_rent"
           : "none";
+  let name: string | undefined;
+  if (nameRaw) {
+    try {
+      name = decodeURIComponent(nameRaw).trim() || undefined;
+    } catch {
+      name = undefined; // malformed percent-encoding — drop the name, keep the buyer
+    }
+  }
   return {
+    ...(name ? { name } : {}),
     share,
     type: f.includes("e") ? "entity" : "individual",
     taxHaven: f.includes("h"),

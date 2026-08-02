@@ -47,6 +47,8 @@ export interface Mortgage {
 }
 
 export interface Buyer {
+  /** Optional label for this buyer (e.g. their name), carried in shared links and shown in results. */
+  name?: string;
   /** Ownership share as a fraction 0..1. */
   share: number;
   type: BuyerType;

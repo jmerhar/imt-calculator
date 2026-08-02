@@ -30,7 +30,7 @@ describe("CalculatorPage", () => {
 
   it("shows a copyable share link carrying the state token", () => {
     renderPage();
-    const link = screen.getByRole("textbox") as HTMLInputElement;
+    const link = screen.getByLabelText(en.results.shareLink) as HTMLInputElement;
     expect(link.value).toContain("calc-imt.online/?c=");
   });
 
@@ -42,6 +42,16 @@ describe("CalculatorPage", () => {
     expect(screen.getByText(en.results.perBuyer)).toBeInTheDocument();
     // Two buyer cards now, each with its own Share field.
     expect(screen.getAllByLabelText(en.form.share)).toHaveLength(2);
+  });
+
+  it("carries a typed buyer name into the per-buyer breakdown", async () => {
+    const user = userEvent.setup();
+    renderPage();
+    await user.click(screen.getByRole("button", { name: new RegExp(en.form.addBuyer) }));
+    const [name1] = screen.getAllByLabelText(new RegExp(en.form.buyerName));
+    await user.type(name1, "Maria");
+    // The breakdown labels the buyer by name instead of the "Buyer 1" ordinal.
+    expect(screen.getAllByText("Maria").length).toBeGreaterThan(0);
   });
 
   it("removes an added buyer", async () => {

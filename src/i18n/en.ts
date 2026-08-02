@@ -49,6 +49,8 @@ export const en = {
     buyer: "Buyer",
     addBuyer: "Add buyer",
     removeBuyer: "Remove",
+    buyerName: "Name",
+    buyerNamePlaceholder: "Name (optional)",
     share: "Share",
     buyerType: "Buyer",
     typeIndividual: "Individual",
