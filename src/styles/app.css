@@ -367,10 +367,22 @@ a {
 .buyer__remove:hover {
   color: var(--manganese);
 }
-.buyer__grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+.buyer__body {
+  display: flex;
+  flex-direction: column;
   gap: var(--s4);
+}
+.buyer__row {
+  display: grid;
+  gap: var(--s4);
+}
+.buyer__row--pair {
+  grid-template-columns: 1fr 1fr;
+}
+/* Share stays narrow (a quarter) so the non-resident-situation dropdown gets the wide three
+   quarters it needs to show its full option text. */
+.buyer__row--share {
+  grid-template-columns: 1fr 3fr;
 }
 
 /* ---- Buttons ------------------------------------------------------------------------------ */
@@ -1044,7 +1056,7 @@ a {
     border: 0 !important;
   }
   .form__grid,
-  .buyer__grid,
+  .buyer__row,
   .mortgage__grid {
     display: block;
   }
@@ -1102,7 +1114,7 @@ a {
 @media (max-width: 560px) {
   .form__cols,
   .mortgage__grid,
-  .buyer__grid {
+  .buyer__row {
     grid-template-columns: 1fr;
   }
   .header {
