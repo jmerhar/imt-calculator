@@ -80,9 +80,10 @@ reference/      primary-source documents
 
 ## Testing & coverage
 
-`make check` runs ESLint, `tsc`, the Vitest suite and a coverage gate
-(`scripts/coverage-report.py --gate`, 98% line floor). CI additionally uploads to Codecov
-(informational) and publishes the HTML report to the shared `jmerhar/coverage` site.
+`make check` runs ESLint, `tsc`, the Vitest suite and a coverage gate (98% line floor, declared in
+`coverage.toml` and enforced by the shared tooling from `jmerhar/coverage`, fetched on demand so a
+local run gates exactly as CI does). CI additionally uploads to Codecov (informational) and publishes
+the HTML report to that same shared site.
 
 ## Deployment
 

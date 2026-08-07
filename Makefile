@@ -25,8 +25,16 @@ lint: ## ESLint + TypeScript type-check
 test: ## Run the unit test suite
 	npm run test
 
-coverage: ## Run tests with coverage and enforce the gate
-	npm run test:cov && python3 scripts/coverage-report.py --gate
+# The coverage summary and gate are shared tooling from jmerhar/coverage, configured by coverage.toml.
+# It is fetched on demand rather than vendored, so a local gate enforces exactly what CI does; delete
+# the file to pick up a newer version.
+COVERAGE_REPORT := .coverage-report.py
+
+$(COVERAGE_REPORT):
+	curl -fsSL -o $@ https://raw.githubusercontent.com/jmerhar/coverage/v1/bin/coverage-report.py
+
+coverage: $(COVERAGE_REPORT) ## Run tests with coverage and enforce the gate
+	npm run test:cov && python3 $(COVERAGE_REPORT) --gate
 
 check: lint test coverage ## Lint + test + coverage gate (gate a commit on this)
 
@@ -36,7 +44,7 @@ build: ## Type-check and produce the production build in dist/
 	npm run build
 
 clean: ## Remove build + coverage artifacts (all regenerable)
-	rm -rf dist coverage coverage-upload node_modules/.vite
+	rm -rf dist coverage coverage-upload node_modules/.vite $(COVERAGE_REPORT)
 
 ##@ Data
 

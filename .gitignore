@@ -5,6 +5,9 @@ coverage-upload/
 *.tsbuildinfo
 *.local
 .DS_Store
+
+# Shared coverage tooling, fetched on demand by `make coverage`.
+.coverage-report.py
 .env
 .env.*
 !.env.example
