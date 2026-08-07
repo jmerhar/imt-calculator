@@ -134,7 +134,7 @@ export default defineConfig({
     coverage: {
       provider: "v8",
       // text/text-summary → terminal; html → the published jmerhar/coverage report;
-      // json-summary → scripts/coverage-report.py aggregation; lcov → Codecov upload.
+      // json-summary → the coverage summary and gate; lcov → Codecov upload.
       reporter: ["text", "text-summary", "html", "json-summary", "lcov"],
       reportsDirectory: "./coverage",
       include: ["src/**/*.{ts,tsx}"],
