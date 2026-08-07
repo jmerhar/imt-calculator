@@ -1,4 +1,4 @@
-.PHONY: help install dev preview lint test coverage check build clean fetch-tables precompute-guides bump-year ga-setup og-image icons psi
+.PHONY: coverage-tooling help install dev preview lint test coverage check build clean fetch-tables precompute-guides bump-year ga-setup og-image icons psi
 
 help: ## Show available commands
 	@grep -E '^[a-zA-Z_-]+:.*##|^##@' $(MAKEFILE_LIST) | \
@@ -26,14 +26,18 @@ test: ## Run the unit test suite
 	npm run test
 
 # The coverage summary and gate are shared tooling from jmerhar/coverage, configured by coverage.toml.
-# It is fetched on demand rather than vendored, so a local gate enforces exactly what CI does; delete
-# the file to pick up a newer version.
+# It is fetched rather than vendored, so a local gate enforces exactly what CI does.
 COVERAGE_REPORT := .coverage-report.py
 
-$(COVERAGE_REPORT):
-	curl -fsSL -o $@ https://raw.githubusercontent.com/jmerhar/coverage/v1/bin/coverage-report.py
+# Refreshed on every run rather than only when absent: v1 moves within its major version, so a cached
+# copy would otherwise drift from what CI enforces. -z makes an unchanged file cost a 304, and a failed
+# request falls back to the copy already on disk, so this still works offline.
+coverage-tooling:
+	@curl -fsSL -z $(COVERAGE_REPORT) -o $(COVERAGE_REPORT) \
+		https://raw.githubusercontent.com/jmerhar/coverage/v1/bin/coverage-report.py \
+		|| test -f $(COVERAGE_REPORT)
 
-coverage: $(COVERAGE_REPORT) ## Run tests with coverage and enforce the gate
+coverage: coverage-tooling ## Run tests with coverage and enforce the gate
 	npm run test:cov && python3 $(COVERAGE_REPORT) --gate
 
 check: lint test coverage ## Lint + test + coverage gate (gate a commit on this)
