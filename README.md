@@ -82,8 +82,8 @@ reference/      primary-source documents
 
 `make check` runs ESLint, `tsc`, the Vitest suite and a coverage gate (98% line floor, declared in
 `coverage.toml` and enforced by the shared tooling from `jmerhar/coverage`, fetched on demand so a
-local run gates exactly as CI does). CI additionally uploads to Codecov (informational) and publishes
-the HTML report to that same shared site.
+local run gates exactly as CI does). CI additionally uploads coverage and test results to Codecov
+(informational — flake and failure history) and publishes the HTML report to that same shared site.
 
 ## Deployment
 

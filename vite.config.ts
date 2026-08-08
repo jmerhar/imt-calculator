@@ -131,6 +131,9 @@ export default defineConfig({
   test: {
     environment: "jsdom",
     setupFiles: ["./src/test-setup.ts"],
+    // default for the console; junit for Codecov's test analytics, which tracks flaky tests, failure
+    // history and run time. Written on every run so CI needs no separate invocation.
+    reporters: ["default", ["junit", { outputFile: "junit/vitest.xml" }]],
     coverage: {
       provider: "v8",
       // text/text-summary → terminal; html → the published jmerhar/coverage report;

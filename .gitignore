@@ -2,6 +2,7 @@ node_modules/
 dist/
 coverage/
 coverage-upload/
+junit/
 *.tsbuildinfo
 *.local
 .DS_Store
