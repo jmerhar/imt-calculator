@@ -1,5 +1,5 @@
 import { useEffect, useState, type ReactNode } from "react";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useI18n, fmt } from "@/i18n";
 import type { Lang } from "@/i18n";
 import { LANG_STORAGE_KEY, localizedPath, switchLangPath, guidesIndexPath } from "@/i18n/paths";
@@ -71,27 +71,45 @@ export function Layout({ children }: { children: ReactNode }) {
         </nav>
 
         <div className="header__tools">
+          {/*
+            Real links, not buttons: this is the only place the site points from one language tree to
+            the other, so a crawler needs a followable <a href> here to reach the Portuguese pages at
+            all — hreflang alone marks URLs as alternates without linking them. The href stays
+            token-free so only canonical URLs are ever advertised.
+          */}
           <div className="langswitch" role="group" aria-label={t.controls.language}>
-            {(["en", "pt"] as Lang[]).map((l) => (
-              <button
-                key={l}
-                type="button"
-                className="langswitch__btn"
-                aria-pressed={lang === l}
-                onClick={() => {
-                  if (l === lang) return;
-                  // A deliberate choice: remember it so the load-time redirect honours it and never
-                  // overrides the user. Then navigate to the same page in the other language,
-                  // keeping the ?c= state token (written via replaceState, so read from the live URL).
-                  if (typeof localStorage !== "undefined") localStorage.setItem(LANG_STORAGE_KEY, l);
-                  track("language_switch", { language: l });
-                  const search = typeof window !== "undefined" ? window.location.search : "";
-                  navigate(switchLangPath(pathname, l) + search);
-                }}
-              >
-                {l.toUpperCase()}
-              </button>
-            ))}
+            {(["en", "pt"] as Lang[]).map((l) => {
+              const target = switchLangPath(pathname, l);
+              return (
+                <Link
+                  key={l}
+                  to={target}
+                  className="langswitch__btn"
+                  hrefLang={l}
+                  aria-current={lang === l ? "true" : undefined}
+                  onClick={(e) => {
+                    if (l === lang) {
+                      e.preventDefault();
+                      return;
+                    }
+                    // A deliberate choice: remember it so the language suggestion honours it and
+                    // never re-offers what the user just declined.
+                    if (typeof localStorage !== "undefined") localStorage.setItem(LANG_STORAGE_KEY, l);
+                    track("language_switch", { language: l });
+                    // The ?c= state token is written with replaceState, so it is read from the live
+                    // URL rather than the router's location, and re-appended so switching language
+                    // keeps the entered purchase. Without a token the link navigates on its own.
+                    const search = typeof window !== "undefined" ? window.location.search : "";
+                    if (search) {
+                      e.preventDefault();
+                      navigate(target + search);
+                    }
+                  }}
+                >
+                  {l.toUpperCase()}
+                </Link>
+              );
+            })}
           </div>
           <button
             type="button"

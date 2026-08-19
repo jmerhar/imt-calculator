@@ -2,7 +2,7 @@ import type { Lang } from "@/i18n/lang";
 
 // Core content pages: the canonical (English, language-neutral) key ↔ the URL slug per language.
 // Localized slugs improve Portuguese SEO, while the canonical key stays the English form used
-// throughout the app (nav, analytics, the load-time redirect). Home ("/") has no slug. Guides have
+// throughout the app (nav, analytics, the language suggestion). Home ("/") has no slug. Guides have
 // their own registry (content/guides/registry.ts); these are the fixed top-level pages.
 //
 // Kept DOM-free so build-time helpers (SEO injection, sitemap) can import it too.

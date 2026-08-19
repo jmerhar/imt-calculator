@@ -1,5 +1,5 @@
 import type { Lang } from "@/i18n";
-import { pageSlug, canonicalKey } from "@/i18n/pages";
+import { PAGE_SLUGS, pageSlug, canonicalKey } from "@/i18n/pages";
 import { GUIDES_SEGMENT, GUIDE_META } from "@/content/guides/registry";
 
 // URL scheme: English at the root (`/`, `/glossary`), Portuguese under `/pt` with localized slugs
@@ -12,8 +12,16 @@ import { GUIDES_SEGMENT, GUIDE_META } from "@/content/guides/registry";
 export const LANG_STORAGE_KEY = "imt-lang";
 
 /**
- * The visitor's preferred language for the initial-load redirect: an explicit saved choice wins,
- * otherwise the browser's Accept-Language. Client-only (guards for SSR).
+ * localStorage key recording that the visitor closed the language-suggestion banner. Separate from
+ * LANG_STORAGE_KEY because closing the banner is a refusal of the suggestion, not a choice of the
+ * language being offered: it must silence the banner without claiming the current language was
+ * picked deliberately.
+ */
+export const LANG_SUGGEST_DISMISSED_KEY = "imt-lang-suggest-dismissed";
+
+/**
+ * The visitor's preferred language: an explicit saved choice wins, otherwise the browser's
+ * Accept-Language. Drives the language-suggestion banner. Client-only (guards for SSR).
  */
 export function preferredLang(): Lang {
   if (typeof localStorage !== "undefined") {
@@ -50,13 +58,21 @@ export function localizedPath(lang: Lang, key: string): string {
   return slug === "" ? `${prefix}/` : `${prefix}/${slug}/`;
 }
 
-/** The current path expressed in another language, preserving the page (guides included). */
+/**
+ * The current path expressed in another language, preserving the page (guides included).
+ *
+ * A path that is not a real page — the not-found route — has no twin, and falls back to the target
+ * language's home rather than a translated form of itself: the cross-language links are crawlable, so
+ * fabricating one would have the not-found page advertise a URL that is itself a not-found.
+ */
 export function switchLangPath(pathname: string, target: Lang): string {
   const guide = guideFromPath(pathname);
   if (guide) {
     return guide.kind === "article" && guide.id ? guidePath(target, guide.id) : guidesIndexPath(target);
   }
-  return localizedPath(target, barePath(pathname));
+  const key = barePath(pathname);
+  if (key !== "/" && !(key in PAGE_SLUGS)) return localizedPath(target, "/");
+  return localizedPath(target, key);
 }
 
 // --- Guides (localized section segment + localized slug) ------------------------------------------

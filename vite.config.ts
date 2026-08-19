@@ -123,8 +123,7 @@ export default defineConfig({
     // Generate the sitemap from the registry once all pages are written (localized guide URLs +
     // hreflang), so it always matches what was prerendered.
     onFinished: (dir: string) => {
-      const today = new Date().toISOString().slice(0, 10);
-      writeFileSync(path.join(dir, "sitemap.xml"), buildSitemap(today));
+      writeFileSync(path.join(dir, "sitemap.xml"), buildSitemap());
       console.log("ssg: wrote sitemap.xml");
     },
   },
@@ -150,9 +149,8 @@ export default defineConfig({
         "src/main.tsx",
         "src/seo/meta.ts",
         "src/seo/jsonld.ts",
-        // Build-only SEO helpers (used by this config, not the app or tests).
+        // Build-only SEO helper (used by this config, not the app or tests).
         "src/seo/guides.ts",
-        "src/seo/sitemap.ts",
       ],
     },
   },

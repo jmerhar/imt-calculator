@@ -1,12 +1,12 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { MemoryRouter, useRoutes, type RouteObject } from "react-router-dom";
+import { MemoryRouter, useLocation, useRoutes, type RouteObject } from "react-router-dom";
 import { routes } from "@/routes";
 import { en } from "@/i18n/en";
 import { pt } from "@/i18n/pt";
 import { glossary } from "@/content/glossary";
-import { LANG_STORAGE_KEY } from "@/i18n/paths";
+import { LANG_STORAGE_KEY, LANG_SUGGEST_DISMISSED_KEY } from "@/i18n/paths";
 import { encodeToken } from "@/state/url";
 import { defaultInput } from "@/state/defaults";
 import { fmt } from "@/i18n";
@@ -18,7 +18,7 @@ const y = { year: LATEST_YEAR };
 const homeTitle = `${en.app.title} · ${fmt(en.app.subtitle, y)}`;
 const calcH1 = (l: typeof en | typeof pt) => fmt(l.pages.calculatorH1, y);
 
-/** Force the browser language for the redirect tests (jsdom defaults to en-US). */
+/** Force the browser language for the language-suggestion tests (jsdom defaults to en-US). */
 function setBrowserLang(value: string) {
   Object.defineProperty(navigator, "language", { value, configurable: true });
 }
@@ -42,6 +42,23 @@ function renderApp(initialPath = "/") {
   );
 }
 
+// The router's location, surfaced for assertion. window.location is untouched by MemoryRouter and
+// keeps whatever replaceState put there, so it cannot show whether a navigation carried the ?c=
+// token — only the router's own URL can.
+function RouterUrlProbe() {
+  const { pathname, search } = useLocation();
+  return <div data-testid="router-url">{pathname + search}</div>;
+}
+function renderAppWithUrlProbe(initialPath = "/") {
+  return render(
+    <MemoryRouter initialEntries={[initialPath]}>
+      <RoutedApp />
+      <RouterUrlProbe />
+    </MemoryRouter>,
+  );
+}
+const routerUrl = () => screen.getByTestId("router-url").textContent;
+
 describe("App", () => {
   it("renders the calculator by default", () => {
     renderApp();
@@ -51,7 +68,7 @@ describe("App", () => {
   it("switches language to Portuguese", async () => {
     const user = userEvent.setup();
     renderApp();
-    await user.click(screen.getByRole("button", { name: "PT" }));
+    await user.click(screen.getByRole("link", { name: "PT" }));
     expect(screen.getAllByText("Calculadora").length).toBeGreaterThan(0);
   });
 
@@ -74,14 +91,14 @@ describe("App", () => {
     renderApp("/how-it-works");
     expect(screen.getByText(en.pages.howtoIntro)).toBeInTheDocument();
     // Switch to Portuguese and confirm the localized intro renders.
-    await user.click(screen.getByRole("button", { name: "PT" }));
+    await user.click(screen.getByRole("link", { name: "PT" }));
     expect(screen.getByText(/O que esta ferramenta calcula/)).toBeInTheDocument();
   });
 
   it("renders the glossary in Portuguese", async () => {
     const user = userEvent.setup();
     renderApp("/glossary");
-    await user.click(screen.getByRole("button", { name: "PT" }));
+    await user.click(screen.getByRole("link", { name: "PT" }));
     expect(screen.getByText(glossary[0].pt.term)).toBeInTheDocument();
   });
 
@@ -117,7 +134,7 @@ describe("App", () => {
     window.gtag = gtag;
     const user = userEvent.setup();
     renderApp("/glossary");
-    await user.click(screen.getByRole("button", { name: "PT" }));
+    await user.click(screen.getByRole("link", { name: "PT" }));
     // Language is a route: the switch navigates to the localized PT slug (/pt/glossario) and fires a
     // page_view for it in PT.
     expect(gtag).toHaveBeenCalledWith(
@@ -139,23 +156,116 @@ describe("App", () => {
     expect(screen.queryByText(en.form.heading)).not.toBeInTheDocument();
   });
 
-  it("redirects a Portuguese-preferring visitor from / to /pt", async () => {
+  // The English page must keep serving English to a Portuguese-preferring visitor and merely offer
+  // the alternative: an automatic redirect is what made search engines treat these URLs as
+  // redirecting rather than indexing them.
+  it("offers Portuguese to a Portuguese-preferring visitor without navigating away", async () => {
     setBrowserLang("pt-PT");
     renderApp("/");
-    expect(await screen.findByText(calcH1(pt))).toBeInTheDocument();
+    expect(await screen.findByRole("link", { name: pt.langSuggest.cta })).toHaveAttribute(
+      "href",
+      "/pt/",
+    );
+    expect(screen.getByText(calcH1(en))).toBeInTheDocument();
+    expect(screen.queryByText(calcH1(pt))).not.toBeInTheDocument();
   });
 
-  it("does NOT redirect when the visitor explicitly chose English", () => {
+  it("offers the Portuguese twin of a sub-page, not the Portuguese home page", async () => {
+    setBrowserLang("pt-PT");
+    renderApp("/glossary/");
+    expect(await screen.findByRole("link", { name: pt.langSuggest.cta })).toHaveAttribute(
+      "href",
+      "/pt/glossario/",
+    );
+  });
+
+  it("does not offer Portuguese when the visitor explicitly chose English", () => {
     setBrowserLang("pt-PT");
     localStorage.setItem(LANG_STORAGE_KEY, "en"); // a deliberate choice must win over the browser
     renderApp("/");
-    expect(screen.getByText(calcH1(en))).toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: pt.langSuggest.cta })).not.toBeInTheDocument();
     localStorage.removeItem(LANG_STORAGE_KEY);
   });
 
-  it("does not redirect an English-preferring visitor", () => {
+  it("does not offer another language to an English-preferring visitor", () => {
     renderApp("/");
     expect(screen.getByText(calcH1(en))).toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: pt.langSuggest.cta })).not.toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: en.langSuggest.cta })).not.toBeInTheDocument();
+  });
+
+  it("stops offering Portuguese once the banner is closed", async () => {
+    setBrowserLang("pt-PT");
+    const user = userEvent.setup();
+    renderApp("/");
+    await user.click(await screen.findByRole("button", { name: pt.langSuggest.dismiss }));
+    expect(screen.queryByRole("link", { name: pt.langSuggest.cta })).not.toBeInTheDocument();
+
+    // The refusal has to outlive the page: a fresh load must not re-offer what was just declined.
+    renderApp("/");
+    expect(screen.queryByRole("link", { name: pt.langSuggest.cta })).not.toBeInTheDocument();
+    localStorage.removeItem(LANG_SUGGEST_DISMISSED_KEY);
+  });
+
+  it("takes the visitor to the Portuguese page when the offer is accepted, and stops offering", async () => {
+    setBrowserLang("pt-PT");
+    const user = userEvent.setup();
+    renderApp("/");
+    await user.click(await screen.findByRole("link", { name: pt.langSuggest.cta }));
+    expect(screen.getByText(calcH1(pt))).toBeInTheDocument();
+    // Accepting is as deliberate as using the switcher, so it is remembered.
+    expect(localStorage.getItem(LANG_STORAGE_KEY)).toBe("pt");
+    expect(screen.queryByRole("link", { name: pt.langSuggest.cta })).not.toBeInTheDocument();
+    localStorage.removeItem(LANG_STORAGE_KEY);
+  });
+
+  // The switcher's href is crawlable, so on a page that has no twin it must not invent one: a link to
+  // /pt/404/ would send a crawler from one not-found page to another.
+  it("points the switcher at the language home on a page with no twin", () => {
+    renderApp("/does-not-exist");
+    expect(screen.getByRole("link", { name: "PT" })).toHaveAttribute("href", "/pt/");
+  });
+
+  it("keeps the shared-link token when the language offer is accepted", async () => {
+    setBrowserLang("pt-PT");
+    const token = encodeToken({ ...defaultInput(), price: 412345 });
+    window.history.replaceState(null, "", `/?c=${token}`);
+    const user = userEvent.setup();
+    renderAppWithUrlProbe("/");
+    await user.click(await screen.findByRole("link", { name: pt.langSuggest.cta }));
+    expect(routerUrl()).toBe(`/pt/?c=${token}`);
+    localStorage.removeItem(LANG_STORAGE_KEY);
+  });
+
+  // hreflang marks the alternates but does not link them, so without a real href here the Portuguese
+  // subtree has no inbound link from the English one for a crawler to follow.
+  it("links to the other language with a followable, token-free href", () => {
+    renderApp("/glossary/");
+    const ptLink = screen.getByRole("link", { name: "PT" });
+    expect(ptLink).toHaveAttribute("href", "/pt/glossario/");
+    expect(ptLink).toHaveAttribute("hreflang", "pt");
+  });
+
+  // The active language is still a link so both alternates stay crawlable, so clicking it must be
+  // inert rather than a self-navigation that would discard the shared-link token.
+  it("does nothing when the language already being read is clicked", async () => {
+    const user = userEvent.setup();
+    renderApp("/glossary/");
+    await user.click(screen.getByRole("link", { name: "EN" }));
+    expect(screen.getByText(en.pages.glossaryIntro)).toBeInTheDocument();
+    expect(localStorage.getItem(LANG_STORAGE_KEY)).toBeNull();
+  });
+
+  // The href is deliberately token-free so only canonical URLs are advertised, so the switch has to
+  // re-attach the live token itself or a shared link loses its purchase on a language change.
+  it("keeps the shared-link token when switching language", async () => {
+    const token = encodeToken({ ...defaultInput(), price: 412345 });
+    window.history.replaceState(null, "", `/?c=${token}`);
+    const user = userEvent.setup();
+    renderAppWithUrlProbe("/glossary/");
+    await user.click(screen.getByRole("link", { name: "PT" }));
+    expect(routerUrl()).toBe(`/pt/glossario/?c=${token}`);
+    localStorage.removeItem(LANG_STORAGE_KEY);
   });
 
   it("sets a localized document title per route", async () => {
@@ -165,7 +275,7 @@ describe("App", () => {
     await user.click(screen.getByRole("link", { name: en.nav.glossary }));
     expect(document.title).toBe(`${en.nav.glossary} · ${en.app.title}`);
     // Switching language navigates to /pt/glossario; the tab title becomes the Portuguese one.
-    await user.click(screen.getByRole("button", { name: "PT" }));
+    await user.click(screen.getByRole("link", { name: "PT" }));
     expect(document.title).toBe(`${pt.nav.glossary} · ${pt.app.title}`);
   });
 
@@ -191,7 +301,7 @@ describe("App", () => {
     window.gtag = gtag;
     const user = userEvent.setup();
     renderApp();
-    await user.click(screen.getByRole("button", { name: "PT" }));
+    await user.click(screen.getByRole("link", { name: "PT" }));
     expect(gtag).toHaveBeenCalledWith("event", "language_switch", { language: "pt" });
   });
 
@@ -262,5 +372,5 @@ describe("App", () => {
 
 afterEach(() => {
   delete window.gtag;
-  setBrowserLang("en-US"); // reset so language-redirect state doesn't leak between tests
+  setBrowserLang("en-US"); // reset so language-preference state doesn't leak between tests
 });
