@@ -14,6 +14,15 @@ export interface PageSeo {
 
 // The tax year in titles/descriptions tracks the latest registered tables (LATEST_YEAR), never the
 // calendar; law references (e.g. Decreto-Lei n.º 97/2026) are literal and must not be interpolated.
+/**
+ * Title for the not-found page. Kept beside SEO_PAGES rather than in it: `/404` is prerendered and
+ * noindex, so it has no description or canonical, and any unmatched path renders the same page.
+ */
+export const NOT_FOUND_TITLE: Record<"en" | "pt", string> = {
+  en: "Page not found · IMT Calculator",
+  pt: "Página não encontrada · Calculadora de IMT",
+};
+
 export const SEO_PAGES: Record<string, Record<Lang, PageSeo>> = {
   "/": {
     en: {
@@ -21,8 +30,8 @@ export const SEO_PAGES: Record<string, Record<Lang, PageSeo>> = {
       description: `Free calculator for Portugal's property-transfer tax (IMT) and stamp duty in ${LATEST_YEAR} — including the non-resident 7.5% rate, IMT Jovem relief, multiple buyers, and the Açores/Madeira tables. Runs in your browser.`,
     },
     pt: {
-      title: `Calculadora de IMT · Portugal · ${LATEST_YEAR}`,
-      description: `Calculadora gratuita do IMT (imposto municipal sobre transmissões) e do imposto do selo em Portugal para ${LATEST_YEAR} — inclui a taxa de 7,5% para não residentes, o IMT Jovem, vários compradores e as tabelas dos Açores e da Madeira. Funciona no seu navegador.`,
+      title: `Simulador IMT ${LATEST_YEAR} · Calculadora de IMT · Portugal`,
+      description: `Simulador gratuito do IMT (imposto municipal sobre transmissões) e do imposto do selo em Portugal para ${LATEST_YEAR} — inclui a taxa de 7,5% para não residentes, o IMT Jovem, vários compradores e as tabelas dos Açores e da Madeira. Uma calculadora que funciona no seu navegador.`,
     },
   },
   "/glossary": {

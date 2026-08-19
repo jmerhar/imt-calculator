@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { useI18n, fmt } from "@/i18n";
+import { useI18n } from "@/i18n";
 import { barePath, guideFromPath } from "@/i18n/paths";
 import { GUIDES_INDEX_SEO, guideById } from "@/content/guides/registry";
-import { LATEST_YEAR } from "@/engine/tables";
+import { NOT_FOUND_TITLE, SEO_PAGES } from "@/seo/meta";
 import { SITE_URL } from "@/config";
 import { useTheme } from "@/theme/theme";
 import { track } from "@/analytics";
@@ -21,28 +21,23 @@ import { arrivalKind } from "@/state/url";
  */
 export function Analytics() {
   const { pathname } = useLocation();
-  const { lang, t } = useI18n();
+  const { lang } = useI18n();
   const { theme } = useTheme();
 
-  // Localized, per-route document title (also read by the page_view below). Mapped from the
-  // language-neutral path so /glossary and /pt/glossary share the logic. Home keeps the brand
-  // title; subpages read "<page> · <brand>".
-  // Guides carry their own SEO title (matching the prerendered <title>); other routes derive it
-  // from the language-neutral path. Handle guides first, since barePath doesn't model them.
+  // Localized, per-route document title (also read by the page_view below), taken from the same
+  // declaration the prerendered <title> is built from — SEO_PAGES for the core routes, the guide
+  // registry for guides. Composing it from separate pieces here instead would leave two independent
+  // definitions of every title, and this effect assigns document.title/og:title/twitter:title, so
+  // the client's version wins in the rendered DOM: an edit to the SEO copy alone would be reverted
+  // on hydration and never reach a crawler. Guides are handled first, since barePath doesn't model
+  // them. A path with no SEO entry is one the router did not match — the `*` catch-all renders the
+  // not-found page — so it takes the not-found title rather than the home page's.
   const guide = guideFromPath(pathname);
   const bare = barePath(pathname);
-  let docTitle: string;
-  if (guide) {
-    docTitle =
-      (guide.kind === "article" && guide.id ? guideById(guide.id)?.title[lang] : undefined) ??
-      GUIDES_INDEX_SEO[lang].title;
-  } else if (bare === "/glossary") {
-    docTitle = `${t.nav.glossary} · ${t.app.title}`;
-  } else if (bare === "/how-it-works") {
-    docTitle = `${t.nav.howItWorks} · ${t.app.title}`;
-  } else {
-    docTitle = `${t.app.title} · ${fmt(t.app.subtitle, { year: LATEST_YEAR })}`;
-  }
+  const docTitle = guide
+    ? ((guide.kind === "article" && guide.id ? guideById(guide.id)?.title[lang] : undefined) ??
+      GUIDES_INDEX_SEO[lang].title)
+    : (SEO_PAGES[bare]?.[lang].title ?? NOT_FOUND_TITLE[lang]);
   // Keep the tab title and the shareable-URL meta (canonical + og:url/title) in sync with the route.
   // These are baked per URL into the prerendered HTML, but on client-side navigation the app must
   // refresh them — otherwise a mobile "Share" (which reads og:url) would share the URL the visitor

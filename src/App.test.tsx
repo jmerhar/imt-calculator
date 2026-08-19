@@ -7,6 +7,7 @@ import { en } from "@/i18n/en";
 import { pt } from "@/i18n/pt";
 import { glossary } from "@/content/glossary";
 import { LANG_STORAGE_KEY, LANG_SUGGEST_DISMISSED_KEY } from "@/i18n/paths";
+import { NOT_FOUND_TITLE, SEO_PAGES } from "@/seo/meta";
 import { encodeToken } from "@/state/url";
 import { defaultInput } from "@/state/defaults";
 import { fmt } from "@/i18n";
@@ -15,7 +16,6 @@ import { LATEST_YEAR } from "@/engine/tables";
 // The tax year in the subtitle / H1 is templated ({year}) and resolved with LATEST_YEAR at render,
 // so tests match the resolved text rather than the raw template.
 const y = { year: LATEST_YEAR };
-const homeTitle = `${en.app.title} · ${fmt(en.app.subtitle, y)}`;
 const calcH1 = (l: typeof en | typeof pt) => fmt(l.pages.calculatorH1, y);
 
 /** Force the browser language for the language-suggestion tests (jsdom defaults to en-US). */
@@ -69,7 +69,7 @@ describe("App", () => {
     const user = userEvent.setup();
     renderApp();
     await user.click(screen.getByRole("link", { name: "PT" }));
-    expect(screen.getAllByText("Calculadora").length).toBeGreaterThan(0);
+    expect(screen.getAllByText(pt.nav.calculator).length).toBeGreaterThan(0);
   });
 
   it("toggles the theme", async () => {
@@ -118,7 +118,7 @@ describe("App", () => {
         page_location: `${origin}/`,
         ui_language: "en",
         ui_theme: "light",
-        page_title: homeTitle,
+        page_title: SEO_PAGES["/"].en.title,
       }),
     );
     await user.click(screen.getByRole("link", { name: en.nav.glossary }));
@@ -268,15 +268,33 @@ describe("App", () => {
     localStorage.removeItem(LANG_STORAGE_KEY);
   });
 
-  it("sets a localized document title per route", async () => {
+  // Asserted against SEO_PAGES — the same declaration the build writes into the prerendered <title>
+  // — rather than recomposed from app.title/nav.*. The tab title and the indexed title have to be
+  // the one string: composing it separately here would let the two drift apart unnoticed, and the
+  // client's value is the one a crawler renders.
+  it("sets a localized document title per route, matching the declared SEO title", async () => {
     const user = userEvent.setup();
     renderApp();
-    expect(document.title).toBe(homeTitle);
+    expect(document.title).toBe(SEO_PAGES["/"].en.title);
     await user.click(screen.getByRole("link", { name: en.nav.glossary }));
-    expect(document.title).toBe(`${en.nav.glossary} · ${en.app.title}`);
+    expect(document.title).toBe(SEO_PAGES["/glossary"].en.title);
     // Switching language navigates to /pt/glossario; the tab title becomes the Portuguese one.
     await user.click(screen.getByRole("link", { name: "PT" }));
-    expect(document.title).toBe(`${pt.nav.glossary} · ${pt.app.title}`);
+    expect(document.title).toBe(SEO_PAGES["/glossary"].pt.title);
+  });
+
+  it("titles an unmatched path as not found, not as the home page", () => {
+    renderApp("/does-not-exist");
+    expect(document.title).toBe(NOT_FOUND_TITLE.en);
+    expect(document.title).not.toBe(SEO_PAGES["/"].en.title);
+  });
+
+  it("uses the Portuguese home page's own SEO title, not the brand plus subtitle", async () => {
+    renderApp("/pt/");
+    expect(document.title).toBe(SEO_PAGES["/"].pt.title);
+    // The two diverge, so this pins the rendered title to the declared one rather than to a
+    // composition that happens to coincide.
+    expect(document.title).not.toBe(`${pt.app.title} · ${fmt(pt.app.subtitle, y)}`);
   });
 
   it("carries the active theme on the page_view after a theme toggle", async () => {

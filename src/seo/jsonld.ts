@@ -1,13 +1,12 @@
 // Build-time JSON-LD structured data injected into the prerendered HTML (see vite.config.ts).
 // Localized per language. Pure module (no browser/React), so the config can import it.
 
-import { SITE_URL } from "../config";
+import { SITE_URL, SITE_NAME } from "../config";
 // Relative import: this module is bundled into vite.config.ts (esbuild, no "@" alias) at build time.
 import { LATEST_YEAR } from "../engine/tables";
 
 type Lang = "en" | "pt";
 
-const NAME: Record<Lang, string> = { en: "IMT Calculator", pt: "Calculadora de IMT" };
 // The ruleset year tracks the latest registered tables; the FAQ dates below are legislative history
 // (Decreto-Lei n.º 97/2026) and stay literal.
 const APP_DESC: Record<Lang, string> = {
@@ -66,7 +65,7 @@ const organization = () => ({
 const webSite = (lang: Lang, homeUrl: string) => ({
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: NAME[lang],
+  name: SITE_NAME[lang],
   url: homeUrl,
   inLanguage: lang,
   publisher: { "@id": ORG_ID },
@@ -75,7 +74,7 @@ const webSite = (lang: Lang, homeUrl: string) => ({
 const webApplication = (lang: Lang, url: string) => ({
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  name: NAME[lang],
+  name: SITE_NAME[lang],
   url,
   applicationCategory: "FinanceApplication",
   operatingSystem: "Web",
@@ -99,7 +98,7 @@ const breadcrumb = (lang: Lang, name: string, url: string, homeUrl: string) => (
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: NAME[lang], item: homeUrl },
+    { "@type": "ListItem", position: 1, name: SITE_NAME[lang], item: homeUrl },
     { "@type": "ListItem", position: 2, name, item: url },
   ],
 });

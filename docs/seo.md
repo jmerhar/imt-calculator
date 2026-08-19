@@ -102,6 +102,13 @@ Without these, the rest barely matters.
 
 - ✅ **Per-route `<title>` and meta `description`** — written into the static HTML at build time
   (`vite-react-ssg` `onPageRendered`, strings in `src/seo/meta.ts`), unique per route and localized.
+  `src/components/Analytics.tsx` reads that same `SEO_PAGES` declaration for the tab title rather than
+  composing one of its own: it assigns `document.title`/`og:title`/`twitter:title` on every route
+  change, so whatever it computes is what a crawler renders. Two independent compositions of the same
+  title would agree only until one side is edited, and the client's would win silently. Guarded by the
+  title assertions in `src/App.test.tsx`.
+- ✅ **`og:site_name` is localized** and the brand name is declared once, in `src/config.ts`
+  (`SITE_NAME`), shared by the build, `src/seo/jsonld.ts` and `src/seo/guides.ts`.
 - ✅ **Open Graph** — `og:type/site_name/title/description/url/image` + localized `og:locale`
   (+ alternate), injected per page at build.
 - ✅ **Twitter Card** — `summary_large_image` with title/description/image.
@@ -116,8 +123,11 @@ Without these, the rest barely matters.
 
 - ✅ **`WebApplication`** on the calculator (FinanceApplication, free offer, `inLanguage`),
   localized. `src/seo/jsonld.ts`.
-- ✅ **`FAQPage`** on how-it-works — three localized Q&As (non-resident date, totality rule,
-  non-resident rate). Valid JSON verified in `dist`.
+- ⏳ **`FAQPage`** on how-it-works — three localized Q&As (non-resident date, totality rule,
+  non-resident rate), valid JSON in `dist`, **but the page renders no visible Q/A pairs**: the
+  questions in `src/seo/jsonld.ts` are a paraphrase of `src/content/howItWorks.ts` prose. Google
+  requires FAQPage content to be present on the page, so this is markup without a rendered
+  counterpart. Fix by rendering the Q/As or dropping the node. **Impact M · Effort L.**
 - ✅ **`BreadcrumbList`** on glossary, how-it-works, the guides index, and every guide article —
   with **visible breadcrumbs** on each sub-page matching the markup (shared `Breadcrumb` component).
 - ✅ **`Organization` + `WebSite`** on the home page (both languages), linked by a stable `@id`.
@@ -210,18 +220,40 @@ Rankings for a YMYL query need trust signals and links; this is slow but decisiv
 - **The 0% CTR is a position symptom, not a snippet problem.** Average position 61.8 is page ~6,
   where CTR is well under 0.1%; 634 impressions predicts 0–1 clicks. Rewriting titles or
   descriptions to chase CTR would tune the one variable that is not binding — the lever is position.
-- **Demand is essentially all Portuguese.** All eight top queries are PT (`calcular imt` 38,
-  `simulador imt 2026` 33, `calculadora imt 2026` 29, `taxas imt 2026` 29, `tabela imt 2026` 22,
-  `calculadora imt portugal` 20, `imt portugal` 20, `calculadora imt jovem` 18). No EN query
-  registers. This is evidence for the EN-first decision being worth revisiting, and against
-  spending content effort on English.
-- ⏳ **"Simulador" appears nowhere on the site** (`grep -rio simulador src/` → 0) despite being the
-  #2 query and a listed seed term — invisible for the term rather than outranked on it. It is the
-  standard PT word for a tax calculator (AT's own tool is a *simulador*). **Impact H · Effort L.**
-- ⏳ **The pages that match the demand are the unindexed ones.** `taxas imt 2026` + `tabela imt 2026`
-  (51 impressions) point at `/pt/guias/tabelas-imt/`, which is "Discovered – currently not indexed".
-  The long tail is where a low-authority site can rank; the head terms (`calcular imt`) are contested
-  by portals and banks.
+- **Demand by query family** — from the full export (40 named queries, 410 impressions; the other
+  224 are in Google's anonymised long tail):
+
+  | family | impressions | share | best position |
+  |---|---|---|---|
+  | PT `calcul-` (`calcular imt` 38, `calculadora imt 2026` 29, `cálculo imt` 16…) | 153 | 37% | 52.2 |
+  | PT `tabela`/`taxas`/`escalões` (`taxas imt 2026` 29, `tabela imt 2026` 22…) | 91 | 22% | 36.0 |
+  | English (`portugal property tax calculator` 18, `portugal imt calculator` 17…) | 81 | 19% | 55.3 |
+  | PT `simul-` (`simulador imt 2026` 33, `simulação imposto selo e imt` 13…) | 51 | 12% | 41.1 |
+  | PT other (`imt portugal` 20, `quanto vou pagar de imt` 7) | 34 | 8% | 31.0 |
+
+  Two query strings arrive mojibaked in the CSV export (latin-1 bytes decoded as cp1251); recover
+  them with `q.encode("cp1251").decode("latin-1")`.
+- **English demand is real — 19%, not zero.** An earlier reading of only the top-8 screenshot recorded
+  "no EN query registers"; that was wrong. English is 81 impressions across 8 queries, and English
+  *pages* carry 269 of 634 impressions (42%): `/` 218, `/guides/imt-non-residents/` 45,
+  `/guides/imt-jovem/` 6. Content effort on English is justified, and EN pages being served for PT
+  queries is itself a sign the PT signal needs strengthening.
+- **`calcul-` outweighs `simul-` three to one** (153 vs 51), which is why "simulador" was added
+  alongside the brand rather than replacing it.
+- ✅ **"Simulador" now appears on the PT home page** — the `<title>` (leading), the `<h1>`, the intro
+  and the meta description; the `calcul-` family is retained in all four. Guarded by
+  `src/seo/pt-keywords.test.ts`. **Guardrail: "simulador" stays out of guide titles** — `/pt/` owns
+  tool intent, the `imt-tables` guide owns `tabela`/`taxas`, so the two never compete for the same
+  query.
+- ⏳ **The pages that match the demand are the unindexed ones.** The `tabela`/`taxas`/`escalões`
+  family is 91 impressions — including `tabela imt habitação secundária` (15), which
+  `/pt/guias/tabelas-imt/` answers verbatim — yet that URL has **zero** impressions and does not
+  appear in the Pages report at all. Only **5 of 18 URLs** have any impressions. Internal links are
+  the lever a low-authority site controls. **Impact H · Effort L.**
+- **Where the site already ranks.** Portugal is 556/634 impressions (88%) at position 63, but every
+  thin-competition country sits on page 1–2 (Denmark 5, Germany 7.5, Morocco 8, Canada 9,
+  Netherlands 15, UK 36), and `/guides/imt-jovem/` is at **position 8.2** — the only page-1 result.
+  The site can rank; the gap in Portugal is authority and content depth, not markup.
 - ➖ **"Redirect error" on `/glossary`, `/how-it-works`, `/pt`, `/pt/glossary`** (crawled 31 Jul) —
   an artifact of the ~15 deploys during that day's SSG/i18n restructure, when redirect targets were
   themselves changing between hops. All three surviving URLs now serve a single clean 301 to the
@@ -249,7 +281,9 @@ Rankings for a YMYL query need trust signals and links; this is slow but decisiv
 ## Resolved decisions
 
 - **Host:** keep **GitHub Pages** (SSG on Pages — free and simple).
-- **Default language:** **EN-first** (`/` = EN, `/pt/…` = PT), with `hreflang`. One-way choice, now locked.
+- **Default language:** **EN-first** (`/` = EN, `/pt/…` = PT), with `hreflang`. Reaffirmed after the
+  2026-08-19 query review: PT is the larger market, but English is 19% of demand, and the crawlable
+  cross-language links now give `/pt/…` a real inbound path. Settled.
 - **Content appetite:** willing to invest in ongoing content (guides) — hence Phase 3.
 - **Theme:** respects the OS `prefers-color-scheme` (no forced default).
 
