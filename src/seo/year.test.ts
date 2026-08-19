@@ -6,6 +6,7 @@ import { SITE_URL } from "@/config";
 import { SEO_PAGES } from "@/seo/meta";
 import { jsonLdFor } from "@/seo/jsonld";
 import { GUIDE_META, GUIDES_INDEX_SEO } from "@/content/guides/registry";
+import { homeExplainer, homeFaq } from "@/content/homeExplainer";
 import { GENERATED_FOR_YEAR } from "@/content/guides/computed";
 
 // Drift guard for the yearly 2026 → 2027 rollover. The display tax-year must come from LATEST_YEAR
@@ -67,6 +68,23 @@ describe("display tax-year tracks LATEST_YEAR", () => {
     resolved.push([`guides-index ${l} description`, GUIDES_INDEX_SEO[l].description]);
     resolved.push([`jsonld ${l} home`, jsonLdFor(l, "/", `${SITE_URL}/`)]);
   }
+  // The home explainer's prose reaches no SEO field or JSON-LD block except via its FAQ, so a stale
+  // literal year in a section body would otherwise ship unnoticed on the site's busiest page.
+  for (const section of homeExplainer)
+    for (const l of LANGS) {
+      const c = l === "en" ? section.en : section.pt;
+      resolved.push([`explainer ${section.id} ${l} heading`, c.heading]);
+      for (const [i, b] of c.blocks.entries()) {
+        if ("p" in b) resolved.push([`explainer ${section.id} ${l} p${i}`, b.p]);
+        else if ("ul" in b) resolved.push([`explainer ${section.id} ${l} ul${i}`, b.ul.join(" ")]);
+        else resolved.push([`explainer ${section.id} ${l} link${i}`, b.label]);
+      }
+    }
+  for (const f of homeFaq)
+    for (const l of LANGS) {
+      const c = l === "en" ? f.en : f.pt;
+      resolved.push([`home-faq ${f.id} ${l}`, `${c.q} ${c.a}`]);
+    }
 
   it.each(resolved)("%s carries no stray tax-year", (_k, value) => {
     expect(strayYears(value)).toEqual([]);

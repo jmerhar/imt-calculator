@@ -123,6 +123,10 @@ Without these, the rest barely matters.
 
 - ✅ **`WebApplication`** on the calculator (FinanceApplication, free offer, `inLanguage`),
   localized. `src/seo/jsonld.ts`.
+- ✅ **`FAQPage`** on the home page — four localized Q&As (how much, price vs VPT, the non-resident
+  rate, IMT Jovem and stamp duty) rendered on the page and emitted as structured data **from the same
+  declaration** (`src/content/homeExplainer.ts` → `src/seo/jsonld.ts`), so the markup cannot describe
+  questions a reader is unable to find. Cross-checked by `src/pages/homeExplainer.test.tsx`.
 - ⏳ **`FAQPage`** on how-it-works — three localized Q&As (non-resident date, totality rule,
   non-resident rate), valid JSON in `dist`, **but the page renders no visible Q/A pairs**: the
   questions in `src/seo/jsonld.ts` are a paraphrase of `src/content/howItWorks.ts` prose. Google
@@ -149,9 +153,12 @@ comes from. Bias toward Portuguese — it's the primary market. **Planned in `do
   - EN: `Portugal IMT calculator`, `Portugal property transfer tax`, `IMT non-resident Portugal
     2026`, `stamp duty Portugal property`, `buying property Portugal taxes`.
   **Impact H · Effort M.**
-- ✅ **Optimize the home page** — added a keyword-led `<h1>` ("Portugal IMT & Stamp-Duty
-  Calculator — 2026") and an intro paragraph (both localized). Glossary and how-it-works already
-  have `<h1>` + intros.
+- ✅ **Optimize the home page** — a keyword-led `<h1>` and intro paragraph (both localized), plus an
+  explainer and FAQ below the calculator (`src/content/homeExplainer.ts`). The rendered page was
+  **321 words, of which 59 were prose** — the rest form labels, results labels and footer — against
+  multi-thousand-word portal pages competing for the same queries; it is now ~1000. The sections
+  answer `como calcular imt`, `quanto vou pagar de imt`, `escalões imt` and the tables queries, and
+  each links through to the guide covering it.
 - ✅ **Guides section shipped** — a `/guides` (PT `/pt/guias`) section with localized slugs and
   **five** bilingual articles: IMT for non-residents, IMT Jovem, the 2026 rate tables, IMT vs IMI vs
   stamp duty, and buying in the Açores/Madeira. Each has Article + FAQ + Breadcrumb JSON-LD and a
@@ -245,6 +252,10 @@ Rankings for a YMYL query need trust signals and links; this is slow but decisiv
   `src/seo/pt-keywords.test.ts`. **Guardrail: "simulador" stays out of guide titles** — `/pt/` owns
   tool intent, the `imt-tables` guide owns `tabela`/`taxas`, so the two never compete for the same
   query.
+- ✅ **Internal links now reach the buried pages.** An article links its four siblings and the
+  results-panel formula links the rate-tables guide, so pages linking `/pt/guias/tabelas-imt/` went
+  from one (the guides index) to six per language, including both home pages. Request indexing for
+  that URL directly rather than waiting for the crawl to rediscover it.
 - ⏳ **The pages that match the demand are the unindexed ones.** The `tabela`/`taxas`/`escalões`
   family is 91 impressions — including `tabela imt habitação secundária` (15), which
   `/pt/guias/tabelas-imt/` answers verbatim — yet that URL has **zero** impressions and does not

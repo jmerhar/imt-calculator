@@ -15,6 +15,7 @@ import { track, priceBand, rateBand, vptRatioBand, vptRatioPct } from "@/analyti
 import { NumberField, Segmented, SelectField, Toggle } from "@/components/controls";
 import { BuyerCard } from "@/components/BuyerCard";
 import { ResultsPanel } from "@/components/ResultsPanel";
+import { HomeExplainer } from "@/components/HomeExplainer";
 
 /** Distribute shares equally, giving the last buyer the rounding remainder so they sum to 1. */
 function equalShares(buyers: Buyer[]): Buyer[] {
@@ -255,6 +256,8 @@ export function CalculatorPage() {
           <ResultsPanel input={input} result={result} onReset={reset} />
         </div>
       </div>
+
+      <HomeExplainer />
     </>
   );
 }

@@ -2,6 +2,8 @@
 // Localized per language. Pure module (no browser/React), so the config can import it.
 
 import { SITE_URL, SITE_NAME } from "../config";
+import { homeFaq } from "../content/homeExplainer";
+import { resolveText } from "../content/guides/figures";
 // Relative import: this module is bundled into vite.config.ts (esbuild, no "@" alias) at build time.
 import { LATEST_YEAR } from "../engine/tables";
 
@@ -31,7 +33,7 @@ const FAQ: Record<Lang, { q: string; a: string }[]> = {
     },
     {
       q: "What IMT rate do non-residents pay?",
-      a: "A flat 7.5% (CIMT article 17.º(10)). Former residents keep the ordinary progressive rates; buyers who become resident within two years, or let at accessible rent, pay 7.5% now and can reclaim the difference.",
+      a: "A flat 7.5% (CIMT article 17.º(10)). Former residents keep the ordinary progressive rates; buyers who become resident within two years, or let at a moderate rent, pay 7.5% now and can reclaim the difference.",
     },
   ],
   pt: [
@@ -45,7 +47,7 @@ const FAQ: Record<Lang, { q: string; a: string }[]> = {
     },
     {
       q: "Que taxa de IMT pagam os não residentes?",
-      a: "Uma taxa única de 7,5% (artigo 17.º, n.º 10 do CIMT). Antigos residentes mantêm as taxas progressivas normais; quem passe a residente em dois anos, ou arrende em renda acessível, paga 7,5% agora e pode reembolsar a diferença.",
+      a: "Uma taxa única de 7,5% (artigo 17.º, n.º 10 do CIMT). Antigos residentes mantêm as taxas progressivas normais; quem passe a residente em dois anos, ou arrende com renda moderada, paga 7,5% agora e pode reembolsar a diferença.",
     },
   ],
 };
@@ -83,16 +85,25 @@ const webApplication = (lang: Lang, url: string) => ({
   offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
 });
 
-const faqPage = (lang: Lang) => ({
+// Takes its questions from the caller so each page's structured data comes from the strings that page
+// actually renders: FAQPage markup a reader cannot find on the page is against Google's guidelines.
+const faqPage = (lang: Lang, entries: { q: string; a: string }[]) => ({
   "@context": "https://schema.org",
   "@type": "FAQPage",
   inLanguage: lang,
-  mainEntity: FAQ[lang].map(({ q, a }) => ({
+  mainEntity: entries.map(({ q, a }) => ({
     "@type": "Question",
     name: q,
     acceptedAnswer: { "@type": "Answer", text: a },
   })),
 });
+
+/** The home page's questions, resolved from the same content the explainer renders. */
+const homeFaqEntries = (lang: Lang) =>
+  homeFaq.map((f) => {
+    const c = lang === "en" ? f.en : f.pt;
+    return { q: resolveText(c.q, lang), a: resolveText(c.a, lang) };
+  });
 
 const breadcrumb = (lang: Lang, name: string, url: string, homeUrl: string) => ({
   "@context": "https://schema.org",
@@ -107,9 +118,15 @@ const breadcrumb = (lang: Lang, name: string, url: string, homeUrl: string) => (
 export function jsonLdFor(lang: Lang, bare: string, url: string): string {
   const homeUrl = lang === "en" ? `${SITE_URL}/` : `${SITE_URL}/pt/`;
   const blocks: object[] = [];
-  if (bare === "/") blocks.push(organization(), webSite(lang, homeUrl), webApplication(lang, url));
-  else if (bare === "/how-it-works") {
-    blocks.push(faqPage(lang), breadcrumb(lang, PAGE_NAME[lang].howItWorks, url, homeUrl));
+  if (bare === "/") {
+    blocks.push(
+      organization(),
+      webSite(lang, homeUrl),
+      webApplication(lang, url),
+      faqPage(lang, homeFaqEntries(lang)),
+    );
+  } else if (bare === "/how-it-works") {
+    blocks.push(faqPage(lang, FAQ[lang]), breadcrumb(lang, PAGE_NAME[lang].howItWorks, url, homeUrl));
   } else if (bare === "/glossary") {
     blocks.push(breadcrumb(lang, PAGE_NAME[lang].glossary, url, homeUrl));
   }
