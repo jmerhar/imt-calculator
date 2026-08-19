@@ -1,11 +1,12 @@
 import { Link, useParams } from "react-router-dom";
 import { useI18n } from "@/i18n";
 import { GUIDE_BODIES, guideBySlug } from "@/content/guides";
+import { GUIDE_META } from "@/content/guides/registry";
 import type { Block } from "@/content/guides/registry";
 import { resolveText } from "@/content/guides/figures";
 import { getYearData, LATEST_YEAR } from "@/engine/tables";
 import type { CalcInput, TableId } from "@/engine/types";
-import { guidesIndexPath, localizedPath } from "@/i18n/paths";
+import { guidePath, guidesIndexPath, localizedPath } from "@/i18n/paths";
 import { formatAmount, formatPercent } from "@/format";
 import { defaultInput, defaultBuyer } from "@/state/defaults";
 import { encodeToken } from "@/state/url";
@@ -130,6 +131,26 @@ export function GuidePage() {
           </div>
         </section>
       )}
+
+      {/*
+        The other guides, linked from every article. Search Console shows the guide URLs sitting at
+        "Discovered – currently not indexed" with no impressions, and a low-authority site's only
+        lever on crawl priority is its own internal links — of which an article had none beyond the
+        nav and its breadcrumb. Driven by the registry so the set never falls out of step with the
+        guides that exist.
+      */}
+      <nav className="related" aria-labelledby="related-guides">
+        <h2 className="doc__h2" id="related-guides">
+          {t.guides.related}
+        </h2>
+        <ul className="related__list">
+          {GUIDE_META.filter((g) => g.id !== meta.id).map((g) => (
+            <li key={g.id}>
+              <Link to={guidePath(lang, g.id)}>{g.navLabel[lang]}</Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
       <p className="guide__cta">
         <Link className="btn-cta" to={ctaHref} onClick={() => track("guide_cta", { guide: meta.id })}>

@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { useI18n, fmt } from "@/i18n";
+import { guidePath } from "@/i18n/paths";
 import type { ImtRule, BuyerResult, CalcInput, CalcResult } from "@/engine/types";
 import { formatEuro, formatPercent } from "@/format";
 import { encodeToken } from "@/state/url";
@@ -131,6 +133,14 @@ export function ResultsPanel({
             {result.buyers.some((b) => b.rule === "ordinary" && b.imtDeduction > 0) && (
               <p className="formula__hint">{t.results.formulaDeductionHint}</p>
             )}
+            {/*
+              The brackets and the parcela a abater shown above are what the tables guide explains, so
+              this is where a reader wants them — and it points the calculator, the only page search
+              engines currently index, at a guide that has no impressions at all.
+            */}
+            <p className="formula__link">
+              <Link to={guidePath(lang, "imt-tables")}>{t.results.tablesGuide}</Link>
+            </p>
           </div>
         </details>
       )}

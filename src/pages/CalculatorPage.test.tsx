@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render, screen, fireEvent, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { MemoryRouter } from "react-router-dom";
 import { I18nProvider } from "@/i18n";
 import { en } from "@/i18n/en";
 import { CalculatorPage } from "@/pages/CalculatorPage";
@@ -15,9 +16,11 @@ afterEach(() => {
 
 function renderPage() {
   return render(
-    <I18nProvider>
-      <CalculatorPage />
-    </I18nProvider>,
+    <MemoryRouter>
+      <I18nProvider>
+        <CalculatorPage />
+      </I18nProvider>
+    </MemoryRouter>,
   );
 }
 
