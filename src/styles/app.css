@@ -111,10 +111,43 @@ a {
   font-weight: 600;
   padding: var(--s1) var(--s3);
   cursor: pointer;
+  text-decoration: none;
 }
-.langswitch__btn[aria-pressed="true"] {
+.langswitch__btn[aria-current="true"] {
   background: var(--azul-600);
   color: #fff;
+}
+
+/* Language suggestion: offered above the page content, so it is seen before the visitor starts
+   reading a language they may not want, without displacing the header. */
+.langsuggest {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  flex-wrap: wrap;
+  margin-bottom: var(--s3);
+  padding: var(--s2) var(--s3);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius, 10px);
+  background: var(--surface-soft, transparent);
+  font-size: 0.9rem;
+}
+.langsuggest__text {
+  color: var(--ink-soft);
+}
+.langsuggest__cta {
+  font-weight: 600;
+}
+.langsuggest__dismiss {
+  margin-inline-start: auto;
+  border: 0;
+  background: transparent;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: var(--s1);
+  cursor: pointer;
 }
 .iconbtn {
   display: inline-grid;

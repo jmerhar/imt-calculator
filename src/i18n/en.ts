@@ -22,6 +22,14 @@ export const en = {
     skipToContent: "Skip to content",
     menu: "Menu",
   },
+  // Shown by the language suggestion banner when a visitor's preferred language differs from the
+  // page's. The banner reads the *target* language's copy, so a suggestion is always written in the
+  // language it offers — an English-preferring visitor on a Portuguese page reads these strings.
+  langSuggest: {
+    text: "This page is also available in English.",
+    cta: "View the English version",
+    dismiss: "Dismiss notice",
+  },
   form: {
     heading: "Purchase details",
     year: "Tax year",

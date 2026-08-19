@@ -111,7 +111,7 @@ describe("guides — pages", () => {
   it("language toggle on a guide navigates to the localized twin", async () => {
     const user = userEvent.setup();
     renderApp("/guides/imt-non-residents");
-    await user.click(screen.getByRole("button", { name: "PT" }));
+    await user.click(screen.getByRole("link", { name: "PT" }));
     expect(screen.getByRole("heading", { level: 1, name: nonResidents.title.pt })).toBeInTheDocument();
   });
 });

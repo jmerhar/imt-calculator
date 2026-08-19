@@ -21,6 +21,11 @@ export const pt: Dict = {
     skipToContent: "Saltar para o conteúdo",
     menu: "Menu",
   },
+  langSuggest: {
+    text: "Esta página também está disponível em português.",
+    cta: "Ver a versão portuguesa",
+    dismiss: "Fechar aviso",
+  },
   form: {
     heading: "Dados da compra",
     year: "Ano fiscal",
