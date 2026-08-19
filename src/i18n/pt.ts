@@ -117,9 +117,9 @@ export const pt: Dict = {
       "Este site usa cookies para estatísticas de utilização anónimas e agregadas através do Google Analytics. Estas podem incluir os valores que introduz (como preços), mas são apenas valores de imóveis e nunca associados à sua identidade. Os cálculos em si são feitos inteiramente no seu navegador.",
   },
   pages: {
-    calculatorH1: "Calculadora de IMT e Imposto do Selo — Portugal {year}",
+    calculatorH1: "Simulador de IMT e imposto do selo — Portugal {year}",
     calculatorIntro:
-      "Calcule o IMT (imposto municipal sobre transmissões) e o imposto do selo na compra de um imóvel em Portugal em {year} — com a taxa de 7,5% para não residentes, o IMT Jovem, vários compradores e as tabelas dos Açores e da Madeira. Tudo é calculado no seu navegador.",
+      "Simule o valor do IMT (imposto municipal sobre transmissões) e do imposto do selo na compra de um imóvel em Portugal em {year} — com a taxa de 7,5% para não residentes, o IMT Jovem, vários compradores e as tabelas dos Açores e da Madeira. Tudo é calculado no seu navegador.",
     glossaryIntro: "Termos essenciais do IMT e do imposto do selo, apresentados em inglês e português.",
     howtoIntro: "O que esta ferramenta calcula, as regras que aplica e a origem dos valores.",
     notFoundTitle: "Página não encontrada",

@@ -3,7 +3,7 @@
 // pairing is resolved through the registry here rather than by prefixing. Pure module (no
 // browser/React), so the config can import it.
 
-import { SITE_URL } from "../config";
+import { SITE_URL, SITE_NAME } from "../config";
 import { GUIDES_SEGMENT, GUIDE_META, GUIDES_INDEX_SEO } from "../content/guides/registry";
 import type { GuideMeta } from "../content/guides/registry";
 import { GUIDE_BODIES } from "../content/guides";
@@ -11,7 +11,6 @@ import { resolveText } from "../content/guides/figures";
 
 type Lang = "en" | "pt";
 
-const BRAND: Record<Lang, string> = { en: "IMT Calculator", pt: "Calculadora de IMT" };
 const GUIDES_NAME: Record<Lang, string> = { en: "Guides", pt: "Guias" };
 
 const homeUrl = (lang: Lang) => `${SITE_URL}/${lang === "pt" ? "pt/" : ""}`;
@@ -24,7 +23,7 @@ const script = (o: object) => `<script type="application/ld+json">${JSON.stringi
 const breadcrumb = (lang: Lang, tail: { name: string; item: string }[]) => ({
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
-  itemListElement: [{ name: BRAND[lang], item: homeUrl(lang) }, ...tail].map((x, i) => ({
+  itemListElement: [{ name: SITE_NAME[lang], item: homeUrl(lang) }, ...tail].map((x, i) => ({
     "@type": "ListItem",
     position: i + 1,
     name: x.name,
@@ -70,13 +69,13 @@ function articleJsonLd(lang: Lang, m: GuideMeta, url: string): string {
     datePublished: `${m.published}T00:00:00Z`,
     dateModified: `${m.updated}T00:00:00Z`,
     mainEntityOfPage: url,
-    author: { "@type": "Organization", name: BRAND.en, url: `${SITE_URL}/` },
+    author: { "@type": "Organization", name: SITE_NAME.en, url: `${SITE_URL}/` },
     // A full Organization (with logo) rather than an @id ref: the Organization node only lives on
     // the home page, so on an article the reference wouldn't resolve to a name/logo for the
     // Article rich result.
     publisher: {
       "@type": "Organization",
-      name: BRAND.en,
+      name: SITE_NAME.en,
       url: `${SITE_URL}/`,
       logo: { "@type": "ImageObject", url: `${SITE_URL}/icon-512.png` },
     },

@@ -3,8 +3,8 @@ import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
 import path from "node:path";
 import { writeFileSync } from "node:fs";
-import { SITE_URL } from "./src/config";
-import { SEO_PAGES } from "./src/seo/meta";
+import { SITE_URL, SITE_NAME } from "./src/config";
+import { NOT_FOUND_TITLE, SEO_PAGES } from "./src/seo/meta";
 import { jsonLdFor } from "./src/seo/jsonld";
 import { guideSeoForKey } from "./src/seo/guides";
 import { buildSitemap } from "./src/seo/sitemap";
@@ -33,7 +33,7 @@ function injectSeo(route: string, html: string): string {
   // The 404 page must not be indexed or canonicalized; just set a title + robots noindex.
   if (key === "/404") {
     return html
-      .replace(/<title>[\s\S]*?<\/title>/, `<title>Page not found · IMT Calculator</title>`)
+      .replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(NOT_FOUND_TITLE.en)}</title>`)
       .replace("</head>", `<meta name="robots" content="noindex" /></head>`);
   }
 
@@ -72,7 +72,7 @@ function injectSeo(route: string, html: string): string {
   const ogImage = `${SITE_URL}/og-${lang}.png`;
   const social = [
     `<meta property="og:type" content="website" />`,
-    `<meta property="og:site_name" content="IMT Calculator" />`,
+    `<meta property="og:site_name" content="${escapeHtml(SITE_NAME[lang])}" />`,
     `<meta property="og:title" content="${escapeHtml(title)}" />`,
     `<meta property="og:description" content="${escapeHtml(description)}" />`,
     `<meta property="og:url" content="${canonical}" />`,
