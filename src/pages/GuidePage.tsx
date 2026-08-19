@@ -12,6 +12,7 @@ import { defaultInput, defaultBuyer } from "@/state/defaults";
 import { encodeToken } from "@/state/url";
 import { track } from "@/analytics";
 import { Breadcrumb } from "@/components/Breadcrumb";
+import { Faq } from "@/components/Faq";
 import { NotFoundPage } from "@/pages/NotFoundPage";
 
 // The worked example each guide's CTA pre-fills into the calculator (via a ?c= token), so the
@@ -118,19 +119,7 @@ export function GuidePage() {
         </section>
       ))}
 
-      {body.faq && (
-        <section className="doc__section">
-          <h2 className="doc__h2">{t.guides.faqHeading}</h2>
-          <div className="doc__body">
-            {body.faq.map((f, i) => (
-              <div className="faq-item" key={i}>
-                <h3 className="faq-item__q">{resolveText(f.q, lang)}</h3>
-                <p>{resolveText(f.a, lang)}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
+      {body.faq && <Faq heading={t.guides.faqHeading} entries={body.faq} />}
 
       {/*
         The other guides, linked from every article. Search Console shows the guide URLs sitting at

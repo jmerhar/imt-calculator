@@ -129,6 +129,7 @@ export const en = {
     notFoundTitle: "Page not found",
     notFoundBody: "That page doesn't exist — it may have moved, or the link may be wrong.",
     notFoundHome: "Go to the calculator",
+    explainerHeading: "Understanding IMT and stamp duty",
     guidesTitle: "Portugal property-tax guides",
     guidesIntro: "Plain-language guides to IMT and stamp duty in Portugal for {year} — the rules, the reliefs, and the rate tables, each linked to the calculator.",
   },

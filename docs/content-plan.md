@@ -43,6 +43,17 @@ New guide pages target high-intent long-tail queries that none of the above shou
 
 Once Search Console has data, feed real discovered queries back into this map (Measurement, `seo.md`).
 
+The calculator page carries an explainer and FAQ below the form (`src/content/homeExplainer.ts`) so it
+can compete on its transactional queries with more than a form's worth of text. It stays within its
+own intent — how the tax is worked out, a worked example, and which table applies — and hands depth
+off to the guides by linking them, so it does not take over a guide's primary query. Its FAQ is also
+the home page's `FAQPage` structured data, from the same declaration.
+
+Real query data (2026-08-19, full export) confirmed the map and added two things to it: the `simul-`
+family (`simulador imt 2026`, `simulação imposto selo e imt`) is 51 impressions and now belongs to
+`/` alongside `calcul-`; and English is 19% of demand, not the afterthought the PT-first framing
+assumed. **Guardrail: keep "simulador" out of guide titles** — `/` owns tool intent.
+
 ## Architecture for guides
 
 - **Section:** an index page + individual articles. EN under `/guides/`, PT under `/pt/guias/`.

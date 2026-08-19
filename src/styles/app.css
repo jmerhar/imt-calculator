@@ -128,8 +128,8 @@ a {
   margin-bottom: var(--s3);
   padding: var(--s2) var(--s3);
   border: 1px solid var(--line-strong);
-  border-radius: var(--radius, 10px);
-  background: var(--surface-soft, transparent);
+  border-radius: var(--radius);
+  background: var(--tile);
   font-size: 0.9rem;
 }
 .langsuggest__text {
@@ -899,6 +899,15 @@ a {
   margin: 0;
   color: var(--ink-soft);
 }
+/* The explainer below the calculator. It keeps the guides' prose measure rather than the calculator
+   grid's full width, because a long line length is what makes body text hard to read. */
+.explainer {
+  margin-top: var(--s7);
+}
+.explainer__more {
+  font-weight: 600;
+}
+
 /* Sibling-guide links closing each article, and the tables link inside the results formula. */
 .related {
   margin-bottom: var(--s6);
@@ -1026,7 +1035,8 @@ a {
   .flash,
   .field__hint,
   .footer__link,
-  .sharebox {
+  .sharebox,
+  .explainer {
     display: none !important;
   }
   body {
