@@ -95,7 +95,7 @@ export const en = {
     ruleNonResident: "Non-resident 7.5%",
     ruleTaxHaven: "Tax haven 10%",
     shareLink: "Shareable link",
-    table: "Table",
+    tablesGuide: "See the full IMT rate tables",
     formulaTitle: "IMT formula",
     formulaDeductionHint:
       "The rate is the bracket for the full tax base; the deduction is that bracket's parcela a abater.",
@@ -136,6 +136,7 @@ export const en = {
     faqHeading: "Frequently asked questions",
     updated: "Updated",
     readGuide: "Read guide",
+    related: "Other guides",
     breadcrumbCalculator: "Calculator",
     tableFrom: "From (€)",
     tableRate: "Marginal rate",

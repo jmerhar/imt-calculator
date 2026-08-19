@@ -80,6 +80,33 @@ describe("guides — pages", () => {
     expect(decoded?.buyers[0].residency).toBe("non_resident");
   });
 
+  // The guide URLs sit unindexed with no impressions, and internal links are the only crawl-priority
+  // lever available; before this an article linked no other article, so each was reachable only
+  // through the index.
+  it("links every sibling guide from an article, and not itself", () => {
+    renderApp("/guides/imt-non-residents");
+    const others = GUIDE_META.filter((g) => g.id !== "imt-non-residents");
+    expect(others).toHaveLength(GUIDE_META.length - 1);
+    for (const g of others) {
+      expect(screen.getByRole("link", { name: g.navLabel.en })).toHaveAttribute(
+        "href",
+        guidePath("en", g.id),
+      );
+    }
+    expect(
+      screen.queryByRole("link", { name: nonResidents.navLabel.en }),
+    ).not.toBeInTheDocument();
+  });
+
+  it("links siblings with the Portuguese slugs on a Portuguese article", () => {
+    const jovem = GUIDE_META.find((g) => g.id === "imt-jovem")!;
+    renderApp("/pt/guias/imt-nao-residentes/");
+    expect(screen.getByRole("link", { name: jovem.navLabel.pt })).toHaveAttribute(
+      "href",
+      guidePath("pt", "imt-jovem"),
+    );
+  });
+
   it("resolves precomputed figures and the year in guide prose, leaving no raw tokens", () => {
     const { container } = renderApp("/guides/imt-jovem");
     // Worked-example figures come from computed.ts (the engine), interpolated at render.

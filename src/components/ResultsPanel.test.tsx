@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import { I18nProvider } from "@/i18n";
 import { en } from "@/i18n/en";
 import { calculate } from "@/engine/imt";
@@ -9,13 +10,26 @@ import type { CalcInput } from "@/engine/types";
 
 function setup(input: CalcInput) {
   render(
-    <I18nProvider>
-      <ResultsPanel input={input} result={calculate(input)} onReset={() => {}} />
-    </I18nProvider>,
+    <MemoryRouter>
+      <I18nProvider>
+        <ResultsPanel input={input} result={calculate(input)} onReset={() => {}} />
+      </I18nProvider>
+    </MemoryRouter>,
   );
 }
 
 describe("ResultsPanel", () => {
+  // The calculator is one of the few pages search engines index, and the tables guide is one of the
+  // ones they do not; the formula is where a reader is already looking at the brackets it explains.
+  it("links the formula to the rate-tables guide", () => {
+    setup(defaultInput());
+    fireEvent.click(screen.getByText(en.results.formulaTitle));
+    expect(screen.getByRole("link", { name: en.results.tablesGuide })).toHaveAttribute(
+      "href",
+      "/guides/imt-tables/",
+    );
+  });
+
   let writeText: ReturnType<typeof vi.fn>;
   beforeEach(() => {
     writeText = vi.fn().mockResolvedValue(undefined);

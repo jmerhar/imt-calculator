@@ -91,7 +91,7 @@ export const pt: Dict = {
     ruleNonResident: "Não residente 7,5%",
     ruleTaxHaven: "Paraíso fiscal 10%",
     shareLink: "Ligação partilhável",
-    table: "Tabela",
+    tablesGuide: "Ver as tabelas de taxas de IMT",
     formulaTitle: "Fórmula do IMT",
     formulaDeductionHint:
       "A taxa é a do escalão para o valor tributável total; a dedução é a parcela a abater desse escalão.",
@@ -132,6 +132,7 @@ export const pt: Dict = {
     faqHeading: "Perguntas frequentes",
     updated: "Atualizado",
     readGuide: "Ler guia",
+    related: "Outros guias",
     breadcrumbCalculator: "Calculadora",
     tableFrom: "A partir de (€)",
     tableRate: "Taxa marginal",
