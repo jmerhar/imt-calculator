@@ -62,6 +62,11 @@ Without these, the rest barely matters.
 - ✅ **`sitemap.xml`** — generated during the SSG build (`vite.config` `ssgOptions.onFinished`,
   `src/seo/sitemap.ts`) from the route + guide registry (trailing-slash canonical URLs matching what
   Pages serves), with reciprocal `hreflang` alternates for every EN/PT pair (18 URLs).
+- ✅ **Per-page `<lastmod>`** — each URL carries the date *its own* content changed: guides from the
+  registry's `updated`, the guides index from the newest guide it lists, core pages from a declared
+  date in `src/seo/sitemap.ts`. A build-clock `lastmod` re-announced all 18 URLs on every deploy,
+  which teaches search engines to disregard the field — and with it the signal that a page is
+  genuinely worth recrawling. Covered by `src/seo/sitemap.test.ts`.
 - ✅ **Canonical tags** — self-referential `<link rel="canonical">` per prerendered page (injected
   build-time via `vite-react-ssg` `onPageRendered`; subpages use the trailing-slash form).
 - ✅ **Registered in Google Search Console** and submitted `https://calc-imt.online/sitemap.xml`.
@@ -82,6 +87,16 @@ Without these, the rest barely matters.
   metadata; `src/seo/meta.ts` + injectSeo).
 - ✅ **Language toggle navigates** to the other-language URL (preserving the `?c=` token) instead
   of swapping state, so the URL and `hreflang` stay truthful.
+- ✅ **The toggle is a real `<a href>`**, not a button — it is the only place the site crosses the
+  language boundary, so a crawler needs a followable link here to reach `/pt/…` at all; `hreflang`
+  marks URLs as alternates without linking them. The href is token-free so only canonical URLs are
+  advertised, and the click handler re-attaches the live `?c=` token. Every prerendered page now
+  links to its twin in both directions (verified in `dist`).
+- ✅ **No automatic language redirect** — a Portuguese-preferring visitor on an English page gets a
+  dismissible offer (`src/components/LangSuggestion.tsx`), never a redirect. Redirecting made each
+  English URL answer with a different page's content, so Google sees the URL as redirecting instead
+  of indexing it; its i18n guidance is to serve the requested URL and signal the alternatives. The
+  banner renders only after mount, so it stays out of the prerendered HTML and hydration is clean.
 
 ### On-page metadata (per route, in the prerendered HTML)
 
@@ -189,6 +204,31 @@ Rankings for a YMYL query need trust signals and links; this is slow but decisiv
   **Impact M · Effort L.**
 - ✅ **Baseline captured** — Search Console is indexing (first impressions arriving, e.g. "imt
   portugal" at ~position 72, 0 clicks). Starting point ≈ 0, so growth is measurable from here.
+
+### What Search Console said on 2026-08-19 (634 impressions, 0 clicks, avg position 61.8)
+
+- **The 0% CTR is a position symptom, not a snippet problem.** Average position 61.8 is page ~6,
+  where CTR is well under 0.1%; 634 impressions predicts 0–1 clicks. Rewriting titles or
+  descriptions to chase CTR would tune the one variable that is not binding — the lever is position.
+- **Demand is essentially all Portuguese.** All eight top queries are PT (`calcular imt` 38,
+  `simulador imt 2026` 33, `calculadora imt 2026` 29, `taxas imt 2026` 29, `tabela imt 2026` 22,
+  `calculadora imt portugal` 20, `imt portugal` 20, `calculadora imt jovem` 18). No EN query
+  registers. This is evidence for the EN-first decision being worth revisiting, and against
+  spending content effort on English.
+- ⏳ **"Simulador" appears nowhere on the site** (`grep -rio simulador src/` → 0) despite being the
+  #2 query and a listed seed term — invisible for the term rather than outranked on it. It is the
+  standard PT word for a tax calculator (AT's own tool is a *simulador*). **Impact H · Effort L.**
+- ⏳ **The pages that match the demand are the unindexed ones.** `taxas imt 2026` + `tabela imt 2026`
+  (51 impressions) point at `/pt/guias/tabelas-imt/`, which is "Discovered – currently not indexed".
+  The long tail is where a low-authority site can rank; the head terms (`calcular imt`) are contested
+  by portals and banks.
+- ➖ **"Redirect error" on `/glossary`, `/how-it-works`, `/pt`, `/pt/glossary`** (crawled 31 Jul) —
+  an artifact of the ~15 deploys during that day's SSG/i18n restructure, when redirect targets were
+  themselves changing between hops. All three surviving URLs now serve a single clean 301 to the
+  canonical trailing-slash form; `/pt/glossary` is a legitimate 404 (an EN slug in the PT tree, from
+  before the PT slugs were localized). Validate in Search Console; nothing to fix.
+- ➖ **"Page with redirect" on `www.` and `http://` variants** — single-hop 301s to the canonical
+  apex HTTPS host. Correct as-is; ignore permanently.
 
 ---
 
