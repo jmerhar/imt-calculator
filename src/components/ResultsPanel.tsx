@@ -32,7 +32,7 @@ export function ResultsPanel({
     input.buyers[i]?.name?.trim() || `${t.form.buyer} ${i + 1}`;
 
   const [flash, setFlash] = useState<string | null>(null);
-  const flashTimer = useRef<ReturnType<typeof setTimeout>>();
+  const flashTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   // Clear a pending flash timer if the panel unmounts, so it never fires setState afterwards.
   useEffect(() => () => clearTimeout(flashTimer.current), []);

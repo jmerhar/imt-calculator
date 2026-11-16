@@ -103,7 +103,7 @@ export default defineConfig({
   base: "/",
   plugins: [react()],
   resolve: {
-    alias: { "@": path.resolve(__dirname, "./src") },
+    alias: { "@": path.resolve(import.meta.dirname, "./src") },
   },
   // vite-react-ssg: prerender each static route to its own directory (/glossary/index.html) for
   // clean, crawlable URLs.

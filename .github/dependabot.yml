@@ -19,7 +19,7 @@ updates:
 
   # typescript-eslint and vite-react-ssg name the TypeScript and react-router-dom versions
   # they support as peer dependencies, so a new major of either cannot install until they accept it;
-  # move them together by hand then.
+  # move them together by hand then. @types/node follows the Node major CI runs ([ci] node).
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
@@ -32,6 +32,8 @@ updates:
       - dependency-name: "typescript"
         update-types: ["version-update:semver-major"]
       - dependency-name: "react-router-dom"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@types/node"
         update-types: ["version-update:semver-major"]
     groups:
       npm:

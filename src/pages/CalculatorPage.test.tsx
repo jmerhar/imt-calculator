@@ -89,6 +89,36 @@ describe("CalculatorPage", () => {
     expect(screen.getAllByLabelText(en.form.share)).toHaveLength(1);
   });
 
+  it("recalculates as the location, intended use and mortgage change", async () => {
+    const user = userEvent.setup();
+    const { container } = renderPage();
+    const total = () => container.textContent;
+
+    await user.selectOptions(screen.getByLabelText(en.form.location), "azores");
+    expect(screen.getByLabelText(en.form.location)).toHaveValue("azores");
+    await user.click(screen.getByRole("button", { name: en.form.useSecondary }));
+    expect(total()).not.toContain("9,042.04");
+
+    await user.click(screen.getByLabelText(en.form.mortgageToggle));
+    const withMortgage = total();
+    const amount = screen.getByLabelText(en.form.mortgageAmount);
+    await user.clear(amount);
+    await user.type(amount, "300000");
+    expect(total()).not.toBe(withMortgage);
+    await user.selectOptions(screen.getByLabelText(en.form.mortgageTerm), "lt1");
+    const months = screen.getByLabelText(en.form.mortgageMonths);
+    // An emptied months field falls back to 1, so the new figure replaces the selected text.
+    await user.type(months, "6", { initialSelectionStart: 0, initialSelectionEnd: 10 });
+    expect(months).toHaveValue(6);
+  });
+
+  it("does not submit the form", () => {
+    const { container } = renderPage();
+    const form = container.querySelector("form")!;
+    const submitted = fireEvent.submit(form);
+    expect(submitted).toBe(false);
+  });
+
   it("emits one debounced calculate event after an edit, not before", () => {
     vi.useFakeTimers();
     try {

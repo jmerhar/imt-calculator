@@ -43,6 +43,8 @@ export function CalculatorPage() {
     const fromUrl = readStateFromUrl();
     if (fromUrl) {
       arrivedWithToken.current = true;
+      // The second pass of a hydration-safe render: the prerendered default first, then the link.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setInput(fromUrl);
     }
   }, []);

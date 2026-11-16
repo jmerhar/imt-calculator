@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useI18n, fmt } from "@/i18n";
 import type { Lang } from "@/i18n";
@@ -17,10 +17,10 @@ export function Layout({ children }: { children: ReactNode }) {
   const path = (bare: string) => localizedPath(lang, bare);
 
   // On narrow screens the nav collapses behind a toggle; it is always shown on wider viewports
-  // (the toggle is hidden there via CSS). Any navigation closes it, so a tapped link doesn't leave
-  // the menu hanging open over the new page.
-  const [menuOpen, setMenuOpen] = useState(false);
-  useEffect(() => setMenuOpen(false), [pathname]);
+  // (the toggle is hidden there via CSS). The menu remembers the page it was opened on, so any
+  // navigation closes it and a tapped link doesn't leave it hanging open over the new page.
+  const [menuOpenOn, setMenuOpenOn] = useState<string | null>(null);
+  const menuOpen = menuOpenOn === pathname;
 
   const navClass = ({ isActive }: { isActive: boolean }) =>
     isActive ? "nav__link nav__link--active" : "nav__link";
@@ -46,7 +46,7 @@ export function Layout({ children }: { children: ReactNode }) {
           aria-label={t.controls.menu}
           aria-expanded={menuOpen}
           aria-controls="primary-nav"
-          onClick={() => setMenuOpen((open) => !open)}
+          onClick={() => setMenuOpenOn(menuOpen ? null : pathname)}
         >
           {menuOpen ? <CloseIcon /> : <MenuIcon />}
         </button>

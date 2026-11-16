@@ -1,8 +1,10 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render, screen } from "@testing-library/react";
+import { renderToString } from "react-dom/server";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter, useLocation, useRoutes, type RouteObject } from "react-router-dom";
 import { routes } from "@/routes";
+import { LangSuggestion } from "@/components/LangSuggestion";
 import { en } from "@/i18n/en";
 import { pt } from "@/i18n/pt";
 import { glossary } from "@/content/glossary";
@@ -77,6 +79,29 @@ describe("App", () => {
     renderApp();
     await user.click(screen.getByRole("button", { name: en.controls.toDark }));
     expect(document.documentElement.dataset.theme).toBe("dark");
+  });
+
+  it("opens the menu, and closes it on navigation", async () => {
+    const user = userEvent.setup();
+    renderApp();
+    const toggle = screen.getByRole("button", { name: en.controls.menu });
+    expect(toggle).toHaveAttribute("aria-expanded", "false");
+    await user.click(toggle);
+    expect(toggle).toHaveAttribute("aria-expanded", "true");
+    await user.click(screen.getByRole("link", { name: en.nav.glossary }));
+    expect(screen.getByRole("button", { name: en.controls.menu })).toHaveAttribute(
+      "aria-expanded",
+      "false",
+    );
+  });
+
+  it("closes the menu with its toggle", async () => {
+    const user = userEvent.setup();
+    renderApp();
+    const toggle = screen.getByRole("button", { name: en.controls.menu });
+    await user.click(toggle);
+    await user.click(toggle);
+    expect(toggle).toHaveAttribute("aria-expanded", "false");
   });
 
   it("navigates to the glossary", async () => {
@@ -168,6 +193,17 @@ describe("App", () => {
     );
     expect(screen.getByText(calcH1(en))).toBeInTheDocument();
     expect(screen.queryByText(calcH1(pt))).not.toBeInTheDocument();
+  });
+
+  // The prerendered HTML is shared by every visitor, so the offer must not be part of it.
+  it("leaves the language offer out of the prerendered page", () => {
+    setBrowserLang("pt-PT");
+    const html = renderToString(
+      <MemoryRouter initialEntries={["/"]}>
+        <LangSuggestion lang="en" />
+      </MemoryRouter>,
+    );
+    expect(html).toBe("");
   });
 
   it("offers the Portuguese twin of a sub-page, not the Portuguese home page", async () => {

@@ -39,6 +39,8 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   // initial state. So the attribute and state can never diverge, and there is no clobber to guard.
   useEffect(() => {
     const resolved = initialTheme();
+    // The second pass of a hydration-safe render: the prerendered default first, then the choice.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setThemeState(resolved);
     document.documentElement.dataset.theme = resolved;
   }, []);

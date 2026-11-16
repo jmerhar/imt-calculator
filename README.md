@@ -30,14 +30,16 @@ Analytics (gtag.js) for basic, aggregate usage statistics.
 ## Quick start
 
 ```sh
-make install   # install dependencies
+make install   # install dependencies from the lockfile
 make dev       # dev server at http://localhost:5173
 make check     # lint + type-check + tests + coverage gate
 make build     # production build into dist/
 make help      # list every target
 ```
 
-Requires Node ≥ 20 and (for the coverage gate) Python 3.
+Requires Node 22.22 or newer (CI uses 24) and, for the coverage gate, Python 3. `make lockfile`
+regenerates `package-lock.json` in a Linux container (needs Docker), recording only the public
+registry.
 
 ## Data & sources
 

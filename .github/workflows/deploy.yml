@@ -13,7 +13,7 @@ jobs:
   pages:
     uses: jmerhar/devtools/.github/workflows/pages-deploy.yml@v1
     with:
-      node: "22"
+      node: "24"
       install: npm ci
       build: npm run build
       path: dist

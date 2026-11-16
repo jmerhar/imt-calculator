@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { dictionaries, type Lang } from "@/i18n";
 import {
@@ -25,18 +25,14 @@ import { track } from "@/analytics";
 export function LangSuggestion({ lang }: { lang: Lang }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const [target, setTarget] = useState<Lang | null>(null);
+  // False while hydrating the prerendered HTML and true from the render after it, so the banner
+  // appears only once the page is interactive.
+  const hydrated = useSyncExternalStore(subscribeNever, isClient, isServer);
+  const [dismissed, setDismissed] = useState(false);
 
-  // Re-evaluated per page so following the link (or switching language) clears the banner instead of
-  // leaving a suggestion for the language already being read.
-  useEffect(() => {
-    if (typeof localStorage !== "undefined" && localStorage.getItem(LANG_SUGGEST_DISMISSED_KEY)) {
-      setTarget(null);
-      return;
-    }
-    const preferred = preferredLang();
-    setTarget(preferred === lang ? null : preferred);
-  }, [lang, pathname]);
+  // Worked out on every render, so following the link (or switching language) clears the banner
+  // instead of leaving a suggestion for the language already being read.
+  const target = hydrated && !dismissed ? suggestedLang(lang) : null;
 
   if (!target) return null;
 
@@ -76,7 +72,7 @@ export function LangSuggestion({ lang }: { lang: Lang }) {
           if (typeof localStorage !== "undefined") {
             localStorage.setItem(LANG_SUGGEST_DISMISSED_KEY, "1");
           }
-          setTarget(null);
+          setDismissed(true);
         }}
       >
         {/* The glyph is decorative; the button's accessible name comes from aria-label. */}
@@ -84,4 +80,28 @@ export function LangSuggestion({ lang }: { lang: Lang }) {
       </button>
     </div>
   );
+}
+
+/** The language to suggest instead of `lang`, or null when the visitor reads it or dismissed the offer. */
+function suggestedLang(lang: Lang): Lang | null {
+  if (typeof localStorage !== "undefined" && localStorage.getItem(LANG_SUGGEST_DISMISSED_KEY)) {
+    return null;
+  }
+  const preferred = preferredLang();
+  return preferred === lang ? null : preferred;
+}
+
+/** A store that never changes; useSyncExternalStore only tells hydration from the renders after it. */
+function subscribeNever(): () => void {
+  return () => {};
+}
+
+/** The snapshot after hydration. */
+function isClient(): boolean {
+  return true;
+}
+
+/** The snapshot while hydrating, and when prerendering. */
+function isServer(): boolean {
+  return false;
 }

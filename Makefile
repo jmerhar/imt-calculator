@@ -1,7 +1,7 @@
 .PHONY: install dev preview lint test coverage check build clean fetch-tables precompute-guides bump-year ga-setup og-image icons psi
 
-# help, devtools-update, coverage-tooling and devtools-check come from jmerhar/devtools; make
-# fetches them on the first run and whenever devtools.toml changes.
+# help, devtools-update, coverage-tooling, devtools-check, node-modules and lockfile come from
+# jmerhar/devtools; make fetches them on the first run and whenever devtools.toml changes.
 .DEFAULT_GOAL := help
 include .devtools/make/devtools.mk
 .devtools/make/devtools.mk: devtools.toml bin/devtools-fetch.sh
@@ -9,8 +9,8 @@ include .devtools/make/devtools.mk
 
 ##@ Setup
 
-install: ## Install dependencies (npm ci when a lockfile exists, else npm install)
-	@if [ -f package-lock.json ]; then npm ci; else npm install; fi
+install: ## Install the dependencies from the lockfile
+	$(MAKE) node-modules
 
 ##@ Dev
 
