@@ -37,17 +37,9 @@ name = "devtools"
 run = "python3 .devtools/bin/devtools-check.py"
 
 # .github/dependabot.yml, generated from these by `make devtools-fix`: GitHub Actions, then each
-# update below, every one grouped into a single weekly pull request that takes a release once it is
-# three days old.
+# update below. Each takes a release once it is three days old, in one weekly pull request of minor
+# and patch releases and another of majors, which waits for a hand migration.
 [[dependabot.update]]
 ecosystem = "npm"
 directory = "/"
 group = "npm"
-comment = """typescript-eslint and vite-react-ssg name the TypeScript and react-router-dom versions
-they support as peer dependencies, so a new major of either cannot install until they accept it;
-move them together by hand then. @types/node follows the Node major CI runs ([ci] node)."""
-ignore = [
-  { dependency = "typescript", update_types = ["version-update:semver-major"] },
-  { dependency = "react-router-dom", update_types = ["version-update:semver-major"] },
-  { dependency = "@types/node", update_types = ["version-update:semver-major"] },
-]
