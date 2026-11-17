@@ -33,8 +33,16 @@ export interface GuideBody {
   cta: string;
 }
 
+/** The guides, one id each; GUIDE_BODIES holds a body for every one. */
+export type GuideId =
+  | "imt-non-residents"
+  | "imt-jovem"
+  | "imt-imi-stamp-duty"
+  | "imt-regions"
+  | "imt-tables";
+
 export interface GuideMeta {
-  id: string;
+  id: GuideId;
   slug: Record<Lang, string>;
   /** SEO <title> — also the browser-tab / analytics title, so the two never diverge. */
   title: Record<Lang, string>;

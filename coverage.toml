@@ -11,5 +11,5 @@
 label = "App (TypeScript)"
 format = "istanbul"
 report = "coverage/coverage-summary.json"
-html = "coverage"
+html = "coverage/html"
 gate = 98.0

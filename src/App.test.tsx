@@ -14,6 +14,7 @@ import { encodeToken } from "@/state/url";
 import { defaultInput } from "@/state/defaults";
 import { fmt } from "@/i18n";
 import { LATEST_YEAR } from "@/engine/tables";
+import { at } from "@/test-utils";
 
 // The tax year in the subtitle / H1 is templated ({year}) and resolved with LATEST_YEAR at render,
 // so tests match the resolved text rather than the raw template.
@@ -60,6 +61,13 @@ function renderAppWithUrlProbe(initialPath = "/") {
   );
 }
 const routerUrl = () => screen.getByTestId("router-url").textContent;
+
+/** The glossary's SEO entry, which the build's page metadata must carry. */
+function glossarySeo() {
+  const seo = SEO_PAGES["/glossary"];
+  if (!seo) throw new Error("SEO_PAGES has no /glossary entry");
+  return seo;
+}
 
 describe("App", () => {
   it("renders the calculator by default", () => {
@@ -108,7 +116,7 @@ describe("App", () => {
     const user = userEvent.setup();
     renderApp();
     await user.click(screen.getByRole("link", { name: en.nav.glossary }));
-    expect(screen.getByText(glossary[0].en.term)).toBeInTheDocument();
+    expect(screen.getByText(at(glossary, 0).en.term)).toBeInTheDocument();
   });
 
   it("renders the how-it-works page in both languages", async () => {
@@ -124,7 +132,7 @@ describe("App", () => {
     const user = userEvent.setup();
     renderApp("/glossary");
     await user.click(screen.getByRole("link", { name: "PT" }));
-    expect(screen.getByText(glossary[0].pt.term)).toBeInTheDocument();
+    expect(screen.getByText(at(glossary, 0).pt.term)).toBeInTheDocument();
   });
 
   it("sends a Google Analytics page_view per route with a path-based location", async () => {
@@ -171,7 +179,7 @@ describe("App", () => {
 
   it("renders Portuguese directly at a /pt URL", () => {
     renderApp("/pt/glossario");
-    expect(screen.getByText(glossary[0].pt.term)).toBeInTheDocument();
+    expect(screen.getByText(at(glossary, 0).pt.term)).toBeInTheDocument();
     expect(document.documentElement.lang).toBe("pt");
   });
 
@@ -313,10 +321,10 @@ describe("App", () => {
     renderApp();
     expect(document.title).toBe(SEO_PAGES["/"].en.title);
     await user.click(screen.getByRole("link", { name: en.nav.glossary }));
-    expect(document.title).toBe(SEO_PAGES["/glossary"].en.title);
+    expect(document.title).toBe(glossarySeo().en.title);
     // Switching language navigates to /pt/glossario; the tab title becomes the Portuguese one.
     await user.click(screen.getByRole("link", { name: "PT" }));
-    expect(document.title).toBe(SEO_PAGES["/glossary"].pt.title);
+    expect(document.title).toBe(glossarySeo().pt.title);
   });
 
   it("titles an unmatched path as not found, not as the home page", () => {
@@ -391,7 +399,7 @@ describe("App", () => {
     // Navigating between pages must NOT re-fire it: arrival is a once-per-load signal, not per view.
     await user.click(screen.getByRole("link", { name: en.nav.glossary }));
     // The glossary page also has a "Calculator" breadcrumb link; the header-nav one is first in DOM.
-    await user.click(screen.getAllByRole("link", { name: en.nav.calculator })[0]);
+    await user.click(at(screen.getAllByRole("link", { name: en.nav.calculator }), 0));
     const arrivals = gtag.mock.calls.filter((c) => c[1] === "arrived_via_share");
     expect(arrivals).toHaveLength(1);
   });

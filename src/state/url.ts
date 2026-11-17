@@ -52,7 +52,7 @@ export function encodeState(input: CalcInput): string {
   return p.toString();
 }
 
-function num(v: string | null): number | null {
+function num(v: string | null | undefined): number | null {
   if (v == null || v.trim() === "") return null;
   const n = Number(v);
   return Number.isFinite(n) ? n : null;
@@ -61,18 +61,19 @@ function num(v: string | null): number | null {
 function decodeBuyer(s: string): Buyer | null {
   const parts = s.split(",");
   if (parts.length !== 6) return null;
-  const share = num(parts[0]);
-  const type = TYPE_R[parts[1]] as BuyerType | undefined;
-  const residency = RES_R[parts[3]] as Residency | undefined;
-  const exception = EXC_R[parts[4]] as NonResidentException | undefined;
+  const [shareS = "", typeS = "", havenS, resS = "", excS = "", jovemS] = parts;
+  const share = num(shareS);
+  const type = TYPE_R[typeS] as BuyerType | undefined;
+  const residency = RES_R[resS] as Residency | undefined;
+  const exception = EXC_R[excS] as NonResidentException | undefined;
   if (share == null || share < 0 || share > 1 || !type || !residency || !exception) return null;
   return {
     share,
     type,
-    taxHaven: parts[2] === "1",
+    taxHaven: havenS === "1",
     residency,
     exception,
-    jovem: parts[5] === "1",
+    jovem: jovemS === "1",
   };
 }
 
@@ -105,7 +106,7 @@ export function decodeState(qs: string): CalcInput | null {
 
   const mRaw = p.get("m");
   if (mRaw) {
-    const [amountS, termS, monthsS] = mRaw.split(",");
+    const [amountS, termS = "", monthsS] = mRaw.split(",");
     const amount = num(amountS);
     const term = TERM_R[termS] as MortgageTerm | undefined;
     if (amount != null && amount >= 0 && term) {
@@ -171,7 +172,7 @@ function parseBuyerCompact(tok: string): Buyer | null {
   // share equals the one that was encoded rather than a float-error neighbour of it.
   const share = Number((Number(m[1]) / 100).toFixed(4));
   if (!Number.isFinite(share) || share < 0 || share > 1) return null;
-  const f = m[2];
+  const f = m[2] ?? "";
   const nonResident = f.includes("n");
   const exception: NonResidentException = !nonResident
     ? "none"
@@ -213,7 +214,8 @@ export function encodeCompact(input: CalcInput): string {
     parts.push(`m${m.amount},${TERM[m.term]}${m.months != null ? "," + m.months : ""}`);
   }
   // Omit the buyer list entirely for the common case: one default resident individual.
-  if (!(input.buyers.length === 1 && isDefaultBuyer(input.buyers[0]))) {
+  const [only] = input.buyers;
+  if (!(input.buyers.length === 1 && only && isDefaultBuyer(only))) {
     parts.push(`b${input.buyers.map(encodeBuyerCompact).join("|")}`);
   }
   return parts.join(";");
@@ -254,7 +256,7 @@ export function decodeCompact(payload: string): CalcInput | null {
         break;
       }
       case "m": {
-        const [a, term, months] = val.split(",");
+        const [a, term = "", months] = val.split(",");
         const amount = Number(a);
         const t = TERM_R[term] as MortgageTerm | undefined;
         if (Number.isFinite(amount) && amount >= 0 && t) {

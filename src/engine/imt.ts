@@ -36,7 +36,9 @@ export function pickTable(location: Location, use: IntendedUse, jovem: boolean):
  * value exactly on a threshold falls in the lower "até X" bracket).
  */
 export function pickBracket(base: number, brackets: Bracket[]): Bracket {
-  let chosen = brackets[0];
+  const [first] = brackets;
+  if (!first) throw new Error("pickBracket needs at least one bracket");
+  let chosen = first;
   for (const b of brackets) if (b.lower < base) chosen = b;
   return chosen;
 }

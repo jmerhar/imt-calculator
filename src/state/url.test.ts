@@ -10,6 +10,7 @@ import {
 } from "@/state/url";
 import { defaultInput } from "@/state/defaults";
 import type { CalcInput } from "@/engine/types";
+import { at } from "@/test-utils";
 
 const roundTrip = (input: CalcInput) => decodeState(encodeState(input));
 
@@ -89,8 +90,8 @@ describe("url state", () => {
     expect(decoded).toEqual(input);
     // A name full of delimiters and flag letters ("a" = accessible_rent) must not corrupt the
     // flags it is stored next to.
-    expect(decoded.buyers[0].residency).toBe("non_resident");
-    expect(decoded.buyers[0].exception).toBe("accessible_rent");
+    expect(at(decoded.buyers, 0).residency).toBe("non_resident");
+    expect(at(decoded.buyers, 0).exception).toBe("accessible_rent");
   });
 
   it("encodes a lone named default buyer instead of omitting it as a plain default", () => {

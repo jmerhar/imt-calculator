@@ -5,6 +5,7 @@ import { MemoryRouter } from "react-router-dom";
 import { I18nProvider } from "@/i18n";
 import { en } from "@/i18n/en";
 import { CalculatorPage } from "@/pages/CalculatorPage";
+import { at } from "@/test-utils";
 
 beforeEach(() => {
   window.history.replaceState(null, "", "/");
@@ -51,8 +52,7 @@ describe("CalculatorPage", () => {
     const user = userEvent.setup();
     renderPage();
     await user.click(screen.getByRole("button", { name: new RegExp(en.form.addBuyer) }));
-    const [name1] = screen.getAllByLabelText(new RegExp(en.form.buyerName));
-    await user.type(name1, "Maria");
+    await user.type(at(screen.getAllByLabelText(new RegExp(en.form.buyerName)), 0), "Maria");
     // The breakdown labels the buyer by name instead of the "Buyer 1" ordinal.
     expect(screen.getAllByText("Maria").length).toBeGreaterThan(0);
   });
@@ -62,7 +62,7 @@ describe("CalculatorPage", () => {
     renderPage();
     await user.click(screen.getByRole("button", { name: new RegExp(en.form.addBuyer) }));
     expect(screen.getAllByLabelText(en.form.share)).toHaveLength(2);
-    await user.click(screen.getAllByRole("button", { name: new RegExp(en.form.removeBuyer) })[0]);
+    await user.click(at(screen.getAllByRole("button", { name: new RegExp(en.form.removeBuyer) }), 0));
     expect(screen.getAllByLabelText(en.form.share)).toHaveLength(1);
   });
 
@@ -172,7 +172,7 @@ describe("CalculatorPage", () => {
       });
       act(() => vi.advanceTimersByTime(1600));
       const calls = gtag.mock.calls.filter((c) => c[1] === "calculate");
-      const params = calls[calls.length - 1][2] as Record<string, unknown>;
+      const params = at(calls, calls.length - 1)[2] as Record<string, unknown>;
       // 240k / 300k = 0.80 → band "80-90%", numeric ratio 80, raw VPT 240 000.
       expect(params).toMatchObject({
         has_vpt: true,

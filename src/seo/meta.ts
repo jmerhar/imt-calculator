@@ -23,7 +23,7 @@ export const NOT_FOUND_TITLE: Record<"en" | "pt", string> = {
   pt: "Página não encontrada · Calculadora de IMT",
 };
 
-export const SEO_PAGES: Record<string, Record<Lang, PageSeo>> = {
+export const SEO_PAGES: { "/": Record<Lang, PageSeo> } & Record<string, Record<Lang, PageSeo>> = {
   "/": {
     en: {
       title: `IMT Calculator · Portugal · ${LATEST_YEAR}`,

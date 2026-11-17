@@ -16,7 +16,7 @@ export const AVAILABLE_YEARS: number[] = Object.keys(YEARS)
   .sort((a, b) => b - a);
 
 /** The most recent year with data — the sensible default. */
-export const LATEST_YEAR: number = AVAILABLE_YEARS[0];
+export const LATEST_YEAR: number = Math.max(...AVAILABLE_YEARS);
 
 /** Year data, or `undefined` if that year is not bundled. */
 export function getYearData(year: number): YearData | undefined {

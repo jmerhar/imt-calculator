@@ -8,6 +8,7 @@ import { homeExplainer, homeFaq } from "@/content/homeExplainer";
 import { jsonLdFor } from "@/seo/jsonld";
 import { SITE_URL } from "@/config";
 import type { Lang } from "@/i18n/lang";
+import { at } from "@/test-utils";
 
 function RoutedApp() {
   return useRoutes(routes as RouteObject[]);
@@ -24,7 +25,7 @@ function renderHome(path = "/") {
 function faqQuestions(lang: Lang, bare: string, url: string): string[] {
   const html = jsonLdFor(lang, bare, url);
   const json = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(
-    (m) => JSON.parse(m[1]) as { "@type": string; mainEntity?: { name: string }[] },
+    (m) => JSON.parse(at(m, 1)) as { "@type": string; mainEntity?: { name: string }[] },
   );
   return json.find((b) => b["@type"] === "FAQPage")?.mainEntity?.map((q) => q.name) ?? [];
 }
@@ -83,7 +84,8 @@ describe("home explainer", () => {
       Number(h.tagName[1]),
     );
     for (let i = 1; i < levels.length; i++) {
-      expect(levels[i] - levels[i - 1], `after h${levels[i - 1]}`).toBeLessThanOrEqual(1);
+      const [previous, level] = [at(levels, i - 1), at(levels, i)];
+      expect(level - previous, `after h${previous}`).toBeLessThanOrEqual(1);
     }
   });
 });

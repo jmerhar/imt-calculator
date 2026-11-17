@@ -1,6 +1,7 @@
 /// <reference types="vite-react-ssg" />
 import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
+import { test } from "@jmerhar/frontend-config/vitest";
 import path from "node:path";
 import { writeFileSync } from "node:fs";
 import { SITE_URL, SITE_NAME } from "./src/config";
@@ -127,23 +128,15 @@ export default defineConfig({
       console.log("ssg: wrote sitemap.xml");
     },
   },
-  test: {
-    environment: "jsdom",
+  test: test({
     setupFiles: ["./src/test-setup.ts"],
-    // default for the console; junit for Codecov's test analytics, which tracks flaky tests, failure
-    // history and run time. Written on every run so CI needs no separate invocation.
-    reporters: ["default", ["junit", { outputFile: "junit/vitest.xml" }]],
+    // junit/vitest.xml for Codecov's test analytics: flaky tests, failure history and run time.
+    junit: true,
     coverage: {
-      provider: "v8",
-      // text/text-summary → terminal; html → the published jmerhar/coverage report;
-      // json-summary → the coverage summary and gate; lcov → Codecov upload.
-      reporter: ["text", "text-summary", "html", "json-summary", "lcov"],
-      reportsDirectory: "./coverage",
       include: ["src/**/*.{ts,tsx}"],
       exclude: [
-        "src/**/*.test.*",
-        "src/**/__tests__/**",
         "src/test-setup.ts",
+        "src/test-utils.ts",
         "src/vite-env.d.ts",
         "src/engine/types.ts",
         "src/main.tsx",
@@ -153,5 +146,5 @@ export default defineConfig({
         "src/seo/guides.ts",
       ],
     },
-  },
+  }),
 });

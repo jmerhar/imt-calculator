@@ -1,17 +1,18 @@
 import { describe, it, expect } from "vitest";
 import { buildSitemap } from "@/seo/sitemap";
 import { GUIDE_META } from "@/content/guides/registry";
+import { at } from "@/test-utils";
 
 /** Every <loc>…</loc> in document order. */
 function locs(xml: string): string[] {
-  return [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+  return [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => at(m, 1));
 }
 
 /** The <lastmod> paired with each <loc>, keyed by URL. */
 function lastmods(xml: string): Record<string, string> {
   const out: Record<string, string> = {};
   for (const m of xml.matchAll(/<loc>([^<]+)<\/loc>[\s\S]*?<lastmod>([^<]+)<\/lastmod>/g)) {
-    out[m[1]] = m[2];
+    out[at(m, 1)] = at(m, 2);
   }
   return out;
 }

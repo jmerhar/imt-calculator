@@ -1,7 +1,8 @@
 import { describe, it, expect } from "vitest";
-import { calculate, ordinaryImt, pickTable } from "@/engine/imt";
+import { calculate, ordinaryImt, pickBracket, pickTable } from "@/engine/imt";
 import { data2026 } from "@/engine/tables/2026";
 import type { Buyer, CalcInput } from "@/engine/types";
+import { at } from "@/test-utils";
 
 const buyer = (o: Partial<Buyer> = {}): Buyer => ({
   share: 1,
@@ -63,7 +64,7 @@ describe("calculate — headline scenarios", () => {
     expect(r.totalStampDutyTransfer).toBeCloseTo(3200, 2);
     expect(r.grandTotal).toBeCloseTo(22500.11, 2);
     expect(r.baseSource).toBe("price");
-    expect(r.buyers[0].table).toBe("III");
+    expect(at(r.buyers, 0).table).toBe("III");
   });
 
   it("former resident + non-resident, 50/50, secondary → €27,850.06 total", () => {
@@ -75,10 +76,10 @@ describe("calculate — headline scenarios", () => {
         ],
       }),
     );
-    expect(r.buyers[0].imt).toBeCloseTo(9650.06, 2); // ordinary via totality rate
-    expect(r.buyers[0].rule).toBe("ordinary");
-    expect(r.buyers[1].imt).toBeCloseTo(15000, 2); // flat 7.5%
-    expect(r.buyers[1].rule).toBe("non_resident_7_5");
+    expect(at(r.buyers, 0).imt).toBeCloseTo(9650.06, 2); // ordinary via totality rate
+    expect(at(r.buyers, 0).rule).toBe("ordinary");
+    expect(at(r.buyers, 1).imt).toBeCloseTo(15000, 2); // flat 7.5%
+    expect(at(r.buyers, 1).rule).toBe("non_resident_7_5");
     expect(r.totalImt).toBeCloseTo(24650.06, 2);
     expect(r.totalStampDuty).toBeCloseTo(3200, 2);
     expect(r.grandTotal).toBeCloseTo(27850.06, 2);
@@ -94,7 +95,7 @@ describe("calculate — headline scenarios", () => {
         ],
       }),
     );
-    expect(r.buyers[0].imt).toBeCloseTo(9118.33, 2);
+    expect(at(r.buyers, 0).imt).toBeCloseTo(9118.33, 2);
     expect(r.totalImt).toBeCloseTo(24118.33, 2);
     expect(r.grandTotal).toBeCloseTo(27318.33, 2);
   });
@@ -103,7 +104,7 @@ describe("calculate — headline scenarios", () => {
 describe("calculate — rule precedence & special cases", () => {
   it("tax-haven entity pays a flat 10%", () => {
     const r = calculate(input({ buyers: [buyer({ type: "entity", taxHaven: true })] }));
-    expect(r.buyers[0].rule).toBe("tax_haven_10");
+    expect(at(r.buyers, 0).rule).toBe("tax_haven_10");
     expect(r.totalImt).toBeCloseTo(40000, 2);
   });
 
@@ -111,7 +112,7 @@ describe("calculate — rule precedence & special cases", () => {
     const r = calculate(
       input({ intendedUse: "own_permanent", price: 300000, buyers: [buyer({ jovem: true })] }),
     );
-    expect(r.buyers[0].table).toBe("II");
+    expect(at(r.buyers, 0).table).toBe("II");
     expect(r.totalImt).toBe(0);
     // Below the €330,539 ceiling both IMT and the verba 1.1 stamp duty are fully exempt
     // (DL 48-A/2024 → CIS art. 7.º-A), so nothing is due.
@@ -123,11 +124,11 @@ describe("calculate — rule precedence & special cases", () => {
     const r = calculate(
       input({ intendedUse: "own_permanent", price: 400000, buyers: [buyer({ jovem: true })] }),
     );
-    expect(r.buyers[0].table).toBe("II");
+    expect(at(r.buyers, 0).table).toBe("II");
     // IMT: 400k in Table II band 330 539–660 982: 8% − 26 443.12 = 5 556.88.
     expect(r.totalImt).toBeCloseTo(5556.88, 2);
     // Stamp duty exempt up to €330,539, 0.8% on the excess: (400 000 − 330 539) · 0.8% = 555.69.
-    expect(r.buyers[0].stampDutyTransfer).toBeCloseTo(555.69, 2);
+    expect(at(r.buyers, 0).stampDutyTransfer).toBeCloseTo(555.69, 2);
     expect(r.grandTotal).toBeCloseTo(6112.57, 2);
   });
 
@@ -136,14 +137,14 @@ describe("calculate — rule precedence & special cases", () => {
     const r = calculate(
       input({ location: "azores", intendedUse: "own_permanent", price: 400000, buyers: [buyer({ jovem: true })] }),
     );
-    expect(r.buyers[0].table).toBe("V");
+    expect(at(r.buyers, 0).table).toBe("V");
     expect(r.totalImt).toBe(0);
-    expect(r.buyers[0].stampDutyTransfer).toBe(0);
+    expect(at(r.buyers, 0).stampDutyTransfer).toBe(0);
   });
 
   it("autonomous-region secondary uses Table VI", () => {
     const r = calculate(input({ location: "madeira" }));
-    expect(r.buyers[0].table).toBe("VI");
+    expect(at(r.buyers, 0).table).toBe("VI");
     expect(r.totalImt).toBeCloseTo(16256.85, 2);
   });
 
@@ -155,8 +156,8 @@ describe("calculate — rule precedence & special cases", () => {
 
   it("non-resident who will become resident pays 7.5% now, reclaimable to ordinary", () => {
     const r = calculate(input({ buyers: [buyer({ residency: "non_resident", exception: "becomes_resident" })] }));
-    expect(r.buyers[0].imt).toBeCloseTo(30000, 2);
-    expect(r.buyers[0].reclaimableTo).toBeCloseTo(19300.11, 2);
+    expect(at(r.buyers, 0).imt).toBeCloseTo(30000, 2);
+    expect(at(r.buyers, 0).reclaimableTo).toBeCloseTo(19300.11, 2);
     expect(r.reclaimableTotal).toBeCloseTo(10699.89, 2);
   });
 
@@ -177,7 +178,7 @@ describe("calculate — additional rule coverage", () => {
     const r = calculate(
       input({ buyers: [buyer({ type: "entity", taxHaven: true, residency: "non_resident", exception: "none" })] }),
     );
-    expect(r.buyers[0].rule).toBe("tax_haven_10");
+    expect(at(r.buyers, 0).rule).toBe("tax_haven_10");
     expect(r.totalImt).toBeCloseTo(40000, 2);
   });
 
@@ -188,20 +189,20 @@ describe("calculate — additional rule coverage", () => {
         buyers: [buyer({ residency: "non_resident", exception: "none", jovem: true })],
       }),
     );
-    expect(r.buyers[0].rule).toBe("non_resident_7_5");
-    expect(r.buyers[0].table).toBeNull();
+    expect(at(r.buyers, 0).rule).toBe("non_resident_7_5");
+    expect(at(r.buyers, 0).table).toBeNull();
     expect(r.totalImt).toBeCloseTo(30000, 2);
     // The youth stamp-duty credit rides on the youth IMT table; a non-resident does not use it, so
     // the full 0.8% acquisition stamp duty still applies.
-    expect(r.buyers[0].stampDutyTransfer).toBeCloseTo(3200, 2);
+    expect(at(r.buyers, 0).stampDutyTransfer).toBeCloseTo(3200, 2);
   });
 
   it("accessible-rent non-resident is reclaimable to ordinary", () => {
     const r = calculate(input({ buyers: [buyer({ residency: "non_resident", exception: "accessible_rent" })] }));
-    expect(r.buyers[0].imt).toBeCloseTo(30000, 2);
+    expect(at(r.buyers, 0).imt).toBeCloseTo(30000, 2);
     expect(r.reclaimableTotal).toBeCloseTo(10699.89, 2);
     // Delta equals shown IMT − shown reclaimableTo.
-    expect(r.buyers[0].reclaimDelta).toBeCloseTo(r.buyers[0].imt - (r.buyers[0].reclaimableTo ?? 0), 2);
+    expect(at(r.buyers, 0).reclaimDelta).toBeCloseTo(at(r.buyers, 0).imt - (at(r.buyers, 0).reclaimableTo ?? 0), 2);
   });
 
   it("mortgage stamp duty for 1–5 year and sub-1-year terms", () => {
@@ -234,23 +235,23 @@ describe("calculate — additional rule coverage", () => {
         buyers: [buyer({ share: 0.5, jovem: true }), buyer({ share: 0.5, jovem: false })],
       }),
     );
-    expect(r.buyers[0].table).toBe("II");
-    expect(r.buyers[1].table).toBe("I");
+    expect(at(r.buyers, 0).table).toBe("II");
+    expect(at(r.buyers, 1).table).toBe("I");
     // A: 200k·(ordinaryImt(400k,II)/400k) = 200k·(5556.88/400k) = 2778.44.
-    expect(r.buyers[0].imt).toBeCloseTo(2778.44, 2);
+    expect(at(r.buyers, 0).imt).toBeCloseTo(2778.44, 2);
     // B: 200k·(ordinaryImt(400k,I)/400k) = 200k·(18236.65/400k) = 9118.33.
-    expect(r.buyers[1].imt).toBeCloseTo(9118.33, 2);
+    expect(at(r.buyers, 1).imt).toBeCloseTo(9118.33, 2);
     expect(r.totalImt).toBeCloseTo(11896.77, 2);
     // Stamp duty: A (youth) is exempt up to €330,539 pro-rata to the 50% share, then 0.8% on the
     // excess — 0.8% · 0.5 · (400 000 − 330 539) = 277.84; B pays the full 0.8% on 200k = 1 600.
-    expect(r.buyers[0].stampDutyTransfer).toBeCloseTo(277.84, 2);
-    expect(r.buyers[1].stampDutyTransfer).toBeCloseTo(1600, 2);
+    expect(at(r.buyers, 0).stampDutyTransfer).toBeCloseTo(277.84, 2);
+    expect(at(r.buyers, 1).stampDutyTransfer).toBeCloseTo(1600, 2);
   });
 
   it("ignores the tax-haven flag for an individual (n.º 7 excludes pessoas singulares)", () => {
     const r = calculate(input({ buyers: [buyer({ type: "individual", taxHaven: true })] }));
-    expect(r.buyers[0].rule).toBe("ordinary");
-    expect(r.buyers[0].table).toBe("III");
+    expect(at(r.buyers, 0).rule).toBe("ordinary");
+    expect(at(r.buyers, 0).table).toBe("III");
     expect(r.totalImt).toBeCloseTo(19300.11, 2);
   });
 
@@ -271,5 +272,11 @@ describe("calculate — additional rule coverage", () => {
     const zero = calculate(input({ price: 0 }));
     expect(zero.totalImt).toBe(0);
     expect(zero.effectiveRate).toBe(0);
+  });
+});
+
+describe("pickBracket", () => {
+  it("refuses a table with no brackets", () => {
+    expect(() => pickBracket(100000, [])).toThrow("pickBracket needs at least one bracket");
   });
 });

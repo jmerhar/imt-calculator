@@ -10,6 +10,7 @@ import { guidePath, guidesIndexPath, guideFromPath, switchLangPath } from "@/i18
 import { decodeToken } from "@/state/url";
 import { getYearData, LATEST_YEAR } from "@/engine/tables";
 import { formatAmount } from "@/format";
+import { at } from "@/test-utils";
 
 function RoutedApp() {
   return useRoutes(routes as RouteObject[]);
@@ -69,7 +70,7 @@ describe("guides — pages", () => {
   it("renders an English guide article with its title, an FAQ, and a prefilled calculator CTA", () => {
     renderApp("/guides/imt-non-residents");
     expect(screen.getByRole("heading", { level: 1, name: nonResidents.title.en })).toBeInTheDocument();
-    const faqQ = GUIDE_BODIES["imt-non-residents"].en.faq![0].q;
+    const faqQ = at(GUIDE_BODIES["imt-non-residents"].en.faq ?? [], 0).q;
     expect(screen.getByText(faqQ)).toBeInTheDocument();
     // The CTA deep-links to the calculator with the article's scenario pre-filled (?c= token).
     const cta = screen.getByRole("link", { name: GUIDE_BODIES["imt-non-residents"].en.cta });
@@ -77,7 +78,7 @@ describe("guides — pages", () => {
     expect(href).toMatch(/^\/\?c=.+/);
     const decoded = decodeToken(new URLSearchParams(href.slice(href.indexOf("?"))).get("c")!);
     expect(decoded?.price).toBe(400000);
-    expect(decoded?.buyers[0].residency).toBe("non_resident");
+    expect(at(decoded?.buyers ?? [], 0).residency).toBe("non_resident");
   });
 
   // The guide URLs sit unindexed with no impressions, and internal links are the only crawl-priority
@@ -121,7 +122,7 @@ describe("guides — pages", () => {
     expect(screen.getAllByRole("table")).toHaveLength(6);
     // A Table I threshold for the latest year, locale-formatted, proves the live engine data is
     // rendered — derived from the engine so it stays valid after a year bump.
-    const threshold = formatAmount(getYearData(LATEST_YEAR)!.tables.I[1].lower, "en", 0);
+    const threshold = formatAmount(at(getYearData(LATEST_YEAR)!.tables.I, 1).lower, "en", 0);
     expect(screen.getAllByText(threshold).length).toBeGreaterThan(0);
   });
 

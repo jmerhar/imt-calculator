@@ -20,6 +20,6 @@ export function pageSlug(lang: Lang, key: string): string {
 /** Reverse: the canonical key for a language + first path segment ("glossario" → "/glossary"). */
 export function canonicalKey(lang: Lang, slug: string): string {
   if (!slug) return "/";
-  for (const key in PAGE_SLUGS) if (PAGE_SLUGS[key][lang] === slug) return key;
+  for (const [key, slugs] of Object.entries(PAGE_SLUGS)) if (slugs[lang] === slug) return key;
   return `/${slug}`;
 }
